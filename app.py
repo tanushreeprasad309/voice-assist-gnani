@@ -123,7 +123,7 @@ TRANSLATIONS = {
         "send": "పంపండి",
         "detected": "🗣️ **గుర్తించబడిన అత్యవసరం:**",
         "action_header": "⚡ సిఫార్సు చేయబడిన చర్య మరియు ప్రథమ చికిత్స",
-        "first_aid_label": "🩹 ಪ್ರಥಮ చికిత్స మార్గదర్శకాలు:",
+        "first_aid_label": "🩹 ಪ್ರಥమ చికిత్స మార్గదర్శకాలు:",
         "call_btn": "📞 ఇప్పుడే {number} కి కాల్ చేయండి",
         "directory_header": "📋 అత్యవసర డైరెక్టరీ (కాల్ చేయడానికి ట్యాప్ చేయండి)",
         "helpline": "హెల్ప్‌లైన్:",
@@ -216,7 +216,7 @@ TRANSLATIONS = {
         "first_aid_label": "🩹 ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦਿਸ਼ਾ-ਨਿਰਦੇਸ਼:",
         "call_btn": "📞 ਹੁਣੇ {number} 'ਤੇ ਕਾਲ ਕਰੋ",
         "directory_header": "📋 ਐਮਰਜੈਂਸੀ ਡਾਇਰੈਕਟਰੀ (ਕਾਲ ਕਰਨ ਲਈ ਟੈਪ ਕਰੋ)",
-        "helpline": "ਹੈਲਪਲਾਈਨ:",
+        "helpline": "ਹੈਲਪਲਾਈನ್:",
         "audio_response": "🔊 **ਸਹਾਇਤਾ ਦਾ ਜਵਾਬ:**",
         "say_call": "ਕਿਰਪਾ ਕਰਕੇ ਤੁਰੰਤ {number} 'ਤੇ ਕਾਲ ਕਰੋ।",
     },
@@ -274,7 +274,7 @@ TIMBRE_LANGS = {
 }
 
 # ---------------------------------------------------------------------------
-# Localized Offline Fallback Responses
+# Localized Offline Fallback Responses (Ensures Native Language Output)
 # ---------------------------------------------------------------------------
 LOCALIZED_FALLBACK_STEPS = {
     "kn_IN": {
@@ -296,6 +296,15 @@ LOCALIZED_FALLBACK_STEPS = {
         ),
     },
     "hi_IN": {
+        "snake": (
+            "कृपया घबराएं नहीं। तुरंत १०८ एम्बुलेंस को कॉल करें। सांप के काटे 
+ हुए हिस्से को हिलाएं नहीं।",
+            [
+                "व्यक्ति को शांत लिटाएं और कटे हुए हिस्से को दिल के स्तर से नीचे रखें।",
+                "घाव पर कपड़ा कसकर न बांधें और मुंह से जहर न चूसें।",
+                "अंगूठी, कंगन या तंग कपड़े उतार दें और तुरंत अस्पताल ले जाएं।",
+            ],
+        ),
         "default": (
             "कृपया घबराएं नहीं। तुरंत आपातकालीन हेल्पलाइन पर कॉल करें और प्राथमिक उपचार करें।",
             [
@@ -307,7 +316,7 @@ LOCALIZED_FALLBACK_STEPS = {
     },
     "ta_IN": {
         "default": (
-            "தயவுசெய்து பதற்றப்பட வேண்டாம். உடனடியாக அவசர எண்ணை அழைத்து முதலுதவி செய்யுங்கள்.",
+            "தயவுசெய்து பதற்றப்பட வேண்டாம். உடனடியாக 108 ஐ அழைத்து முதலுதவி செய்யுங்கள்.",
             [
                 "நபரின் சுவாசத்தை சரிபார்த்து அவரை அமைதியாக வைத்திருங்கள்.",
                 "இரத்தக்கசிவு இருந்தால் சுத்தமான துணியால் அழுத்திப் பிடிக்கவும்.",
@@ -317,7 +326,7 @@ LOCALIZED_FALLBACK_STEPS = {
     },
     "te_IN": {
         "default": (
-            "దయచేసి కంగారు పడకండి. వెంటనే అత్యవసర నంబర్‌కు కాల్ చేసి ప్రథమ చికిత్స అందించండి.",
+            "దయచేసి కంగారు పడకండి. వెంటనే 108 కి కాల్ చేసి ప్రథమ చికిత్స అందించండి.",
             [
                 "వ్యక్తి శ్వాసను పరిశీలించి వారిని ప్రశాంతంగా ఉంచండి.",
                 "రక్తస్రావం అవుతుంటే శుభ్రమైన గుడ్డతో గట్టిగా నొక్కి ఉంచండి.",
@@ -327,7 +336,7 @@ LOCALIZED_FALLBACK_STEPS = {
     },
     "ml_IN": {
         "default": (
-            "ദയവായി പരിഭ്രാന്തരാകരുത്. ഉടൻ തന്നെ എമർജൻസി നമ്പറിൽ വിളിച്ച് പ്രഥമശുശ്രൂഷ നൽകുക.",
+            "ദയവായി പരിഭ്രാന്തരാകരുത്. ഉടൻ തന്നെ 108-ൽ വിളിച്ച് പ്രഥമശുശ്രൂഷ നൽകുക.",
             [
                 "വ്യക്തിയുടെ ശ്വാസോച്ഛ്വാസം പരിശോധിച്ച് സമാധാനിപ്പിക്കുക.",
                 "രക്തസ്രാവമുണ്ടെങ്കിൽ വൃത്തിയുള്ള തുണി ഉപയോഗിച്ച് അമർത്തിപ്പിടിക്കുക.",
@@ -337,7 +346,7 @@ LOCALIZED_FALLBACK_STEPS = {
     },
     "mr_IN": {
         "default": (
-            "कृपया घाबरू नका. ताबडतोब आपत्कालीन क्रमांकावर कॉल करा आणि प्रथमोपचार सुरू करा.",
+            "कृपया घाबरू नका. ताबडतोब १०८ वर कॉल करा आणि प्रथमोपचार सुरू करा.",
             [
                 "व्यक्तीचा श्वासोच्छवास तपासा आणि त्यांना शांत ठेवा.",
                 "रक्तस्त्राव होत असल्यास स्वच्छ कापडाने जखमेवर दाब द्या.",
@@ -347,7 +356,7 @@ LOCALIZED_FALLBACK_STEPS = {
     },
     "gu_IN": {
         "default": (
-            "કૃપા કરીને ગભરાશો નહીં. તરત જ ઇમરજન્સી નંબર પર કૉલ કરો અને પ્રાથમિક સારવાર આપો.",
+            "કૃપા કરીને ગભરાશો નહીં. તરત જ 108 પર કૉલ કરો અને પ્રાથમિક સારવાર આપો.",
             [
                 "વ્યક્તિના શ્વાસની તપાસ કરો અને તેમને શાંત રાખો.",
                 "જો લોહી નીકળતું હોય તો સ્વચ્છ કપડાથી ઘા પર દબાણ આપો.",
@@ -357,7 +366,7 @@ LOCALIZED_FALLBACK_STEPS = {
     },
     "bn_IN": {
         "default": (
-            "দয়া করে আতঙ্কিত হবেন না। অবিলম্বে জরুরি নম্বরে কল করুন এবং প্রাথমিক চিকিৎসা দিন।",
+            "দয়া করে আতঙ্কিত হবেন না। অবিলম্বে ১০৮-এ কল করুন এবং প্রাথমিক চিকিৎসা দিন।",
             [
                 "ব্যক্তির শ্বাস-প্রশ্বাস পরীক্ষা করুন এবং তাকে শান্ত রাখুন।",
                 "রক্তপাত হলে পরিষ্কার কাপড় দিয়ে ক্ষতস্থানে চাপ দিয়ে ধরুন।",
@@ -367,7 +376,7 @@ LOCALIZED_FALLBACK_STEPS = {
     },
     "pa_IN": {
         "default": (
-            "ਕਿਰਪਾ ਕਰਕੇ ਘਬਰਾਓ ਨਾ। ਤੁਰੰਤ ਐਮਰਜੈਂਸੀ ਨੰਬਰ 'ਤੇ ਕਾਲ ਕਰੋ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦਿਓ।",
+            "ਕਿਰਪਾ ਕਰਕੇ ਘਬਰਾਓ ਨਾ। ਤੁਰੰਤ 108 'ਤੇ ਕਾਲ ਕਰੋ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦਿਓ।",
             [
                 "ਵਿਅਕਤੀ ਦੇ ਸਾਹ ਦੀ ਜਾਂਚ ਕਰੋ ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਸ਼ਾਂਤ ਰੱਖੋ।",
                 "ਜੇ ਖੂਨ ਵਹਿ ਰਿਹਾ ਹੈ ਤਾਂ ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਜ਼ਖ਼ਮ 'ਤੇ ਦਬਾਅ ਪਾਓ।",
@@ -377,7 +386,7 @@ LOCALIZED_FALLBACK_STEPS = {
     },
     "or_IN": {
         "default": (
-            "ଦୟାକରି ଭୟଭୀତ ହୁଅନ୍ତୁ ନାହିଁ। ତୁରନ୍ତ ଜରୁରୀକାଳୀନ ନମ୍ବରକୁ କଲ୍ କରନ୍ତୁ ଏବଂ ପ୍ରଥମ ଚିକିତ୍ସା କରନ୍ତୁ।",
+            "ଦୟାକରି ଭୟଭୀତ ହୁଅନ୍ତୁ ନାହିଁ। ତୁରନ୍ତ 108 କୁ କଲ୍ କରନ୍ତୁ ଏବଂ ପ୍ରଥମ ଚିକିତ୍ସା କରନ୍ତୁ।",
             [
                 "ବ୍ୟକ୍ତିଙ୍କ ନିଶ୍ୱାସ ପ୍ରଶ୍ୱାସ ଯାଞ୍ଚ କରନ୍ତୁ ଏବଂ ତାଙ୍କୁ ଶାନ୍ତ ରଖନ୍ତୁ।",
                 "ରକ୍ତସ୍ରାବ ହେଉଥିଲେ ସଫା କପଡ଼ାରେ କ୍ଷତ ସ୍ଥାନକୁ ଦାବି ଧରନ୍ତୁ।",
@@ -503,17 +512,23 @@ def match_emergency(text):
 
 
 def get_fallback_response(transcript, lang_code, service):
-    rt = TRANSLATIONS.get(lang_code, TRANSLATIONS["en_IN"])
     lang_pack = LOCALIZED_FALLBACK_STEPS.get(lang_code)
     if lang_pack:
-        if "ಹಾವು" in transcript or "snake" in transcript.lower():
+        if "ಹಾವು" in transcript or "snake" in transcript.lower() or "सांप" in transcript.lower():
             reply, steps = lang_pack.get("snake", lang_pack["default"])
         else:
             reply, steps = lang_pack["default"]
         return reply, steps
-    reply = rt["say_call"].format(number=" ".join(service["number"]))
-    steps = [s.strip() for s in service["first_aid"].split("\n") if s.strip()]
-    return reply, steps
+    
+    # Generic fallback if language pack isn't fully defined
+    fallback_texts = {
+        "hi_IN": ("कृपया घबराएं नहीं। तुरंत १०८ पर कॉल करें।", ["सांस और पल्स जांचें", "व्यक्ति को शांत रखें", "तुरंत सहायता लें"]),
+        "kn_IN": ("ದಯವಿಟ್ಟು ಗಾಬರಿಯಾಗಬೇಡಿ. ತಕ್ಷಣ 108 ಗೆ ಕರೆ ಮಾಡಿ.", ["ಉಸಿರಾಟವನ್ನು ಪರಿಶೀಲಿಸಿ", "ವ್ಯಕ್ತಿಯನ್ನು ಶಾಂತವಾಗಿರಿಸಿ", "ತಕ್ಷಣ ಸಹಾಯ ಪಡೆಯಿರಿ"]),
+        "ta_IN": ("தயவுசெய்து பதற்றப்பட வேண்டாம். உடனடியாக 108 ஐ அழைக்கவும்.", ["சுவாசத்தை சரிபார்க்கவும்", "அமைதியாக இருக்கவும்", "உதவி பெறவும்"]),
+        "te_IN": ("దయచేసి కంగారు పడకండి. వెంటనే 108 కి కాల్ చేయండి.", ["శ్వాసను పరిశీలించండి", "ప్రశాంతంగా ఉంచండి", "సహాయం పొందండి"]),
+        "en_IN": ("Please stay calm and call 108 immediately.", ["Check breathing & pulse", "Keep person calm", "Seek immediate help"])
+    }
+    return fallback_texts.get(lang_code, fallback_texts["en_IN"])
 
 
 # ---------------------------------------------------------------------------
@@ -547,21 +562,22 @@ def transcribe(audio_path, lang_code):
 
 
 # ---------------------------------------------------------------------------
-# Groq Triage (Robust parsing without rigid schema constraints)
+# Groq Triage (Strict Native Language Enforcement)
 # ---------------------------------------------------------------------------
 def groq_triage(transcript, lang_code):
     groq_key = get_env("GROQ_API_KEY")
     if not groq_key:
         return None, "Groq key missing"
 
-    language = LANG_NAMES.get(lang_code, "English")
+    language_name = LANG_NAMES.get(lang_code, "English")
     system_prompt = (
-        f"You are an empathetic emergency assistant for India. Respond strictly in {language} using its native script. "
+        f"You are an empathetic emergency assistant for rural India. "
+        f"CRITICAL INSTRUCTION: You MUST reply entirely in {language_name} using its native script (e.g., Devanagari for Hindi/Marathi, Kannada script for Kannada, etc.). DO NOT reply in English or Latin script. "
         "Analyze the user's emergency and output valid JSON ONLY with these exact keys: "
         '{"category": "medical|police|assault|fire|disaster", '
         '"urgency": "critical|urgent|routine", '
-        '"reply": "short comforting instructions in native script", '
-        '"steps": ["step 1", "step 2", "step 3"]}'
+        '"reply": "short comforting instructions strictly in the target native script", '
+        '"steps": ["step 1 in native script", "step 2 in native script", "step 3 in native script"]}'
     )
 
     custom_model = get_env("GROQ_MODEL")
@@ -579,7 +595,7 @@ def groq_triage(transcript, lang_code):
             "model": model_name,
             "messages": [
                 {"role": "system", "content": system_prompt},
-                {"role": "user", "content": transcript},
+                {"role": "user", "content": f"Emergency: {transcript}"},
             ],
             "temperature": 0.2,
             "max_tokens": 500,
