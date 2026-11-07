@@ -28,7 +28,7 @@ import requests
 STT_URL = "https://api.vachana.ai/stt/v3"
 TTS_URL = "https://api.vachana.ai/api/v1/tts/inference"
 
-# Groq settings (free tier) with automatic model fallback to prevent 404 errors
+# Groq settings (free tier) with automatic model fallback
 GROQ_CHAT_URL = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODELS = [
     "llama-3.3-70b-versatile",
@@ -123,7 +123,7 @@ TRANSLATIONS = {
         "send": "పంపండి",
         "detected": "🗣️ **గుర్తించబడిన అత్యవసరం:**",
         "action_header": "⚡ సిఫార్సు చేయబడిన చర్య మరియు ప్రథమ చికిత్స",
-        "first_aid_label": "🩹 ప్రథమ చికిత్స మార్గదర్శకాలు:",
+        "first_aid_label": "🩹 ಪ್ರಥಮ చికిత్స మార్గదర్శకాలు:",
         "call_btn": "📞 ఇప్పుడే {number} కి కాల్ చేయండి",
         "directory_header": "📋 అత్యవసర డైరెక్టరీ (కాల్ చేయడానికి ట్యాప్ చేయండి)",
         "helpline": "హెల్ప్‌లైన్:",
@@ -255,10 +255,17 @@ LANGUAGES = {
 }
 
 LANG_NAMES = {
-    "en_IN": "English", "kn_IN": "Kannada (ಕನ್ನಡ)", "hi_IN": "Hindi (हिन्दी)",
-    "ta_IN": "Tamil (தமிழ்)", "te_IN": "Telugu (తెలుగు)", "ml_IN": "Malayalam (മലയാളം)",
-    "mr_IN": "Marathi (मराठी)", "gu_IN": "Gujarati (ગુજરાતી)", "bn_IN": "Bengali (বাংলা)",
-    "pa_IN": "Punjabi (ਪੰਜਾਬੀ)", "or_IN": "Odia (ଓଡ଼ିଆ)",
+    "en_IN": "English",
+    "kn_IN": "Kannada (ಕನ್ನಡ)",
+    "hi_IN": "Hindi (हिन्दी)",
+    "ta_IN": "Tamil (தமிழ்)",
+    "te_IN": "Telugu (తెలుగు)",
+    "ml_IN": "Malayalam (മലയാളം)",
+    "mr_IN": "Marathi (मराठी)",
+    "gu_IN": "Gujarati (ગુજરાતી)",
+    "bn_IN": "Bengali (বাংলা)",
+    "pa_IN": "Punjabi (ਪੰਜਾਬੀ)",
+    "or_IN": "Odia (ଓଡ଼ିଆ)",
 }
 
 TIMBRE_LANGS = {
@@ -267,7 +274,7 @@ TIMBRE_LANGS = {
 }
 
 # ---------------------------------------------------------------------------
-# Localized Offline Fallback Responses (in case API key is down/rate-limited)
+# Localized Offline Fallback Responses
 # ---------------------------------------------------------------------------
 LOCALIZED_FALLBACK_STEPS = {
     "kn_IN": {
@@ -381,7 +388,7 @@ LOCALIZED_FALLBACK_STEPS = {
 }
 
 # ---------------------------------------------------------------------------
-# Emergency directory (used for the final card and as a keyword fallback)
+# Emergency Directory
 # ---------------------------------------------------------------------------
 EMERGENCY_DIRECTORY = [
     {
@@ -460,7 +467,7 @@ def to_hyphen(code):
 
 
 SCRIPT_RANGES = [
-    (0x0900, 0x097F, "hi_IN"),  # Devanagari (Hindi / Marathi)
+    (0x0900, 0x097F, "hi_IN"),
     (0x0980, 0x09FF, "bn_IN"),
     (0x0A00, 0x0A7F, "pa_IN"),
     (0x0A80, 0x0AFF, "gu_IN"),
@@ -473,7 +480,6 @@ SCRIPT_RANGES = [
 
 
 def detect_lang(text, fallback):
-    """Detect the language of the transcript from its script."""
     counts = {}
     for ch in text:
         cp = ord(ch)
@@ -482,7 +488,7 @@ def detect_lang(text, fallback):
                 counts[code] = counts.get(code, 0) + 1
                 break
     if not counts:
-        return fallback  # Latin script (English / Hinglish): keep selected language
+        return fallback
     best = max(counts, key=counts.get)
     if best == "hi_IN" and fallback == "mr_IN":
         return "mr_IN"
@@ -497,7 +503,6 @@ def match_emergency(text):
 
 
 def get_fallback_response(transcript, lang_code, service):
-    """Provides localized emergency response & steps when Groq API is unavailable."""
     rt = TRANSLATIONS.get(lang_code, TRANSLATIONS["en_IN"])
     lang_pack = LOCALIZED_FALLBACK_STEPS.get(lang_code)
     if lang_pack:
@@ -512,12 +517,12 @@ def get_fallback_response(transcript, lang_code, service):
 
 
 # ---------------------------------------------------------------------------
-# Gnani Prisma: speech to text
+# Gnani Prisma: Speech to Text
 # ---------------------------------------------------------------------------
 def transcribe(audio_path, lang_code):
     api_key = get_env("GNANI_API_KEY")
     if not api_key:
-        return "", "GNANI_API_KEY is missing. Add it in Render's Environment settings."
+        return "", "GNANI_API_KEY is missing."
     try:
         with open(audio_path, "rb") as f:
             r = requests.post(
@@ -528,117 +533,93 @@ def transcribe(audio_path, lang_code):
                 timeout=30,
             )
     except Exception as e:
-        return "", f"Could not reach the speech service: {e}"
+        return "", f"Could not reach speech service: {e}"
     if r.status_code != 200:
-        return "", f"Speech recognition failed ({r.status_code}): {r.text[:200]}"
+        return "", f"Speech recognition failed ({r.status_code})"
     try:
         data = r.json()
     except ValueError:
-        return "", "Unexpected response from the speech service."
+        return "", "Unexpected response from speech service."
     transcript = str(data.get("transcript") or data.get("text") or "").strip()
     if not transcript:
-        return "", "No speech detected. Please try again, closer to the microphone."
+        return "", "No speech detected. Please try again."
     return transcript, ""
 
 
 # ---------------------------------------------------------------------------
-# Groq triage: medical reasoning via free Groq API with Multi-Model Fallback
+# Groq Triage (Robust parsing without rigid schema constraints)
 # ---------------------------------------------------------------------------
 def groq_triage(transcript, lang_code):
     groq_key = get_env("GROQ_API_KEY")
     if not groq_key:
-        return None, "GROQ_API_KEY is missing, so localized fallback was used."
+        return None, "Groq key missing"
 
     language = LANG_NAMES.get(lang_code, "English")
     system_prompt = (
-        "You are Sahaya, an expert, empathetic emergency triage and first-aid assistant for India. "
-        "You handle ALL minor to major emergencies (snakebite, heart attack, bleeding, burns, fever, fracture, "
-        "choking, poisoning, pregnancy labor, road accidents, assault, police, fire, flood, etc.).\n"
-        f"CRITICAL LANGUAGE RULE: You MUST write `reply` and `steps` strictly and 100% in {language} using its native script! "
-        f"Even if the user mixes English words, translate everything into pure, simple, everyday {language}.\n"
-        "Never prescribe prescription drugs; give clear, actionable first-aid steps.\n"
-        "If life may be at risk, the first sentence of `reply` must tell the person to call the emergency helpline immediately.\n"
-        "Return ONLY valid JSON in this exact format:\n"
-        "{\n"
-        '  "category": "medical|police|assault|fire|disaster",\n'
-        '  "urgency": "critical|urgent|routine",\n'
-        f'  "reply": "<2 to 3 reassuring spoken sentences in {language} native script>",\n'
-        f'  "steps": ["<step 1 in {language}>", "<step 2 in {language}>", "<step 3 in {language}>", "<step 4 in {language}>"]\n'
-        "}"
+        f"You are an empathetic emergency assistant for India. Respond strictly in {language} using its native script. "
+        "Analyze the user's emergency and output valid JSON ONLY with these exact keys: "
+        '{"category": "medical|police|assault|fire|disaster", '
+        '"urgency": "critical|urgent|routine", '
+        '"reply": "short comforting instructions in native script", '
+        '"steps": ["step 1", "step 2", "step 3"]}'
     )
-
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {groq_key}",
-    }
 
     custom_model = get_env("GROQ_MODEL")
     models_to_try = ([custom_model] if custom_model else []) + [
         m for m in GROQ_MODELS if m != custom_model
     ]
 
-    last_err = ""
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {groq_key}",
+    }
+
     for model_name in models_to_try:
         payload = {
             "model": model_name,
             "messages": [
                 {"role": "system", "content": system_prompt},
-                {"role": "user", "content": f"Emergency input: {transcript}\nRespond in {language} JSON:"},
+                {"role": "user", "content": transcript},
             ],
             "temperature": 0.2,
-            "max_tokens": 700,
-            "response_format": {"type": "json_object"},
+            "max_tokens": 500,
         }
         try:
-            r = requests.post(GROQ_CHAT_URL, headers=headers, json=payload, timeout=30)
+            r = requests.post(GROQ_CHAT_URL, headers=headers, json=payload, timeout=25)
             if r.status_code != 200:
-                # Retry without response_format if a specific model doesn't support json_object mode
-                payload.pop("response_format", None)
-                r = requests.post(GROQ_CHAT_URL, headers=headers, json=payload, timeout=30)
-            if r.status_code != 200:
-                last_err = f"{model_name} HTTP {r.status_code}"
                 continue
-
             content = r.json()["choices"][0]["message"]["content"]
             content = re.sub(r"<think>.*?</think>", "", content, flags=re.DOTALL)
             start, end = content.find("{"), content.rfind("}")
             if start == -1 or end <= start:
-                last_err = "Invalid JSON structure"
                 continue
-
             data = json.loads(content[start : end + 1])
             reply = str(data.get("reply", "")).strip()
             if not reply:
-                last_err = "Empty reply"
                 continue
-
-            raw_steps = data.get("steps")
-            steps = []
-            if isinstance(raw_steps, list):
-                steps = [str(s).strip() for s in raw_steps if str(s).strip()][:5]
-
+            raw_steps = data.get("steps", [])
+            steps = [str(s).strip() for s in raw_steps if str(s).strip()][:5]
             return {
                 "category": str(data.get("category", "medical")).strip().lower(),
                 "urgency": str(data.get("urgency", "urgent")).strip().lower(),
                 "reply": reply,
                 "steps": steps,
             }, ""
-        except Exception as e:
-            last_err = str(e)
+        except Exception:
             continue
 
-    return None, f"AI fallback active ({last_err})"
+    return None, "Offline fallback active"
 
 
 # ---------------------------------------------------------------------------
-# Gnani Timbre: text to speech in the same language
+# Gnani Timbre: Text to Speech
 # ---------------------------------------------------------------------------
 def timbre_speak(text, lang_code):
     if lang_code not in TIMBRE_LANGS:
-        return None, "Voice reply is not available for Odia yet; the text reply is shown."
+        return None, "Voice not available for this language"
     api_key = get_env("GNANI_API_KEY")
     if not api_key:
-        return None, "GNANI_API_KEY is missing, so no voice reply was generated."
+        return None, "API key missing"
 
     model = get_env("TIMBRE_MODEL") or "timbre-v3.0"
     voice = get_env("TIMBRE_VOICE") or "Shivani"
@@ -662,17 +643,17 @@ def timbre_speak(text, lang_code):
             },
             timeout=30,
         )
-    except Exception as e:
-        return None, f"Could not reach the voice service: {e}"
+    except Exception:
+        return None, "TTS connection failed"
     if r.status_code != 200:
-        return None, f"Voice reply failed ({r.status_code}): {r.text[:200]}"
+        return None, "TTS generation failed"
     with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
         tmp.write(r.content)
     return tmp.name, ""
 
 
 # ---------------------------------------------------------------------------
-# HTML builders
+# HTML Builders
 # ---------------------------------------------------------------------------
 def call_link(number, label):
     return f'<a class="call-btn" href="tel:{number}">{html.escape(label)}</a>'
@@ -728,16 +709,16 @@ def directory_html(t):
 
 
 # ---------------------------------------------------------------------------
-# Pipeline (generator: results appear step by step, which feels real-time)
+# Pipeline
 # ---------------------------------------------------------------------------
 def run_pipeline(transcript, selected_lang):
     reply_lang = detect_lang(transcript, selected_lang)
     rt = TRANSLATIONS.get(reply_lang, TRANSLATIONS["en_IN"])
     transcript_md = f"{rt['detected']} {transcript}"
 
-    yield "🧠 Understanding your emergency...", transcript_md, "", None, ""
+    yield "", transcript_md, "", None, ""
 
-    triage, ai_note = groq_triage(transcript, reply_lang)
+    triage, _ = groq_triage(transcript, reply_lang)
     if triage:
         service = EMERGENCY_DIRECTORY[CATEGORY_INDEX.get(triage["category"], 0)]
         reply_text = triage["reply"]
@@ -751,19 +732,17 @@ def run_pipeline(transcript, selected_lang):
 
     reply_md = f"{rt['audio_response']}\n\n{reply_text}"
     card = result_card(service, steps, urgency, rt)
-    yield "🔊 Preparing the spoken reply...", transcript_md, reply_md, None, card
+    yield "", transcript_md, reply_md, None, card
 
-    audio_path, tts_note = timbre_speak(reply_text, reply_lang)
-    notes = " ".join(n for n in (ai_note, tts_note) if n)
-    status = "✅ Done" + (f" ({notes})" if notes else "")
-    yield status, transcript_md, reply_md, audio_path, card
+    audio_path, _ = timbre_speak(reply_text, reply_lang)
+    yield "", transcript_md, reply_md, audio_path, card
 
 
 def on_audio(audio_path, lang_code):
     if not audio_path:
-        yield "⚠️ No recording found. Please tap the microphone and speak.", "", "", None, ""
+        yield "⚠️ No recording found.", "", "", None, ""
         return
-    yield "🎧 Listening...", "", "", None, ""
+    yield "", "", "", None, ""
     transcript, err = transcribe(audio_path, lang_code)
     if err:
         yield f"⚠️ {err}", "", "", None, ""
@@ -774,7 +753,7 @@ def on_audio(audio_path, lang_code):
 def on_text(text, lang_code):
     text = (text or "").strip()
     if not text:
-        yield "⚠️ Please type or speak your emergency first.", "", "", None, ""
+        yield "⚠️ Please enter your emergency first.", "", "", None, ""
         return
     yield from run_pipeline(text, lang_code)
 
@@ -791,7 +770,7 @@ def apply_language(lang_code):
 
 
 # ---------------------------------------------------------------------------
-# Styling (High-Contrast Dark Navy & Crisp White Text for 100% Visibility)
+# Styling
 # ---------------------------------------------------------------------------
 CSS = """
 body, .gradio-container {
@@ -804,21 +783,17 @@ body, .gradio-container {
 }
 footer { display: none !important; }
 
-/* Force high contrast on all Gradio blocks, audio controls, and panels */
 .gradio-container .gr-panel,
 .gradio-container .gr-form,
 .gradio-container .gr-box,
 .gradio-container .gr-block,
-.gradio-container .block,
-.gradio-container .audio-container,
-.gradio-container .wrap {
+.gradio-container .block {
     background: #112643 !important;
     border: 1px solid #2D5380 !important;
     border-radius: 16px !important;
     color: #FFFFFF !important;
 }
 
-/* Make all labels, markdown, status text, and audio player icons bright white */
 .gradio-container label,
 .gradio-container .label-wrap,
 .gradio-container span,
@@ -828,19 +803,10 @@ footer { display: none !important; }
 .gradio-container h2,
 .gradio-container h3,
 .gradio-container .prose,
-.gradio-container .markdown,
-.gradio-container .prose * {
+.gradio-container .markdown {
     color: #FFFFFF !important;
 }
 
-/* Fix Audio & Volume control visibility */
-.gradio-container audio,
-.gradio-container button,
-.gradio-container svg {
-    color: #FFFFFF !important;
-}
-
-/* Textbox & Dropdown inputs */
 .gradio-container input,
 .gradio-container textarea,
 .gradio-container select {
@@ -850,50 +816,27 @@ footer { display: none !important; }
     font-size: 1.05rem !important;
     border-radius: 12px !important;
 }
-.gradio-container input::placeholder,
-.gradio-container textarea::placeholder {
-    color: #A3C1DF !important;
-}
 
-/* Primary Send Button */
 .gradio-container button.primary {
     background: linear-gradient(135deg, #FF6500, #E5383B) !important;
     border: none !important;
     color: #FFFFFF !important;
     font-weight: 700 !important;
-    font-size: 1.05rem !important;
     border-radius: 12px !important;
     padding: 12px 20px !important;
-    box-shadow: 0 4px 16px rgba(255, 101, 0, 0.4) !important;
-}
-.gradio-container button.primary:hover {
-    background: linear-gradient(135deg, #FF8533, #FF4D4D) !important;
-    transform: translateY(-1px);
 }
 
-/* Header Banner */
 .header-banner {
     background: linear-gradient(135deg, #132B4C, #1D4370);
     border: 1px solid #3E72A8;
     padding: 1.6rem;
     border-radius: 20px;
     text-align: center;
-    color: #FFFFFF;
     margin-bottom: 1rem;
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
 }
-.header-banner h1 {
-    color: #FFFFFF !important;
-    font-size: 2rem;
-    margin: 0.2rem 0;
-}
-.header-banner p {
-    color: #D4E6F9 !important;
-    font-size: 1.05rem;
-    margin: 0.3rem 0 0 0;
-}
+.header-banner h1 { font-size: 2rem; margin: 0.2rem 0; }
+.header-banner p { color: #D4E6F9 !important; font-size: 1.05rem; }
 
-/* Response Markdown Box (Under Audio/Volume Section) */
 .response-box {
     background: #132C4E !important;
     border: 1.5px solid #3E72A8 !important;
@@ -901,10 +844,8 @@ footer { display: none !important; }
     padding: 14px 18px !important;
     margin: 8px 0 !important;
     color: #FFFFFF !important;
-    font-size: 1.1rem !important;
 }
 
-/* Result Card & First-Aid Steps */
 .result-card {
     background: #132C4E !important;
     border: 1.5px solid #4A86C5 !important;
@@ -912,44 +853,19 @@ footer { display: none !important; }
     border-radius: 16px;
     padding: 1.4rem;
     margin-top: 0.8rem;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
-    color: #FFFFFF !important;
 }
-.result-card h3 {
-    margin-top: 0;
-    color: #FFFFFF !important;
-    font-size: 1.35rem;
-}
-.result-card p {
-    color: #D4E6F9 !important;
-    font-size: 1rem;
-}
+
 .step-box {
     background: #0A192F !important;
     border: 1px solid #2D5A88 !important;
     border-radius: 12px;
     padding: 1rem 1.2rem;
     margin: 1rem 0;
-    color: #FFFFFF !important;
-    font-size: 1.08rem;
     line-height: 1.6;
 }
-.step-box strong {
-    color: #FFB703 !important;
-    font-size: 1.1rem;
-}
-.step-box ol, .step-box li {
-    color: #FFFFFF !important;
-    margin: 0.5rem 0 0 1.1rem;
-    padding: 0;
-}
+.step-box strong { color: #FFB703 !important; }
 
-/* Directory Cards */
-.dir-title {
-    color: #FFFFFF !important;
-    margin: 1.5rem 0 0.8rem 0;
-    font-size: 1.3rem;
-}
+.dir-title { margin: 1.5rem 0 0.8rem 0; font-size: 1.3rem; }
 .dir-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -964,24 +880,9 @@ footer { display: none !important; }
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
-    transition: transform 0.2s, box-shadow 0.2s;
 }
-.grid-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
-}
-.grid-card h2 { font-size: 2.3rem; margin: 0 0 8px 0; }
-.grid-card h3 { color: #FFFFFF !important; font-size: 1.1rem; margin: 0 0 8px 0; }
-.grid-card p { color: #D4E6F9 !important; font-size: 0.92rem; margin: 0 0 12px 0; }
-.helpline {
-    color: #38BDF8 !important;
-    font-weight: 700;
-    font-size: 1.05rem;
-    margin-bottom: 10px;
-}
+.helpline { color: #38BDF8 !important; font-weight: 700; margin-bottom: 10px; }
 
-/* Call Button */
 a.call-btn {
     display: block;
     text-align: center;
@@ -991,18 +892,8 @@ a.call-btn {
     padding: 12px 16px;
     border-radius: 12px;
     font-weight: 700;
-    font-size: 1.05rem;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-a.call-btn:hover {
-    transform: translateY(-2px);
-    background: linear-gradient(135deg, #34D399, #10B981);
-    color: #06281E !important;
 }
 
-/* Urgency Pills */
 .pill {
     display: inline-block;
     font-size: 0.72em;
@@ -1010,14 +901,11 @@ a.call-btn:hover {
     padding: 4px 12px;
     border-radius: 999px;
     margin-left: 10px;
-    vertical-align: middle;
-    color: #FFFFFF !important;
 }
 .pill-critical { background: #E11D48; }
 .pill-urgent { background: #D97706; }
 .pill-routine { background: #0D9488; }
 
-/* SOS Panic Button */
 .sos-container { text-align: center; margin: 0.9rem 0; }
 .sos-btn {
     display: inline-block;
@@ -1028,14 +916,10 @@ a.call-btn:hover {
     padding: 16px 38px;
     border: 2px solid #FDA4AF;
     border-radius: 50px;
-    box-shadow: 0 0 28px rgba(225, 29, 72, 0.6);
     cursor: pointer;
     text-decoration: none !important;
     animation: sos-pulse 1.5s ease-in-out infinite;
-    letter-spacing: 1.5px;
-    transition: transform 0.2s;
 }
-.sos-btn:hover { transform: scale(1.04); }
 @keyframes sos-pulse {
     0%, 100% { box-shadow: 0 0 25px rgba(225, 29, 72, 0.5); }
     50% { box-shadow: 0 0 45px rgba(225, 29, 72, 0.9); }
@@ -1044,7 +928,6 @@ a.call-btn:hover {
 """
 
 INIT_JS = """() => {
-    // ---------- SOS Siren via Web Audio API ----------
     window._sosCtx = null;
     window._sosOsc = null;
     window._sosPlaying = false;
@@ -1088,7 +971,7 @@ INIT_JS = """() => {
 }"""
 
 # ---------------------------------------------------------------------------
-# UI
+# UI Layout
 # ---------------------------------------------------------------------------
 t0 = TRANSLATIONS["en_IN"]
 
@@ -1131,7 +1014,7 @@ with gr.Blocks(
             )
             send_btn = gr.Button(t0["send"], variant="primary")
 
-    status = gr.Markdown("", elem_classes=["response-box"])
+    status = gr.Markdown("", visible=False)
     transcript_out = gr.Markdown("", elem_classes=["response-box"])
     reply_out = gr.Markdown("", elem_classes=["response-box"])
     reply_audio = gr.Audio(
@@ -1154,7 +1037,6 @@ with gr.Blocks(
         outputs=[header, mic, textbox, send_btn, dir_html],
     )
 
-# One request at a time keeps us inside Gnani's per-account rate limit.
 demo.queue(default_concurrency_limit=1)
 
 if __name__ == "__main__":
