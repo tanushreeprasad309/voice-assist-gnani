@@ -1,19 +1,15 @@
 """
 Sahaya Emergency Assistant (Gradio on Render)
-Voice-first emergency triage and first aid for rural India.
+Voice-first emergency triage and first aid for India.
 
 Gnani AI stack:
   Prisma  (speech-to-text)   -> https://api.vachana.ai/stt/v3
   Timbre  (text-to-speech)   -> https://api.vachana.ai/api/v1/tts/inference
-Groq (free triage reasoning) -> https://api.groq.com/openai/v1/chat/completions
+Groq (triage reasoning)      -> https://api.groq.com/openai/v1/chat/completions
 
-Environment variables to set in Render Dashboard -> Environment:
+Environment variables:
   GNANI_API_KEY   Prisma + Timbre key
-  GROQ_API_KEY    Free key from console.groq.com
-Optional:
-  GROQ_MODEL      default llama-3.3-70b-versatile (falls back automatically)
-  TIMBRE_MODEL    default timbre-v3.0   (or timbre-v2.5)
-  TIMBRE_VOICE    default Shivani       (must belong to the chosen model)
+  GROQ_API_KEY    Groq API key
 """
 
 import html
@@ -28,7 +24,6 @@ import requests
 STT_URL = "https://api.vachana.ai/stt/v3"
 TTS_URL = "https://api.vachana.ai/api/v1/tts/inference"
 
-# Groq settings (free tier) — active production models only
 GROQ_CHAT_URL = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODELS = [
     "llama-3.3-70b-versatile",
@@ -36,206 +31,200 @@ GROQ_MODELS = [
 ]
 
 # ---------------------------------------------------------------------------
-# 11-language UI dictionary, language lists and emergency directory
+# Languages & UI Translations (12 Indian Languages including Manipuri)
 # ---------------------------------------------------------------------------
 TRANSLATIONS = {
     "en_IN": {
-        "title": "🚨 Sahaya Emergency Assistant",
-        "subtitle": "Multilingual Voice First-Aid & Emergency Dispatch",
-        "mic_header": "🎙️ Speak Your Emergency",
-        "mic_start": "🔴 Tap to Speak",
-        "mic_stop": "⏹️ Stop",
-        "type_header": "⌨️ Or Type It",
-        "type_placeholder": "e.g. Need an ambulance, snake bite, or accident",
+        "title": "TranslateAid — Sahaya",
+        "subtitle": "AI Voice Assistant • Talk. Translate. Stay Safe.",
+        "mic_header": "🎙️ Tap to Start Listening",
+        "type_header": "⌨️ Or Type Emergency Details",
+        "type_placeholder": "e.g., Need an ambulance, snake bite, road accident...",
         "send": "Send Emergency Alert",
-        "detected": "🗣️ **Detected Emergency:**",
-        "action_header": "⚡ Recommended Action & First-Aid",
+        "detected": "🗣️ Detected Emergency:",
+        "action_header": "Recommended Action & First-Aid",
         "first_aid_label": "🩹 Immediate First-Aid Steps:",
-        "call_btn": "📞 Call {number} Now",
-        "directory_header": "📋 Emergency Directory (Tap Any Card to Call)",
+        "call_btn": "📞 Call {number} Immediately",
+        "directory_header": "Emergency Services Directory",
         "helpline": "Helpline:",
-        "audio_response": "🔊 **Sahaya's Response:**",
+        "audio_response": "🔊 Sahaya Voice Guidance:",
         "say_call": "Please stay calm and call {number} immediately.",
     },
     "kn_IN": {
-        "title": "🚨 ಸಹಾಯ ತುರ್ತು ಸಹಾಯಕ",
-        "subtitle": "ಬಹುಭಾಷಾ ಧ್ವನಿ ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ ಮತ್ತು ತುರ್ತು ನೆರವು",
-        "mic_header": "🎙️ ನಿಮ್ಮ ತುರ್ತು ಪರಿಸ್ಥಿತಿಯನ್ನು ಹೇಳಿ",
-        "mic_start": "🔴 ಮಾತನಾಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ",
-        "mic_stop": "⏹️ ನಿಲ್ಲಿಸಿ",
+        "title": "ಸಹಾಯ (Sahaya)",
+        "subtitle": "ಎಐ ಧ್ವನಿ ಸಹಾಯಕ • ಮಾತನಾಡಿ. ಭಾಷಾಂತರಿಸಿ. ಸುರಕ್ಷಿತವಾಗಿರಿ.",
+        "mic_header": "🎙️ ಮಾತನಾಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ",
         "type_header": "⌨️ ಅಥವಾ ಇಲ್ಲಿ ಟೈಪ್ ಮಾಡಿ",
-        "type_placeholder": "ಉದಾ. ನನಗೆ ಹಾವು ಕಚ್ಚಿದೆ, ಆಂಬ್ಯುಲೆನ್ಸ್ ಬೇಕು",
-        "send": "ಕಳುಹಿಸಿ",
-        "detected": "🗣️ **ಪತ್ತೆಯಾದ ತುರ್ತು ಪರಿಸ್ಥಿತಿ:**",
-        "action_header": "⚡ ಶಿಫಾರಸು ಮಾಡಿದ ಕ್ರಮ ಮತ್ತು ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ",
+        "type_placeholder": "ಉದಾ. ನನಗೆ ಹಾವು ಕಚ್ಚಿದೆ, ಆಂಬ್ಯುಲೆನ್ಸ್ ಬೇಕು...",
+        "send": "ತುರ್ತು ಎಚ್ಚರಿಕೆ ಕಳುಹಿಸಿ",
+        "detected": "🗣️ ಪತ್ತೆಯಾದ ತುರ್ತು ಪರಿಸ್ಥಿತಿ:",
+        "action_header": "ಶಿಫಾರಸು ಮಾಡಿದ ಕ್ರಮ ಮತ್ತು ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ",
         "first_aid_label": "🩹 ಪ್ರಥಮ ಚಿಕಿತ್ಸಾ ಕ್ರಮಗಳು:",
         "call_btn": "📞 ತಕ್ಷಣ {number} ಗೆ ಕರೆ ಮಾಡಿ",
-        "directory_header": "📋 ತುರ್ತು ಸಹಾಯವಾಣಿಗಳು (ಕರೆ ಮಾಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ)",
+        "directory_header": "ತುರ್ತು ಸಹಾಯವಾಣಿ ಡೈರೆಕ್ಟರಿ",
         "helpline": "ಸಹಾಯವಾಣಿ:",
-        "audio_response": "🔊 **ಸಹಾಯ ಪ್ರತಿಕ್ರಿಯೆ:**",
+        "audio_response": "🔊 ಸಹಾಯ ಧ್ವನಿ ಮಾರ್ಗದರ್ಶನ:",
         "say_call": "ದಯವಿಟ್ಟು ಗಾಬರಿಯಾಗಬೇಡಿ, ತಕ್ಷಣ {number} ಗೆ ಕರೆ ಮಾಡಿ.",
     },
     "hi_IN": {
-        "title": "🚨 सहायता आपातकालीन सहायक",
-        "subtitle": "बहुभाषी वॉयस फर्स्ट-एड और आपातकालीन प्रेषण",
-        "mic_header": "🎙️ अपनी आपात स्थिति बोलें",
-        "mic_start": "🔴 बोलने के लिए टैप करें",
-        "mic_stop": "⏹️ रोकें",
-        "type_header": "⌨️ या टाइप करें",
-        "type_placeholder": "जैसे एम्बुलेंस चाहिए, सांप ने काटा है, दुर्घटना हुई है",
-        "send": "भेजें",
-        "detected": "🗣️ **पता चली आपात स्थिति:**",
-        "action_header": "⚡ अनुशंसित कार्रवाई और प्राथमिक उपचार",
+        "title": "सहायता (Sahaya)",
+        "subtitle": "एआई वॉयस असिस्टेंट • बोलें। अनुवाद करें। सुरक्षित रहें।",
+        "mic_header": "🎙️ बोलने के लिए टैप करें",
+        "type_header": "⌨️ या आपातकालीन विवरण टाइप करें",
+        "type_placeholder": "जैसे एम्बुलेंस चाहिए, सांप ने काटा है, दुर्घटना हुई है...",
+        "send": "आपातकालीन अलर्ट भेजें",
+        "detected": "🗣️ पता चली आपात स्थिति:",
+        "action_header": "अनुशंसित कार्रवाई और प्राथमिक उपचार",
         "first_aid_label": "🩹 प्राथमिक उपचार दिशानिर्देश:",
-        "call_btn": "📞 अभी {number} पर कॉल करें",
-        "directory_header": "📋 आपातकालीन डायरेक्टरी (कॉल करने के लिए टैप करें)",
+        "call_btn": "📞 तुरंत {number} पर कॉल करें",
+        "directory_header": "आपातकालीन सेवा डायरेक्टरी",
         "helpline": "हेल्पलाइन:",
-        "audio_response": "🔊 **सहायता की प्रतिक्रिया:**",
+        "audio_response": "🔊 सहायता वॉयस मार्गदर्शन:",
         "say_call": "कृपया शांत रहें और तुरंत {number} पर कॉल करें।",
     },
     "ta_IN": {
-        "title": "🚨 சஹாயா அவசர உதவி",
-        "subtitle": "பன்மொழி குரல் முதலுதவி & அவசர அனுப்புதல்",
-        "mic_header": "🎙️ உங்கள் அவசரநிலையைச் சொல்லுங்கள்",
-        "mic_start": "🔴 பேச தட்டவும்",
-        "mic_stop": "⏹️ நிறுத்து",
+        "title": "சஹாயா (Sahaya)",
+        "subtitle": "AI குரல் உதவியாளர் • பேசுங்கள். மொழிபெயர்க்கவும். பாதுகாப்பாக இருங்கள்.",
+        "mic_header": "🎙️ பேச தட்டவும்",
         "type_header": "⌨️ அல்லது தட்டச்சு செய்யவும்",
-        "type_placeholder": "எ.கா. ஆம்புலன்ஸ் தேவை, விபத்து நடந்தது",
-        "send": "அனுப்பு",
-        "detected": "🗣️ **கண்டறியப்பட்ட அவசரம்:**",
-        "action_header": "⚡ பரிந்துரைக்கப்பட்ட நடவடிக்கை மற்றும் முதலுதவி",
+        "type_placeholder": "எ.கா. ஆம்புலன்ஸ் தேவை, பாம்பு கடித்தது, விபத்து...",
+        "send": "அவசர எச்சரிக்கை அனுப்பு",
+        "detected": "🗣️ கண்டறியப்பட்ட அவசரம்:",
+        "action_header": "பரிந்துரைக்கப்பட்ட முதலுதவி",
         "first_aid_label": "🩹 முதலுதவி வழிகாட்டுதல்கள்:",
         "call_btn": "📞 உடனே {number} ஐ அழைக்கவும்",
-        "directory_header": "📋 அவசர அடைவு (அழைக்க தட்டவும்)",
+        "directory_header": "அவசர சேவை அடைவு",
         "helpline": "உதவி எண்:",
-        "audio_response": "🔊 **சஹாயாவின் பதில்:**",
+        "audio_response": "🔊 சஹாயா குரல் வழிகாட்டல்:",
         "say_call": "தயவுசெய்து உடனே {number} ஐ அழைக்கவும்.",
     },
     "te_IN": {
-        "title": "🚨 సహాయ అత్యవసర సహాయకుడు",
-        "subtitle": "బహుభాషా వాయిస్ ఫస్ట్-ఎయిడ్ & ఎమర్జెన్సీ డిస్పాచ్",
-        "mic_header": "🎙️ మీ అత్యవసర పరిస్థితిని చెప్పండి",
-        "mic_start": "🔴 మాట్లాడటానికి నొక్కండి",
-        "mic_stop": "⏹️ ఆపు",
+        "title": "సహాయ (Sahaya)",
+        "subtitle": "AI వాయిస్ అసిస్టెంట్ • మాట్లాడండి. అనువదించండి. సురక్షితంగా ఉండండి.",
+        "mic_header": "🎙️ మాట్లాడటానికి నొక్కండి",
         "type_header": "⌨️ లేదా టైప్ చేయండి",
-        "type_placeholder": "ఉదా. ఆంబులెన్స్ కావాలి, ప్రమాదం జరిగింది",
-        "send": "పంపండి",
-        "detected": "🗣️ **గుర్తించబడిన అత్యవసరం:**",
-        "action_header": "⚡ సిఫార్సు చేయబడిన చర్య మరియు ప్రథమ చికిత్స",
+        "type_placeholder": "ఉదా. ఆంబులెన్స్ కావాలి, పాము కరిచింది, ప్రమాదం...",
+        "send": "అత్యవసర హెచ్చరిక పంపండి",
+        "detected": "🗣️ గుర్తించబడిన అత్యవసరం:",
+        "action_header": "సిఫార్సు చేయబడిన ప్రథమ చికిత్స",
         "first_aid_label": "🩹 ప్రథమ చికిత్స మార్గదర్శకాలు:",
         "call_btn": "📞 ఇప్పుడే {number} కి కాల్ చేయండి",
-        "directory_header": "📋 అత్యవసర డైరెక్టరీ (కాల్ చేయడానికి ట్యాప్ చేయండి)",
+        "directory_header": "అత్యవసర సేవల డైరెక్టరీ",
         "helpline": "హెల్ప్‌లైన్:",
-        "audio_response": "🔊 **సహాయ ప్రతిస్పందన:**",
+        "audio_response": "🔊 సహాయ వాయిస్ మార్గదర్శకత్వం:",
         "say_call": "దయచేసి వెంటనే {number} కి కాల్ చేయండి.",
     },
     "ml_IN": {
-        "title": "🚨 സഹായ അടിയന്തര അസിസ്റ്റന്റ്",
-        "subtitle": "ബഹുഭാഷാ വോയ്സ് ഫസ്റ്റ് എയ്ഡ് & എമർജൻസി ഡിസ്പാച്ച്",
-        "mic_header": "🎙️ നിങ്ങളുടെ അടിയന്തര സാഹചര്യം പറയൂ",
-        "mic_start": "🔴 സംസാരിക്കാൻ ടാപ്പ് ചെയ്യുക",
-        "mic_stop": "⏹️ നിർത്തുക",
+        "title": "സഹായ (Sahaya)",
+        "subtitle": "AI വോയ്‌സ് അസിസ്റ്റന്റ് • സംസാരിക്കൂ. വിവർത്തനം ചെയ്യൂ. സുരക്ഷിതരായിരിക്കൂ.",
+        "mic_header": "🎙️ സംസാരിക്കാൻ ടാപ്പ് ചെയ്യുക",
         "type_header": "⌨️ അല്ലെങ്കിൽ ടൈപ്പ് ചെയ്യുക",
-        "type_placeholder": "ഉദാ. ആംബുലൻസ് വേണം, അപകടം ഉണ്ടായി",
-        "send": "അയയ്ക്കുക",
-        "detected": "🗣️ **കണ്ടെത്തിയ അത്യാഹിതം:**",
-        "action_header": "⚡ ശുപാർശ ചെയ്യുന്ന നടപടിയും പ്രഥമശുശ്രൂഷയും",
-        "first_aid_label": "🩹 പ്രഥമശുശ്രൂഷ മാർഗ്ഗനിർദ്ദേശങ്ങൾ:",
-        "call_btn": "📞 ഇപ്പോൾ {number}-ലേക്ക് വിളിക്കുക",
-        "directory_header": "📋 എമർജൻസി ഡയറക്ടറി (വിളിക്കാൻ ടാപ്പ് ചെയ്യുക)",
+        "type_placeholder": "ഉദാ. ആംബുലൻസ് വേണം, പാമ്പ് കടിയേറ്റു, അപകടം...",
+        "send": "അടിയന്തര മുന്നറിയിപ്പ് അയയ്ക്കുക",
+        "detected": "🗣️ കണ്ടെത്തിയ അത്യാഹിതം:",
+        "action_header": "ശുപാർശ ചെയ്യുന്ന പ്രഥമശുശ്രൂഷ",
+        "first_aid_label": "🩹 പ്രഥമശുശ്രൂഷ നിർദ്ദേശങ്ങൾ:",
+        "call_btn": "📞 ഉടൻ {number}-ലേക്ക് വിളിക്കുക",
+        "directory_header": "എമർജൻസി ഡയറക്ടറി",
         "helpline": "ഹെൽപ്പ്‌ലൈൻ:",
-        "audio_response": "🔊 **സഹായയുടെ പ്രതികരണം:**",
+        "audio_response": "🔊 സഹായ വോയ്സ് പ്രതികരണം:",
         "say_call": "ദയവായി ഉടൻ {number}-ലേക്ക് വിളിക്കുക.",
     },
     "mr_IN": {
-        "title": "🚨 साहाय्य आणीबाणी सहाय्यक",
-        "subtitle": "बहुभाषिक व्हॉइस फर्स्ट-एड आणि आपत्कालीन प्रेषण",
-        "mic_header": "🎙️ तुमची आणीबाणी सांगा",
-        "mic_start": "🔴 बोलण्यासाठी टॅप करा",
-        "mic_stop": "⏹️ थांबवा",
+        "title": "साहाय्य (Sahaya)",
+        "subtitle": "AI व्हॉइस असिस्टंट • बोला. भाषांतर करा. सुरक्षित राहा.",
+        "mic_header": "🎙️ बोलण्यासाठी टॅप करा",
         "type_header": "⌨️ किंवा टाइप करा",
-        "type_placeholder": "उदा. रुग्णवाहिका हवी आहे, अपघात झाला",
-        "send": "पाठवा",
-        "detected": "🗣️ **आढळलेली आणीबाणी:**",
-        "action_header": "⚡ शिफारस केलेली कृती आणि प्रथमोपचार",
-        "first_aid_label": "🩹 प्रथमोपचार मार्गदर्शक तत्त्वे:",
+        "type_placeholder": "उदा. रुग्णवाहिका हवी आहे, साप चावला, अपघात...",
+        "send": "आणीबाणी सूचना पाठवा",
+        "detected": "🗣️ आढळलेली आणीबाणी:",
+        "action_header": "शिफारस केलेले प्रथमोपचार",
+        "first_aid_label": "🩹 प्रथमोपचार सूचना:",
         "call_btn": "📞 आता {number} वर कॉल करा",
-        "directory_header": "📋 आणीबाणी निर्देशिका (कॉल करण्यासाठी टॅप करा)",
+        "directory_header": "आणीबाणी निर्देशिका",
         "helpline": "हेल्पलाइन:",
-        "audio_response": "🔊 **साहाय्यचा प्रतिसाद:**",
+        "audio_response": "🔊 साहाय्य व्हॉइस मार्गदर्शन:",
         "say_call": "कृपया ताबडतोब {number} वर कॉल करा.",
     },
     "gu_IN": {
-        "title": "🚨 સહાય ઇમરજન્સી અસિસ્ટન્ટ",
-        "subtitle": "બહુભાષી વૉઇસ ફર્સ્ટ-એઇડ અને ઇમરજન્સી ડિસ્પેચ",
-        "mic_header": "🎙️ તમારી કટોકટી બોલો",
-        "mic_start": "🔴 બોલવા માટે ટેપ કરો",
-        "mic_stop": "⏹️ બંધ કરો",
+        "title": "સહાય (Sahaya)",
+        "subtitle": "AI વૉઇસ સહાયક • બોલો. અનુવાદ કરો. સુરક્ષિત રહો.",
+        "mic_header": "🎙️ બોલવા માટે ટેપ કરો",
         "type_header": "⌨️ અથવા ટાઇપ કરો",
-        "type_placeholder": "દા.ત. એમ્બ્યુલન્સ જોઈએ છે, અકસ્માત થયો છે",
-        "send": "મોકલો",
-        "detected": "🗣️ **મળેલી કટોકટી:**",
-        "action_header": "⚡ ભલામણ કરેલ પગલાં અને પ્રાથમિક સારવાર",
-        "first_aid_label": "🩹 પ્રાથમિક સારવાર માર્ગદર્શિકા:",
-        "call_btn": "📞 હમણાં જ {number} પર કૉલ કરો",
-        "directory_header": "📋 ઇમરજન્સી ડિરેક્ટરી (કૉલ કરવા માટે ટેપ કરો)",
+        "type_placeholder": "દા.ત. એમ્બ્યુલન્સ જોઈએ છે, સાપ કરડ્યો, અકસ્માત...",
+        "send": "કટોકટી ચેતવણી મોકલો",
+        "detected": "🗣️ મળેલી કટોકટી:",
+        "action_header": "પ્રાથમિક સારવાર માર્ગદર્શિકા",
+        "first_aid_label": "🩹 પ્રાથમિક સારવાર પગલાં:",
+        "call_btn": "📞 હમણાં {number} પર કૉલ કરો",
+        "directory_header": "ઇમરજન્સી ડિરેક્ટરી",
         "helpline": "હેલ્પલાઇન:",
-        "audio_response": "🔊 **સહાયનો જવાબ:**",
+        "audio_response": "🔊 સહાય વૉઇસ માર્ગદર્શન:",
         "say_call": "કૃપા કરીને તરત {number} પર કૉલ કરો.",
     },
     "bn_IN": {
-        "title": "🚨 সহায় জরুরি সহকারী",
-        "subtitle": "বহুভাষিক ভয়েস ফার্স্ট-এইড এবং জরুরি প্রেরণ",
-        "mic_header": "🎙️ আপনার জরুরি অবস্থা বলুন",
-        "mic_start": "🔴 কথা বলতে ট্যাপ করুন",
-        "mic_stop": "⏹️ থামুন",
+        "title": "সহায় (Sahaya)",
+        "subtitle": "এআই ভয়েস সহকারী • বলুন। অনুবাদ করুন। সুরক্ষিত থাকুন।",
+        "mic_header": "🎙️ কথা বলতে ট্যাপ করুন",
         "type_header": "⌨️ অথবা টাইপ করুন",
-        "type_placeholder": "যেমন অ্যাম্বুলেন্স দরকার, দুর্ঘটনা ঘটেছে",
-        "send": "পাঠান",
-        "detected": "🗣️ **শনাক্ত জরুরি অবস্থা:**",
-        "action_header": "⚡ প্রস্তাবিত পদক্ষেপ এবং প্রাথমিক চিকিৎসা",
-        "first_aid_label": "🩹 প্রাথমিক চিকিৎসার নির্দেশিকা:",
+        "type_placeholder": "যেমন অ্যাম্বুলেন্স দরকার, সাপে কেটেছে, दुर्घटना...",
+        "send": "জরুরি সতর্কতা পাঠান",
+        "detected": "🗣️ শনাক্ত জরুরি অবস্থা:",
+        "action_header": "প্রাথমিক চিকিৎসার নির্দেশিকা",
+        "first_aid_label": "🩹 প্রাথমিক চিকিৎসা পদক্ষেপ:",
         "call_btn": "📞 এখনই {number}-এ কল করুন",
-        "directory_header": "📋 জরুরি ডিরেক্টরি (কল করতে ট্যাপ করুন)",
+        "directory_header": "জরুরি ডিরেক্টরি",
         "helpline": "হেল্পলাইন:",
-        "audio_response": "🔊 **সহায়ের প্রতিক্রিয়া:**",
+        "audio_response": "🔊 সহায় ভয়েস সহায়তা:",
         "say_call": "অনুগ্রহ করে এখনই {number}-এ কল করুন।",
     },
     "pa_IN": {
-        "title": "🚨 ਸਹਾਇਤਾ ਐਮਰਜੈਂਸੀ ਸਹਾਇਕ",
-        "subtitle": "ਬਹੁ-ਭਾਸ਼ੀ ਵੌਇਸ ਫਸਟ-ਏਡ ਅਤੇ ਐਮਰਜੈਂਸੀ ਡਿਸਪੈਚ",
-        "mic_header": "🎙️ ਆਪਣੀ ਐਮਰਜੈਂਸੀ ਦੱਸੋ",
-        "mic_start": "🔴 ਬੋਲਣ ਲਈ ਟੈਪ ਕਰੋ",
-        "mic_stop": "⏹️ ਰੋਕੋ",
+        "title": "ਸਹਾਇਤਾ (Sahaya)",
+        "subtitle": "AI ਵੌਇਸ ਅਸਿਸਟੈਂਟ • ਬੋਲੋ। ਅਨੁਵਾਦ ਕਰੋ। ਸੁਰੱਖਿਅਤ ਰਹੋ।",
+        "mic_header": "🎙️ ਬੋਲਣ ਲਈ ਟੈਪ ਕਰੋ",
         "type_header": "⌨️ ਜਾਂ ਟਾਈਪ ਕਰੋ",
-        "type_placeholder": "ਜਿਵੇਂ ਐਂਬੂਲੈਂਸ ਚਾਹੀਦੀ ਹੈ, ਹਾਦਸਾ ਹੋਇਆ ਹੈ",
-        "send": "ਭੇਜੋ",
-        "detected": "🗣️ **ਪਤਾ ਲੱਗੀ ਐਮਰਜੈਂਸੀ:**",
-        "action_header": "⚡ ਸਿਫਾਰਸ਼ ਕੀਤੀ ਕਾਰਵਾਈ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ",
-        "first_aid_label": "🩹 ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦਿਸ਼ਾ-ਨਿਰਦੇਸ਼:",
+        "type_placeholder": "ਜਿਵੇਂ ਐਂਬੂਲੈਂਸ ਚਾਹੀਦੀ ਹੈ, ਸੱਪ ਨੇ ਡੰਗਿਆ, ਹਾਦਸਾ...",
+        "send": "ਐਮਰਜੈਂਸੀ ਅਲਰਟ ਭੇਜੋ",
+        "detected": "🗣️ ਪਤਾ ਲੱਗੀ ਐਮਰਜੈਂਸੀ:",
+        "action_header": "ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦਿਸ਼ਾ-ਨਿਰਦੇਸ਼",
+        "first_aid_label": "🩹 ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਕਦਮ:",
         "call_btn": "📞 ਹੁਣੇ {number} 'ਤੇ ਕਾਲ ਕਰੋ",
-        "directory_header": "📋 ਐਮਰਜੈਂਸੀ ਡਾਇਰੈਕਟਰੀ (ਕਾਲ ਕਰਨ ਲਈ ਟੈਪ ਕਰੋ)",
+        "directory_header": "ਐਮਰਜੈਂਸੀ ਡਾਇਰੈਕਟਰੀ",
         "helpline": "ਹੈਲਪਲਾਈਨ:",
-        "audio_response": "🔊 **ਸਹਾਇਤਾ ਦਾ ਜਵਾਬ:**",
+        "audio_response": "🔊 ਸਹਾਇਤਾ ਵੌਇਸ ਸੇਧ:",
         "say_call": "ਕਿਰਪਾ ਕਰਕੇ ਤੁਰੰਤ {number} 'ਤੇ ਕਾਲ ਕਰੋ।",
     },
     "or_IN": {
-        "title": "🚨 ସହାୟ ଜରୁରୀକାଳୀନ ସହାୟକ",
-        "subtitle": "ବହୁଭାଷୀ ଭଏସ୍ ଫାଷ୍ଟ-ଏଡ୍ ଏବଂ ଜରୁରୀକାଳୀନ ପ୍ରେରଣ",
-        "mic_header": "🎙️ ଆପଣଙ୍କ ଜରୁରୀକାଳୀନ ପରିସ୍ଥିତି କୁହନ୍ତୁ",
-        "mic_start": "🔴 କହିବାକୁ ଟ୍ୟାପ୍ କରନ୍ତୁ",
-        "mic_stop": "⏹️ ବନ୍ଦ କରନ୍ତୁ",
+        "title": "ସହାୟ (Sahaya)",
+        "subtitle": "AI ଭଏସ୍ ସହାୟକ • କୁହନ୍ତୁ। ଅନୁବାଦ କରନ୍ତୁ। ସୁରକ୍ଷିତ ରୁହନ୍ତୁ।",
+        "mic_header": "🎙️ କହିବାକୁ ଟ୍ୟାପ୍ କରନ୍ତୁ",
         "type_header": "⌨️ କିମ୍ବା ଟାଇପ୍ କରନ୍ତୁ",
-        "type_placeholder": "ଯେପରି ଆମ୍ବୁଲାନ୍ସ ଆବଶ୍ୟକ, ଦୁର୍ଘଟଣା ହୋଇଛି",
-        "send": "ପଠାନ୍ତୁ",
-        "detected": "🗣️ **ଚିହ୍ନଟ ଜରୁରୀକାଳୀନ ପରିସ୍ଥିତି:**",
-        "action_header": "⚡ ପରାମର୍ଶିତ କାର୍ଯ୍ୟ ଏବଂ ପ୍ରଥମ ଚିକିତ୍ସା",
-        "first_aid_label": "🩹 ପ୍ରଥମ ଚିକିତ୍ସା ନିର୍ଦ୍ଦେଶାବଳୀ:",
-        "call_btn": "📞 ବର୍ତ୍ତମାନ {number} କୁ କଲ୍ କରନ୍ତୁ",
-        "directory_header": "📋 ଜରୁରୀକାଳୀନ ଡାଇରେକ୍ଟୋରୀ (କଲ୍ କରିବାକୁ ଟ୍ୟାପ୍ କରନ୍ତୁ)",
+        "type_placeholder": "ଯେପରି ଆମ୍ବୁଲାନ୍ସ ଦରକାର, ସାପ କାମୁଡ଼ିଛି, ଦୁର୍ଘଟଣା...",
+        "send": "ଜରୁରୀକାଳୀନ ଆଲର୍ଟ ପଠାନ୍ତୁ",
+        "detected": "🗣️ ଚିହ୍ନଟ ଜରୁରୀକାଳୀନ ପରିସ୍ଥିତି:",
+        "action_header": "ପ୍ରଥମ ଚିକିତ୍ସା ନିର୍ଦ୍ଦେଶାବଳୀ",
+        "first_aid_label": "🩹 ପ୍ରଥମ ଚିକିତ୍ସା ପଦକ୍ଷେପ:",
+        "call_btn": "📞 ତୁରନ୍ତ {number} କୁ କଲ୍ କରନ୍ତୁ",
+        "directory_header": "ଜରୁରୀକାଳୀନ ଡାଇରେକ୍ଟୋରୀ",
         "helpline": "ହେଲ୍ପଲାଇନ୍:",
-        "audio_response": "🔊 **ସହାୟଙ୍କ ପ୍ରତିକ୍ରିୟା:**",
+        "audio_response": "🔊 ସହାୟ ଭଏସ୍ ମାର୍ଗଦର୍ଶନ:",
         "say_call": "ଦୟାକରି ତୁରନ୍ତ {number} କୁ କଲ୍ କରନ୍ତୁ।",
+    },
+    "mni_IN": {
+        "title": "ꯁꯍꯥꯌ (Sahaya - Manipuri)",
+        "subtitle": "AI ꯈꯣꯟꯊꯣꯛ ꯃꯇꯦꯡ • ꯋꯥ ꯉꯥꯡꯕꯤꯌꯨ। ꯍꯟꯗꯣꯛꯄꯤꯌꯨ। ꯉꯥꯛꯊꯣꯛꯆꯕꯤꯌꯨ।",
+        "mic_header": "🎙️ ꯋꯥ ꯉꯥꯡꯅꯕ ꯇꯦꯞ ꯇꯧꯕꯤꯌꯨ",
+        "type_header": "⌨️ ꯅꯠꯇ꯭ꯔꯒ ꯇꯥꯏꯞ ꯇꯧꯕꯤꯌꯨ",
+        "type_placeholder": "ꯑꯦꯝꯕꯨꯂꯦꯟꯁ ꯃꯊꯧ ꯇꯥꯏ, ꯂꯤꯟꯅ ꯆꯤꯛꯈ꯭ꯔꯦ, ꯈꯨꯗꯣꯡꯊꯤꯕ...",
+        "send": "ꯈꯨꯗꯣꯡꯊꯤꯕꯒꯤ ꯄꯥꯎ ꯊꯥꯕꯤꯌꯨ",
+        "detected": "🗣️ ꯈꯪꯗꯣꯛꯂꯕ ꯈꯨꯗꯣꯡꯊꯤꯕ:",
+        "action_header": "ꯑꯍꯥꯟꯕ ꯃꯇꯦꯡ (First Aid)",
+        "first_aid_label": "🩹 ꯇꯧꯒꯗꯕ ꯊꯕꯛꯁꯤꯡ:",
+        "call_btn": "📞 {number} ꯗ ꯍꯧꯖꯤꯛꯃꯛ ꯀꯣꯜ ꯇꯧꯕꯤꯌꯨ",
+        "directory_header": "ꯑꯇꯣꯞꯄ ꯃꯇꯦꯡ ꯅꯝꯕꯔꯁꯤꯡ",
+        "helpline": "ꯍꯦꯜꯞꯂꯥꯏꯟ:",
+        "audio_response": "🔊 ꯁꯍꯥꯌꯒꯤ ꯄꯥꯎꯈꯨꯝ:",
+        "say_call": "ꯆꯥꯅꯕꯤꯗꯨꯅ ꯑꯀꯤꯕ ꯄꯣꯛꯂꯣꯏꯗꯕꯅꯤ, ꯈꯨꯗꯛꯇ {number} ꯗ ꯀꯣꯜ ꯇꯧꯕꯤꯌꯨ.",
     },
 }
 
@@ -251,6 +240,7 @@ LANGUAGES = {
     "bn_IN": "বাংলা (Bengali)",
     "pa_IN": "ਪੰਜਾਬੀ (Punjabi)",
     "or_IN": "ଓଡ଼ିଆ (Odia)",
+    "mni_IN": "ꯃꯤꯇꯩꯂꯣꯟ (Manipuri)",
 }
 
 LANG_NAMES = {
@@ -265,149 +255,12 @@ LANG_NAMES = {
     "bn_IN": "Bengali (বাংলা)",
     "pa_IN": "Punjabi (ਪੰਜਾਬੀ)",
     "or_IN": "Odia (ଓଡ଼ିଆ)",
+    "mni_IN": "Manipuri (Meitei Mayek)",
 }
 
 TIMBRE_LANGS = {
     "en_IN", "hi_IN", "ta_IN", "te_IN", "kn_IN",
     "ml_IN", "mr_IN", "pa_IN", "bn_IN", "gu_IN",
-}
-
-# ---------------------------------------------------------------------------
-# Localized Offline Fallback Responses (Single-line safe strings)
-# ---------------------------------------------------------------------------
-LOCALIZED_FALLBACK_STEPS = {
-    "kn_IN": {
-        "snake": (
-            "ದಯವಿಟ್ಟು ಗಾಬರಿಯಾಗಬೇಡಿ. ತಕ್ಷಣ ಒಂದು ಸೊನ್ನೆ ಎಂಟು ಆಂಬ್ಯುಲೆನ್ಸ್‌ಗೆ ಕರೆ ಮಾಡಿ. ಕಚ್ಚಿದ ಭಾಗವನ್ನು ಅಲುಗಾಡಿಸಬೇಡಿ.",
-            [
-                "ವ್ಯಕ್ತಿಯನ್ನು ಶಾಂತವಾಗಿ ಮಲಗಿಸಿ ಮತ್ತು ಕಚ್ಚಿದ ಭಾಗವನ್ನು ಹೃದಯದ ಮಟ್ಟಕ್ಕಿಂತ ಕೆಳಗಿರಿಸಿ.",
-                "ಗಾಯದ ಮೇಲೆ ಬಟ್ಟೆಯನ್ನು ಬಿಗಿಯಾಗಿ ಕಟ್ಟಬೇಡಿ ಅಥವಾ ಬಾಯಿಯಿಂದ ವಿಷ ಹೀರಬೇಡಿ.",
-                "ಉಂಗುರ, ಬಳೆ ಅಥವಾ ಬಿಗಿಯಾದ ಬಟ್ಟೆಗಳನ್ನು ತೆಗೆದುಹಾಕಿ ಮತ್ತು ತಕ್ಷಣ ಆಸ್ಪತ್ರೆಗೆ ಕರೆದೊಯ್ಯಿರಿ.",
-            ],
-        ),
-        "default": (
-            "ದಯವಿಟ್ಟು ಗಾಬರಿಯಾಗಬೇಡಿ. ತಕ್ಷಣ ಸಹಾಯವಾಣಿಗೆ ಕರೆ ಮಾಡಿ ಮತ್ತು ಕೆಳಗಿನ ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ ಅನುಸರಿಸಿ.",
-            [
-                "ವ್ಯಕ್ತಿಯ ಉಸಿರಾಟ ಮತ್ತು ಪ್ರಜ್ಞೆಯನ್ನು ಪರಿಶೀಲಿಸಿ, ಅವರನ್ನು ಶಾಂತವಾಗಿರಿಸಿ.",
-                "ರಕ್ತಸ್ರಾವವಾಗುತ್ತಿದ್ದರೆ ಸ್ವಚ್ಛವಾದ ಬಟ್ಟೆಯಿಂದ ಗಾಯದ ಮೇಲೆ ಒತ್ತಿ ಹಿಡಿಯಿರಿ.",
-                "ಆಂಬ್ಯುಲೆನ್ಸ್ ಬರುವವರೆಗೆ ವ್ಯಕ್ತಿಯನ್ನು ಸುರಕ್ಷಿತ ಸ್ಥಳದಲ್ಲಿ ಇರಿಸಿ.",
-            ],
-        ),
-    },
-    "hi_IN": {
-        "snake": (
-            "कृपया घबराएं नहीं। तुरंत 108 एम्बुलेंस को कॉल करें। सांप के काटे हुए हिस्से को हिलाएं नहीं।",
-            [
-                "व्यक्ति को शांत लिटाएं और काटे हुए हिस्से को दिल के स्तर से नीचे रखें।",
-                "घाव पर कपड़ा कसकर न बांधें और मुंह से जहर न चूसें।",
-                "अंगूठी, कंगन या तंग कपड़े उतार दें और तुरंत अस्पताल ले जाएं।",
-            ],
-        ),
-        "default": (
-            "कृपया घबराएं नहीं। तुरंत आपातकालीन हेल्पलाइन 108 पर कॉल करें और प्राथमिक उपचार करें।",
-            [
-                "व्यक्ति की सांस और होश की जांच करें और उन्हें शांत रखें।",
-                "यदि खून बह रहा है, तो साफ कपड़े से घाव पर दबाव बनाएं।",
-                "मदद आने तक व्यक्ति को सुरक्षित स्थान पर रखें।",
-            ],
-        ),
-    },
-    "ta_IN": {
-        "snake": (
-            "தயவுசெய்து பதற்றப்பட வேண்டாம். உடனடியாக 108 ஆம்புலன்ஸை அழைக்கவும். பாம்பு கடித்த இடத்தை அசைக்க வேண்டாம்.",
-            [
-                "நபரை அமைதியாகப் படுக்க வைத்து, கடித்த பகுதியை இதய மட்டத்திற்கு கீழே வைக்கவும்.",
-                "காயத்தின் மீது இறுக்கமாக துணியைக் கட்ட வேண்டாம்.",
-                "மோதிரம் அல்லது இறுக்கமான ஆடைகளை அகற்றி உடனடியாக மருத்துவமனைக்கு கொண்டு செல்லவும்.",
-            ],
-        ),
-        "default": (
-            "தயவுசெய்து பதற்றப்பட வேண்டாம். உடனடியாக 108 ஐ அழைத்து முதலுதவி செய்யுங்கள்.",
-            [
-                "நபரின் சுவாசத்தை சரிபார்த்து அவரை அமைதியாக வைத்திருங்கள்.",
-                "இரத்தக்கசிவு இருந்தால் சுத்தமான துணியால் அழுத்திப் பிடிக்கவும்.",
-                "உதவி வரும் வரை பாதுகாப்பான இடத்தில் இருக்கவும்.",
-            ],
-        ),
-    },
-    "te_IN": {
-        "snake": (
-            "దయచేసి కంగారు పడకండి. వెంటనే 108 అంబులెన్స్‌కు కాల్ చేయండి. పాము కరిచిన భాగాన్ని కదిలించవద్దు.",
-            [
-                "వ్యక్తిని ప్రశాంతంగా పడుకోబెట్టి, కరిచిన భాగాన్ని గుండె స్థాయి కంటే దిగువన ఉంచండి.",
-                "గాయంపై గుడ్డను గట్టిగా కట్టవద్దు లేదా నోటితో విషాన్ని పీల్చవద్దు.",
-                "ఉంగరాలు లేదా బిగుతుగా ఉండే దుస్తులను తీసివేసి వెంటనే ఆసుపత్రికి తరలించండి.",
-            ],
-        ),
-        "default": (
-            "దయచేసి కంగారు పడకండి. వెంటనే 108 కి కాల్ చేసి ప్రథమ చికిత్స అందించండి.",
-            [
-                "వ్యక్తి శ్వాసను పరిశీలించి వారిని ప్రశాంతంగా ఉంచండి.",
-                "రక్తస్రావం అవుతుంటే శుభ్రమైన గుడ్డతో గట్టిగా నొక్కి ఉంచండి.",
-                "అంబులెన్స్ వచ్చేవరకు సురక్షిత ప్రదేశంలో ఉంచండి.",
-            ],
-        ),
-    },
-    "ml_IN": {
-        "default": (
-            "ദയവായി പരിഭ്രാന്തരാകരുത്. ഉടൻ തന്നെ 108-ൽ വിളിച്ച് പ്രഥമശുശ്രൂഷ നൽകുക.",
-            [
-                "വ്യക്തിയുടെ ശ്വാസോച്ഛ്വാസം പരിശോധിച്ച് സമാധാനിപ്പിക്കുക.",
-                "രക്തസ്രാവമുണ്ടെങ്കിൽ വൃത്തിയുള്ള തുണി ഉപയോഗിച്ച് അമർത്തിപ്പിടിക്കുക.",
-                "സഹായം എത്തുന്നതുവരെ സുരക്ഷിത സ്ഥാനത്ത് തുടരുക.",
-            ],
-        ),
-    },
-    "mr_IN": {
-        "default": (
-            "कृपया घाबरू नका. ताबडतोब 108 वर कॉल करा आणि प्रथमोपचार सुरू करा.",
-            [
-                "व्यक्तीचा श्वासोच्छवास तपासा आणि त्यांना शांत ठेवा.",
-                "रक्तस्त्राव होत असल्यास स्वच्छ कापडाने जखमेवर दाब द्या.",
-                "मदत येईपर्यंत सुरक्षित ठिकाणी थांबा.",
-            ],
-        ),
-    },
-    "gu_IN": {
-        "default": (
-            "કૃપા કરીને ગભરાશો નહીં. તરત જ 108 પર કૉલ કરો અને પ્રાથમિક સારવાર આપો.",
-            [
-                "વ્યક્તિના શ્વાસની તપાસ કરો અને તેમને શાંત રાખો.",
-                "જો લોહી નીકળતું હોય તો સ્વચ્છ કપડાથી ઘા પર દબાણ આપો.",
-                "મદદ આવે ત્યાં સુધી સુરક્ષિત જગ્યાએ રહો.",
-            ],
-        ),
-    },
-    "bn_IN": {
-        "default": (
-            "দয়া করে আতঙ্কিত হবেন না। অবিলম্বে 108-এ কল করুন এবং প্রাথমিক চিকিৎসা দিন।",
-            [
-                "ব্যক্তির শ্বাস-প্রশ্বাস পরীক্ষা করুন এবং তাকে শান্ত রাখুন।",
-                "রক্তপাত হলে পরিষ্কার কাপড় দিয়ে ক্ষতস্থানে চাপ দিয়ে ধরুন।",
-                "সাহায্য না আসা পর্যন্ত নিরাপদ স্থানে থাকুন।",
-            ],
-        ),
-    },
-    "pa_IN": {
-        "default": (
-            "ਕਿਰਪਾ ਕਰਕੇ ਘਬਰਾਓ ਨਾ। ਤੁਰੰਤ 108 'ਤੇ ਕਾਲ ਕਰੋ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦਿਓ।",
-            [
-                "ਵਿਅਕਤੀ ਦੇ ਸਾਹ ਦੀ ਜਾਂਚ ਕਰੋ ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਸ਼ਾਂਤ ਰੱਖੋ।",
-                "ਜੇ ਖੂਨ ਵਹਿ ਰਿਹਾ ਹੈ ਤਾਂ ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਜ਼ਖ਼ਮ 'ਤੇ ਦਬਾਅ ਪਾਓ।",
-                "ਮਦਦ ਆਉਣ ਤੱਕ ਸੁਰੱਖਿਅਤ ਥਾਂ 'ਤੇ ਰਹੋ।",
-            ],
-        ),
-    },
-    "or_IN": {
-        "default": (
-            "ଦୟାକରି ଭୟଭୀତ ହୁଅନ୍ତୁ ନାହିଁ। ତୁରନ୍ତ 108 କୁ କଲ୍ କରନ୍ତୁ ଏବଂ ପ୍ରଥମ ଚିକିତ୍ସା କରନ୍ତୁ।",
-            [
-                "ବ୍ୟକ୍ତିଙ୍କ ନିଶ୍ୱାସ ପ୍ରଶ୍ୱାସ ଯାଞ୍ଚ କରନ୍ତୁ ଏବଂ ତାଙ୍କୁ ଶାନ୍ତ ରଖନ୍ତୁ।",
-                "ରକ୍ତସ୍ରାବ ହେଉଥିଲେ ସଫା କପଡ଼ାରେ କ୍ଷତ ସ୍ଥାନକୁ ଦାବି ଧରନ୍ତୁ।",
-                "ସାହାଯ୍ୟ ଆସିବା ପର୍ଯ୍ୟନ୍ତ ସୁରକ୍ଷିତ ସ୍ଥାନରେ ରୁହନ୍ତୁ।",
-            ],
-        ),
-    },
 }
 
 # ---------------------------------------------------------------------------
@@ -420,25 +273,23 @@ EMERGENCY_DIRECTORY = [
         "number": "108",
         "keywords": [
             "ambulance", "hospital", "doctor", "accident", "heart", "injury", "medical",
-            "bleeding", "unconscious", "faint", "snake", "bite", "poison", "breathing", "pregnan",
-            "saanp", "saaf", "kata", "haavu", "kacchide", "pambu", "paamu", "khoon", "dard",
-            "ಆಂಬ್ಯುಲೆನ್ಸ್", "ಆಸ್ಪತ್ರೆ", "ಅಪಘಾತ", "ಹಾವು", "ಕಚ್ಚಿದೆ", "ರಕ್ತ", "ನೋವು", "ಜ್ವರ",
-            "एम्बुलेंस", "अस्पताल", "दुर्घटना", "चोट", "एक्सीडेंट", "सांप", "खून",
-            "ആംബുലൻസ്", "പ്പാമ്പ്", "அவசர ஊர்தி", "ஆம்புலன்ஸ்", "பாம்பு", "ఆంబులెన్స్", "పాము",
+            "bleeding", "unconscious", "faint", "snake", "bite", "poison", "breathing",
+            "saanp", "saaf", "kata", "haavu", "kacchide", "pambu", "paamu", "lin", "chikpa",
+            "ꯂꯤꯟ", "ꯑꯦꯝꯕꯨꯂꯦꯟꯁ", "ꯍꯣꯁꯄꯤꯇꯥꯜ", "ಹಾವು", "ಕಚ್ಚಿದೆ", "ಆಂಬ್ಯುಲೆನ್ಸ್", "सांप", "एम्बुलेंस",
         ],
-        "desc": "Immediate dispatch for medical crises, snake bites, severe injuries, or emergency transport.",
-        "first_aid": "1. Check airway, breathing & pulse.\n2. Keep the person still and calm.\n3. Apply firm pressure to bleeding wounds until 108 arrives.",
+        "desc": "Medical emergencies, snake bites, physical trauma & fast patient dispatch.",
+        "first_aid": "1. Check airway, breathing & pulse.\n2. Keep person still and calm.\n3. Apply direct pressure to bleeding wounds.",
     },
     {
         "title": "Police & Safety",
         "icon": "👮",
         "number": "112",
         "keywords": [
-            "police", "attack", "crime", "theft", "danger", "fight", "robbery", "chor", "chori", "bachao",
-            "ಪೊಲೀಸ್", "ಕಳ್ಳ", "ಗಲಾಟೆ", "पुलिस", "बचाओ", "പോലീസ്", "காவல்துறை", "పోలీసు", "ପୋଲିସ",
+            "police", "attack", "crime", "theft", "danger", "fight", "robbery", "chor", "bachao",
+            "ꯄꯨꯂꯤꯁ", "ಪೊಲೀಸ್", "पुलिस", "போலீஸ்", "పోలీసు",
         ],
-        "desc": "Immediate assistance for crime, personal safety threats, or law enforcement.",
-        "first_aid": "1. Move to a safe, well-lit public area.\n2. Stay on the line with 112 and share nearby landmarks.",
+        "desc": "Immediate law enforcement intervention and urgent physical safety protection.",
+        "first_aid": "1. Move to a safe, visible public location.\n2. Keep dispatch informed of nearby landmarks.",
     },
     {
         "title": "Assault & Distress Helpline",
@@ -446,40 +297,33 @@ EMERGENCY_DIRECTORY = [
         "number": "1091",
         "keywords": [
             "assault", "harassment", "abuse", "stalking", "threat", "molestation",
-            "ದೌರ್ಜನ್ಯ", "ಕಿರುಕುಳ", "उत्पीड़न", "छेड़छाड़", "ഉപദ്രവം", "துன்புறுத்தல்",
-            "వేధింపులు", "ଅତ୍ୟାଚାର",
+            "ಕಿರುಕುಳ", "दबंग", "उत्पीड़न", "துன்புறுத்தல்", "வேధింపులు",
         ],
-        "desc": "Dedicated protection and rapid response for assault, harassment, or severe distress.",
-        "first_aid": "1. Seek immediate shelter in a safe shop or public group.\n2. Call 1091 or 112 instantly.\n3. Avoid confronting the person alone.",
+        "desc": "Direct protection, legal guidance and assistance against threats or assault.",
+        "first_aid": "1. Seek immediate public shelter.\n2. Dial 1091 or 112 instantly.\n3. Avoid confrontation alone.",
     },
     {
         "title": "Fire & Rescue",
         "icon": "🚒",
         "number": "101",
-        "keywords": [
-            "fire", "burn", "smoke", "cylinder", "blast", "rescue", "gas", "aag", "benki",
-            "ಬೆಂಕಿ", "ಸುಟ್ಟ", "आग", "തീ", "தீ", "అగ్ని", "ନିଆଁ",
-        ],
-        "desc": "Emergency response for fires, gas leaks, burns, or structural entrapment.",
-        "first_aid": "1. Evacuate immediately and stay low under smoke.\n2. Run cool water over minor burns for 10-15 minutes.",
+        "keywords": ["fire", "burn", "smoke", "cylinder", "blast", "gas", "aag", "benki", "ꯃꯩ", "ಬೆಂಕಿ", "आग", "തീ", "தீ"],
+        "desc": "Fire hazard suppression, burn mitigation and hazardous structure rescue.",
+        "first_aid": "1. Evacuate immediately.\n2. Cool minor burns with clean tap water for 10-15 minutes.",
     },
     {
-        "title": "Disaster & Flood Relief",
+        "title": "Disaster & Calamity Support",
         "icon": "🌊",
         "number": "1078",
-        "keywords": [
-            "flood", "earthquake", "cyclone", "landslide", "disaster", "baadh",
-            "ಭೂಕಂಪ", "ಪ್ರವಾಹ", "बाढ़", "പ്രളയം", "வெள்ளம்", "వరద", "ବନ୍ୟା",
-        ],
-        "desc": "Support during natural calamities, earthquakes, floods, and severe weather.",
-        "first_aid": "1. Switch off main electrical power and gas lines.\n2. Move to higher ground and avoid downed wires.",
+        "keywords": ["flood", "earthquake", "cyclone", "landslide", "disaster", "baadh", "ꯏꯁꯤꯡ", "ಪ್ರವಾಹ", "बाढ़"],
+        "desc": "Relief and evacuation assistance during floods, landslides and severe storms.",
+        "first_aid": "1. Disconnect main power lines.\n2. Move calmly to higher concrete ground.",
     },
 ]
 
 CATEGORY_INDEX = {"medical": 0, "police": 1, "assault": 2, "fire": 3, "disaster": 4}
 
 # ---------------------------------------------------------------------------
-# Helpers & Romanized Indian Language Detection
+# Helpers & Detection
 # ---------------------------------------------------------------------------
 def get_env(name):
     return os.getenv(name, "").strip()
@@ -499,36 +343,17 @@ SCRIPT_RANGES = [
     (0x0C00, 0x0C7F, "te_IN"),
     (0x0C80, 0x0CFF, "kn_IN"),
     (0x0D00, 0x0D7F, "ml_IN"),
+    (0xABC0, 0xABFF, "mni_IN"),  # Meitei Mayek
 ]
 
 ROMAN_LANG_KEYWORDS = {
-    "hi_IN": {
-        "mujhe", "mera", "meri", "mere", "hamara", "humko", "saanp", "saaf", "sap",
-        "kata", "kaata", "kaat", "bachao", "madad", "khoon", "dard", "aag", "chot",
-        "behosh", "saans", "bukhar", "dil", "aspataal", "chahiye", "hua", "hai",
-        "ho", "gaya", "gayi", "kisi", "ne", "ko", "se", "mein", "jaldi", "bhejo",
-    },
-    "kn_IN": {
-        "nanage", "nanna", "haavu", "havu", "kacchide", "kachide", "beku", "sahaya",
-        "rakta", "novu", "benki", "apaghata", "aspatre", "jvara", "kapadi", "maadi",
-        "bandide", "agide", "aagide", "dayavittu", "takshana", "illi",
-    },
-    "ta_IN": {
-        "enakku", "pambu", "paambu", "kadichathu", "kadithathu", "udavi", "vendum",
-        "ratham", "vali", "thee", "vibathu", "maruthuvamanai", "kaapathunga",
-    },
-    "te_IN": {
-        "naaku", "naku", "paamu", "pamu", "karichindi", "sahayam", "kavali",
-        "raktam", "noppi", "manta", "pramadam", "asupatri", "kapadandi",
-    },
-    "ml_IN": {
-        "enikku", "paampu", "pampu", "kadichu", "sahayam", "venam", "raktham",
-        "vedana", "thee", "apakadam", "asupathri", "rakshikku",
-    },
-    "mr_IN": {
-        "mala", "majha", "saap", "chavla", "madat", "havi", "rakta", "dukhata",
-        "aag", "apghat", "davakhana", "vachva",
-    },
+    "hi_IN": {"mujhe", "saanp", "saaf", "kata", "kaata", "bachao", "madad", "khoon", "dard", "aag", "chot", "hai", "karo"},
+    "kn_IN": {"nanage", "haavu", "havu", "kacchide", "kachide", "beku", "sahaya", "rakta", "novu", "benki", "dayavittu"},
+    "ta_IN": {"enakku", "pambu", "paambu", "kadichathu", "udavi", "vendum", "ratham", "vali", "thee", "kaapathunga"},
+    "te_IN": {"naaku", "paamu", "karichindi", "sahayam", "kavali", "raktam", "noppi", "pramadam", "kapadandi"},
+    "ml_IN": {"enikku", "paampu", "kadichu", "sahayam", "venam", "raktham", "vedana", "thee", "rakshikku"},
+    "mr_IN": {"mala", "saap", "chavla", "madat", "havi", "rakta", "dukhata", "aag", "vachva"},
+    "mni_IN": {"eikhoi", "lin", "chikre", "chikpa", "mateng", "pibiyu", "ee", "amashung", "thuna"},
 }
 
 
@@ -568,63 +393,57 @@ def match_emergency(text):
     return [s for s in EMERGENCY_DIRECTORY if any(kw in lower for kw in s["keywords"])]
 
 
-def is_snake_emergency(text):
-    lower = text.lower()
-    snake_terms = [
-        "ಹಾವು", "सांप", "பாம்பு", "పాము", "പ്പാമ്പ്",
-        "snake", "saanp", "saaf", "haavu", "havu", "pambu", "paamu",
-    ]
-    return any(t in lower for t in snake_terms)
-
-
 def get_fallback_response(transcript, lang_code, service):
-    lang_pack = LOCALIZED_FALLBACK_STEPS.get(lang_code)
-    if lang_pack:
-        if is_snake_emergency(transcript):
-            reply, steps = lang_pack.get("snake", lang_pack["default"])
-        else:
-            reply, steps = lang_pack["default"]
-        return reply, steps
-
-    rt = TRANSLATIONS.get(lang_code, TRANSLATIONS["en_IN"])
-    reply = rt["say_call"].format(number=" ".join(service["number"]))
-    steps = [re.sub(r"^\d+\.\s*", "", s.strip()) for s in service["first_aid"].split("\n") if s.strip()]
-    return reply, steps
+    fallbacks = {
+        "kn_IN": (
+            "ದಯವಿಟ್ಟು ಗಾಬರಿಯಾಗಬೇಡಿ. ತಕ್ಷಣ 108 ಆಂಬ್ಯುಲೆನ್ಸ್‌ಗೆ ಕರೆ ಮಾಡಿ ಮತ್ತು ರೋಗಿಯನ್ನು ಶಾಂತವಾಗಿರಿಸಿ.",
+            ["ವ್ಯಕ್ತಿಯ ಉಸಿರಾಟವನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಶಾಂತವಾಗಿ ಮಲಗಿಸಿ.", "ಗಾಯದ ಮೇಲೆ ಒತ್ತಡ ಹಾಕಿ ರಕ್ತಸ್ರಾವ ನಿಲ್ಲಿಸಿ.", "ತಕ್ಷಣ ತುರ್ತು ಆಸ್ಪತ್ರೆಗೆ ಕರೆದೊಯ್ಯಿರಿ."]
+        ),
+        "hi_IN": (
+            "कृपया घबराएं नहीं। तुरंत 108 पर कॉल करें और व्यक्ति को स्थिर रखें।",
+            ["व्यक्ति की सांस और होश की जांच करें।", "घाव पर साफ कपड़े से दबाव बनाकर रखें।", "तुरंत एम्बुलेंस की प्रतीक्षा करें।"]
+        ),
+        "mni_IN": (
+            "ꯆꯥꯅꯕꯤꯗꯨꯅ ꯑꯀꯤꯕ ꯄꯣꯛꯂꯣꯏꯗꯕꯅꯤ। ꯈꯨꯗꯛꯇ 108 ꯑꯦꯝꯕꯨꯂꯦꯟꯁ ꯀꯣꯜ ꯇꯧꯕꯤꯌꯨ।",
+            ["ꯃꯤꯑꯣꯏ ꯑꯗꯨꯕꯨ ꯅꯤꯡꯊꯤꯅ ꯂꯩꯍꯟꯕꯤꯌꯨ।", "ꯈꯨꯗꯣꯡꯊꯤꯕ ꯃꯐꯝ ꯑꯗꯨ ꯍꯤꯡꯅ ꯊꯝꯃꯣꯏꯗꯕꯅꯤ।", "ꯍꯣꯁꯄꯤꯇꯥꯜꯗ ꯈꯨꯗꯛꯇ ꯄꯨꯈꯠꯄꯤꯌꯨ।"]
+        ),
+        "en_IN": (
+            "Please stay calm. Immediately call 108 ambulance and follow basic first-aid.",
+            ["Keep the patient completely calm and still.", "Apply firm pressure to bleeding injuries.", "Wait for medical dispatch."]
+        ),
+    }
+    return fallbacks.get(lang_code, fallbacks.get("en_IN"))
 
 
 # ---------------------------------------------------------------------------
-# Gnani Prisma: Speech to Text
+# Gnani Prisma (STT) & Groq Triage
 # ---------------------------------------------------------------------------
 def transcribe(audio_path, lang_code):
     api_key = get_env("GNANI_API_KEY")
     if not api_key:
         return "", "GNANI_API_KEY is missing."
+    stt_lang = "en-IN" if lang_code == "mni_IN" else to_hyphen(lang_code)
     try:
         with open(audio_path, "rb") as f:
             r = requests.post(
                 STT_URL,
                 headers={"X-API-Key-ID": api_key},
                 files={"audio_file": ("voice.wav", f, "audio/wav")},
-                data={"language_code": to_hyphen(lang_code), "format": "transcribe"},
+                data={"language_code": stt_lang, "format": "transcribe"},
                 timeout=30,
             )
     except Exception as e:
-        return "", f"Could not reach speech service: {e}"
+        return "", f"Speech connection failed: {e}"
     if r.status_code != 200:
         return "", f"Speech recognition failed ({r.status_code})"
     try:
         data = r.json()
     except ValueError:
-        return "", "Unexpected response from speech service."
+        return "", "Invalid response from speech server."
     transcript = str(data.get("transcript") or data.get("text") or "").strip()
-    if not transcript:
-        return "", "No speech detected. Please try again."
     return transcript, ""
 
 
-# ---------------------------------------------------------------------------
-# Groq Triage (Auto-detects spoken language & enforces native script output)
-# ---------------------------------------------------------------------------
 def groq_triage(transcript, lang_code):
     groq_key = get_env("GROQ_API_KEY")
     if not groq_key:
@@ -632,20 +451,17 @@ def groq_triage(transcript, lang_code):
 
     language_name = LANG_NAMES.get(lang_code, "English")
     system_prompt = (
-        "You are Sahaya, an empathetic emergency first-aid assistant for India.\n"
-        f"1. Language Detection: The user's detected language is {language_name} ({lang_code}). "
-        "If the user's input is Romanized/transliterated Indian speech (for example, 'mujhe saaf kata hai' = Hindi hi_IN, "
-        "'nanage haavu kacchide' = Kannada kn_IN, 'enakku pambu kadichathu' = Tamil ta_IN, 'naaku paamu karichindi' = Telugu te_IN), "
-        "detect the true Indian language from the words.\n"
-        "2. Native Script Requirement: You MUST write 'reply' and 'steps' ENTIRELY in the native script of that language "
-        "(Devanagari for Hindi/Marathi, Kannada script for Kannada, Tamil script for Tamil, Telugu script for Telugu, etc.). "
-        "NEVER reply in English if the user spoke an Indian language.\n"
-        "3. Output valid JSON ONLY with these exact keys:\n"
-        '{"lang_code": "hi_IN|kn_IN|ta_IN|te_IN|ml_IN|mr_IN|gu_IN|bn_IN|pa_IN|or_IN|en_IN", '
+        "You are Sahaya TranslateAid, an empathetic AI emergency first-aid dispatcher.\n"
+        f"1. Target Language: {language_name} ({lang_code}). Detect Romanized/transliterated Indian speech if used.\n"
+        "2. Script: Respond ENTIRELY in the native script of the detected Indian language "
+        "(e.g., Devanagari for Hindi, Kannada script for Kannada, Meitei Mayek for Manipuri, etc.). "
+        "Do not answer in English if an Indian language is spoken.\n"
+        "3. Output valid JSON ONLY:\n"
+        '{"lang_code": "' + lang_code + '", '
         '"category": "medical|police|assault|fire|disaster", '
         '"urgency": "critical|urgent|routine", '
-        '"reply": "2 calming sentences in native script telling them to call the helpline and what to do immediately", '
-        '"steps": ["first-aid step 1 in native script", "first-aid step 2 in native script", "first-aid step 3 in native script"]}'
+        '"reply": "Calming 2-sentence response in native script with urgent instruction", '
+        '"steps": ["step 1 in native script", "step 2 in native script", "step 3 in native script"]}'
     )
 
     custom_model = get_env("GROQ_MODEL")
@@ -653,23 +469,22 @@ def groq_triage(transcript, lang_code):
         m for m in GROQ_MODELS if m != custom_model
     ]
 
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {groq_key}",
-    }
-
     for model_name in models_to_try:
-        payload = {
-            "model": model_name,
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": f"User emergency (detected language {lang_code}): {transcript}"},
-            ],
-            "temperature": 0.2,
-            "max_tokens": 600,
-        }
         try:
-            r = requests.post(GROQ_CHAT_URL, headers=headers, json=payload, timeout=25)
+            r = requests.post(
+                GROQ_CHAT_URL,
+                headers={"Content-Type": "application/json", "Authorization": f"Bearer {groq_key}"},
+                json={
+                    "model": model_name,
+                    "messages": [
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": f"User emergency: {transcript}"},
+                    ],
+                    "temperature": 0.2,
+                    "max_tokens": 550,
+                },
+                timeout=25,
+            )
             if r.status_code != 200:
                 continue
             content = r.json()["choices"][0]["message"]["content"]
@@ -681,13 +496,12 @@ def groq_triage(transcript, lang_code):
             reply = str(data.get("reply", "")).strip()
             if not reply:
                 continue
-            raw_steps = data.get("steps", [])
-            steps = [re.sub(r"^\d+\.\s*", "", str(s).strip()) for s in raw_steps if str(s).strip()][:5]
-            detected_llm_lang = str(data.get("lang_code", lang_code)).strip()
-            if detected_llm_lang not in TRANSLATIONS:
-                detected_llm_lang = lang_code
+            steps = [re.sub(r"^\d+\.\s*", "", str(s).strip()) for s in data.get("steps", []) if str(s).strip()][:5]
+            det_lang = str(data.get("lang_code", lang_code)).strip()
+            if det_lang not in TRANSLATIONS:
+                det_lang = lang_code
             return {
-                "lang_code": detected_llm_lang,
+                "lang_code": det_lang,
                 "category": str(data.get("category", "medical")).strip().lower(),
                 "urgency": str(data.get("urgency", "urgent")).strip().lower(),
                 "reply": reply,
@@ -695,30 +509,27 @@ def groq_triage(transcript, lang_code):
             }, ""
         except Exception:
             continue
-
     return None, "Offline fallback active"
 
 
 # ---------------------------------------------------------------------------
-# Gnani Timbre: Text to Speech
+# Gnani Timbre: TTS
 # ---------------------------------------------------------------------------
 def timbre_speak(text, lang_code):
     if lang_code not in TIMBRE_LANGS:
-        return None, "Voice not available for this language"
+        return None, "Voice not supported for this dialect"
     api_key = get_env("GNANI_API_KEY")
     if not api_key:
         return None, "API key missing"
 
-    model = get_env("TIMBRE_MODEL") or "timbre-v3.0"
-    voice = get_env("TIMBRE_VOICE") or "Shivani"
     try:
         r = requests.post(
             TTS_URL,
             headers={"X-API-Key-ID": api_key, "Content-Type": "application/json"},
             json={
                 "text": text,
-                "voice": voice,
-                "model": model,
+                "voice": get_env("TIMBRE_VOICE") or "Shivani",
+                "model": get_env("TIMBRE_MODEL") or "timbre-v3.0",
                 "language": to_hyphen(lang_code),
                 "speed": 1.0,
                 "audio_config": {
@@ -731,87 +542,93 @@ def timbre_speak(text, lang_code):
             },
             timeout=30,
         )
+        if r.status_code != 200:
+            return None, "TTS failed"
+        with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
+            tmp.write(r.content)
+        return tmp.name, ""
     except Exception:
-        return None, "TTS connection failed"
-    if r.status_code != 200:
-        return None, "TTS generation failed"
-    with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
-        tmp.write(r.content)
-    return tmp.name, ""
+        return None, "TTS error"
 
 
 # ---------------------------------------------------------------------------
-# HTML Builders
+# HTML Builders (Glassmorphic & Palette UI)
 # ---------------------------------------------------------------------------
-def call_link(number, label):
-    return f'<a class="call-btn" href="tel:{number}">{html.escape(label)}</a>'
-
-
 def header_html(t):
     return (
-        f'<div class="header-banner"><h1>{html.escape(t["title"])}</h1>'
-        f'<p>{html.escape(t["subtitle"])}</p></div>'
+        '<div class="brand-top glass-card">'
+        '  <div class="brand-badge">'
+        '    <span class="live-dot"></span> Connected &bull; AI Voice Triage'
+        '  </div>'
+        '  <div class="brand-title-box">'
+        '    <div class="audio-wave"><span></span><span></span><span></span><span></span></div>'
+        f'   <h1>{html.escape(t["title"])}</h1>'
+        '  </div>'
+        f' <p class="brand-sub">{html.escape(t["subtitle"])}</p>'
+        '</div>'
     )
 
 
 def result_card(service, steps, urgency, rt):
     if steps:
-        clean_steps = [re.sub(r"^\d+\.\s*", "", s) for s in steps]
-        body = "<ol>" + "".join(f"<li>{html.escape(s)}</li>" for s in clean_steps) + "</ol>"
+        body = "<ol class='step-list'>" + "".join(f"<li>{html.escape(s)}</li>" for s in steps) + "</ol>"
     else:
-        body = "<br>" + html.escape(service["first_aid"]).replace("\n", "<br>")
+        body = "<p>" + html.escape(service["first_aid"]).replace("\n", "<br>") + "</p>"
 
-    pill = ""
-    if urgency in ("critical", "urgent", "routine"):
-        pill = f'<span class="pill pill-{urgency}">{urgency.upper()}</span>'
+    urgency_tag = f'<span class="badge badge-{urgency}">{urgency.upper()}</span>' if urgency else ""
 
-    return "".join([
-        '<div class="result-card">',
-        f'<h3>{service["icon"]} {html.escape(rt["action_header"])}{pill}</h3>',
-        f'<p>{html.escape(service["title"])} — {html.escape(service["desc"])}</p>',
-        '<div class="step-box">',
-        f'<strong>{html.escape(rt["first_aid_label"])}</strong>',
-        body,
-        "</div>",
-        call_link(service["number"], rt["call_btn"].format(number=service["number"])),
-        "</div>",
-    ])
+    return (
+        '<div class="emergency-banner glass-card">'
+        f' <div class="emergency-icon-wrap">{service["icon"]}</div>'
+        '  <div class="emergency-info">'
+        f'   <div class="emergency-title-row"><h2>{html.escape(service["title"])}</h2>{urgency_tag}</div>'
+        f'   <p class="service-desc">{html.escape(service["desc"])}</p>'
+        '  </div>'
+        '</div>'
+        '<div class="content-card glass-card">'
+        f' <div class="card-heading">🩹 {html.escape(rt["first_aid_label"])}</div>'
+        f' {body}'
+        f' <a class="call-action-btn" href="tel:{service["number"]}">'
+        f'   📞 {html.escape(rt["call_btn"].format(number=service["number"]))}'
+        '  </a>'
+        '</div>'
+    )
 
 
 def directory_html(t):
     cards = []
     for srv in EMERGENCY_DIRECTORY:
-        cards.append("".join([
-            '<div class="grid-card"><div>',
-            f'<h2>{srv["icon"]}</h2>',
-            f'<h3>{html.escape(srv["title"])}</h3>',
-            f'<p>{html.escape(srv["desc"])}</p>',
-            "</div><div>",
-            f'<div class="helpline">{html.escape(t["helpline"])} {srv["number"]}</div>',
-            call_link(srv["number"], t["call_btn"].format(number=srv["number"])),
-            "</div></div>",
-        ]))
+        cards.append(
+            '<div class="dir-item glass-card">'
+            f' <div class="dir-icon">{srv["icon"]}</div>'
+            '  <div class="dir-meta">'
+            f'   <h4>{html.escape(srv["title"])}</h4>'
+            f'   <span class="dir-number">{srv["number"]}</span>'
+            '  </div>'
+            f' <a class="quick-call-btn" href="tel:{srv["number"]}">Call</a>'
+            '</div>'
+        )
     return (
-        f'<h3 class="dir-title">{html.escape(t["directory_header"])}</h3>'
-        f'<div class="dir-grid">{"".join(cards)}</div>'
+        f'<div class="dir-container"><h3 class="dir-title">📋 {html.escape(t["directory_header"])}</h3>'
+        f'<div class="dir-list">{"".join(cards)}</div></div>'
     )
 
 
 # ---------------------------------------------------------------------------
-# Pipeline
+# Execution Pipeline
 # ---------------------------------------------------------------------------
 def run_pipeline(transcript, selected_lang):
     reply_lang = detect_lang(transcript, selected_lang)
     rt = TRANSLATIONS.get(reply_lang, TRANSLATIONS["en_IN"])
-    transcript_md = f"{rt['detected']} {transcript}"
+    transcript_bubble = f"**{rt['detected']}**\n\n💬 {transcript}"
 
-    yield "", transcript_md, "", None, ""
+    yield "", transcript_bubble, "", None, ""
 
     triage, _ = groq_triage(transcript, reply_lang)
     if triage:
         reply_lang = triage.get("lang_code", reply_lang)
         rt = TRANSLATIONS.get(reply_lang, TRANSLATIONS["en_IN"])
-        transcript_md = f"{rt['detected']} {transcript}"
+        transcript_bubble = f"**{rt['detected']}**\n\n💬 {transcript}"
         service = EMERGENCY_DIRECTORY[CATEGORY_INDEX.get(triage["category"], 0)]
         reply_text = triage["reply"]
         steps = triage["steps"]
@@ -822,17 +639,17 @@ def run_pipeline(transcript, selected_lang):
         reply_text, steps = get_fallback_response(transcript, reply_lang, service)
         urgency = "urgent"
 
-    reply_md = f"{rt['audio_response']}\n\n{reply_text}"
+    reply_bubble = f"**{rt['audio_response']}**\n\n{reply_text}"
     card = result_card(service, steps, urgency, rt)
-    yield "", transcript_md, reply_md, None, card
+    yield "", transcript_bubble, reply_bubble, None, card
 
     audio_path, _ = timbre_speak(reply_text, reply_lang)
-    yield "", transcript_md, reply_md, audio_path, card
+    yield "", transcript_bubble, reply_bubble, audio_path, card
 
 
 def on_audio(audio_path, lang_code):
     if not audio_path:
-        yield "⚠️ No recording found.", "", "", None, ""
+        yield "⚠️ Please record your voice message first.", "", "", None, ""
         return
     yield "", "", "", None, ""
     transcript, err = transcribe(audio_path, lang_code)
@@ -845,13 +662,13 @@ def on_audio(audio_path, lang_code):
 def on_text(text, lang_code):
     text = (text or "").strip()
     if not text:
-        yield "⚠️ Please enter your emergency first.", "", "", None, ""
+        yield "⚠️ Please enter your message first.", "", "", None, ""
         return
     yield from run_pipeline(text, lang_code)
 
 
 def apply_language(lang_code):
-    t = TRANSLATIONS[lang_code]
+    t = TRANSLATIONS.get(lang_code, TRANSLATIONS["en_IN"])
     return (
         header_html(t),
         gr.update(label=t["mic_header"]),
@@ -862,161 +679,295 @@ def apply_language(lang_code):
 
 
 # ---------------------------------------------------------------------------
-# Styling
+# CSS Styling (Palette + Frosted Glassmorphism Effect)
 # ---------------------------------------------------------------------------
 CSS = """
+/* Theme Palette:
+   Background: #F8FAFC
+   Surface: #FFFFFF (with glass backdrop)
+   Primary Blue: #2563EB
+   AI Teal: #14B8A6
+   Primary Text: #0F172A
+   Secondary Text: #64748B
+   Minor Alert: #F59E0B
+   Major Emergency: #DC2626
+   Safe/Connected: #16A34A
+   Disabled: #94A3B8
+*/
+
 body, .gradio-container {
-    background: linear-gradient(135deg, #07111E 0%, #0F233C 50%, #16325B 100%) !important;
-    color: #FFFFFF !important;
-    max-width: 1120px !important;
-    margin: auto !important;
-    min-height: 100vh;
-    font-family: system-ui, -apple-system, sans-serif;
+    background: radial-gradient(circle at 15% 20%, rgba(20, 184, 166, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(37, 99, 235, 0.08) 0%, transparent 40%),
+                #F8FAFC !important;
+    color: #0F172A !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    max-width: 980px !important;
+    margin: 0 auto !important;
+    padding: 1.5rem 1rem !important;
 }
 footer { display: none !important; }
 
+/* Frosted Glass Effect on all containers & blocks */
+.gradio-container .block, 
 .gradio-container .gr-panel,
-.gradio-container .gr-form,
 .gradio-container .gr-box,
-.gradio-container .gr-block,
-.gradio-container .block {
-    background: #112643 !important;
-    border: 1px solid #2D5380 !important;
-    border-radius: 16px !important;
-    color: #FFFFFF !important;
+.glass-card {
+    background: rgba(255, 255, 255, 0.72) !important;
+    backdrop-filter: blur(14px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    border-radius: 22px !important;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.03) !important;
 }
 
-.gradio-container label,
-.gradio-container .label-wrap,
-.gradio-container span,
-.gradio-container p,
-.gradio-container strong,
-.gradio-container h1,
-.gradio-container h2,
-.gradio-container h3,
-.gradio-container .prose,
-.gradio-container .markdown {
-    color: #FFFFFF !important;
+h1, h2, h3, h4, strong { color: #0F172A !important; }
+p, span, label { color: #64748B !important; }
+
+/* Header Glass */
+.brand-top {
+    text-align: center;
+    padding: 2rem 1.2rem 1.4rem;
+    margin-bottom: 0.8rem;
+}
+.brand-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(236, 253, 245, 0.85);
+    color: #16A34A !important;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 6px 18px;
+    border-radius: 9999px;
+    border: 1px solid rgba(167, 243, 208, 0.8);
+    margin-bottom: 0.8rem;
+}
+.live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #16A34A;
+    box-shadow: 0 0 8px rgba(22, 163, 74, 0.6);
+}
+.brand-title-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+.brand-top h1 {
+    font-size: 2.1rem;
+    font-weight: 800;
+    margin: 0;
+    color: #0F172A !important;
+    letter-spacing: -0.02em;
+}
+.brand-sub {
+    font-size: 1.05rem;
+    color: #64748B !important;
+    margin-top: 6px;
 }
 
+/* Audio wave */
+.audio-wave {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 24px;
+}
+.audio-wave span {
+    width: 4px;
+    height: 18px;
+    background: #14B8A6;
+    border-radius: 4px;
+}
+
+/* SOS Panic Button */
+.sos-row { text-align: center; margin: 0.8rem 0 1.5rem; }
+.sos-panic-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%) !important;
+    color: #FFFFFF !important;
+    font-size: 1.15rem;
+    font-weight: 800;
+    padding: 16px 40px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 25px rgba(220, 38, 38, 0.38);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.sos-panic-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 30px rgba(220, 38, 38, 0.48);
+}
+
+/* Inputs & Form controls */
+.gradio-container select,
 .gradio-container input,
-.gradio-container textarea,
-.gradio-container select {
-    background: #0A182B !important;
-    border: 1.5px solid #3B6E9C !important;
-    color: #FFFFFF !important;
-    font-size: 1.05rem !important;
-    border-radius: 12px !important;
+.gradio-container textarea {
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(8px) !important;
+    border: 1.5px solid #CBD5E1 !important;
+    border-radius: 14px !important;
+    color: #0F172A !important;
+    font-size: 1rem !important;
+    padding: 10px 14px !important;
 }
-
+.gradio-container select:focus,
+.gradio-container input:focus,
+.gradio-container textarea:focus {
+    border-color: #2563EB !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+}
 .gradio-container button.primary {
-    background: linear-gradient(135deg, #FF6500, #E5383B) !important;
-    border: none !important;
+    background: #2563EB !important;
     color: #FFFFFF !important;
     font-weight: 700 !important;
-    border-radius: 12px !important;
-    padding: 12px 20px !important;
-}
-
-.header-banner {
-    background: linear-gradient(135deg, #132B4C, #1D4370);
-    border: 1px solid #3E72A8;
-    padding: 1.6rem;
-    border-radius: 20px;
-    text-align: center;
-    margin-bottom: 1rem;
-}
-.header-banner h1 { font-size: 2rem; margin: 0.2rem 0; }
-.header-banner p { color: #D4E6F9 !important; font-size: 1.05rem; }
-
-.response-box {
-    background: #132C4E !important;
-    border: 1.5px solid #3E72A8 !important;
+    border: none !important;
     border-radius: 14px !important;
-    padding: 14px 18px !important;
-    margin: 8px 0 !important;
-    color: #FFFFFF !important;
+    padding: 12px 20px !important;
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.28) !important;
+    transition: transform 0.15s ease;
+}
+.gradio-container button.primary:hover {
+    transform: translateY(-1px);
 }
 
-.result-card {
-    background: #132C4E !important;
-    border: 1.5px solid #4A86C5 !important;
-    border-left: 7px solid #FF6500 !important;
-    border-radius: 16px;
-    padding: 1.4rem;
-    margin-top: 0.8rem;
+/* Glass Message Bubbles */
+.live-bubble {
+    background: rgba(241, 245, 249, 0.8) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.9) !important;
+    border-radius: 18px !important;
+    padding: 16px 20px !important;
+    margin: 10px 0 !important;
+    color: #0F172A !important;
+    font-size: 1.05rem !important;
 }
 
-.step-box {
-    background: #0A192F !important;
-    border: 1px solid #2D5A88 !important;
-    border-radius: 12px;
-    padding: 1rem 1.2rem;
-    margin: 1rem 0;
-    line-height: 1.6;
-}
-.step-box strong { color: #FFB703 !important; }
-
-.dir-title { margin: 1.5rem 0 0.8rem 0; font-size: 1.3rem; }
-.dir-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 16px;
-}
-.grid-card {
-    background: #132C4E !important;
-    border: 1px solid #356394 !important;
-    border-top: 4px solid #38BDF8 !important;
-    border-radius: 16px;
-    padding: 1.2rem;
+/* Emergency Banner */
+.emergency-banner {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    background: rgba(254, 242, 242, 0.8) !important;
+    border: 1.5px solid rgba(252, 165, 165, 0.85) !important;
+    border-radius: 20px;
+    padding: 1.2rem 1.6rem;
+    margin-top: 1rem;
 }
-.helpline { color: #38BDF8 !important; font-weight: 700; margin-bottom: 10px; }
+.emergency-icon-wrap {
+    font-size: 2.2rem;
+    background: rgba(255, 255, 255, 0.9);
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(220, 38, 38, 0.15);
+}
+.emergency-info { flex: 1; }
+.emergency-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.emergency-title-row h2 {
+    font-size: 1.35rem;
+    margin: 0;
+    color: #DC2626 !important;
+    font-weight: 800;
+}
+.service-desc {
+    color: #64748B !important;
+    margin: 4px 0 0;
+    font-size: 0.95rem;
+}
 
-a.call-btn {
-    display: block;
-    text-align: center;
-    background: linear-gradient(135deg, #10B981, #059669);
-    color: #FFFFFF !important;
-    text-decoration: none !important;
-    padding: 12px 16px;
-    border-radius: 12px;
+.badge {
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 800;
+}
+.badge-critical { background: #DC2626; color: #FFF !important; }
+.badge-urgent { background: #F59E0B; color: #FFF !important; }
+.badge-routine { background: #14B8A6; color: #FFF !important; }
+
+/* Content Card */
+.content-card {
+    border-radius: 20px;
+    padding: 1.5rem 1.8rem;
+    margin-top: 1rem;
+}
+.card-heading {
+    font-size: 1.15rem;
     font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 0.8rem;
+}
+.step-list {
+    margin: 0;
+    padding-left: 1.4rem;
+    color: #0F172A;
+    line-height: 1.75;
 }
 
-.pill {
-    display: inline-block;
-    font-size: 0.72em;
-    font-weight: 800;
-    padding: 4px 12px;
-    border-radius: 999px;
-    margin-left: 10px;
-}
-.pill-critical { background: #E11D48; }
-.pill-urgent { background: #D97706; }
-.pill-routine { background: #0D9488; }
-
-.sos-container { text-align: center; margin: 0.9rem 0; }
-.sos-btn {
-    display: inline-block;
-    background: linear-gradient(135deg, #E11D48, #BE123C);
+.call-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #16A34A;
     color: #FFFFFF !important;
-    font-size: 1.25rem;
-    font-weight: 800;
-    padding: 16px 38px;
-    border: 2px solid #FDA4AF;
-    border-radius: 50px;
-    cursor: pointer;
     text-decoration: none !important;
-    animation: sos-pulse 1.5s ease-in-out infinite;
+    font-size: 1.15rem;
+    font-weight: 700;
+    padding: 14px 20px;
+    border-radius: 14px;
+    margin-top: 1.3rem;
+    box-shadow: 0 6px 20px rgba(22, 163, 74, 0.28);
+    transition: transform 0.15s ease;
 }
-@keyframes sos-pulse {
-    0%, 100% { box-shadow: 0 0 25px rgba(225, 29, 72, 0.5); }
-    50% { box-shadow: 0 0 45px rgba(225, 29, 72, 0.9); }
+.call-action-btn:hover { transform: translateY(-1px); }
+
+/* Directory Section */
+.dir-container { margin-top: 2rem; }
+.dir-title { font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem; }
+.dir-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
 }
-.sos-sub { color: #E2E8F0 !important; font-size: 0.9rem; margin-top: 6px; }
+.dir-item {
+    border-radius: 18px;
+    padding: 1rem 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.dir-icon { font-size: 1.8rem; }
+.dir-meta { flex: 1; }
+.dir-meta h4 { margin: 0; font-size: 1rem; font-weight: 700; color: #0F172A !important; }
+.dir-number {
+    color: #2563EB !important;
+    font-weight: 800;
+    font-size: 0.95rem;
+}
+.quick-call-btn {
+    background: rgba(37, 99, 235, 0.08);
+    color: #2563EB !important;
+    padding: 8px 16px;
+    border-radius: 10px;
+    text-decoration: none !important;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: 1px solid rgba(37, 99, 235, 0.2);
+}
 """
 
 INIT_JS = """() => {
@@ -1049,7 +1000,6 @@ INIT_JS = """() => {
         window._sosOsc = osc;
         window._sosPlaying = true;
         sweep();
-
         setTimeout(function() { window.stopSiren(); }, 15000);
     };
 
@@ -1063,31 +1013,30 @@ INIT_JS = """() => {
 }"""
 
 # ---------------------------------------------------------------------------
-# UI Layout
+# Gradio Blocks
 # ---------------------------------------------------------------------------
 t0 = TRANSLATIONS["en_IN"]
 
 with gr.Blocks(
-    title="Sahaya Emergency Assistant",
-    theme=gr.themes.Soft(primary_hue="orange", neutral_hue="slate"),
+    title="TranslateAid — Sahaya Emergency",
+    theme=gr.themes.Base(),
     css=CSS,
     js=INIT_JS,
 ) as demo:
     header = gr.HTML(header_html(t0))
 
     gr.HTML(
-        '<div class="sos-container">'
-        '<button class="sos-btn" onclick="startSiren(); setTimeout(()=>window.open(\'tel:1091\'),500);">'
-        '🚨 SOS PANIC — TAP FOR LOUD ALARM + CALL 1091'
+        '<div class="sos-row">'
+        '<button class="sos-panic-btn" onclick="startSiren(); setTimeout(()=>window.open(\'tel:1091\'),500);">'
+        '🚨 EMERGENCY SOS &bull; LOUD ALARM + DIAL 1091'
         '</button>'
-        '<p class="sos-sub">Triggers a loud siren and dials Assault Helpline 1091</p>'
         '</div>'
     )
 
     lang_dd = gr.Dropdown(
         choices=[(label, code) for code, label in LANGUAGES.items()],
         value="en_IN",
-        label="🌐 Select Language / ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ / भाषा चुनें",
+        label="🌐 Language Selection / ಭಾಷೆ / भाषा / ꯃꯤꯇꯩꯂꯣꯟ",
     )
 
     with gr.Row(equal_height=True):
@@ -1107,10 +1056,10 @@ with gr.Blocks(
             send_btn = gr.Button(t0["send"], variant="primary")
 
     status = gr.Markdown("", visible=False)
-    transcript_out = gr.Markdown("", elem_classes=["response-box"])
-    reply_out = gr.Markdown("", elem_classes=["response-box"])
+    transcript_out = gr.Markdown("", elem_classes=["live-bubble"])
+    reply_out = gr.Markdown("", elem_classes=["live-bubble"])
     reply_audio = gr.Audio(
-        label="🔊 Sahaya Voice Guidance",
+        label="🔊 Sahaya Voice Response",
         type="filepath",
         autoplay=True,
         interactive=False,
