@@ -98,7 +98,7 @@ TRANSLATIONS = {
     },
     "te_IN": {
         "title": "సహాయ (Sahaya)",
-        "subtitle": "సురక్షితంగా ఉండండి. 🛡️",
+        "subtitle": "సురಕ್ಷಿತంగా ఉండండి. 🛡️",
         "mic_header": "🎙️ మాట్లాడటానికి నొక్కండి",
         "type_header": "⌨️ లేదా టైప్ చేయండి",
         "type_placeholder": "ఉదా. ఆంబులెన్స్ కావాలి, పాము కరిచింది, ప్రమాదం...",
@@ -108,13 +108,13 @@ TRANSLATIONS = {
         "first_aid_label": "ప్రథమ చికిత్స మార్గదర్శకాలు:",
         "call_btn": "ఇప్పుడే {number} కి కాల్ చేయండి",
         "directory_header": "అత్యవసర సేవల డైరెక్టరీ",
-        "helpline": "హెల్ప్‌లైన్:",
+        "helpline": "హెಲ್ప్‌లైన్:",
         "audio_response": "🔊 సహాయ వాయిస్ మార్గదర్శకత్వం:",
         "say_call": "దయచేసి వెంటనే {number} కి కాల్ చేయండి.",
     },
     "ml_IN": {
         "title": "സഹായ (Sahaya)",
-        "subtitle": "സുരക്ഷിതരായിരിക്കൂ. 🛡️",
+        "subtitle": "സുരಕ್ಷಿತരായിരിക്കൂ. 🛡️",
         "mic_header": "🎙️ സംസാരിക്കാൻ ടാപ്പ് ചെയ്യുക",
         "type_header": "⌨️ അല്ലെങ്കിൽ ടൈപ്പ് ചെയ്യുക",
         "type_placeholder": "ഉദാ. ആംബുലൻസ് വേണം, പാമ്പ് കടിയേറ്റു, അപകടം...",
@@ -183,7 +183,7 @@ TRANSLATIONS = {
         "type_header": "⌨️ ਜਾਂ ਟਾਈਪ ਕਰੋ",
         "type_placeholder": "ਜਿਵੇਂ ਐਂਬੂਲੈਂਸ ਚਾਹੀਦੀ ਹੈ, ਸੱਪ ਨੇ ਡੰਗਿਆ, ਹਾਦਸਾ...",
         "send": "ਐਮਰਜੈਂਸੀ ਅਲਰਟ ਭੇਜੋ",
-        "detected": "🗣️ ਪਤਾ ਲੱਗੀ ਐਮਰਜੈਂਸੀ:",
+        "detected": "🗣️ पता लगी ਐਮਰਜੈਂਸੀ:",
         "action_header": "ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦਿਸ਼ਾ-ਨਿਰਦੇਸ਼",
         "first_aid_label": "ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਕਦਮ:",
         "call_btn": "ਹੁਣੇ {number} 'ਤੇ ਕਾਲ ਕਰੋ",
@@ -199,7 +199,7 @@ TRANSLATIONS = {
         "type_header": "⌨️ କିମ୍ବା ଟାଇପ୍ କରନ୍ତୁ",
         "type_placeholder": "ଯେପରି ଆମ୍ବୁଲାନ୍ସ ଦରକାର, ସାପ କାମୁଡ଼ିଛି, ଦୁର୍ଘଟଣା...",
         "send": "ଜରୁରୀକାଳୀନ ଆଲର୍ଟ ପଠାନ୍ତୁ",
-        "detected": "🗣️ ଚିହ୍ନଟ ଜରୁରୀକାଳୀନ ପରିସ୍ଥିତି:",
+        "detected": "🗣️ ଚିହ्ନଟ ଜରୁରୀକାଳୀନ ପରିସ୍ଥିତି:",
         "action_header": "ପ୍ରଥମ ଚିକିତ୍ସା ନିର୍ଦ୍ଦେଶାବଳୀ",
         "first_aid_label": "ପ୍ରଥମ ଚିକିତ୍ସା ପଦକ୍ଷେପ:",
         "call_btn": "ତୁରନ୍ତ {number} କୁ କଲ୍ କରନ୍ତୁ",
@@ -295,7 +295,7 @@ EMERGENCY_DIRECTORY = [
         "number": "1091",
         "keywords": [
             "assault", "harassment", "abuse", "stalking", "threat", "molestation",
-            "ಕಿರುಕುಳ", "दबंग", "उत्पीड़न", "துன்புறுத்தல்", "వేధింపులు",
+            "ಕಿರುಕುಳ", "दबंग", "उत्पीड़न", "दुன்புறுத்தல்", "వేధింపులు",
         ],
         "desc": "Direct protection, helpline assistance and intervention against harassment or assault.",
         "first_aid": "1. Seek immediate shelter in a busy public area.\n2. Dial 1091 or 112 instantly.\n3. Trigger the loud SOS alarm to deter threats.",
@@ -396,19 +396,19 @@ def get_fallback_response(transcript, lang_code, service):
             ],
         ),
         "hi_IN": (
-            "कृपया घबराएं नहीं। तुरंत 108 पर कॉल करें और प्राथमिक उपचार के इन चरणों का पालन करें।",
+            "कृपया घबराएं नहीं। तुरंत 108 पर कॉल करें और प्राथमिक उपचार के इन चरणों का पालन करें.",
             [
-                "व्यक्ति की सांस और होश की जांच करें।",
-                "घाव पर साफ कपड़े से दबाव बनाकर रखें।",
-                "तुरंत एम्बुलेंस की प्रतीक्षा करें।",
+                "व्यक्ति की सांस और होश की जांच करें.",
+                "घाव पर साफ कपड़े से दबाव बनाकर रखें.",
+                "तुरंत एम्बुलेंस की प्रतीक्षा करें.",
             ],
         ),
         "mni_IN": (
-            "ꯆꯥꯅꯕꯤꯗꯨꯅ ꯑꯀꯤꯕ ꯄꯣꯛꯂꯣꯏꯗꯕꯅꯤ। ꯈꯨꯗꯛꯇ 108 ꯑꯦꯝꯕꯨꯂꯦꯟꯁ ꯀꯣꯜ ꯇꯧꯕꯤꯌꯨ ꯑꯃꯁꯨꯡ ꯃꯇꯦꯡ ꯂꯧꯕꯤꯌꯨ।",
+            "ꯆꯥꯅꯕꯤꯗꯨꯅ ꯑꯀꯤꯕ ꯄꯣꯛꯂꯣꯏꯗꯕꯅꯤ। ꯈꯨꯗꯛꯇ 108 ꯑꯦꯝꯕꯨꯂꯦꯟꯁ ꯀꯣꯜ ꯇꯧꯕꯤꯌꯨ ꯑꯃꯁꯨꯡ ꯃꯇꯦꯡ ꯂꯧꯕꯤꯌꯨ.",
             [
-                "ꯃꯤꯑꯣꯏ ꯑꯗꯨꯕꯨ ꯅꯤꯡꯊꯤꯅ ꯂꯩꯍꯟꯕꯤꯌꯨ।",
-                "ꯈꯨꯗꯣꯡꯊꯤꯕ ꯃꯐꯝ ꯑꯗꯨ ꯍꯤꯡꯅ ꯊꯝꯃꯣꯏꯗꯕꯅꯤ।",
-                "ꯍꯣꯁꯄꯤꯇꯥꯜꯗ ꯈꯨꯗꯛꯇ ꯄꯨꯈꯠꯄꯤꯌꯨ।",
+                "ꯃꯤꯑꯣꯏ ꯑꯗꯨꯕꯨ ꯅꯤꯡꯊꯤꯅ ꯂꯩꯍꯟꯕꯤꯌꯨ.",
+                "ꯈꯨꯗꯣꯡꯊꯤꯕ ꯃꯐꯝ ꯑꯗꯨ ꯍꯤꯡꯅ ꯊꯝꯃꯣꯏꯗꯕꯅꯤ.",
+                "ꯍꯣꯁꯄꯤꯇꯥꯜꯗ ꯈꯨꯗꯛꯇ ꯄꯨꯈꯠꯄꯤꯌꯨ.",
             ],
         ),
         "en_IN": (
@@ -911,16 +911,17 @@ p, span { color: #1E293B !important; }
   color: #0F172A !important;
 }
 
-/* Emergency banner */
+/* Emergency banner - Water & Stones Theme */
 .emergency-banner {
   display: flex;
   align-items: center;
   gap: 16px;
-  background: #FEF2F2 !important;
-  border: 1.5px solid #FECACA !important;
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.8) 0%, rgba(186, 230, 253, 0.8) 50%, rgba(204, 251, 241, 0.8) 100%), #FFFFFF !important;
+  border: 1.5px solid #BAE6FD !important;
   border-radius: 16px;
   padding: 1.2rem 1.6rem;
   margin-top: 1rem;
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.05) !important;
 }
 
 .emergency-icon-wrap {
@@ -932,7 +933,7 @@ p, span { color: #1E293B !important; }
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .emergency-info { flex: 1; }
@@ -946,7 +947,7 @@ p, span { color: #1E293B !important; }
 .emergency-title-row h2 {
   font-size: 1.35rem;
   margin: 0;
-  color: #DC2626 !important;
+  color: #0369A1 !important;
   font-weight: 800;
 }
 
@@ -1171,3 +1172,4 @@ demo.queue(default_concurrency_limit=1)
 
 if __name__ == "__main__":
     demo.launch(server_name="0.0.0.0", server_port=10000)
+```
