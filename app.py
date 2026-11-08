@@ -41,24 +41,23 @@ GROQ_MODELS = [
 def preprocess_telephonic_audio(audio_path: str) -> str:
     """
     Applies Butterworth bandpass filtering (300 Hz - 3400 Hz) and stationary/non-stationary
-    spectral gating to strip background noise from telephonic and noisy microphone recordings.
+    spectral gating to isolate voice from telephone line static, engine humming, and wind.
     """
     if not audio_path or not os.path.exists(audio_path):
         return audio_path
 
     try:
         data, sr = sf.read(audio_path)
-        # Convert stereo to mono if needed
         if len(data.shape) > 1:
             data = np.mean(data, axis=1)
 
-        # 1. 4th order Butterworth Bandpass Filter (300Hz - 3400Hz telephone bandwidth)
+        # 4th order Butterworth Bandpass Filter (300Hz - 3400Hz speech/telephone range)
         lowcut = 300.0
         highcut = min(3400.0, (sr / 2.0) - 50.0)
         sos = butter(4, [lowcut, highcut], btype='bandpass', fs=sr, output='sos')
         filtered_audio = sosfilt(sos, data)
 
-        # 2. Spectral Gating Noise Cancellation
+        # Spectral Gating Noise Cancellation
         if NOISEREDUCE_AVAILABLE:
             cleaned_audio = nr.reduce_noise(
                 y=filtered_audio,
@@ -69,7 +68,7 @@ def preprocess_telephonic_audio(audio_path: str) -> str:
         else:
             cleaned_audio = filtered_audio
 
-        # Normalize audio amplitude
+        # Normalize audio levels
         max_val = np.max(np.abs(cleaned_audio))
         if max_val > 0:
             cleaned_audio = cleaned_audio / max_val * 0.95
@@ -80,13 +79,12 @@ def preprocess_telephonic_audio(audio_path: str) -> str:
     except Exception:
         return audio_path
 
-
 # ---------------------------------------------------------------------------
 # Languages & UI Translations (12 Indian Languages)
 # ---------------------------------------------------------------------------
 LANGUAGES = {
-    "en_IN": "English (India)",
     "kn_IN": "ಕನ್ನಡ (Kannada)",
+    "en_IN": "English (India)",
     "hi_IN": "हिन्दी (Hindi)",
     "ta_IN": "தமிழ் (Tamil)",
     "te_IN": "తెలుగు (Telugu)",
@@ -99,27 +97,32 @@ LANGUAGES = {
     "mni_IN": "ꯃꯤꯇꯩꯂꯣꯟ (Manipuri)",
 }
 
-LANG_NAMES = {
-    "en_IN": "English",
-    "kn_IN": "Kannada (ಕನ್ನಡ)",
-    "hi_IN": "Hindi (हिन्दी)",
-    "ta_IN": "Tamil (தமிழ்)",
-    "te_IN": "Telugu (తెలుగు)",
-    "ml_IN": "Malayalam (മലയാളം)",
-    "mr_IN": "Marathi (मराठी)",
-    "gu_IN": "Gujarati (ગુજરાતી)",
-    "bn_IN": "Bengali (বাংলা)",
-    "pa_IN": "Punjabi (ਪੰਜਾਬੀ)",
-    "or_IN": "Odia (ଓଡ଼ିଆ)",
-    "mni_IN": "Manipuri (Meitei Mayek)",
-}
-
 TIMBRE_LANGS = {
     "en_IN", "hi_IN", "ta_IN", "te_IN", "kn_IN",
     "ml_IN", "mr_IN", "pa_IN", "bn_IN", "gu_IN",
 }
 
 TRANSLATIONS = {
+    "kn_IN": {
+        "title": "Sahaya",
+        "subtitle": "Stay Safe. 🛡️",
+        "sos_btn": "🚨 EMERGENCY SOS • LOUD ALARM + DIAL 1091",
+        "mic_header": "🎙️ Tap to Start Listening",
+        "type_header": "⌨️ Or Type Emergency Details",
+        "type_placeholder": "ಉದಾ: ಹಾವು ಕಡಿತ, ಅಪಘಾತ, ರಕ್ತಸ್ರಾವ, ಆಂಬ್ಯುಲೆನ್ಸ್ ಬೇಕು...",
+        "send": "Send Emergency Alert",
+        "detected": "🗣️ ಪತ್ತೆಯಾದ ತುರ್ತು ವಿವರ:",
+        "first_aid_label": "ತಕ್ಷಣದ ಪ್ರಥಮ ಚಿಕಿತ್ಸಾ ಕ್ರಮಗಳು:",
+        "call_btn": "ತಕ್ಷಣ {number} ಗೆ ಕರೆ ಮಾಡಿ",
+        "directory_header": "Emergency Services Directory",
+        "audio_response": "🔊 ಸಹಾಯ ತುರ್ತು ಮಾರ್ಗದರ್ಶನ:",
+        "med_title": "Medical & Ambulance",
+        "police_title": "Police & Safety",
+        "women_title": "Women Distress Helpline",
+        "fire_title": "Fire & Rescue",
+        "disaster_title": "Disaster Support",
+        "call_txt": "Call"
+    },
     "en_IN": {
         "title": "Sahaya",
         "subtitle": "Stay Safe. 🛡️",
@@ -129,11 +132,9 @@ TRANSLATIONS = {
         "type_placeholder": "e.g., Need an ambulance, snake bite, road accident...",
         "send": "Send Emergency Alert",
         "detected": "🗣️ Detected Emergency:",
-        "action_header": "Recommended Action & First-Aid",
         "first_aid_label": "Immediate First-Aid Steps:",
         "call_btn": "Call {number} Immediately",
         "directory_header": "Emergency Services Directory",
-        "helpline": "Helpline:",
         "audio_response": "🔊 Sahaya Voice Guidance:",
         "med_title": "Medical & Ambulance",
         "police_title": "Police & Safety",
@@ -142,253 +143,208 @@ TRANSLATIONS = {
         "disaster_title": "Disaster Support",
         "call_txt": "Call"
     },
-    "kn_IN": {
-        "title": "ಸಹಾಯ (Sahaya)",
-        "subtitle": "ಸುರಕ್ಷಿತವಾಗಿರಿ. 🛡️",
-        "sos_btn": "🚨 ತುರ್ತು SOS • ತೀವ್ರ ಸೈರನ್ + 1091 ಗೆ ಕರೆ",
-        "mic_header": "🎙️ ಧ್ವನಿ ರೆಕಾರ್ಡ್ ಮಾಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ / ಆಲಿಸಿ",
-        "type_header": "⌨️ ಅಥವಾ ತುರ್ತು ವಿವರಗಳನ್ನು ಇಲ್ಲಿ ಟೈಪ್ ಮಾಡಿ",
-        "type_placeholder": "ಉದಾ: ಹಾವು ಕಡಿತ, ಅಪಘಾತ, ರಕ್ತಸ್ರಾವ, ಆಂಬ್ಯುಲೆನ್ಸ್ ಬೇಕು...",
-        "send": "ತುರ್ತು ಎಚ್ಚರಿಕೆ ಕಳುಹಿಸಿ",
-        "detected": "🗣️ ಪತ್ತೆಯಾದ ತುರ್ತು ಪರಿಸ್ಥಿತಿ:",
-        "action_header": "ಶಿಫಾರಸು ಮಾಡಿದ ಕ್ರಮ ಮತ್ತು ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ",
-        "first_aid_label": "ತಕ್ಷಣದ ಪ್ರಥಮ ಚಿಕಿತ್ಸಾ ಕ್ರಮಗಳು:",
-        "call_btn": "ತಕ್ಷಣ {number} ಗೆ ಕರೆ ಮಾಡಿ",
-        "directory_header": "ತುರ್ತು ಸೇವೆಗಳ ಡೈರೆಕ್ಟರಿ",
-        "helpline": "ಸಹಾಯವಾಣಿ:",
-        "audio_response": "🔊 ಸಹಾಯ ಧ್ವನಿ ಮಾರ್ಗದರ್ಶನ:",
-        "med_title": "ವೈದ್ಯಕೀಯ ಮತ್ತು ಆಂಬ್ಯುಲೆನ್ಸ್",
-        "police_title": "ಪೊಲೀಸ್ ಮತ್ತು ಸುರಕ್ಷತೆ",
-        "women_title": "ಮಹಿಳಾ ಸಹಾಯವಾಣಿ",
-        "fire_title": "ಅಗ್ನಿಶಾಮಕ ಮತ್ತು ರಕ್ಷಣೆ",
-        "disaster_title": "ವಿಪತ್ತು ನೆರವು",
-        "call_txt": "ಕರೆ ಮಾಡಿ"
-    },
     "hi_IN": {
-        "title": "सहायता (Sahaya)",
-        "subtitle": "सुरक्षित रहें। 🛡️",
-        "sos_btn": "🚨 आपातकालीन SOS • तेज सायरन + 1091 पर कॉल",
-        "mic_header": "🎙️ बोलने के लिए टैप करें / रिकॉर्ड करें",
-        "type_header": "⌨️ या आपातकालीन विवरण टाइप करें",
+        "title": "Sahaya",
+        "subtitle": "Stay Safe. 🛡️",
+        "sos_btn": "🚨 EMERGENCY SOS • LOUD ALARM + DIAL 1091",
+        "mic_header": "🎙️ Tap to Start Listening",
+        "type_header": "⌨️ Or Type Emergency Details",
         "type_placeholder": "जैसे सांप का काटना, सड़क दुर्घटना, एम्बुलेंस चाहिए...",
-        "send": "आपातकालीन अलर्ट भेजें",
+        "send": "Send Emergency Alert",
         "detected": "🗣️ पता चली आपात स्थिति:",
-        "action_header": "अनुशंसित कार्रवाई और प्राथमिक उपचार",
         "first_aid_label": "प्राथमिक उपचार दिशानिर्देश:",
         "call_btn": "तुरंत {number} पर कॉल करें",
-        "directory_header": "आपातकालीन सेवा डायरेक्टरी",
-        "helpline": "हेल्पलाइन:",
+        "directory_header": "Emergency Services Directory",
         "audio_response": "🔊 सहायता वॉयस मार्गदर्शन:",
-        "med_title": "चिकित्सा एवं एम्बुलेंस",
-        "police_title": "पुलिस एवं सुरक्षा",
-        "women_title": "महिला हेल्पलाइन",
-        "fire_title": "दमकल एवं बचाव",
-        "disaster_title": "आपदा राहत सहायता",
-        "call_txt": "कॉल करें"
+        "med_title": "Medical & Ambulance",
+        "police_title": "Police & Safety",
+        "women_title": "Women Distress Helpline",
+        "fire_title": "Fire & Rescue",
+        "disaster_title": "Disaster Support",
+        "call_txt": "Call"
     },
     "ta_IN": {
-        "title": "சஹாயா (Sahaya)",
-        "subtitle": "பாதுகாப்பாக இருங்கள். 🛡️",
-        "sos_btn": "🚨 அவசர SOS • உரத்த சைரன் + 1091 ஐ அழைக்கவும்",
-        "mic_header": "🎙️ அவசரத்தைப் பேச மைக் தொடவும்",
-        "type_header": "⌨️ அவசர விவரங்களை தட்டச்சு செய்யவும்",
+        "title": "Sahaya",
+        "subtitle": "Stay Safe. 🛡️",
+        "sos_btn": "🚨 EMERGENCY SOS • LOUD ALARM + DIAL 1091",
+        "mic_header": "🎙️ Tap to Start Listening",
+        "type_header": "⌨️ Or Type Emergency Details",
         "type_placeholder": "எ.கா. விபத்து, பாம்பு கடி, அதிக ரத்தப்போக்கு...",
-        "send": "அவசர எச்சரிக்கை அனுப்பு",
+        "send": "Send Emergency Alert",
         "detected": "🗣️ கண்டறியப்பட்ட அவசரம்:",
-        "action_header": "பரிந்துரைக்கப்பட்ட முதலுதவி",
         "first_aid_label": "உடனடி முதலுதவி வழிகாட்டுதல்கள்:",
         "call_btn": "உடனே {number} ஐ அழைக்கவும்",
-        "directory_header": "அவசர சேவை அடைவு",
-        "helpline": "உதவி எண்:",
+        "directory_header": "Emergency Services Directory",
         "audio_response": "🔊 சஹாயா குரல் வழிகாட்டல்:",
-        "med_title": "மருத்துவம் & ஆம்புலன்ஸ்",
-        "police_title": "காவல்துறை & பாதுகாப்பு",
-        "women_title": "பெண்கள் உதவி எண்",
-        "fire_title": "தீயணைப்பு & மீட்பு",
-        "disaster_title": "பேரிடர் மேலாண்மை",
-        "call_txt": "அழைக்க"
+        "med_title": "Medical & Ambulance",
+        "police_title": "Police & Safety",
+        "women_title": "Women Distress Helpline",
+        "fire_title": "Fire & Rescue",
+        "disaster_title": "Disaster Support",
+        "call_txt": "Call"
     },
     "te_IN": {
-        "title": "సహాయ (Sahaya)",
-        "subtitle": "సురక్షితంగా ఉండండి. 🛡️",
-        "sos_btn": "🚨 అత్యవసర SOS • పెద్ద సైరన్ + 1091 కి కాల్",
-        "mic_header": "🎙️ మాట్లాడటానికి మైక్ నొక్కండి",
-        "type_header": "⌨️ అత్యవసర వివరాలు టైప్ చేయండి",
+        "title": "Sahaya",
+        "subtitle": "Stay Safe. 🛡️",
+        "sos_btn": "🚨 EMERGENCY SOS • LOUD ALARM + DIAL 1091",
+        "mic_header": "🎙️ Tap to Start Listening",
+        "type_header": "⌨️ Or Type Emergency Details",
         "type_placeholder": "ఉదా. పాము కాటు, ప్రమాదం, అంబులెన్స్ కావాలి...",
-        "send": "అత్యవసర హెచ్చరిక పంపండి",
+        "send": "Send Emergency Alert",
         "detected": "🗣️ గుర్తించబడిన అత్యవసరం:",
-        "action_header": "సిఫార్సు చేయబడిన ప్రథమ చికిత్స",
         "first_aid_label": "తక్షణ ప్రథమ చికిత్స మార్గదర్శకాలు:",
         "call_btn": "ఇప్పుడే {number} కి కాల్ చేయండి",
-        "directory_header": "అత్యవసర సేవల డైరెక్టరీ",
-        "helpline": "హెల్ప్‌లైన్:",
+        "directory_header": "Emergency Services Directory",
         "audio_response": "🔊 సహాయ వాయిస్ మార్గదర్శకత్వం:",
-        "med_title": "వైద్యం & అంబులెన్స్",
-        "police_title": "పోలీస్ & భద్రత",
-        "women_title": "మహిళా హెల్ప్‌లైన్",
-        "fire_title": "అగ్నిమాపక & రక్షణ",
-        "disaster_title": "విపత్తు సహాయం",
-        "call_txt": "కాల్ చేయండి"
+        "med_title": "Medical & Ambulance",
+        "police_title": "Police & Safety",
+        "women_title": "Women Distress Helpline",
+        "fire_title": "Fire & Rescue",
+        "disaster_title": "Disaster Support",
+        "call_txt": "Call"
     },
     "ml_IN": {
-        "title": "സഹായ (Sahaya)",
-        "subtitle": "സുരക്ഷിതരായിരിക്കൂ. 🛡️",
-        "sos_btn": "🚨 എമർജൻസി SOS • വലിയ സൈറൻ + 1091 ലേക്ക് വിളിക്കുക",
-        "mic_header": "🎙️ സംസാരിക്കാൻ മൈക്ക് ടാപ്പ് ചെയ്യുക",
-        "type_header": "⌨️ വിവരങ്ങൾ ടൈപ്പ് ചെയ്യുക",
+        "title": "Sahaya",
+        "subtitle": "Stay Safe. 🛡️",
+        "sos_btn": "🚨 EMERGENCY SOS • LOUD ALARM + DIAL 1091",
+        "mic_header": "🎙️ Tap to Start Listening",
+        "type_header": "⌨️ Or Type Emergency Details",
         "type_placeholder": "ഉദാ. പാമ്പ് കടി, അപകടം, ആംബുലൻസ് വേണം...",
-        "send": "അടിയന്തര മുന്നറിയിപ്പ് അയയ്ക്കുക",
+        "send": "Send Emergency Alert",
         "detected": "🗣️ കണ്ടെത്തിയ അത്യാഹിതം:",
-        "action_header": "ശുപാർശ ചെയ്യുന്ന പ്രഥമശുശ്രൂഷ",
         "first_aid_label": "ഉടൻ ചെയ്യേണ്ട പ്രഥമശുശ്രൂഷാ ഘട്ടങ്ങൾ:",
         "call_btn": "ഉടൻ {number}-ലേക്ക് വിളിക്കുക",
-        "directory_header": "എമർജൻസി ഡയറക്ടറി",
-        "helpline": "ഹെൽപ്പ്‌ലൈൻ:",
+        "directory_header": "Emergency Services Directory",
         "audio_response": "🔊 സഹായ വോയ്സ് പ്രതികരണം:",
-        "med_title": "മെഡിക്കൽ & ആംബുലൻസ്",
-        "police_title": "പോലീസ് & സുരക്ഷ",
-        "women_title": "വനിതാ ഹെൽപ്പ് ലൈൻ",
-        "fire_title": "ഫയർ & റെസ്ക്യൂ",
-        "disaster_title": "ദുരന്ത നിവാരണം",
-        "call_txt": "വിളിക്കുക"
+        "med_title": "Medical & Ambulance",
+        "police_title": "Police & Safety",
+        "women_title": "Women Distress Helpline",
+        "fire_title": "Fire & Rescue",
+        "disaster_title": "Disaster Support",
+        "call_txt": "Call"
     },
     "mr_IN": {
-        "title": "साहाय्य (Sahaya)",
-        "subtitle": "सुरक्षित राहा. 🛡️",
-        "sos_btn": "🚨 आणीबाणी SOS • मोठा सायरन + 1091 वर कॉल",
-        "mic_header": "🎙️ बोलण्यासाठी माइक टॅप करा",
-        "type_header": "⌨️ किंवा टाइप करा",
+        "title": "Sahaya",
+        "subtitle": "Stay Safe. 🛡️",
+        "sos_btn": "🚨 EMERGENCY SOS • LOUD ALARM + DIAL 1091",
+        "mic_header": "🎙️ Tap to Start Listening",
+        "type_header": "⌨️ Or Type Emergency Details",
         "type_placeholder": "उदा. साप चावला, अपघात, छातीत दुखणे...",
-        "send": "आणीबाणी सूचना पाठवा",
+        "send": "Send Emergency Alert",
         "detected": "🗣️ आढळलेली आणीबाणी:",
-        "action_header": "शिफारस केलेले प्रथमोपचार",
         "first_aid_label": "तातडीच्या प्रथमोपचार सूचना:",
         "call_btn": "आता {number} वर कॉल करा",
-        "directory_header": "आणीबाणी निर्देशिका",
-        "helpline": "हेल्पलाइन:",
+        "directory_header": "Emergency Services Directory",
         "audio_response": "🔊 साहाय्य व्हॉइस मार्गदर्शन:",
-        "med_title": "वैद्यकीय आणि रुग्णवाहिका",
-        "police_title": "पोलीस आणि सुरक्षा",
-        "women_title": "महिला हेल्पलाइन",
-        "fire_title": "अग्निशामक आणि बचाव",
-        "disaster_title": "आपत्ती मदत",
-        "call_txt": "कॉल करा"
+        "med_title": "Medical & Ambulance",
+        "police_title": "Police & Safety",
+        "women_title": "Women Distress Helpline",
+        "fire_title": "Fire & Rescue",
+        "disaster_title": "Disaster Support",
+        "call_txt": "Call"
     },
     "gu_IN": {
-        "title": "સહાય (Sahaya)",
-        "subtitle": "સુરક્ષિત રહો. 🛡️",
-        "sos_btn": "🚨 કટોકટી SOS • મોટો સાયરન + 1091 પર કૉલ",
-        "mic_header": "🎙️ બોલવા માટે માઇક દબાવો",
-        "type_header": "⌨️ અથવા વિગતો ટાઇપ કરો",
+        "title": "Sahaya",
+        "subtitle": "Stay Safe. 🛡️",
+        "sos_btn": "🚨 EMERGENCY SOS • LOUD ALARM + DIAL 1091",
+        "mic_header": "🎙️ Tap to Start Listening",
+        "type_header": "⌨️ Or Type Emergency Details",
         "type_placeholder": "દા.ત. સાપ કરડ્યો, અકસ્માત, એમ્બ્યુલન્સ જોઈએ...",
-        "send": "કટોકટી ચેતવણી મોકલો",
+        "send": "Send Emergency Alert",
         "detected": "🗣️ મળેલી કટોકટી:",
-        "action_header": "પ્રાથમિક સારવાર માર્ગદર્શિકા",
         "first_aid_label": "તાત્કાલિક પ્રાથમિક સારવારનાં પગલાં:",
         "call_btn": "હમણાં {number} પર કૉલ કરો",
-        "directory_header": "ઇમરજન્સી ડિરેક્ટરી",
-        "helpline": "હેલ્પલાઇન:",
+        "directory_header": "Emergency Services Directory",
         "audio_response": "🔊 સહાય વૉઇસ માર્ગદર્શન:",
-        "med_title": "તબીબી અને એમ્બ્યુલન્સ",
-        "police_title": "પોલીસ અને સુરક્ષા",
-        "women_title": "મહિલા હેલ્પલાઇન",
-        "fire_title": "અગ્નિશામક અને બચાવ",
-        "disaster_title": "આપત્તિ સહાય",
-        "call_txt": "કૉલ કરો"
+        "med_title": "Medical & Ambulance",
+        "police_title": "Police & Safety",
+        "women_title": "Women Distress Helpline",
+        "fire_title": "Fire & Rescue",
+        "disaster_title": "Disaster Support",
+        "call_txt": "Call"
     },
     "bn_IN": {
-        "title": "সহায় (Sahaya)",
-        "subtitle": "সুরক্ষিত থাকুন। 🛡️",
-        "sos_btn": "🚨 জরুরি SOS • উচ্চ সাইরেন + 1091-এ কল",
-        "mic_header": "🎙️ কথা বলতে মাইক ট্যাপ করুন",
-        "type_header": "⌨️ জরুরি বিবরণ টাইপ করুন",
-        "type_placeholder": "যেমন সাপে কাটা, দুর্ঘটনা, রক্তপাত...",
-        "send": "জরুরি সতর্কতা পাঠান",
+        "title": "Sahaya",
+        "subtitle": "Stay Safe. 🛡️",
+        "sos_btn": "🚨 EMERGENCY SOS • LOUD ALARM + DIAL 1091",
+        "mic_header": "🎙️ Tap to Start Listening",
+        "type_header": "⌨️ Or Type Emergency Details",
+        "type_placeholder": "যেমন সাপে কাটা, दुर्घटना, रक्तপাত...",
+        "send": "Send Emergency Alert",
         "detected": "🗣️ শনাক্ত জরুরি অবস্থা:",
-        "action_header": "প্রাথমিক চিকিৎসার নির্দেশিকা",
         "first_aid_label": "জরুরি প্রাথমিক চিকিৎসার পদক্ষেপ:",
         "call_btn": "এখনই {number}-এ কল করুন",
-        "directory_header": "জরুরি ডিরেক্টরি",
-        "helpline": "হেল্পলাইন:",
+        "directory_header": "Emergency Services Directory",
         "audio_response": "🔊 সহায় ভয়েস সহায়তা:",
-        "med_title": "মেডিকেল ও অ্যাম্বুলেন্স",
-        "police_title": "পুলিশ ও নিরাপত্তা",
-        "women_title": "মহিলা হেল্পলাইন",
-        "fire_title": "দমকল ও উদ্ধার",
-        "disaster_title": "দুর্যোগ সহায়তা",
-        "call_txt": "কল করুন"
+        "med_title": "Medical & Ambulance",
+        "police_title": "Police & Safety",
+        "women_title": "Women Distress Helpline",
+        "fire_title": "Fire & Rescue",
+        "disaster_title": "Disaster Support",
+        "call_txt": "Call"
     },
     "pa_IN": {
-        "title": "ਸਹਾਇਤਾ (Sahaya)",
-        "subtitle": "ਸੁਰੱਖਿਅਤ ਰਹੋ। 🛡️",
-        "sos_btn": "🚨 ਐਮਰਜੈਂਸੀ SOS • ਉੱਚੀ ਸਾਇਰਨ + 1091 'ਤੇ ਕਾਲ ਕਰੋ",
-        "mic_header": "🎙️ ਬੋਲਣ ਲਈ ਮਾਈਕ ਟੈਪ ਕਰੋ",
-        "type_header": "⌨️ ਜਾਂ ਵੇਰਵੇ ਟਾਈਪ ਕਰੋ",
+        "title": "Sahaya",
+        "subtitle": "Stay Safe. 🛡️",
+        "sos_btn": "🚨 EMERGENCY SOS • LOUD ALARM + DIAL 1091",
+        "mic_header": "🎙️ Tap to Start Listening",
+        "type_header": "⌨️ Or Type Emergency Details",
         "type_placeholder": "ਜਿਵੇਂ ਸੱਪ ਲੜਨਾ, ਹਾਦਸਾ, ਖੂਨ ਵਹਿਣਾ...",
-        "send": "ਐਮਰਜੈਂਸੀ ਅਲਰਟ ਭੇਜੋ",
+        "send": "Send Emergency Alert",
         "detected": "🗣️ ਪਤਾ ਲੱਗੀ ਐਮਰਜੈਂਸੀ:",
-        "action_header": "ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦਿਸ਼ਾ-ਨਿਰਦੇਸ਼",
         "first_aid_label": "ਤੁਰੰਤ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਕਦਮ:",
         "call_btn": "ਹੁਣੇ {number} 'ਤੇ ਕਾਲ ਕਰੋ",
-        "directory_header": "ਐਮਰਜੈਂਸੀ ਡਾਇਰੈਕਟਰੀ",
-        "helpline": "ਹੈਲਪਲਾਈਨ:",
+        "directory_header": "Emergency Services Directory",
         "audio_response": "🔊 ਸਹਾਇਤਾ ਵੌਇਸ ਸੇਧ:",
-        "med_title": "ਮੈਡੀਕਲ ਅਤੇ ਐਂਬੂਲੈਂਸ",
-        "police_title": "ਪੁਲਿਸ ਅਤੇ ਸੁਰੱਖਿਆ",
-        "women_title": "ਮਹਿਲਾ ਹੈਲਪਲਾਈਨ",
-        "fire_title": "ਫਾਇਰ ਅਤੇ ਬਚਾਅ",
-        "disaster_title": "ਆਫ਼ਤ ਸਹਾਇਤਾ",
-        "call_txt": "ਕਾਲ ਕਰੋ"
+        "med_title": "Medical & Ambulance",
+        "police_title": "Police & Safety",
+        "women_title": "Women Distress Helpline",
+        "fire_title": "Fire & Rescue",
+        "disaster_title": "Disaster Support",
+        "call_txt": "Call"
     },
     "or_IN": {
-        "title": "ସହାୟ (Sahaya)",
-        "subtitle": "ସୁରକ୍ଷିତ ରୁହନ୍ତୁ। 🛡️",
-        "sos_btn": "🚨 ଜରୁରୀକାଳୀନ SOS • ଉଚ୍ଚ ସାଇରନ + 1091 କୁ କଲ୍",
-        "mic_header": "🎙️ କହିବାକୁ ମାଇକ୍ ଟ୍ୟାପ୍ କରନ୍ତୁ",
-        "type_header": "⌨️ ଜରୁରୀ ବିବରଣୀ ଟାଇପ୍ କରନ୍ତୁ",
+        "title": "Sahaya",
+        "subtitle": "Stay Safe. 🛡️",
+        "sos_btn": "🚨 EMERGENCY SOS • LOUD ALARM + DIAL 1091",
+        "mic_header": "🎙️ Tap to Start Listening",
+        "type_header": "⌨️ Or Type Emergency Details",
         "type_placeholder": "ଯେପରି ସାପ କାମୁଡ଼ା, ଦୁର୍ଘଟଣା, ରକ୍ତସ୍ରାବ...",
-        "send": "ଜରୁରୀକାଳୀନ ଆଲର୍ଟ ପଠାନ୍ତୁ",
+        "send": "Send Emergency Alert",
         "detected": "🗣️ ଚିହ୍ନଟ ଜରୁରୀକାଳୀନ ପରିସ୍ଥିତି:",
-        "action_header": "ପ୍ରଥମ ଚିକିତ୍ସା ନିର୍ଦ୍ଦେଶାବଳୀ",
         "first_aid_label": "ତୁରନ୍ତ ପ୍ରଥମ ଚିକିତ୍ସା ପଦକ୍ଷେପ:",
         "call_btn": "ତୁରନ୍ତ {number} କୁ କଲ୍ କରନ୍ତୁ",
-        "directory_header": "ଜରୁରୀକାଳୀନ ଡାଇରେକ୍ଟୋରୀ",
-        "helpline": "ହେଲ୍ପଲାଇନ୍:",
+        "directory_header": "Emergency Services Directory",
         "audio_response": "🔊 ସହାୟ ଭଏସ୍ ମାର୍ଗଦର୍ଶନ:",
-        "med_title": "ଡାକ୍ତରୀ ଏବଂ ଆମ୍ବୁଲାନ୍ସ",
-        "police_title": "ପୋଲିସ୍ ଏବଂ ସୁରକ୍ଷା",
-        "women_title": "ମହିଳା ହେଲ୍ପଲାଇନ",
-        "fire_title": "ଅଗ୍ନିଶମ ଏବଂ ଉଦ୍ଧାର",
-        "disaster_title": "ବିପର୍ଯ୍ୟୟ ସହାୟତା",
-        "call_txt": "କଲ୍ କରନ୍ତୁ"
+        "med_title": "Medical & Ambulance",
+        "police_title": "Police & Safety",
+        "women_title": "Women Distress Helpline",
+        "fire_title": "Fire & Rescue",
+        "disaster_title": "Disaster Support",
+        "call_txt": "Call"
     },
     "mni_IN": {
-        "title": "ꯁꯍꯥꯌ (Sahaya)",
-        "subtitle": "ꯉꯥꯛꯊꯣꯛꯆꯕꯤꯌꯨ 🛡️",
-        "sos_btn": "🚨 ꯈꯨꯗꯣꯡꯊꯤꯕ SOS • ꯑꯀꯟꯕ ꯁꯥꯏꯔꯦꯟ + 1091 ꯗ ꯀꯣꯜ",
-        "mic_header": "🎙️ ꯋꯥ ꯉꯥꯡꯅꯕ ꯃꯥꯏꯛ ꯇꯦꯞ ꯇꯧꯕꯤꯌꯨ",
-        "type_header": "⌨️ ꯈꯨꯗꯣꯡꯊꯤꯕ ꯏꯕꯤꯌꯨ",
+        "title": "Sahaya",
+        "subtitle": "Stay Safe. 🛡️",
+        "sos_btn": "🚨 EMERGENCY SOS • LOUD ALARM + DIAL 1091",
+        "mic_header": "🎙️ Tap to Start Listening",
+        "type_header": "⌨️ Or Type Emergency Details",
         "type_placeholder": "ꯂꯤꯟ ꯆꯤꯛꯄ, ꯑꯦꯛꯁꯤꯗꯦꯟꯠ, ꯃꯩ ꯆꯥꯛꯄ...",
-        "send": "ꯈꯨꯗꯣꯡꯊꯤꯕꯒꯤ ꯄꯥꯎ ꯊꯥꯕꯤꯌꯨ",
+        "send": "Send Emergency Alert",
         "detected": "🗣️ ꯈꯪꯗꯣꯛꯂꯕ ꯈꯨꯗꯣꯡꯊꯤꯕ:",
-        "action_header": "ꯑꯍꯥꯟꯕ ꯃꯇꯦꯡ (First Aid)",
         "first_aid_label": "ꯈꯨꯗꯛꯇ ꯇꯧꯒꯗꯕ ꯊꯕꯛꯁꯤꯡ:",
         "call_btn": "{number} ꯗ ꯍꯧꯖꯤꯛꯃꯛ ꯀꯣꯜ ꯇꯧꯕꯤꯌꯨ",
-        "directory_header": "ꯑꯇꯣꯞꯄ ꯃꯇꯦꯡ ꯅꯝꯕꯔꯁꯤꯡ",
-        "helpline": "ꯍꯦꯜꯞꯂꯥꯏꯟ:",
+        "directory_header": "Emergency Services Directory",
         "audio_response": "🔊 ꯁꯍꯥꯌꯒꯤ ꯄꯥꯎꯈꯨꯝ:",
-        "med_title": "ꯃꯦꯗꯤꯀꯦꯜ ꯑꯃꯁꯨꯡ ꯑꯦꯝꯕꯨꯂꯦꯟꯁ",
-        "police_title": "ꯄꯨꯂꯤꯁ ꯑꯃꯁꯨꯡ ꯉꯥꯛꯊꯣꯛꯄ",
-        "women_title": "ꯅꯨꯄꯤꯒꯤ ꯃꯇꯦꯡ ꯅꯝꯕꯔ",
-        "fire_title": "ꯃꯩ ꯊꯥꯛꯄ ꯑꯃꯁꯨꯡ ꯀꯟꯕ",
-        "disaster_title": "ꯈꯨꯗꯣꯡꯊꯤꯕꯒꯤ ꯃꯇꯦꯡ",
-        "call_txt": "ꯀꯣꯜ ꯇꯧꯕꯤꯌꯨ"
+        "med_title": "Medical & Ambulance",
+        "police_title": "Police & Safety",
+        "women_title": "Women Distress Helpline",
+        "fire_title": "Fire & Rescue",
+        "disaster_title": "Disaster Support",
+        "call_txt": "Call"
     },
 }
 
-# ---------------------------------------------------------------------------
-# Emergency Directory
-# ---------------------------------------------------------------------------
 EMERGENCY_DIRECTORY = [
     {
         "key": "med_title",
@@ -424,9 +380,6 @@ EMERGENCY_DIRECTORY = [
 
 CATEGORY_INDEX = {"medical": 0, "police": 1, "assault": 2, "fire": 3, "disaster": 4}
 
-# ---------------------------------------------------------------------------
-# Script Ranges & Romanized Keywords for All 12 Languages
-# ---------------------------------------------------------------------------
 SCRIPT_RANGES = [
     (0x0C80, 0x0CFF, "kn_IN"),  # Kannada
     (0x0900, 0x097F, "hi_IN"),  # Devanagari (Hindi/Marathi)
@@ -506,12 +459,16 @@ ROMAN_LANG_KEYWORDS = {
 }
 
 # ---------------------------------------------------------------------------
-# Comprehensive Minor & Major Accidents Triage
+# Fallback Medical Triage Dictionaries (All 12 Languages)
 # ---------------------------------------------------------------------------
 def identify_condition(text: str) -> str:
     t = text.lower()
-    
-    # 1. Road Accident / Severe Trauma / Bleeding / Fractures
+    if any(k in t for k in [
+        "snake", "bite", "haavu", "havu", "kachide", "saanp", "saap",
+        "paambu", "paamu", "lin", "chikpa", "sapp", "sapa", "dankh"
+    ]):
+        return "snakebite"
+
     if any(k in t for k in [
         "accident", "crash", "bike", "car", "hit", "run over", "bleeding", "blood",
         "fracture", "bone broke", "bone broken", "cut", "wound", "injury", "head injury",
@@ -522,7 +479,6 @@ def identify_condition(text: str) -> str:
     ]):
         return "accident_trauma"
 
-    # 2. Cardiac & Respiratory Emergencies
     if any(k in t for k in [
         "heart", "chest", "breath", "breathing", "cardiac", "stroke", "attack",
         "ede", "edeno", "usir", "husir", "gundige", "seene", "chhati", "saans",
@@ -530,53 +486,127 @@ def identify_condition(text: str) -> str:
     ]):
         return "cardiac"
 
-    # 3. Snakebite & Envenomation
-    if any(k in t for k in [
-        "snake", "bite", "haavu", "havu", "kachide", "saanp", "saap",
-        "paambu", "paamu", "lin", "chikpa", "sapp", "sapa", "dankh"
-    ]):
-        return "snakebite"
-
-    # 4. Burns & Scalds (Minor to Major)
     if any(k in t for k in [
         "fire", "burn", "burns", "hot water", "scald", "cylinder", "blast",
         "benki", "sudide", "aag", "jal gaya", "thee", "agg", "nia", "mei"
     ]):
         return "burns"
 
-    # 5. Electric Shock
-    if any(k in t for k in [
-        "electric", "shock", "current", "wire", "vidyut", "karent"
-    ]):
-        return "electric_shock"
-
-    # 6. Choking / Asphyxiation
-    if any(k in t for k in [
-        "chok", "stuck in throat", "gantlu", "adagide", "gale mein", "thொண்டை"
-    ]):
-        return "choking"
-
-    # 7. Poison / Pesticide Ingestion
-    if any(k in t for k in [
-        "poison", "pesticide", "chemical", "visha", "keetnashaka", "zeher", "marunthu"
-    ]):
-        return "pesticide"
-
-    # 8. Maternal / Delivery
-    if any(k in t for k in [
-        "pregnant", "pregnancy", "delivery", "labor", "maternal", "garbhini", "prasava"
-    ]):
-        return "maternal"
-
-    # 9. Violence / Crime / Police
-    if any(k in t for k in [
-        "police", "thief", "robbery", "attack", "fight", "assault", "harassment", "chor", "bachao"
-    ]):
-        return "police"
-
     return "general_medical"
 
 CONDITION_FALLBACKS = {
+    "snakebite": {
+        "service_idx": 0,
+        "urgency": "critical",
+        "kn_IN": (
+            "ಹಾವು ಕಚ್ಚಿದ ತುರ್ತು ಪರಿಸ್ಥಿತಿ! ರೋಗಿಯನ್ನು ಶಾಂತವಾಗಿರಿಸಿ, ತಕ್ಷಣ 108 ಕರೆ ಮಾಡಿ.",
+            [
+                "ಕಚ್ಚಿದ ಅಂಗವನ್ನು ಅಲುಗಾಡಿಸದೆ ಹೃದಯದ ಮಟ್ಟಕ್ಕಿಂತ ಕೆಳಗೆ ಇರಿಸಿ.",
+                "ಗಟ್ಟಿಯಾಗಿ ಹಗ್ಗ ಕಟ್ಟಬೇಡಿ, ಗಾಯವನ್ನು ಕತ್ತರಿಸಬೇಡಿ ಅಥವಾ ವಿಷ ಹೀರುವ ಪ್ರಯತ್ನ ಮಾಡಬೇಡಿ.",
+                "ರೋಗಿಯನ್ನು ಸಂಪೂರ್ಣವಾಗಿ ಮಲಗಿಸಿ, ಗಾಬರಿಯಾಗದಂತೆ ಧೈರ್ಯ ನೀಡಿ.",
+                "ಆಂಟಿ-ವೆನಮ್ (ASV) ಲಭ್ಯವಿರುವ ಸಮೀಪದ ಆಸ್ಪತ್ರೆಗೆ ತಕ್ಷಣ ಕರೆದೊಯ್ಯಿರಿ."
+            ]
+        ),
+        "hi_IN": (
+            "सांप के काटने की आपात स्थिति! मरीज को शांत रखें और तुरंत 108 पर कॉल करें।",
+            [
+                "काटे गए अंग को हिलाए बिना दिल के स्तर से नीचे स्थिर रखें।",
+                "कसकर पट्टी न बांधें, घाव को न काटें और जहर चूसने का प्रयास न करें।",
+                "मरीज को शांत रखें और चलने-फिरने न दें।",
+                "एंटी-स्नेक वेनम की सुविधा वाले नजदीकी अस्पताल में तुरंत ले जाएं।"
+            ]
+        ),
+        "ta_IN": (
+            "பாம்பு கடி அவசரநிலை! நோயாளியை அமைதிப்படுத்தி உடனடியாக 108-ஐ அழைக்கவும்.",
+            [
+                "கடிபட்ட உறுப்பை அசைக்காமல் இதய மட்டத்திற்கு கீழே வைக்கவும்.",
+                "காயத்தை கத்தியால் வெட்டவோ அல்லது விஷத்தை உறிஞ்சவோ கூடாது.",
+                "நோயாளியை நடக்க விடாமல் முழு ஓய்வில் வைக்கவும்.",
+                "உடனடியாக விஷமுறிவு மருந்து உள்ள மருத்துவமனைக்கு கொண்டு செல்லவும்."
+            ]
+        ),
+        "te_IN": (
+            "పాము కాటు అత్యవసర పరిస్థితి! రోగిని ప్రశాంతంగా ఉంచి వెంటనే 108కి కాల్ చేయండి.",
+            [
+                "కాటు వేసిన భాగాన్ని కదల్చకుండా గుండె స్థాయి కంటే తక్కువగా ఉంచండి.",
+                "గాటు పెట్టడం లేదా విషాన్ని నోటితో పీల్చే ప్రయత్నం చేయవద్దు.",
+                "రోగిని కంగారు పడకుండా స్థిరంగా ఉంచండి.",
+                "యాంటీ-స్నేక్ వెనమ్ ఉన్న ఆసుపత్రికి త్వరగా తీసుకెళ్లండి."
+            ]
+        ),
+        "ml_IN": (
+            "പാമ്പ് കടിയേറ്റ അടിയന്തരാവസ്ഥ! രോഗിയെ ശാന്തനാക്കി ഉടൻ 108 വിളിക്കുക.",
+            [
+                "കടിയേറ്റ ഭാഗം അനക്കാതെ ഹൃദയനിരപ്പിൽ താഴെയായി വെക്കുക.",
+                "മുറിവുണ്ടാക്കാനോ വിഷം വലിച്ച് പുറത്തെടുക്കാനോ ശ്രമിക്കരുത്.",
+                "രോഗി പരിഭ്രാന്തനാകാതെ നോക്കുക, ചലനം പൂർണ്ണമായി ഒഴിവാക്കുക.",
+                "ആന്റി-വെനം ലഭിക്കുന്ന ഏറ്റവും അടുത്തുള്ള ആശുപത്രിയിലെത്തിക്കുക."
+            ]
+        ),
+        "mr_IN": (
+            "सर्पदंश आणीबाणी! रुग्णाला शांत ठेवा आणि त्वरित 108 वर कॉल करा.",
+            [
+                "दंश झालेला अवयव न हलवता हृदयाच्या पातळीपेक्षा खाली स्थिर ठेवा.",
+                "जखमेवर चीरा मारू नका किंवा विष तोंडाने ओढण्याचा प्रयत्न करू नका.",
+                "रुग्णाला चालणे किंवा हालचाल करू देऊ नका.",
+                "अँटी-व्हेनम उपलब्ध असलेल्या जवळच्या रुग्णालयात त्वरित दाखल करा."
+            ]
+        ),
+        "gu_IN": (
+            "સાપ કરડવાની કટોકટી! દર્દીને શાંત રાખો અને તરત જ 108 પર કૉલ કરો.",
+            [
+                "કરડેલા અંગને હલાવ્યા વિના હૃદયના સ્તરથી નીચે સ્થિર રાખો.",
+                "ઘા પર કાપો ન મુકવો કે ઝેર ચૂસવાનો પ્રયત્ન ન કરવો.",
+                "દર્દીને સંપૂર્ણ આરામ આપો અને ચાલવા ન દો.",
+                "એન્ટિ-સ્નેક વેનમ સુવિધા ધરાવતી હોસ્પિટલમાં તરત લઈ જાઓ."
+            ]
+        ),
+        "bn_IN": (
+            "সাপের কামড়ের জরুরি অবস্থা! রোগীকে শান্ত রাখুন এবং অবিলম্বে 108 এ কল করুন।",
+            [
+                "দংশিত অঙ্গটি না নাড়িয়ে হৃদপিণ্ডের স্তরের নিচে স্থির রাখুন।",
+                "ক্ষতস্থানে ব্লেড বা ছুরি চালাবেন না এবং বিষ চোষার চেষ্টা করবেন না।",
+                "রোগীকে হাঁটতে দেবেন না, সম্পূর্ণ বিশ্রামে রাখুন।",
+                "অ্যান্টি-ভেনম সমৃদ্ধ নিকটস্থ হাসপাতালে দ্রুত নিয়ে যান।"
+            ]
+        ),
+        "pa_IN": (
+            "ਸੱਪ ਦੇ ਕੱਟਣ ਦੀ ਐਮਰਜੈਂਸੀ! ਮਰੀਜ਼ ਨੂੰ ਸ਼ਾਂਤ ਰੱਖੋ ਅਤੇ ਤੁਰੰਤ 108 'ਤੇ ਕਾਲ ਕਰੋ।",
+            [
+                "ਡੰਗੇ ਹੋਏ ਅੰਗ ਨੂੰ ਹਿਲਾਏ ਬਿਨਾਂ ਦਿਲ ਦੇ ਪੱਧਰ ਤੋਂ ਹੇਠਾਂ ਰੱਖੋ।",
+                "ਜ਼ਖ਼ਮ 'ਤੇ ਕੱਟ ਨਾ ਲਗਾਓ ਅਤੇ ਜ਼ਹਿਰ ਚੂਸਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਨਾ ਕਰੋ।",
+                "ਮਰੀਜ਼ ਨੂੰ ਚੱਲਣ-ਫਿਰਨ ਨਾ ਦਿਓ ਅਤੇ ਸ਼ਾਂਤ ਰੱਖੋ।",
+                "ਐਂਟੀ-ਵੈਨਮ ਵਾਲੇ ਨਜ਼ਦੀਕੀ ਹਸਪਤਾਲ ਵਿੱਚ ਤੁਰੰਤ ਪਹੁੰਚਾਓ।"
+            ]
+        ),
+        "or_IN": (
+            "ସାପ କାମୁଡ଼ା ଜରୁରୀ ପରିସ୍ଥିତି! ରୋଗୀଙ୍କୁ ଶାନ୍ତ ରଖନ୍ତୁ ଏବଂ ତୁରନ୍ତ 108 କୁ କଲ୍ କରନ୍ତୁ।",
+            [
+                "କାମୁଡ଼ା ସ୍ଥାନକୁ ସ୍ଥିର ରଖି ହୃଦୟର ସ୍ତରଠାରୁ ତଳେ ରଖନ୍ତୁ।",
+                "କ୍ଷତ ସ୍ଥାନରେ ଚିରା ଲଗାନ୍ତୁ ନାହିଁ କିମ୍ବା ବିଷ ଶୋଷିବାକୁ ଚେଷ୍ଟା କରନ୍ତୁ ନାହିଁ।",
+                "ରୋଗୀଙ୍କୁ ଭୟଭୀତ ନକରାଇ ଶାନ୍ତ ରଖନ୍ତୁ।",
+                "ଆଣ୍ଟି-ସ୍ନେକ ଭେନମ ଥିବା ନିକଟସ୍ଥ ଡାକ୍ତରଖାନାକୁ ଶୀଘ୍ର ନିଅନ୍ତୁ।"
+            ]
+        ),
+        "mni_IN": (
+            "ꯂꯤꯟ ꯆꯤꯛꯄꯒꯤ ꯈꯨꯗꯣꯡꯊꯤꯕ! ꯑꯅꯥꯕ ꯃꯤꯑꯣꯏ ꯑꯗꯨ ꯊꯋꯥꯏ ꯌꯥꯝꯅ ꯇꯞꯅ ꯂꯩꯍꯟꯕꯤꯌꯨ ꯑꯃꯁꯨꯡ 108 ꯀꯣꯜ ꯇꯧꯕꯤꯌꯨ।",
+            [
+                "ꯆꯤꯛꯈ꯭ꯔꯕ ꯃꯐꯝ ꯑꯗꯨ ꯍꯥꯏꯗꯣꯛ-ꯍꯥꯏꯖꯤꯟ ꯇꯧꯍꯟꯒꯅꯨ, ꯊꯃꯣꯏꯗꯒꯤ ꯅꯦꯝꯅ ꯊꯝꯃꯨ।",
+                "ꯃꯐꯝ ꯑꯗꯨ ꯌꯥꯟꯊꯠꯄ ꯑꯃꯁꯨꯡ ꯍꯨ ꯆꯨꯊꯣꯛꯅꯕ ꯍꯣꯠꯅꯒꯅꯨ।",
+                "ꯑꯅꯥꯕ ꯑꯗꯨꯕꯨ ꯆꯠꯊꯣꯛ-ꯆꯠꯁꯤꯟ ꯇꯧꯍꯟꯒꯅꯨ।",
+                "ꯑꯦꯟꯇꯤ-ꯚꯦꯅꯝ ꯂꯩꯕ ꯈ꯭ꯋꯥꯏꯗꯒꯤ ꯅꯛꯄ ꯍꯣꯁꯄꯤꯇꯥꯜꯗ ꯈꯨꯗꯛꯇ ꯄꯨꯈꯠꯂꯨ।"
+            ]
+        ),
+        "en_IN": (
+            "Snakebite emergency! Keep the victim still and calm, dial 108 immediately.",
+            [
+                "Immobilize the bitten limb and keep it below heart level.",
+                "DO NOT apply a tight tourniquet, do not cut the wound, and do not suck venom.",
+                "Keep the person completely still and prevent walking or exertion.",
+                "Rush immediately to the nearest hospital equipped with Anti-Snake Venom (ASV)."
+            ]
+        ),
+    },
     "accident_trauma": {
         "service_idx": 0,
         "urgency": "critical",
@@ -584,8 +614,8 @@ CONDITION_FALLBACKS = {
             "ಅಪಘಾತ ತುರ್ತು ಪರಿಸ್ಥಿತಿ! ದಯವಿಟ್ಟು ರೋಗಿಯನ್ನು ಅತಿಯಾಗಿ ಚಲಿಸಬೇಡಿ ಮತ್ತು ತಕ್ಷಣ 108 ಆಂಬ್ಯುಲೆನ್ಸ್‌ಗೆ ಕರೆ ಮಾಡಿ.",
             [
                 "ತೀವ್ರ ರಕ್ತಸ್ರಾವವಿದ್ದರೆ, ಸ್ವಚ್ಛವಾದ ಬಟ್ಟೆಯಿಂದ ಗಾಯದ ಮೇಲೆ ನೇರವಾಗಿ ಬಲವಾದ ಒತ್ತಡ ಹಾಕಿ ಹಿಡಿಯಿರಿ.",
-                "ಕುತ್ತಿಗೆ ಅಥವಾ ಬೆನ್ನುಮೂಳೆಗೆ ಪೆಟ್ಟಾಗಿದ್ದರೆ, ರೋಗಿಯನ್ನು ಎತ್ತಬೇಡಿ ಅಥವಾ ತಿರುಗಿಸಬೇಡಿ (ಬೆನ್ನಿನ ಸ್ಥಿರತೆ ಮುಖ್ಯ).",
-                "ಮೂಳೆ ಮುರಿದಿದ್ದರೆ (Fracture), ಆ ಜಾಗವನ್ನು ಅಲುಗಾಡಿಸದೆ ಸ್ಪ್ಲಿಂಟ್ ಅಥವಾ ಮರದ ತುಂಡಿನಿಂದ ಸ್ಥಿರವಾಗಿರಿಸಿ.",
+                "ಕುತ್ತಿಗೆ ಅಥವಾ ಬೆನ್ನುಮೂಳೆಗೆ ಪೆಟ್ಟಾಗಿದ್ದರೆ, ರೋಗಿಯನ್ನು ಎತ್ತಬೇಡಿ ಅಥವಾ ತಿರುಗಿಸಬೇಡಿ.",
+                "ಮೂಳೆ ಮುರಿದಿದ್ದರೆ, ಆ ಜಾಗವನ್ನು ಅಲುಗಾಡಿಸದೆ ಸ್ಪ್ಲಿಂಟ್ ಅಥವಾ ಮರದ ತುಂಡಿನಿಂದ ಸ್ಥಿರವಾಗಿರಿಸಿ.",
                 "ಗಾಯಾಳುವಿಗೆ ಕುಡಿಯಲು ನೀರು ಅಥವಾ ಆಹಾರ ನೀಡಬೇಡಿ. ತಕ್ಷಣ 108 ಬರುವವರೆಗೆ ಜೊತೆಯಲ್ಲೇ ಇರಿ."
             ]
         ),
@@ -598,6 +628,87 @@ CONDITION_FALLBACKS = {
                 "घायल व्यक्ति को कुछ भी खाने या पीने को न दें और 108 का इंतजार करें।"
             ]
         ),
+        "ta_IN": (
+            "விபத்து அவசரநிலை! நோயாளியை அசைக்காமல் உடனே 108 ஆம்புலன்ஸை அழைக்கவும்.",
+            [
+                "அதிக ரத்தப்போக்கு இருந்தால், சுத்தமான துணியால் காயத்தின் மீது அழுத்திப் பிடிக்கவும்.",
+                "கழுத்து அல்லது முதுகெலும்பில் அடிபட்டிருந்தால் நோயாளியை நகர்த்த வேண்டாம்.",
+                "எலும்பு முறிவு ஏற்பட்டால் அந்தப் பகுதியை அசைக்காமல் நிலைநிறுத்தவும்.",
+                "உடனடியாக 108 மருத்துவக் குழு வரும் வரை உடனிருங்கள்."
+            ]
+        ),
+        "te_IN": (
+            "ప్రమాద అత్యవసర పరిస్థితి! రోగిని కదల్చకండి, వెంటనే 108 అంబులెన్స్‌కు కాల్ చేయండి.",
+            [
+                "తీవ్ర రక్తస్రావం ఉంటే శుభ్రమైన గుడ్డతో గాయంపై గట్టిగా ఒత్తిడి ఉంచండి.",
+                "మెడ లేదా వెన్నుముక గాయాలుంటే రోగిని అస్సలు కదల్చవద్దు.",
+                "ఎముక విరిగిన భాగాన్ని కదలకుండా స్థిరంగా ఉంచండి.",
+                "గాయపడిన వారికి ఏమీ తినిపించవద్దు లేదా తాగించవద్దు. 108 కోసం వేచి ఉండండి."
+            ]
+        ),
+        "ml_IN": (
+            "അപകട അടിയന്തരാവസ്ഥ! രോഗിയെ അനക്കാതെ ഉടൻ 108 ആംബുലൻസ് വിളിക്കുക.",
+            [
+                "രക്തസ്രാവമുണ്ടെങ്കിൽ വൃത്തിയുള്ള തുണികൊണ്ട് മുറിവിൽ അമർത്തിപ്പിടിക്കുക.",
+                "കഴുത്തിനോ നട്ടെല്ലിനോ പരിക്കേറ്റിട്ടുണ്ടെങ്കിൽ രോഗിയെ മാറ്റരുത്.",
+                "അസ്ഥി ഒടിഞ്ഞ ഭാഗം അനങ്ങാതെ താങ്ങിനിർത്തുക.",
+                "ഉടൻ തന്നെ 108 എത്തിച്ചേരുന്നതുവരെ ഒപ്പം തുടരുക."
+            ]
+        ),
+        "mr_IN": (
+            "अपघात आणीबाणी! रुग्णाला जास्त हलवू नका आणि त्वरित 108 रुग्णवाहिकेला कॉल करा.",
+            [
+                "रक्तस्त्राव होत असल्यास स्वच्छ कापडाने जखमेवर थेट दाब द्या.",
+                "मान किंवा पाठीच्या कण्याला इजा झाली असल्यास रुग्णाला हलवू नका.",
+                "हाड मोडले असल्यास ते स्थिर ठेवा.",
+                "रुग्णाला पाणी किंवा अन्न देऊ नका, त्वरित 108 ची वाट पहा."
+            ]
+        ),
+        "gu_IN": (
+            "અકસ્માત કટોકટી! દર્દીને બિલકુલ હલાવશો નહીં અને તરત જ 108 પર કૉલ કરો.",
+            [
+                "જો લોહી વહેતું હોય, તો સાફ કપડાથી ઘા પર સીધું દબાણ આપો.",
+                "ગરદન કે કરોડરજ્જુની ઇજા હોય તો દર્દીને જરાય ખસેડશો નહીં.",
+                "હાડકું તૂટી ગયું હોય તો તે ભાગને સ્થિર રાખો.",
+                "108 એમ્બ્યુલન્સ આવે ત્યાં સુધી દર્દી સાથે રહો."
+            ]
+        ),
+        "bn_IN": (
+            "দুর্ঘটনাজনিত জরুরি অবস্থা! রোগীকে বেশি নাড়াচাড়া করবেন না এবং অবিলম্বে 108-এ কল করুন।",
+            [
+                "মারাত্মক রক্তপাত হলে পরিষ্কার কাপড় দিয়ে ক্ষতের ওপর শক্ত করে চেপে ধরুন।",
+                "ঘাড় বা মেরুদণ্ডে আঘাতের সম্ভাবনা থাকলে রোগীকে সরাবেন না।",
+                "হাড় ভেঙে গেলে সেই অংশটি সম্পূর্ণ স্থির রাখুন।",
+                "আহত ব্যক্তিকে খাবার বা জল দেবেন না। 108-এর জন্য অপেক্ষা করুন।"
+            ]
+        ),
+        "pa_IN": (
+            "ਹਾਦਸਾ ਐਮਰਜੈਂਸੀ! ਮਰੀਜ਼ ਨੂੰ ਨਾ ਹਿਲਾਓ ਅਤੇ ਤੁਰੰਤ 108 ਐਂਬੂਲੈਂਸ ਨੂੰ ਕਾਲ ਕਰੋ।",
+            [
+                "ਜੇ ਖੂਨ ਵਹਿ ਰਿਹਾ ਹੈ, ਤਾਂ ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਜ਼ਖ਼ਮ 'ਤੇ ਦਬਾਅ ਬਣਾਓ।",
+                "ਧੌਣ ਜਾਂ ਰੀੜ੍ਹ ਦੀ ਹੱਡੀ ਦੀ ਸੱਟ ਲੱਗਣ 'ਤੇ ਮਰੀਜ਼ ਨੂੰ ਬਿਲਕੁਲ ਨਾ ਹਿਲਾਓ।",
+                "ਟੁੱਟੀ ਹੋਈ ਹੱਡੀ ਨੂੰ ਸਹਾਰਾ ਦੇ ਕੇ ਸਥਿਰ ਰੱਖੋ।",
+                "ਤੁਰੰਤ 108 ਐਂਬੂਲੈਂਸ ਦੀ ਉਡੀਕ ਕਰੋ।"
+            ]
+        ),
+        "or_IN": (
+            "ଦୁର୍ଘଟଣା ଜରୁରୀକାଳୀନ ପରିସ୍ଥିତି! ରୋଗୀଙ୍କୁ ନ ହଲାଇ ତୁରନ୍ତ 108 ଆମ୍ବୁଲାନ୍ସକୁ କଲ୍ କରନ୍ତୁ।",
+            [
+                "ରକ୍ତସ୍ରାବ ହେଉଥିଲେ ପରିଷ୍କାର କପଡ଼ାରେ କ୍ଷତ ସ୍ଥାନକୁ ଜୋରରେ ଚାପି ଧରନ୍ତୁ।",
+                "ବେକ କିମ୍ବା ମେରୁଦଣ୍ଡରେ ଆଘାତ ଥିଲେ ରୋଗୀଙ୍କୁ ଆଦୌ ଘୁଞ୍ଚାନ୍ତୁ ନାହିଁ।",
+                "ଭଙ୍ଗା ହାଡ଼କୁ ସ୍ଥିର ରଖନ୍ତୁ।",
+                "ତୁରନ୍ତ 108 ର ସହାୟତା ନିଅନ୍ତୁ।"
+            ]
+        ),
+        "mni_IN": (
+            "ꯑꯦꯛꯁꯤꯗꯦꯟꯠ ꯑꯆꯧꯕ ꯈꯨꯗꯣꯡꯊꯤꯕ! ꯑꯅꯥꯕ ꯃꯤꯑꯣꯏ ꯑꯗꯨ ꯍꯥꯏꯗꯣꯛ-ꯍꯥꯏꯖꯤꯟ ꯇꯧꯒꯅꯨ, 108 ꯀꯣꯜ ꯇꯧꯕꯤꯌꯨ।",
+            [
+                "ꯏ ꯌꯥꯝꯅ ꯊꯣꯛꯂꯕꯗꯤ ꯂꯨꯅ ꯂꯩꯕ ꯐꯤꯅ ꯀꯟꯅ ꯅꯝꯁꯤꯟꯕꯤꯌꯨ।",
+                "ꯀꯣꯛ ꯑꯃꯁꯨꯡ ꯉꯛ ꯁꯣꯛꯂꯕꯗꯤ ꯃꯤꯑꯣꯏ ꯑꯗꯨꯕꯨ ꯍꯤꯡꯁꯥꯠ ꯇꯧꯍꯟꯒꯅꯨ।",
+                "ꯁꯔꯨ ꯊꯨꯒꯥꯏꯔꯕꯗꯤ ꯆꯠꯊꯣꯛ-ꯆꯠꯁꯤꯟ ꯇꯧꯍꯟꯒꯅꯨ।",
+                "108 ꯂꯥꯛꯇ꯭ꯔꯤꯐꯥꯎ ꯃꯇꯦꯡ ꯄꯥꯡꯕꯤꯌꯨ।"
+            ]
+        ),
         "en_IN": (
             "Accident & Trauma Emergency! Keep the patient still and dial 108 immediately.",
             [
@@ -605,34 +716,6 @@ CONDITION_FALLBACKS = {
                 "Do NOT move the patient if head, neck, or spine injuries are suspected.",
                 "If a bone is fractured: Keep the injured limb completely still and supported.",
                 "Do not give food or water to the injured person. Await 108 emergency paramedics."
-            ]
-        ),
-    },
-    "snakebite": {
-        "service_idx": 0,
-        "urgency": "critical",
-        "kn_IN": (
-            "ಹಾವು ಕಚ್ಚಿದ ತುರ್ತು ಪರಿಸ್ಥಿತಿ! ರೋಗಿಯನ್ನು ಶಾಂತವಾಗಿರಿಸಿ, ತಕ್ಷಣ 108 ಕರೆ ಮಾಡಿ.",
-            [
-                "ಕಚ್ಚಿದ ಅಂಗವನ್ನು ಅಲುಗಾಡಿಸದೆ ಹೃದಯದ ಮಟ್ಟಕ್ಕಿಂತ ಕೆಳಗೆ ಇರಿಸಿ.",
-                "ಗಟ್ಟಿಯಾಗಿ ಹಗ್ಗ ಕಟ್ಟಬೇಡಿ, ಗಾಯವನ್ನು ಕತ್ತರಿಸಬೇಡಿ ಅಥವಾ ವಿಷ ಹೀರುವ ಪ್ರಯತ್ನ ಮಾಡಬೇಡಿ.",
-                "ಆಂಟಿ-ವೆನಮ್ (ASV) ಲಭ್ಯವಿರುವ ಸಮೀಪದ ಆಸ್ಪತ್ರೆಗೆ ತಕ್ಷಣ ಕರೆದೊಯ್ಯಿರಿ."
-            ]
-        ),
-        "hi_IN": (
-            "सांप के काटने पर तुरंत 108 पर कॉल करें और शांत रहें।",
-            [
-                "काटे गए अंग को हिलाए बिना दिल के स्तर से नीचे रखें।",
-                "कसकर पट्टी न बांधें, चीरा न लगाएं और जहर चूसने की कोशिश न करें।",
-                "मरीज को तुरंत एंटी-स्नेक वेनम वाले अस्पताल ले जाएं।"
-            ]
-        ),
-        "en_IN": (
-            "Snakebite emergency! Keep the victim still and calm, dial 108 immediately.",
-            [
-                "Immobilize the bitten limb and keep it below heart level.",
-                "DO NOT apply a tight tourniquet, do not cut the wound, and do not suck venom.",
-                "Rush immediately to the nearest hospital equipped with Anti-Snake Venom (ASV)."
             ]
         ),
     },
@@ -667,7 +750,7 @@ CONDITION_FALLBACKS = {
 }
 
 # ---------------------------------------------------------------------------
-# Language & Response Detection
+# Language & Response Utilities
 # ---------------------------------------------------------------------------
 def get_env(name):
     return os.getenv(name, "").strip()
@@ -679,6 +762,7 @@ def detect_lang(text: str, fallback: str) -> str:
     if not text:
         return fallback
 
+    # 1. Native unicode script identification
     counts = {}
     for ch in text:
         cp = ord(ch)
@@ -692,6 +776,7 @@ def detect_lang(text: str, fallback: str) -> str:
             return "mr_IN"
         return best_script
 
+    # 2. Romanized keywords detection
     words = set(re.findall(r"[a-zA-Z]+", text.lower()))
     scores = {}
     for code, kw_set in ROMAN_LANG_KEYWORDS.items():
@@ -730,7 +815,6 @@ def transcribe(audio_path, lang_code):
     if not api_key:
         return "", "GNANI_API_KEY is missing."
 
-    # Preprocess audio with bandpass and noise gating
     clean_audio_path = preprocess_telephonic_audio(audio_path)
     stt_lang = "en-IN" if lang_code == "mni_IN" else to_hyphen(lang_code)
 
@@ -757,39 +841,47 @@ def transcribe(audio_path, lang_code):
     transcript = str(data.get("transcript") or data.get("text") or "").strip()
     return transcript, ""
 
-def groq_triage(transcript: str, detected_lang: str):
+def groq_triage(transcript: str, target_lang: str):
     groq_key = get_env("GROQ_API_KEY")
     if not groq_key:
         return None, "Groq key missing"
 
     system_prompt = f"""You are Sahaya, an empathetic AI emergency first-aid dispatcher in India.
-Your mission is to handle all minor and major emergencies (road accidents, severe bleeding, fractures, burns, cardiac arrest, snakebites, electric shock, choking, etc.).
+Your mission is to handle all emergencies (snakebites, accidents, severe bleeding, cardiac arrest, burns, etc.).
 
-CRITICAL RULES:
-1. DETECT INTENDED LANGUAGE:
-   - Identify whether the caller used Kannada, Hindi, Tamil, Telugu, Malayalam, Marathi, Bengali, Gujarati, Punjabi, Odia, Manipuri, or English.
-   - If Romanized Kannada is detected (e.g. 'nana tande...', 'apaghata...'), set "lang_code": "kn_IN".
+CRITICAL LANGUAGE ENFORCEMENT:
+1. Target language code: '{target_lang}'.
+2. You MUST produce the 'reply' and all 'steps' EXCLUSIVELY in the official native script of '{target_lang}'.
+   - If '{target_lang}' is 'kn_IN': Reply ONLY in Kannada script (ಕನ್ನಡ).
+   - If '{target_lang}' is 'hi_IN': Reply ONLY in Hindi Devanagari script (हिन्दी).
+   - If '{target_lang}' is 'ta_IN': Reply ONLY in Tamil script (தமிழ்).
+   - If '{target_lang}' is 'te_IN': Reply ONLY in Telugu script (తెలుగు).
+   - If '{target_lang}' is 'ml_IN': Reply ONLY in Malayalam script (മലയാളം).
+   - If '{target_lang}' is 'mr_IN': Reply ONLY in Marathi Devanagari script (मराठी).
+   - If '{target_lang}' is 'gu_IN': Reply ONLY in Gujarati script (ગુજરાતી).
+   - If '{target_lang}' is 'bn_IN': Reply ONLY in Bengali script (বাংলা).
+   - If '{target_lang}' is 'pa_IN': Reply ONLY in Punjabi Gurmukhi script (ਪੰਜਾਬੀ).
+   - If '{target_lang}' is 'or_IN': Reply ONLY in Odia script (ଓଡ଼ିଆ).
+   - If '{target_lang}' is 'mni_IN': Reply ONLY in Meitei Mayek script (ꯃꯤꯇꯩꯂꯣꯟ).
+   - If '{target_lang}' is 'en_IN': Reply in English.
+3. NEVER switch to English or Hindi unless that is the exact target language requested.
 
-2. RESPONSE MUST BE IN THE EXACT NATIVE SCRIPT:
-   - Respond strictly in the native script of that detected language.
-   - NEVER reply in Hindi or English if Kannada was spoken!
+ACCURATE EMERGENCY FIRST-AID:
+- Snakebite: Immobilize bitten limb below heart level, do not cut/suck venom, do not tie tight tourniquets, rush for Anti-Snake Venom (ASV).
+- Accidents/Bleeding: Firm pressure on wounds with clean cloth, do not move head/neck if spine injury suspected, immobilize fractures.
+- Cardiac: Sit comfortably, loosen clothing, CPR if unresponsive.
 
-3. ACCURATE FIRST-AID:
-   - For road accidents: direct pressure on bleeding, do not move neck/spine, immobilize fractures, call 108.
-   - For burns: 20 mins clean cool running water, no ice/toothpaste.
-   - For cardiac: loosen clothing, CPR if unresponsive, call 108.
-
-4. RETURN ONLY STRICT RAW JSON:
+STRICT JSON OUTPUT FORMAT ONLY:
 {{
-  "lang_code": "{detected_lang}",
+  "lang_code": "{target_lang}",
   "category": "medical",
   "urgency": "critical",
-  "reply": "Calm supportive response with call-to-action in native script",
+  "reply": "Empathetic instruction in the EXACT native script of {target_lang}",
   "steps": [
-    "Step 1 in native script",
-    "Step 2 in native script",
-    "Step 3 in native script",
-    "Step 4 in native script"
+    "Step 1 in the EXACT native script of {target_lang}",
+    "Step 2 in the EXACT native script of {target_lang}",
+    "Step 3 in the EXACT native script of {target_lang}",
+    "Step 4 in the EXACT native script of {target_lang}"
   ]
 }}"""
 
@@ -813,7 +905,7 @@ CRITICAL RULES:
                         {"role": "user", "content": f"Emergency: {transcript}"},
                     ],
                     "temperature": 0.1,
-                    "max_tokens": 550,
+                    "max_tokens": 600,
                 },
                 timeout=20,
             )
@@ -838,12 +930,8 @@ CRITICAL RULES:
                 if str(s).strip()
             ][:5]
 
-            det_lang = str(data.get("lang_code", detected_lang)).strip()
-            if det_lang not in TRANSLATIONS:
-                det_lang = detected_lang
-
             return {
-                "lang_code": det_lang,
+                "lang_code": target_lang,
                 "category": str(data.get("category", "medical")).strip().lower(),
                 "urgency": str(data.get("urgency", "critical")).strip().lower(),
                 "reply": reply,
@@ -891,7 +979,7 @@ def timbre_speak(text: str, lang_code: str):
         return None, "TTS error"
 
 # ---------------------------------------------------------------------------
-# UI Construction Matching Video
+# UI Construction
 # ---------------------------------------------------------------------------
 def header_html(t):
     return f"""
@@ -947,7 +1035,7 @@ def directory_html(t):
         """)
     return f"""
     <div style="margin-top: 25px;">
-        <h4 style="color: #334155; font-size: 16px; margin-bottom: 12px; font-weight: 700;">📁 {html.escape(t['directory_header'])}</h4>
+        <h4 style="color: #0f172a; font-size: 16px; margin-bottom: 12px; font-weight: 700;">📁 {html.escape(t['directory_header'])}</h4>
         {''.join(cards)}
     </div>
     """
@@ -957,7 +1045,7 @@ def directory_html(t):
 # ---------------------------------------------------------------------------
 def run_pipeline(transcript: str, selected_lang: str):
     reply_lang = detect_lang(transcript, selected_lang)
-    rt = TRANSLATIONS.get(reply_lang, TRANSLATIONS["en_IN"])
+    rt = TRANSLATIONS.get(reply_lang, TRANSLATIONS["kn_IN"])
     transcript_bubble = f"**{rt['detected']}**\n\n💬 {transcript}"
     yield "", transcript_bubble, "", None, ""
 
@@ -965,7 +1053,7 @@ def run_pipeline(transcript: str, selected_lang: str):
 
     if triage:
         reply_lang = triage.get("lang_code", reply_lang)
-        rt = TRANSLATIONS.get(reply_lang, TRANSLATIONS["en_IN"])
+        rt = TRANSLATIONS.get(reply_lang, TRANSLATIONS["kn_IN"])
         transcript_bubble = f"**{rt['detected']}**\n\n💬 {transcript}"
         service = EMERGENCY_DIRECTORY[CATEGORY_INDEX.get(triage["category"], 0)]
         reply_text = triage["reply"]
@@ -978,7 +1066,6 @@ def run_pipeline(transcript: str, selected_lang: str):
     card = result_card(service, steps, urgency, rt)
     yield "", transcript_bubble, reply_bubble, None, card
 
-    # Spoken narration in exact language via Timbre
     steps_narration = " ".join([f"{i+1}. {s}" for i, s in enumerate(steps)])
     spoken_text = f"{reply_text}. {steps_narration}"
     audio_path, _ = timbre_speak(spoken_text, reply_lang)
@@ -1003,7 +1090,7 @@ def on_text(text, lang_code):
     yield from run_pipeline(text, lang_code)
 
 def apply_language(lang_code):
-    t = TRANSLATIONS.get(lang_code, TRANSLATIONS["en_IN"])
+    t = TRANSLATIONS.get(lang_code, TRANSLATIONS["kn_IN"])
     return (
         header_html(t),
         t["sos_btn"],
@@ -1014,11 +1101,24 @@ def apply_language(lang_code):
     )
 
 # ---------------------------------------------------------------------------
-# Clean Video Layout Styling
+# High-Contrast CSS: Removes all dark boxes and fixes unreadable text
 # ---------------------------------------------------------------------------
 CSS = """
+:root {
+    --body-background-fill: #FFFDF9 !important;
+    --background-fill-primary: #FFFFFF !important;
+    --background-fill-secondary: #F8FAFC !important;
+    --block-background-fill: #FFFFFF !important;
+    --block-border-color: #CBD5E1 !important;
+    --input-background-fill: #FFFFFF !important;
+    --input-border-color: #94A3B8 !important;
+    --body-text-color: #0F172A !important;
+    --block-label-text-color: #0F172A !important;
+}
+
 body, .gradio-container {
-    background-color: #fdfbf7 !important;
+    background-color: #FFFDF9 !important;
+    color: #0F172A !important;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
     max-width: 680px !important;
     margin: 0 auto !important;
@@ -1086,6 +1186,42 @@ body, .gradio-container {
     cursor: pointer;
 }
 
+/* REMOVE BLACK BACKGROUNDS: Force white/light fills for inputs and audio boxes */
+.gradio-container .block,
+.gradio-container .gr-box,
+.gradio-container .gr-panel,
+.gradio-container .gr-input,
+.gradio-container textarea,
+.gradio-container input,
+.gradio-container .gr-audio {
+    background-color: #FFFFFF !important;
+    background: #FFFFFF !important;
+    color: #0F172A !important;
+    border: 1.5px solid #CBD5E1 !important;
+    border-radius: 8px !important;
+}
+
+/* Explicitly target audio widgets to eliminate dark playback strips */
+.gradio-container audio,
+.gradio-container [data-testid="audio"] {
+    background-color: #F8FAFC !important;
+    border-radius: 8px !important;
+}
+
+/* Input labels and placeholders */
+.gradio-container label,
+.gradio-container .block-title,
+.gradio-container span {
+    color: #0F172A !important;
+    font-weight: 600 !important;
+}
+
+.gradio-container textarea::placeholder,
+.gradio-container input::placeholder {
+    color: #64748B !important;
+    font-weight: 500 !important;
+}
+
 /* Send Alert Button */
 .send-alert-btn {
     background: #0284c7 !important;
@@ -1096,6 +1232,18 @@ body, .gradio-container {
     border: none !important;
     padding: 12px !important;
     margin-top: 6px !important;
+    cursor: pointer;
+}
+
+/* Live Chat/Text Bubbles */
+.live-bubble {
+    background: #F1F5F9 !important;
+    border: 1px solid #CBD5E1 !important;
+    border-radius: 8px !important;
+    padding: 12px 16px !important;
+    color: #0F172A !important;
+    font-size: 15px !important;
+    margin-top: 8px !important;
 }
 
 /* Card Boxes */
@@ -1140,7 +1288,7 @@ body, .gradio-container {
 .step-list li {
     color: #0F172A !important;
     font-size: 1.05rem !important;
-    font-weight: 600 !important;
+    font-weight: 700 !important;
     line-height: 1.7 !important;
     margin-bottom: 0.5rem !important;
 }
@@ -1236,7 +1384,7 @@ INIT_JS = """() => {
 }"""
 
 # ---------------------------------------------------------------------------
-# UI Construction
+# UI Assembly
 # ---------------------------------------------------------------------------
 t0 = TRANSLATIONS["kn_IN"]
 
