@@ -1,3 +1,6 @@
 gradio==5.23.3
 requests
 gunicorn
+librosa
+soundfile
+groq
