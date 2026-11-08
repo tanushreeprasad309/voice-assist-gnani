@@ -1,6 +1,6 @@
-gradio==5.23.3
+gradio>=4.0.0
 requests
-gunicorn
-librosa
 soundfile
-groq
+numpy
+scipy
+noisereduce
