@@ -566,14 +566,14 @@ def timbre_speak(text, lang_code):
         return None, "TTS error"
 
 # ---------------------------------------------------------------------------
-# HTML Builders (Clean & Professional Minimalist Design)
+# HTML Builders (Warm Sand/Beige Theme)
 # ---------------------------------------------------------------------------
 def header_html(t):
     return (
         '<div class="brand-top">'
         '  <div class="brand-title-box">'
-        '    <div class="audio-wave"><span></span><span></span><span></span><span></span></div>'
         f'   <h1>{html.escape(t["title"])}</h1>'
+        '    <div class="audio-wave"><span></span><span></span><span></span><span></span></div>'
         '  </div>'
         f' <p class="brand-sub">{html.escape(t["subtitle"])}</p>'
         '</div>'
@@ -588,14 +588,14 @@ def result_card(service, steps, urgency, rt):
     urgency_tag = f'<span class="badge badge-{urgency}">{urgency.upper()}</span>' if urgency else ""
 
     return (
-        '<div class="emergency-banner glass-card">'
+        '<div class="emergency-banner card-box">'
         f' <div class="emergency-icon-wrap">{service["icon"]}</div>'
         '  <div class="emergency-info">'
         f'   <div class="emergency-title-row"><h2>{html.escape(service["title"])}</h2>{urgency_tag}</div>'
         f'   <p class="service-desc">{html.escape(service["desc"])}</p>'
         '  </div>'
         '</div>'
-        '<div class="content-card glass-card">'
+        '<div class="content-card card-box">'
         f' <div class="card-heading">🩹 {html.escape(rt["first_aid_label"])}</div>'
         f' {body}'
         f' <a class="call-action-btn" href="tel:{service["number"]}">'
@@ -608,7 +608,7 @@ def directory_html(t):
     cards = []
     for srv in EMERGENCY_DIRECTORY:
         cards.append(
-            '<div class="dir-item glass-card">'
+            '<div class="dir-item card-box">'
             f' <div class="dir-icon">{srv["icon"]}</div>'
             '  <div class="dir-meta">'
             f'   <h4>{html.escape(srv["title"])}</h4>'
@@ -684,51 +684,63 @@ def apply_language(lang_code):
     )
 
 # ---------------------------------------------------------------------------
-# CSS Styling (Clean Professional Theme - Eliminates Dark/Black Boxes)
+# CSS Styling (Warm Sand / Ochre Theme & Black Header / Label Override)
 # ---------------------------------------------------------------------------
 CSS = """
 :root {
-  --body-background-fill: #F8FAFC !important;
-  --background-fill-primary: #FFFFFF !important;
-  --background-fill-secondary: #F8FAFC !important;
-  --block-background-fill: #FFFFFF !important;
-  --block-border-color: #E2E8F0 !important;
-  --input-background-fill: #FFFFFF !important;
-  --input-border-color: #CBD5E1 !important;
-  --body-text-color: #0F172A !important;
-  --block-label-text-color: #334155 !important;
+  --body-background-fill: #EFE4CC !important;
+  --background-fill-primary: #F8F1DF !important;
+  --background-fill-secondary: #E9DEBE !important;
+  --block-background-fill: #F8F1DF !important;
+  --block-border-color: #D3C39E !important;
+  --input-background-fill: #FAF6EA !important;
+  --input-border-color: #C8B892 !important;
+  --body-text-color: #2D2214 !important;
+  --block-label-text-color: #3C2E1D !important;
 }
 
 body, .gradio-container, .dark, body.dark {
-  background: #F8FAFC !important;
-  color: #0F172A !important;
+  background-color: #EFE4CC !important;
+  color: #2D2214 !important;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  max-width: 960px !important;
+  max-width: 900px !important;
   margin: 0 auto !important;
   padding: 1.5rem 1rem !important;
 }
 
 footer { display: none !important; }
 
-/* Clean cards without heavy dark borders */
+/* Force light warm background on all cards and blocks */
 .gradio-container .block, 
 .gradio-container .gr-panel, 
 .gradio-container .gr-box,
-.glass-card {
-  background: #FFFFFF !important;
-  border: 1px solid #E2E8F0 !important;
-  border-radius: 16px !important;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04) !important;
+.card-box {
+  background: #F8F1DF !important;
+  border: 1.5px solid #D7C7A3 !important;
+  border-radius: 18px !important;
+  box-shadow: 0 4px 16px rgba(60, 40, 15, 0.05) !important;
 }
 
-h1, h2, h3, h4, strong { color: #0F172A !important; }
-p, span, label { color: #475569 !important; }
+/* Remove dark/black background from component labels & headers */
+.gradio-container .block-title,
+.gradio-container .label,
+.gradio-container label,
+.gradio-container span.label-text,
+.gradio-container [data-testid="block-label"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #2D2214 !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+}
 
-/* Header */
+h1, h2, h3, h4, strong { color: #23190E !important; }
+p, span { color: #4A3A25 !important; }
+
+/* Header area */
 .brand-top {
   text-align: center;
-  padding: 1.8rem 1rem 1.2rem;
-  margin-bottom: 0.5rem;
+  padding: 1rem 1rem 0.5rem;
 }
 
 .brand-title-box {
@@ -739,38 +751,41 @@ p, span, label { color: #475569 !important; }
 }
 
 .brand-top h1 {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   font-weight: 800;
   margin: 0;
-  color: #0F172A !important;
+  color: #23190E !important;
   letter-spacing: -0.02em;
 }
 
 .brand-sub {
-  font-size: 1.05rem;
-  font-weight: 500;
-  color: #64748B !important;
-  margin-top: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #6C5A40 !important;
+  margin-top: 4px;
 }
 
-/* Audio wave animation */
+/* Wave icon next to Sahaya */
 .audio-wave {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  height: 24px;
+  gap: 3px;
+  height: 22px;
 }
 .audio-wave span {
   width: 4px;
-  height: 18px;
-  background: #2563EB;
+  background: #2D2214;
   border-radius: 4px;
 }
+.audio-wave span:nth-child(1) { height: 10px; }
+.audio-wave span:nth-child(2) { height: 20px; }
+.audio-wave span:nth-child(3) { height: 14px; }
+.audio-wave span:nth-child(4) { height: 8px; }
 
-/* SOS Panic Button */
+/* Panic SOS button */
 .sos-row { 
   text-align: center; 
-  margin: 0.5rem 0 1.5rem; 
+  margin: 0.5rem 0 1.2rem; 
 }
 
 .sos-panic-btn {
@@ -778,85 +793,72 @@ p, span, label { color: #475569 !important; }
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%) !important;
+  background: linear-gradient(135deg, #E03131 0%, #B01E1E 100%) !important;
   color: #FFFFFF !important;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  padding: 16px 36px;
+  padding: 14px 34px;
   border-radius: 50px;
   border: none !important;
-  box-shadow: 0 8px 24px rgba(220, 38, 38, 0.35);
+  box-shadow: 0 8px 20px rgba(176, 30, 30, 0.3);
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.15s ease;
 }
 
 .sos-panic-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(220, 38, 38, 0.45);
 }
 
-/* Form inputs & containers */
+/* Clean Form inputs: no black pill backgrounds */
 .gradio-container select, 
 .gradio-container input, 
 .gradio-container textarea,
-.gradio-container .gr-input {
-  background: #FFFFFF !important;
-  border: 1.5px solid #CBD5E1 !important;
-  border-radius: 12px !important;
-  color: #0F172A !important;
+.gradio-container .gr-input,
+.gradio-container .secondary-wrap {
+  background: #FAF6EA !important;
+  border: 1.5px solid #C8B892 !important;
+  border-radius: 14px !important;
+  color: #2D2214 !important;
   font-size: 1rem !important;
-  padding: 10px 14px !important;
 }
 
-.gradio-container select:focus, 
-.gradio-container input:focus, 
-.gradio-container textarea:focus {
-  border-color: #2563EB !important;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+/* Microphone & Audio player styling */
+.gradio-container audio,
+.gradio-container .gr-audio,
+.gradio-container .audio-container,
+.gradio-container [data-testid="audio"] {
+  background: #F8F1DF !important;
+  border: 1px solid #D7C7A3 !important;
+  border-radius: 14px !important;
 }
 
 .gradio-container button.primary {
-  background: #2563EB !important;
+  background: #1D6AE5 !important;
   color: #FFFFFF !important;
   font-weight: 700 !important;
   border: none !important;
   border-radius: 12px !important;
-  padding: 12px 20px !important;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25) !important;
-  transition: transform 0.15s ease;
+  padding: 12px 24px !important;
+  box-shadow: 0 4px 14px rgba(29, 106, 229, 0.25) !important;
 }
 
-.gradio-container button.primary:hover {
-  transform: translateY(-1px);
-}
-
-/* Clean White Message Bubbles (Fixes black background) */
+/* Response text cards */
 .live-bubble {
-  background: #FFFFFF !important;
-  border: 1px solid #E2E8F0 !important;
+  background: #FAF6EA !important;
+  border: 1.5px solid #D7C7A3 !important;
   border-radius: 14px !important;
   padding: 16px 20px !important;
   margin: 10px 0 !important;
-  color: #0F172A !important;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+  color: #2D2214 !important;
 }
 
-/* Clean audio wrapper */
-.gradio-container audio,
-.gradio-container .gr-audio,
-.gradio-container .audio-container {
-  background: #F8FAFC !important;
-  border: 1px solid #E2E8F0 !important;
-  border-radius: 12px !important;
-}
-
-/* Emergency Banner */
+/* Emergency banner */
 .emergency-banner {
   display: flex;
   align-items: center;
   gap: 16px;
-  background: #FEF2F2 !important;
-  border: 1.5px solid #FECACA !important;
+  background: #FCE8E6 !important;
+  border: 1.5px solid #F5B5B0 !important;
   border-radius: 16px;
   padding: 1.2rem 1.6rem;
   margin-top: 1rem;
@@ -865,8 +867,8 @@ p, span, label { color: #475569 !important; }
 .emergency-icon-wrap {
   font-size: 2.2rem;
   background: #FFFFFF;
-  width: 56px;
-  height: 56px;
+  width: 54px;
+  height: 54px;
   border-radius: 14px;
   display: flex;
   align-items: center;
@@ -885,12 +887,12 @@ p, span, label { color: #475569 !important; }
 .emergency-title-row h2 {
   font-size: 1.35rem;
   margin: 0;
-  color: #DC2626 !important;
+  color: #C5221F !important;
   font-weight: 800;
 }
 
 .service-desc {
-  color: #475569 !important;
+  color: #5C4730 !important;
   margin: 4px 0 0;
   font-size: 0.95rem;
 }
@@ -902,12 +904,11 @@ p, span, label { color: #475569 !important; }
   font-weight: 800;
 }
 .badge-critical { background: #DC2626; color: #FFF !important; }
-.badge-urgent { background: #F59E0B; color: #FFF !important; }
-.badge-routine { background: #0D9488; color: #FFF !important; }
+.badge-urgent { background: #D97706; color: #FFF !important; }
+.badge-routine { background: #059669; color: #FFF !important; }
 
-/* Content Card */
+/* Content card & buttons */
 .content-card {
-  border-radius: 16px;
   padding: 1.5rem 1.8rem;
   margin-top: 1rem;
 }
@@ -915,14 +916,14 @@ p, span, label { color: #475569 !important; }
 .card-heading {
   font-size: 1.15rem;
   font-weight: 700;
-  color: #0F172A;
+  color: #2D2214;
   margin-bottom: 0.8rem;
 }
 
 .step-list {
   margin: 0;
   padding-left: 1.4rem;
-  color: #1E293B;
+  color: #2D2214;
   line-height: 1.8;
 }
 
@@ -930,7 +931,7 @@ p, span, label { color: #475569 !important; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #16A34A;
+  background: #15803D;
   color: #FFFFFF !important;
   text-decoration: none !important;
   font-size: 1.15rem;
@@ -938,17 +939,12 @@ p, span, label { color: #475569 !important; }
   padding: 14px 20px;
   border-radius: 12px;
   margin-top: 1.3rem;
-  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.25);
-  transition: transform 0.15s ease;
+  box-shadow: 0 4px 14px rgba(21, 128, 61, 0.25);
 }
 
-.call-action-btn:hover { 
-  transform: translateY(-1px); 
-}
-
-/* Directory Section */
-.dir-container { margin-top: 2rem; }
-.dir-title { font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem; }
+/* Directory */
+.dir-container { margin-top: 1.8rem; }
+.dir-title { font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem; color: #2D2214; }
 .dir-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -956,7 +952,6 @@ p, span, label { color: #475569 !important; }
 }
 
 .dir-item {
-  border-radius: 16px;
   padding: 1rem 1.3rem;
   display: flex;
   align-items: center;
@@ -965,18 +960,18 @@ p, span, label { color: #475569 !important; }
 
 .dir-icon { font-size: 1.8rem; }
 .dir-meta { flex: 1; }
-.dir-meta h4 { margin: 0; font-size: 1rem; font-weight: 700; color: #0F172A !important; }
-.dir-number { color: #2563EB !important; font-weight: 800; font-size: 0.95rem; }
+.dir-meta h4 { margin: 0; font-size: 1rem; font-weight: 700; color: #2D2214 !important; }
+.dir-number { color: #1D6AE5 !important; font-weight: 800; font-size: 0.95rem; }
 
 .quick-call-btn {
-  background: rgba(37, 99, 235, 0.08);
-  color: #2563EB !important;
+  background: rgba(29, 106, 229, 0.1);
+  color: #1D6AE5 !important;
   padding: 8px 16px;
   border-radius: 10px;
   text-decoration: none !important;
   font-weight: 700;
   font-size: 0.9rem;
-  border: 1px solid rgba(37, 99, 235, 0.2);
+  border: 1px solid rgba(29, 106, 229, 0.2);
 }
 """
 
@@ -1030,7 +1025,7 @@ INIT_JS = """() => {
 }"""
 
 # ---------------------------------------------------------------------------
-# Gradio Blocks
+# Gradio Layout
 # ---------------------------------------------------------------------------
 t0 = TRANSLATIONS["en_IN"]
 
