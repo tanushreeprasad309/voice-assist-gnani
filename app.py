@@ -98,7 +98,7 @@ TRANSLATIONS = {
     },
     "te_IN": {
         "title": "సహాయ (Sahaya)",
-        "subtitle": "సురಕ್ಷಿತంగా ఉండండి. 🛡️",
+        "subtitle": "సురక్షితంగా ఉండండి. 🛡️",
         "mic_header": "🎙️ మాట్లాడటానికి నొక్కండి",
         "type_header": "⌨️ లేదా టైప్ చేయండి",
         "type_placeholder": "ఉదా. ఆంబులెన్స్ కావాలి, పాము కరిచింది, ప్రమాదం...",
@@ -108,13 +108,13 @@ TRANSLATIONS = {
         "first_aid_label": "ప్రథమ చికిత్స మార్గదర్శకాలు:",
         "call_btn": "ఇప్పుడే {number} కి కాల్ చేయండి",
         "directory_header": "అత్యవసర సేవల డైరెక్టరీ",
-        "helpline": "హెಲ್ప్‌లైన్:",
+        "helpline": "హెల్ప్‌లైన్:",
         "audio_response": "🔊 సహాయ వాయిస్ మార్గదర్శకత్వం:",
         "say_call": "దయచేసి వెంటనే {number} కి కాల్ చేయండి.",
     },
     "ml_IN": {
         "title": "സഹായ (Sahaya)",
-        "subtitle": "സുരಕ್ಷಿತരായിരിക്കൂ. 🛡️",
+        "subtitle": "സുരക്ഷിതരായിരിക്കൂ. 🛡️",
         "mic_header": "🎙️ സംസാരിക്കാൻ ടാപ്പ് ചെയ്യുക",
         "type_header": "⌨️ അല്ലെങ്കിൽ ടൈപ്പ് ചെയ്യുക",
         "type_placeholder": "ഉദാ. ആംബുലൻസ് വേണം, പാമ്പ് കടിയേറ്റു, അപകടം...",
@@ -165,7 +165,7 @@ TRANSLATIONS = {
         "subtitle": "সুরক্ষিত থাকুন। 🛡️",
         "mic_header": "🎙️ কথা বলতে ট্যাপ করুন",
         "type_header": "⌨️ অথবা টাইপ করুন",
-        "type_placeholder": "যেমন অ্যাম্বুলেন্স দরকার, সাপে কেটেছে, दुर्घटना...",
+        "type_placeholder": "যেমন অ্যাম্বুলেন্স দরকার, সাপে কেটেছে, দুর্ঘটনা...",
         "send": "জরুরি সতর্কতা পাঠান",
         "detected": "🗣️ শনাক্ত জরুরি অবস্থা:",
         "action_header": "প্রাথমিক চিকিৎসার নির্দেশিকা",
@@ -183,7 +183,7 @@ TRANSLATIONS = {
         "type_header": "⌨️ ਜਾਂ ਟਾਈਪ ਕਰੋ",
         "type_placeholder": "ਜਿਵੇਂ ਐਂਬੂਲੈਂਸ ਚਾਹੀਦੀ ਹੈ, ਸੱਪ ਨੇ ਡੰਗਿਆ, ਹਾਦਸਾ...",
         "send": "ਐਮਰਜੈਂਸੀ ਅਲਰਟ ਭੇਜੋ",
-        "detected": "🗣️ पता लगी ਐਮਰਜੈਂਸੀ:",
+        "detected": "🗣️ ਪਤਾ ਲੱਗੀ ਐਮਰਜੈਂਸੀ:",
         "action_header": "ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦਿਸ਼ਾ-ਨਿਰਦੇਸ਼",
         "first_aid_label": "ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਕਦਮ:",
         "call_btn": "ਹੁਣੇ {number} 'ਤੇ ਕਾਲ ਕਰੋ",
@@ -199,7 +199,7 @@ TRANSLATIONS = {
         "type_header": "⌨️ କିମ୍ବା ଟାଇପ୍ କରନ୍ତୁ",
         "type_placeholder": "ଯେପରି ଆମ୍ବୁଲାନ୍ସ ଦରକାର, ସାପ କାମୁଡ଼ିଛି, ଦୁର୍ଘଟଣା...",
         "send": "ଜରୁରୀକାଳୀନ ଆଲର୍ଟ ପଠାନ୍ତୁ",
-        "detected": "🗣️ ଚିହ्ନଟ ଜରୁରୀକାଳୀନ ପରିସ୍ଥିତି:",
+        "detected": "🗣️ ଚିହ୍ନଟ ଜରୁରୀକାଳୀନ ପରିସ୍ଥିତି:",
         "action_header": "ପ୍ରଥମ ଚିକିତ୍ସା ନିର୍ଦ୍ଦେଶାବଳୀ",
         "first_aid_label": "ପ୍ରଥମ ଚିକିତ୍ସା ପଦକ୍ଷେପ:",
         "call_btn": "ତୁରନ୍ତ {number} କୁ କଲ୍ କରନ୍ତୁ",
@@ -295,7 +295,7 @@ EMERGENCY_DIRECTORY = [
         "number": "1091",
         "keywords": [
             "assault", "harassment", "abuse", "stalking", "threat", "molestation",
-            "ಕಿರುಕುಳ", "दबंग", "उत्पीड़न", "दुன்புறுத்தல்", "వేధింపులు",
+            "ಕಿರುಕುಳ", "दबंग", "उत्पीड़न", "துன்புறுத்தல்", "వేధింపులు",
         ],
         "desc": "Direct protection, helpline assistance and intervention against harassment or assault.",
         "first_aid": "1. Seek immediate shelter in a busy public area.\n2. Dial 1091 or 112 instantly.\n3. Trigger the loud SOS alarm to deter threats.",
@@ -396,19 +396,19 @@ def get_fallback_response(transcript, lang_code, service):
             ],
         ),
         "hi_IN": (
-            "कृपया घबराएं नहीं। तुरंत 108 पर कॉल करें और प्राथमिक उपचार के इन चरणों का पालन करें.",
+            "कृपया घबराएं नहीं। तुरंत 108 पर कॉल करें और प्राथमिक उपचार के इन चरणों का पालन करें।",
             [
-                "व्यक्ति की सांस और होश की जांच करें.",
-                "घाव पर साफ कपड़े से दबाव बनाकर रखें.",
-                "तुरंत एम्बुलेंस की प्रतीक्षा करें.",
+                "व्यक्ति की सांस और होश की जांच करें।",
+                "घाव पर साफ कपड़े से दबाव बनाकर रखें।",
+                "तुरंत एम्बुलेंस की प्रतीक्षा करें।",
             ],
         ),
         "mni_IN": (
-            "ꯆꯥꯅꯕꯤꯗꯨꯅ ꯑꯀꯤꯕ ꯄꯣꯛꯂꯣꯏꯗꯕꯅꯤ। ꯈꯨꯗꯛꯇ 108 ꯑꯦꯝꯕꯨꯂꯦꯟꯁ ꯀꯣꯜ ꯇꯧꯕꯤꯌꯨ ꯑꯃꯁꯨꯡ ꯃꯇꯦꯡ ꯂꯧꯕꯤꯌꯨ.",
+            "ꯆꯥꯅꯕꯤꯗꯨꯅ ꯑꯀꯤꯕ ꯄꯣꯛꯂꯣꯏꯗꯕꯅꯤ। ꯈꯨꯗꯛꯇ 108 ꯑꯦꯝꯕꯨꯂꯦꯟꯁ ꯀꯣꯜ ꯇꯧꯕꯤꯌꯨ ꯑꯃꯁꯨꯡ ꯃꯇꯦꯡ ꯂꯧꯕꯤꯌꯨ।",
             [
-                "ꯃꯤꯑꯣꯏ ꯑꯗꯨꯕꯨ ꯅꯤꯡꯊꯤꯅ ꯂꯩꯍꯟꯕꯤꯌꯨ.",
-                "ꯈꯨꯗꯣꯡꯊꯤꯕ ꯃꯐꯝ ꯑꯗꯨ ꯍꯤꯡꯅ ꯊꯝꯃꯣꯏꯗꯕꯅꯤ.",
-                "ꯍꯣꯁꯄꯤꯇꯥꯜꯗ ꯈꯨꯗꯛꯇ ꯄꯨꯈꯠꯄꯤꯌꯨ.",
+                "ꯃꯤꯑꯣꯏ ꯑꯗꯨꯕꯨ ꯅꯤꯡꯊꯤꯅ ꯂꯩꯍꯟꯕꯤꯌꯨ।",
+                "ꯈꯨꯗꯣꯡꯊꯤꯕ ꯃꯐꯝ ꯑꯗꯨ ꯍꯤꯡꯅ ꯊꯝꯃꯣꯏꯗꯕꯅꯤ।",
+                "ꯍꯣꯁꯄꯤꯇꯥꯜꯗ ꯈꯨꯗꯛꯇ ꯄꯨꯈꯠꯄꯤꯌꯨ।",
             ],
         ),
         "en_IN": (
@@ -652,7 +652,7 @@ def run_pipeline(transcript, selected_lang):
     card = result_card(service, steps, urgency, rt)
     yield "", transcript_bubble, reply_bubble, None, card
 
-    # Narration: Speaks BOTH triage reassurance AND step-by-step first aid in real time
+    # Narration: Speaks BOTH triage guidance AND first aid steps in real time
     if steps:
         steps_narration = " ".join([f"{i+1}. {s}" for i, s in enumerate(steps)])
         spoken_text = f"{reply_text}. {steps_narration}"
@@ -692,7 +692,7 @@ def apply_language(lang_code):
     )
 
 # ---------------------------------------------------------------------------
-# CSS Styling & Animations (Crisp Warm-White Theme + Pure High-Contrast)
+# CSS Styling & Animations (Live Wallpaper Sea Stones & Water + Crisp Ivory)
 # ---------------------------------------------------------------------------
 CSS = """
 :root {
@@ -718,7 +718,7 @@ body, .gradio-container, .dark, body.dark {
 
 footer { display: none !important; }
 
-/* Subtle entrance animations */
+/* Dynamic Animations */
 @keyframes bounce-wave {
   0%, 100% { height: 10px; }
   50% { height: 26px; }
@@ -730,8 +730,8 @@ footer { display: none !important; }
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes scale-in {
@@ -739,42 +739,43 @@ footer { display: none !important; }
   to { opacity: 1; transform: scale(1); }
 }
 
-.animate-drop { animation: drop-in 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-.animate-fade-in { animation: fade-in 0.8s ease-in; }
+/* Water Flowing over Sea Stones Live Wallpaper Animation */
+@keyframes sea-water-motion {
+  0% {
+    background-position: 0% 0%, 0% 50%, 0% 100%, 0% 0%;
+  }
+  50% {
+    background-position: 100% 20%, 50% 80%, 100% 50%, 0% 0%;
+  }
+  100% {
+    background-position: 0% 0%, 0% 50%, 0% 100%, 0% 0%;
+  }
+}
+
+.animate-drop { animation: drop-in 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+.animate-fade-in { animation: fade-in 0.9s ease-out; }
 .animate-scale-in { animation: scale-in 0.4s ease-out; }
 
-/* Clean cards with crisp white surface */
-.gradio-container .block, 
-.gradio-container .gr-panel, 
-.gradio-container .gr-box,
-.card-box {
-  background: #FFFFFF !important;
-  border: 1px solid #E6E1D6 !important;
-  border-radius: 16px !important;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04) !important;
-}
-
-/* Force dark, clear, highly legible text on all labels & headers */
-.gradio-container .block-title,
-.gradio-container .label,
-.gradio-container label,
-.gradio-container span.label-text,
-.gradio-container [data-testid="block-label"],
-.gradio-container .icon-label {
-  background: transparent !important;
-  background-color: transparent !important;
-  color: #0F172A !important;
-  font-weight: 700 !important;
-  font-size: 0.95rem !important;
-}
-
-h1, h2, h3, h4, strong { color: #0F172A !important; }
-p, span { color: #1E293B !important; }
-
-/* Header area & Live bouncing sound wave */
+/* --------------------------------------------------------------------------
+   Sahaya Section: Live Animated Water over Smooth Sea Stones
+   -------------------------------------------------------------------------- */
 .brand-top {
   text-align: center;
-  padding: 1rem 1rem 0.5rem;
+  padding: 2.2rem 1.6rem 1.8rem;
+  border-radius: 22px !important;
+  margin-bottom: 1.2rem;
+  position: relative;
+  overflow: hidden;
+  border: 1.5px solid #BAE6FD !important;
+  box-shadow: 0 10px 28px rgba(14, 165, 233, 0.15), inset 0 2px 14px rgba(255, 255, 255, 0.9) !important;
+  /* Multi-layered sea stones at the bottom with flowing translucent water streams */
+  background:
+    radial-gradient(ellipse 90px 45px at 15% 92%, rgba(100, 116, 139, 0.38) 0%, rgba(71, 85, 105, 0.5) 50%, transparent 80%),
+    radial-gradient(ellipse 110px 55px at 45% 96%, rgba(148, 163, 184, 0.42) 0%, rgba(71, 85, 105, 0.55) 55%, transparent 85%),
+    radial-gradient(ellipse 95px 48px at 80% 90%, rgba(100, 116, 139, 0.4) 0%, rgba(51, 65, 85, 0.52) 50%, transparent 80%),
+    linear-gradient(135deg, rgba(240, 249, 255, 0.88) 0%, rgba(186, 230, 253, 0.8) 35%, rgba(125, 211, 252, 0.65) 70%, rgba(204, 251, 241, 0.75) 100%) !important;
+  background-size: 200% 200%, 200% 200%, 200% 200%, 300% 300% !important;
+  animation: sea-water-motion 14s infinite ease-in-out !important;
 }
 
 .brand-title-box {
@@ -785,18 +786,20 @@ p, span { color: #1E293B !important; }
 }
 
 .brand-top h1 {
-  font-size: 2.4rem;
+  font-size: 2.6rem;
   font-weight: 800;
   margin: 0;
-  color: #0F172A !important;
+  color: #0369A1 !important;
   letter-spacing: -0.02em;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.85);
 }
 
 .brand-sub {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: #475569 !important;
-  margin-top: 4px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0F172A !important;
+  margin-top: 6px;
+  text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
 }
 
 .audio-wave {
@@ -806,13 +809,13 @@ p, span { color: #1E293B !important; }
   height: 28px;
 }
 .audio-wave span {
-  width: 4px;
-  background: #2563EB;
+  width: 5px;
+  background: #0284C7;
   border-radius: 4px;
 }
-.audio-wave span:nth-child(1) { animation: bounce-wave 1.2s infinite ease-in-out 0.1s; }
+.audio-wave span:nth-child(1) { animation: bounce-wave 1.1s infinite ease-in-out 0.1s; }
 .audio-wave span:nth-child(2) { animation: bounce-wave 1.4s infinite ease-in-out 0.3s; }
-.audio-wave span:nth-child(3) { animation: bounce-wave 1.3s infinite ease-in-out 0.2s; }
+.audio-wave span:nth-child(3) { animation: bounce-wave 1.25s infinite ease-in-out 0.2s; }
 .audio-wave span:nth-child(4) { animation: bounce-wave 1.5s infinite ease-in-out 0.4s; }
 
 /* Panic SOS button */
@@ -842,6 +845,34 @@ p, span { color: #1E293B !important; }
   transform: translateY(-2px);
 }
 
+/* Crisp White Cards & UI Elements */
+.gradio-container .block, 
+.gradio-container .gr-panel, 
+.gradio-container .gr-box,
+.card-box {
+  background: #FFFFFF !important;
+  border: 1px solid #E6E1D6 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Force dark, clear, highly legible text on all labels & headers */
+.gradio-container .block-title,
+.gradio-container .label,
+.gradio-container label,
+.gradio-container span.label-text,
+.gradio-container [data-testid="block-label"],
+.gradio-container .icon-label {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #0F172A !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+}
+
+h1, h2, h3, h4, strong { color: #0F172A !important; }
+p, span { color: #1E293B !important; }
+
 /* Form inputs & Dropdowns */
 .gradio-container select, 
 .gradio-container input, 
@@ -858,11 +889,11 @@ p, span { color: #1E293B !important; }
 .gradio-container select:focus, 
 .gradio-container input:focus, 
 .gradio-container textarea:focus {
-  border-color: #2563EB !important;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+  border-color: #0284C7 !important;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
 }
 
-/* Audio Recorder & Record Button Legibility */
+/* Record Button Legibility */
 .gradio-container [data-testid="audio"],
 .gradio-container .audio-container {
   background: #FFFFFF !important;
@@ -875,7 +906,7 @@ p, span { color: #1E293B !important; }
 .gradio-container [data-testid="audio"] button {
   background-color: #EFF6FF !important;
   color: #1D4ED8 !important;
-  border: 1px solid #BFDBFE !important;
+  border: 1.5px solid #BFDBFE !important;
   font-weight: 700 !important;
 }
 
@@ -883,21 +914,21 @@ p, span { color: #1E293B !important; }
 .gradio-container [data-testid="audio"] button span,
 .gradio-container [data-testid="audio"] span {
   color: #0F172A !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
 }
 
 /* Primary Send button */
 .gradio-container button.primary {
-  background: #2563EB !important;
+  background: #0284C7 !important;
   color: #FFFFFF !important;
   font-weight: 700 !important;
   border: none !important;
   border-radius: 12px !important;
   padding: 12px 24px !important;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25) !important;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25) !important;
 }
 
-/* Response text cards */
+/* Response text live bubbles */
 .live-bubble {
   background: #FFFFFF !important;
   border: 1px solid #E2E8F0 !important;
@@ -911,17 +942,16 @@ p, span { color: #1E293B !important; }
   color: #0F172A !important;
 }
 
-/* Emergency banner - Water & Stones Theme */
+/* Emergency banner */
 .emergency-banner {
   display: flex;
   align-items: center;
   gap: 16px;
-  background: linear-gradient(135deg, rgba(224, 242, 254, 0.8) 0%, rgba(186, 230, 253, 0.8) 50%, rgba(204, 251, 241, 0.8) 100%), #FFFFFF !important;
-  border: 1.5px solid #BAE6FD !important;
+  background: #FEF2F2 !important;
+  border: 1.5px solid #FECACA !important;
   border-radius: 16px;
   padding: 1.2rem 1.6rem;
   margin-top: 1rem;
-  box-shadow: inset 0 2px 10px rgba(0,0,0,0.05) !important;
 }
 
 .emergency-icon-wrap {
@@ -933,7 +963,7 @@ p, span { color: #1E293B !important; }
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.12);
 }
 
 .emergency-info { flex: 1; }
@@ -947,7 +977,7 @@ p, span { color: #1E293B !important; }
 .emergency-title-row h2 {
   font-size: 1.35rem;
   margin: 0;
-  color: #0369A1 !important;
+  color: #DC2626 !important;
   font-weight: 800;
 }
 
@@ -1038,17 +1068,17 @@ p, span { color: #1E293B !important; }
 .dir-icon { font-size: 1.8rem; }
 .dir-meta { flex: 1; }
 .dir-meta h4 { margin: 0; font-size: 1rem; font-weight: 700; color: #0F172A !important; }
-.dir-number { color: #2563EB !important; font-weight: 800; font-size: 0.95rem; }
+.dir-number { color: #0284C7 !important; font-weight: 800; font-size: 0.95rem; }
 
 .quick-call-btn {
-  background: rgba(37, 99, 235, 0.08);
-  color: #2563EB !important;
+  background: rgba(2, 132, 199, 0.08);
+  color: #0284C7 !important;
   padding: 8px 16px;
   border-radius: 10px;
   text-decoration: none !important;
   font-weight: 700;
   font-size: 0.9rem;
-  border: 1px solid rgba(37, 99, 235, 0.2);
+  border: 1px solid rgba(2, 132, 199, 0.25);
 }
 """
 
@@ -1172,4 +1202,3 @@ demo.queue(default_concurrency_limit=1)
 
 if __name__ == "__main__":
     demo.launch(server_name="0.0.0.0", server_port=10000)
-```
