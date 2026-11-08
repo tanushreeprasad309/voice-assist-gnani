@@ -165,7 +165,7 @@ TRANSLATIONS = {
         "subtitle": "সুরক্ষিত থাকুন।",
         "mic_header": "🎙️ কথা বলতে ট্যাপ করুন",
         "type_header": "⌨️ অথবা টাইপ করুন",
-        "type_placeholder": "যেমন অ্যাম্বুলেন্স দরকার, সাপে কেটেছে, দুর্ঘটনা...",
+        "type_placeholder": "যেমন অ্যাম্বুলেন্স দরকার, সাপে কেটেছে, दुर्घटना...",
         "send": "জরুরি সতর্কতা পাঠান",
         "detected": "🗣️ শনাক্ত জরুরি অবস্থা:",
         "action_header": "প্রাথমিক চিকিৎসার নির্দেশিকা",
@@ -273,9 +273,9 @@ EMERGENCY_DIRECTORY = [
             "medical", "bleeding", "unconscious", "faint", "snake", "bite",
             "poison", "breathing", "saanp", "saaf", "kata", "haavu", "kacchide",
             "pambu", "paamu", "lin", "chikpa", "ꯂꯤꯟ", "ꯑꯦꯝꯕꯨꯂꯦꯟꯁ", "ꯍꯣꯁꯄꯤꯇꯥꯜ",
-            "ಹಾವು", "ಕಚ್ಚಿದೆ", "ಆಂಬ್ಯುಲೆನ್ಸ್", "सांप", "एम्बुलेंस",
+            "ಹಾವು", "ಕಚ್ಚಿದೆ", "ಆಂಬ್ಯುಲೆನ್ಸ್", "सांप", "एम्बुलेंस", "crash",
         ],
-        "desc": "Medical emergencies, snake bites, trauma & urgent patient dispatch.",
+        "desc": "Medical emergencies, trauma, road accidents, snake bites & patient dispatch.",
         "first_aid": "1. Check airway, breathing & pulse.\n2. Keep person still and calm.\n3. Apply direct pressure to bleeding wounds.",
     },
     {
@@ -339,7 +339,7 @@ SCRIPT_RANGES = [
     (0x0C00, 0x0C7F, "te_IN"),
     (0x0C80, 0x0CFF, "kn_IN"),
     (0x0D00, 0x0D7F, "ml_IN"),
-    (0xABC0, 0xABFF, "mni_IN"),  # Meitei Mayek
+    (0xABC0, 0xABFF, "mni_IN"),
 ]
 
 ROMAN_LANG_KEYWORDS = {
@@ -388,7 +388,7 @@ def match_emergency(text):
 def get_fallback_response(transcript, lang_code, service):
     fallbacks = {
         "kn_IN": (
-            "ದಯವಿಟ್ಟು ಗಾಬರಿಯಾಗಬೇಡಿ. ತಕ್ಷಣ 108 ಆಂಬ್ಯುಲೆನ್ಸ್‌ಗೆ ಕರೆ ಮಾಡಿ ಮತ್ತು ರೋಗಿಯನ್ನು ಶಾಂತವಾಗಿರಿಸಿ.",
+            "ದಯವಿಟ್ಟು ಗಾಬರಿಯಾಗಬೇಡಿ. ತಕ್ಷಣ 108 ಆಂಬ್ಯುಲೆನ್ಸ್‌ಗೆ ಕರೆ ಮಾಡಿ ಮತ್ತು ಈ ಕೆಳಗಿನ ಪ್ರಥಮ ಚಿಕಿತ್ಸಾ ಕ್ರಮಗಳನ್ನು ಅನುಸರಿಸಿ.",
             [
                 "ವ್ಯಕ್ತಿಯ ಉಸಿರಾಟವನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಶಾಂತವಾಗಿ ಮಲಗಿಸಿ.",
                 "ಗಾಯದ ಮೇಲೆ ಒತ್ತಡ ಹಾಕಿ ರಕ್ತಸ್ರಾವ ನಿಲ್ಲಿಸಿ.",
@@ -396,7 +396,7 @@ def get_fallback_response(transcript, lang_code, service):
             ],
         ),
         "hi_IN": (
-            "कृपया घबराएं नहीं। तुरंत 108 पर कॉल करें और व्यक्ति को स्थिर रखें।",
+            "कृपया घबराएं नहीं। तुरंत 108 पर कॉल करें और प्राथमिक उपचार के इन चरणों का पालन करें।",
             [
                 "व्यक्ति की सांस और होश की जांच करें।",
                 "घाव पर साफ कपड़े से दबाव बनाकर रखें।",
@@ -404,7 +404,7 @@ def get_fallback_response(transcript, lang_code, service):
             ],
         ),
         "mni_IN": (
-            "ꯆꯥꯅꯕꯤꯗꯨꯅ ꯑꯀꯤꯕ ꯄꯣꯛꯂꯣꯏꯗꯕꯅꯤ। ꯈꯨꯗꯛꯇ 108 ꯑꯦꯝꯕꯨꯂꯦꯟꯁ ꯀꯣꯜ ꯇꯧꯕꯤꯌꯨ।",
+            "ꯆꯥꯅꯕꯤꯗꯨꯅ ꯑꯀꯤꯕ ꯄꯣꯛꯂꯣꯏꯗꯕꯅꯤ। ꯈꯨꯗꯛꯇ 108 ꯑꯦꯝꯕꯨꯂꯦꯟꯁ ꯀꯣꯜ ꯇꯧꯕꯤꯌꯨ ꯑꯃꯁꯨꯡ ꯃꯇꯦꯡ ꯂꯧꯕꯤꯌꯨ।",
             [
                 "ꯃꯤꯑꯣꯏ ꯑꯗꯨꯕꯨ ꯅꯤꯡꯊꯤꯅ ꯂꯩꯍꯟꯕꯤꯌꯨ।",
                 "ꯈꯨꯗꯣꯡꯊꯤꯕ ꯃꯐꯝ ꯑꯗꯨ ꯍꯤꯡꯅ ꯊꯝꯃꯣꯏꯗꯕꯅꯤ।",
@@ -412,11 +412,11 @@ def get_fallback_response(transcript, lang_code, service):
             ],
         ),
         "en_IN": (
-            "Please stay calm. Immediately call 108 ambulance and follow basic first-aid.",
+            "Please stay calm. Immediately call 108 ambulance and follow these primary first-aid steps.",
             [
-                "Keep the patient completely calm and still.",
-                "Apply firm pressure to bleeding injuries.",
-                "Wait for medical dispatch.",
+                "Check airway, breathing, and responsiveness immediately.",
+                "Keep the patient still and calm without moving their spine.",
+                "Apply clean, direct pressure to any bleeding wounds.",
             ],
         ),
     }
@@ -470,7 +470,7 @@ def groq_triage(transcript, lang_code):
         '{"lang_code": "' + lang_code + '", '
         '"category": "medical|police|assault|fire|disaster", '
         '"urgency": "critical|urgent|routine", '
-        '"reply": "Calming 2-sentence response in native script with urgent instruction", '
+        '"reply": "Calming 1-2 sentence response with urgent dispatch instruction", '
         '"steps": ["step 1 in native script", "step 2 in native script", "step 3 in native script"]}'
     )
 
@@ -566,7 +566,7 @@ def timbre_speak(text, lang_code):
         return None, "TTS error"
 
 # ---------------------------------------------------------------------------
-# HTML Builders (Clean Ivory / Light Pearl Minimalist Theme)
+# HTML Builders
 # ---------------------------------------------------------------------------
 def header_html(t):
     return (
@@ -583,7 +583,7 @@ def result_card(service, steps, urgency, rt):
     if steps:
         body = "<ol class='step-list'>" + "".join(f"<li>{html.escape(s)}</li>" for s in steps) + "</ol>"
     else:
-        body = "<p>" + html.escape(service["first_aid"]).replace("\n", "<br>") + "</p>"
+        body = "<p class='fallback-text'>" + html.escape(service["first_aid"]).replace("\n", "<br>") + "</p>"
 
     urgency_tag = f'<span class="badge badge-{urgency}">{urgency.upper()}</span>' if urgency else ""
 
@@ -596,7 +596,7 @@ def result_card(service, steps, urgency, rt):
         '  </div>'
         '</div>'
         '<div class="content-card card-box">'
-        f' <div class="card-heading">🩹 {html.escape(rt["first_aid_label"])}</div>'
+        f' <div class="card-heading">💊 {html.escape(rt["first_aid_label"])}</div>'
         f' {body}'
         f' <a class="call-action-btn" href="tel:{service["number"]}">'
         f'   📞 {html.escape(rt["call_btn"].format(number=service["number"]))}'
@@ -652,7 +652,15 @@ def run_pipeline(transcript, selected_lang):
     card = result_card(service, steps, urgency, rt)
     yield "", transcript_bubble, reply_bubble, None, card
 
-    audio_path, _ = timbre_speak(reply_text, reply_lang)
+    # Narration: Speak BOTH initial response guidance AND step-by-step first aid
+    if steps:
+        steps_narration = " ".join([f"{i+1}. {s}" for i, s in enumerate(steps)])
+        spoken_text = f"{reply_text}. {steps_narration}"
+    else:
+        clean_first_aid = re.sub(r"\n+", " ", service["first_aid"])
+        spoken_text = f"{reply_text}. {clean_first_aid}"
+
+    audio_path, _ = timbre_speak(spoken_text, reply_lang)
     yield "", transcript_bubble, reply_bubble, audio_path, card
 
 def on_audio(audio_path, lang_code):
@@ -684,7 +692,7 @@ def apply_language(lang_code):
     )
 
 # ---------------------------------------------------------------------------
-# CSS Styling (Crisp Warm-White / Ivory + High Contrast Buttons & Labels)
+# CSS Styling (Crisp Warm-White + High-Contrast First-Aid Typography)
 # ---------------------------------------------------------------------------
 CSS = """
 :root {
@@ -695,13 +703,13 @@ CSS = """
   --block-border-color: #E6E1D6 !important;
   --input-background-fill: #FFFFFF !important;
   --input-border-color: #D3CDC0 !important;
-  --body-text-color: #1A1A1A !important;
-  --block-label-text-color: #1A1A1A !important;
+  --body-text-color: #0F172A !important;
+  --block-label-text-color: #0F172A !important;
 }
 
 body, .gradio-container, .dark, body.dark {
   background-color: #FBF9F5 !important;
-  color: #1A1A1A !important;
+  color: #0F172A !important;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   max-width: 920px !important;
   margin: 0 auto !important;
@@ -730,13 +738,13 @@ footer { display: none !important; }
 .gradio-container .icon-label {
   background: transparent !important;
   background-color: transparent !important;
-  color: #1A1A1A !important;
+  color: #0F172A !important;
   font-weight: 700 !important;
   font-size: 0.95rem !important;
 }
 
-h1, h2, h3, h4, strong { color: #111827 !important; }
-p, span { color: #374151 !important; }
+h1, h2, h3, h4, strong { color: #0F172A !important; }
+p, span { color: #1E293B !important; }
 
 /* Header area */
 .brand-top {
@@ -755,14 +763,14 @@ p, span { color: #374151 !important; }
   font-size: 2.4rem;
   font-weight: 800;
   margin: 0;
-  color: #111827 !important;
+  color: #0F172A !important;
   letter-spacing: -0.02em;
 }
 
 .brand-sub {
   font-size: 1.05rem;
   font-weight: 600;
-  color: #6B7280 !important;
+  color: #475569 !important;
   margin-top: 4px;
 }
 
@@ -774,7 +782,7 @@ p, span { color: #374151 !important; }
 }
 .audio-wave span {
   width: 4px;
-  background: #1F2937;
+  background: #0F172A;
   border-radius: 4px;
 }
 .audio-wave span:nth-child(1) { height: 10px; }
@@ -816,9 +824,9 @@ p, span { color: #374151 !important; }
 .gradio-container .gr-input,
 .gradio-container .secondary-wrap {
   background: #FFFFFF !important;
-  border: 1.5px solid #D1D5DB !important;
+  border: 1.5px solid #CBD5E1 !important;
   border-radius: 12px !important;
-  color: #111827 !important;
+  color: #0F172A !important;
   font-size: 1rem !important;
 }
 
@@ -829,15 +837,14 @@ p, span { color: #374151 !important; }
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
 }
 
-/* Fix Audio Recorder & Record Button Legibility */
+/* Audio Recorder styling */
 .gradio-container [data-testid="audio"],
 .gradio-container .audio-container {
   background: #FFFFFF !important;
-  border: 1px solid #E5E7EB !important;
+  border: 1px solid #E2E8F0 !important;
   border-radius: 14px !important;
 }
 
-/* Explicit styling for the Record / Mic button inside Gradio */
 .gradio-container .record-button,
 .gradio-container button[aria-label*="Record"],
 .gradio-container [data-testid="audio"] button {
@@ -850,7 +857,7 @@ p, span { color: #374151 !important; }
 .gradio-container .record-button span,
 .gradio-container [data-testid="audio"] button span,
 .gradio-container [data-testid="audio"] span {
-  color: #1F2937 !important;
+  color: #0F172A !important;
   font-weight: 600 !important;
 }
 
@@ -865,14 +872,18 @@ p, span { color: #374151 !important; }
   box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25) !important;
 }
 
-/* Chat bubble responses */
+/* Live bubbles */
 .live-bubble {
   background: #FFFFFF !important;
-  border: 1px solid #E5E7EB !important;
+  border: 1px solid #E2E8F0 !important;
   border-radius: 14px !important;
   padding: 16px 20px !important;
   margin: 10px 0 !important;
-  color: #111827 !important;
+  color: #0F172A !important;
+}
+
+.live-bubble p, .live-bubble strong {
+  color: #0F172A !important;
 }
 
 /* Emergency banner */
@@ -915,9 +926,10 @@ p, span { color: #374151 !important; }
 }
 
 .service-desc {
-  color: #4B5563 !important;
+  color: #334155 !important;
   margin: 4px 0 0;
   font-size: 0.95rem;
+  font-weight: 500;
 }
 
 .badge {
@@ -930,24 +942,40 @@ p, span { color: #374151 !important; }
 .badge-urgent { background: #D97706; color: #FFF !important; }
 .badge-routine { background: #059669; color: #FFF !important; }
 
-/* Content card & buttons */
+/* --------------------------------------------------------------------------
+   CRUCIAL FIX: First-Aid Steps Explicit High-Contrast Styling
+   -------------------------------------------------------------------------- */
 .content-card {
-  padding: 1.5rem 1.8rem;
-  margin-top: 1rem;
+  padding: 1.6rem 2rem !important;
+  margin-top: 1rem !important;
+  background: #FFFFFF !important;
 }
 
 .card-heading {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #111827;
-  margin-bottom: 0.8rem;
+  font-size: 1.25rem !important;
+  font-weight: 800 !important;
+  color: #0F172A !important;
+  margin-bottom: 1rem !important;
 }
 
 .step-list {
-  margin: 0;
-  padding-left: 1.4rem;
-  color: #1F2937;
-  line-height: 1.8;
+  margin: 0.5rem 0 1.2rem !important;
+  padding-left: 1.6rem !important;
+}
+
+.step-list li {
+  color: #0F172A !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  line-height: 1.75 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.fallback-text {
+  color: #0F172A !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  line-height: 1.7 !important;
 }
 
 .call-action-btn {
@@ -967,7 +995,7 @@ p, span { color: #374151 !important; }
 
 /* Directory */
 .dir-container { margin-top: 1.8rem; }
-.dir-title { font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem; color: #111827; }
+.dir-title { font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem; color: #0F172A; }
 .dir-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -983,7 +1011,7 @@ p, span { color: #374151 !important; }
 
 .dir-icon { font-size: 1.8rem; }
 .dir-meta { flex: 1; }
-.dir-meta h4 { margin: 0; font-size: 1rem; font-weight: 700; color: #111827 !important; }
+.dir-meta h4 { margin: 0; font-size: 1rem; font-weight: 700; color: #0F172A !important; }
 .dir-number { color: #2563EB !important; font-weight: 800; font-size: 0.95rem; }
 
 .quick-call-btn {
