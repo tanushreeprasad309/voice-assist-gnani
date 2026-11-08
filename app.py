@@ -566,7 +566,7 @@ def timbre_speak(text, lang_code):
         return None, "TTS error"
 
 # ---------------------------------------------------------------------------
-# HTML Builders (Warm Sand/Beige Theme)
+# HTML Builders (Clean Ivory / Light Pearl Minimalist Theme)
 # ---------------------------------------------------------------------------
 def header_html(t):
     return (
@@ -684,58 +684,59 @@ def apply_language(lang_code):
     )
 
 # ---------------------------------------------------------------------------
-# CSS Styling (Warm Sand / Ochre Theme & Black Header / Label Override)
+# CSS Styling (Crisp Warm-White / Ivory + High Contrast Buttons & Labels)
 # ---------------------------------------------------------------------------
 CSS = """
 :root {
-  --body-background-fill: #EFE4CC !important;
-  --background-fill-primary: #F8F1DF !important;
-  --background-fill-secondary: #E9DEBE !important;
-  --block-background-fill: #F8F1DF !important;
-  --block-border-color: #D3C39E !important;
-  --input-background-fill: #FAF6EA !important;
-  --input-border-color: #C8B892 !important;
-  --body-text-color: #2D2214 !important;
-  --block-label-text-color: #3C2E1D !important;
+  --body-background-fill: #FBF9F5 !important;
+  --background-fill-primary: #FFFFFF !important;
+  --background-fill-secondary: #F6F3EC !important;
+  --block-background-fill: #FFFFFF !important;
+  --block-border-color: #E6E1D6 !important;
+  --input-background-fill: #FFFFFF !important;
+  --input-border-color: #D3CDC0 !important;
+  --body-text-color: #1A1A1A !important;
+  --block-label-text-color: #1A1A1A !important;
 }
 
 body, .gradio-container, .dark, body.dark {
-  background-color: #EFE4CC !important;
-  color: #2D2214 !important;
+  background-color: #FBF9F5 !important;
+  color: #1A1A1A !important;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  max-width: 900px !important;
+  max-width: 920px !important;
   margin: 0 auto !important;
   padding: 1.5rem 1rem !important;
 }
 
 footer { display: none !important; }
 
-/* Force light warm background on all cards and blocks */
+/* Clean cards with crisp white surface */
 .gradio-container .block, 
 .gradio-container .gr-panel, 
 .gradio-container .gr-box,
 .card-box {
-  background: #F8F1DF !important;
-  border: 1.5px solid #D7C7A3 !important;
-  border-radius: 18px !important;
-  box-shadow: 0 4px 16px rgba(60, 40, 15, 0.05) !important;
+  background: #FFFFFF !important;
+  border: 1px solid #E6E1D6 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04) !important;
 }
 
-/* Remove dark/black background from component labels & headers */
+/* Force dark, clear, highly legible text on all labels & headers */
 .gradio-container .block-title,
 .gradio-container .label,
 .gradio-container label,
 .gradio-container span.label-text,
-.gradio-container [data-testid="block-label"] {
+.gradio-container [data-testid="block-label"],
+.gradio-container .icon-label {
   background: transparent !important;
   background-color: transparent !important;
-  color: #2D2214 !important;
+  color: #1A1A1A !important;
   font-weight: 700 !important;
   font-size: 0.95rem !important;
 }
 
-h1, h2, h3, h4, strong { color: #23190E !important; }
-p, span { color: #4A3A25 !important; }
+h1, h2, h3, h4, strong { color: #111827 !important; }
+p, span { color: #374151 !important; }
 
 /* Header area */
 .brand-top {
@@ -754,18 +755,17 @@ p, span { color: #4A3A25 !important; }
   font-size: 2.4rem;
   font-weight: 800;
   margin: 0;
-  color: #23190E !important;
+  color: #111827 !important;
   letter-spacing: -0.02em;
 }
 
 .brand-sub {
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  color: #6C5A40 !important;
+  color: #6B7280 !important;
   margin-top: 4px;
 }
 
-/* Wave icon next to Sahaya */
 .audio-wave {
   display: inline-flex;
   align-items: center;
@@ -774,7 +774,7 @@ p, span { color: #4A3A25 !important; }
 }
 .audio-wave span {
   width: 4px;
-  background: #2D2214;
+  background: #1F2937;
   border-radius: 4px;
 }
 .audio-wave span:nth-child(1) { height: 10px; }
@@ -793,14 +793,14 @@ p, span { color: #4A3A25 !important; }
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: linear-gradient(135deg, #E03131 0%, #B01E1E 100%) !important;
+  background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%) !important;
   color: #FFFFFF !important;
   font-size: 1.05rem;
   font-weight: 700;
   padding: 14px 34px;
   border-radius: 50px;
   border: none !important;
-  box-shadow: 0 8px 20px rgba(176, 30, 30, 0.3);
+  box-shadow: 0 8px 22px rgba(220, 38, 38, 0.32);
   cursor: pointer;
   transition: transform 0.15s ease;
 }
@@ -809,47 +809,70 @@ p, span { color: #4A3A25 !important; }
   transform: translateY(-2px);
 }
 
-/* Clean Form inputs: no black pill backgrounds */
+/* Form inputs & Dropdowns */
 .gradio-container select, 
 .gradio-container input, 
 .gradio-container textarea,
 .gradio-container .gr-input,
 .gradio-container .secondary-wrap {
-  background: #FAF6EA !important;
-  border: 1.5px solid #C8B892 !important;
-  border-radius: 14px !important;
-  color: #2D2214 !important;
+  background: #FFFFFF !important;
+  border: 1.5px solid #D1D5DB !important;
+  border-radius: 12px !important;
+  color: #111827 !important;
   font-size: 1rem !important;
 }
 
-/* Microphone & Audio player styling */
-.gradio-container audio,
-.gradio-container .gr-audio,
-.gradio-container .audio-container,
-.gradio-container [data-testid="audio"] {
-  background: #F8F1DF !important;
-  border: 1px solid #D7C7A3 !important;
+.gradio-container select:focus, 
+.gradio-container input:focus, 
+.gradio-container textarea:focus {
+  border-color: #2563EB !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+}
+
+/* Fix Audio Recorder & Record Button Legibility */
+.gradio-container [data-testid="audio"],
+.gradio-container .audio-container {
+  background: #FFFFFF !important;
+  border: 1px solid #E5E7EB !important;
   border-radius: 14px !important;
 }
 
+/* Explicit styling for the Record / Mic button inside Gradio */
+.gradio-container .record-button,
+.gradio-container button[aria-label*="Record"],
+.gradio-container [data-testid="audio"] button {
+  background-color: #EFF6FF !important;
+  color: #1D4ED8 !important;
+  border: 1px solid #BFDBFE !important;
+  font-weight: 700 !important;
+}
+
+.gradio-container .record-button span,
+.gradio-container [data-testid="audio"] button span,
+.gradio-container [data-testid="audio"] span {
+  color: #1F2937 !important;
+  font-weight: 600 !important;
+}
+
+/* Send button */
 .gradio-container button.primary {
-  background: #1D6AE5 !important;
+  background: #2563EB !important;
   color: #FFFFFF !important;
   font-weight: 700 !important;
   border: none !important;
   border-radius: 12px !important;
   padding: 12px 24px !important;
-  box-shadow: 0 4px 14px rgba(29, 106, 229, 0.25) !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25) !important;
 }
 
-/* Response text cards */
+/* Chat bubble responses */
 .live-bubble {
-  background: #FAF6EA !important;
-  border: 1.5px solid #D7C7A3 !important;
+  background: #FFFFFF !important;
+  border: 1px solid #E5E7EB !important;
   border-radius: 14px !important;
   padding: 16px 20px !important;
   margin: 10px 0 !important;
-  color: #2D2214 !important;
+  color: #111827 !important;
 }
 
 /* Emergency banner */
@@ -857,8 +880,8 @@ p, span { color: #4A3A25 !important; }
   display: flex;
   align-items: center;
   gap: 16px;
-  background: #FCE8E6 !important;
-  border: 1.5px solid #F5B5B0 !important;
+  background: #FEF2F2 !important;
+  border: 1.5px solid #FECACA !important;
   border-radius: 16px;
   padding: 1.2rem 1.6rem;
   margin-top: 1rem;
@@ -887,12 +910,12 @@ p, span { color: #4A3A25 !important; }
 .emergency-title-row h2 {
   font-size: 1.35rem;
   margin: 0;
-  color: #C5221F !important;
+  color: #DC2626 !important;
   font-weight: 800;
 }
 
 .service-desc {
-  color: #5C4730 !important;
+  color: #4B5563 !important;
   margin: 4px 0 0;
   font-size: 0.95rem;
 }
@@ -916,14 +939,14 @@ p, span { color: #4A3A25 !important; }
 .card-heading {
   font-size: 1.15rem;
   font-weight: 700;
-  color: #2D2214;
+  color: #111827;
   margin-bottom: 0.8rem;
 }
 
 .step-list {
   margin: 0;
   padding-left: 1.4rem;
-  color: #2D2214;
+  color: #1F2937;
   line-height: 1.8;
 }
 
@@ -931,7 +954,7 @@ p, span { color: #4A3A25 !important; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #15803D;
+  background: #16A34A;
   color: #FFFFFF !important;
   text-decoration: none !important;
   font-size: 1.15rem;
@@ -939,12 +962,12 @@ p, span { color: #4A3A25 !important; }
   padding: 14px 20px;
   border-radius: 12px;
   margin-top: 1.3rem;
-  box-shadow: 0 4px 14px rgba(21, 128, 61, 0.25);
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.25);
 }
 
 /* Directory */
 .dir-container { margin-top: 1.8rem; }
-.dir-title { font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem; color: #2D2214; }
+.dir-title { font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem; color: #111827; }
 .dir-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -960,18 +983,18 @@ p, span { color: #4A3A25 !important; }
 
 .dir-icon { font-size: 1.8rem; }
 .dir-meta { flex: 1; }
-.dir-meta h4 { margin: 0; font-size: 1rem; font-weight: 700; color: #2D2214 !important; }
-.dir-number { color: #1D6AE5 !important; font-weight: 800; font-size: 0.95rem; }
+.dir-meta h4 { margin: 0; font-size: 1rem; font-weight: 700; color: #111827 !important; }
+.dir-number { color: #2563EB !important; font-weight: 800; font-size: 0.95rem; }
 
 .quick-call-btn {
-  background: rgba(29, 106, 229, 0.1);
-  color: #1D6AE5 !important;
+  background: rgba(37, 99, 235, 0.08);
+  color: #2563EB !important;
   padding: 8px 16px;
   border-radius: 10px;
   text-decoration: none !important;
   font-weight: 700;
   font-size: 0.9rem;
-  border: 1px solid rgba(29, 106, 229, 0.2);
+  border: 1px solid rgba(37, 99, 235, 0.2);
 }
 """
 
