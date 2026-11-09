@@ -13,7 +13,7 @@ Environment variables:
   GROQ_API_KEY    (required)
   GROQ_MODEL      (optional, tried first)
   GROQ_STT_MODEL  (optional, default whisper-large-v3)
-  DEFAULT_LANG    (optional, default en_IN; used only when nothing else identifies the language)
+  DEFAULT_LANG    (optional, default en_IN)
   NOISE_REDUCE    (optional, "0" disables spectral denoising)
 """
 
@@ -116,7 +116,7 @@ HI_MARKERS = ["है", "हैं", "मुझे", "मेरे", "मेर�
 
 BASE_T = {
     "title": "Sahaya",
-    "subtitle": "AI Voice Assistant • Talk. Translate. Stay Safe.",
+    "subtitle": "Talk. Translate. Stay Safe.",
     "sos_btn": "🚨 EMERGENCY SOS • LOUD ALARM + DIAL 112",
     "mic_header": "Tap to Start Listening",
     "detected": "🗣️ Detected Emergency",
@@ -233,7 +233,7 @@ CONDITION_RULES = [
     ("snakebite", {"snake", "snakes", "snakebite", "bitten", "bite", "haavu", "havu", "haavina", "kachide", "saanp", "saap", "sanp", "paambu", "pambu", "paamu", "pamu", "paampu", "sap"}, ["ಹಾವು", "ಹಾವಿನ", "साँप", "सांप", "साप", "பாம்பு", "పాము", "പാമ്പ്", "সাপ", "સાપ", "ਸੱਪ", "ସାପ"]),
     ("burns", {"fire", "burn", "burns", "burnt", "burning", "scald", "scalded", "cylinder", "blast", "boiling", "benki", "aag", "thee", "neruppu", "mantalu", "agun", "aagun", "hot water"}, ["ಬೆಂಕಿ", "ಸುಟ್ಟ", "आग", "जला", "जल गया", "झुलस", "தீக்காய", "தீப்பிடி", "நெருப்பு", "మంట", "నిప్పు", "തീപിടി", "പൊള്ള", "আগুন", "পুড়ে", "পোড়া", "આગ", "દાઝ", "ਅੱਗ", "ਸੜ", "ନିଆଁ", "ପୋଡ଼"]),
     ("cardiac", {"chest", "heart", "breathe", "breathing", "breath", "cardiac", "stroke", "attack", "ede", "edeno", "edenovu", "usiru", "husiru", "usiradalu", "gundige", "seene", "seena", "chhati", "chati", "saans", "sans", "nenju", "moochu", "swasam", "gunde", "swasa", "buker", "shwas", "shwasa", "saah", "dil", "dhadkan"}, ["ಎದೆ", "ಉಸಿರ", "ಹೃದಯ", "सीने", "छाती", "सांस", "साँस", "दिल", "हृदय", "श्वास", "நெஞ்சு", "மூச்சு", "இதய", "గుండె", "ఛాతీ", "శ్వాస", "ఊపిరి", "നെഞ്ച", "ശ്വാസ", "ഹൃദയ", "বুক", "শ্বাস", "হৃদ", "છાતી", "શ્વાસ", "હૃદય", "ਛਾਤੀ", "ਸਾਹ", "ਦਿਲ", "ଛାତି", "ଶ୍ୱାସ", "ହୃଦ", "ꯊꯃꯣꯏ"]),
-    ("collapse_fall", {"collapse", "collapsed", "construction", "fell", "fall", "falling", "height", "debris", "trapped", "rubble", "building", "kattada", "bidda", "biddare", "bidde", "imarat", "imaarat", "gir", "gira", "giri", "katidom", "keezhe", "veenu", "padla", "padli", "bhukamp", "earthquake", "flood", "landslide"}, ["ಕಟ್ಟಡ", "ಕುಸಿ", "ಬಿದ್ದ", "ಬೀಳ", "ಎತ್ತರ", "इमारत", "ढह", "गिर", "भूकंप", "बाढ़", "கட்டிட", "விழு", "கீழே", "நிலநடுக்க", "భవనం", "కూలి", "పడ్డ", "పడి", "భూకంప", "കെട്ടിടം", "തകർ", "വീണ", "ഭൂചലന", "দালান", "ভবন", "ধস", "পড়ে গ", "ভূমিকম্প", "ઇમારત", "મકાન", "પડ", "ભૂకંપ", "ਇମਾਰਤ", "ਡਿੱ", "ਭୂଚਾਲ", "କୋଠା", "ଭୁଶୁଡ଼", "ପଡ଼"]),
+    ("collapse_fall", {"collapse", "collapsed", "construction", "fell", "fall", "falling", "height", "debris", "trapped", "rubble", "building", "kattada", "bidda", "biddare", "bidde", "imarat", "imaarat", "gir", "gira", "giri", "katidom", "keezhe", "veenu", "padla", "padli", "bhukamp", "earthquake", "flood", "landslide"}, ["ಕಟ್ಟಡ", "ಕುಸಿ", "ಬಿದ್ದ", "ಬೀಳ", "ಎತ್ತರ", "इमारत", "ढह", "गिर", "भूकंप", "बाढ़", "கட்டிட", "விழு", "கீழே", "நிலநடுக்க", "భవనం", "కూలి", "పడ్డ", "పడి", "భూకంప", "കെട്ടിടം", "തകർ", "വീണ", "ഭൂചലന", "দালান", "ভবন", "ধস", "পড়ে গ", "ভূমিকম্প", "ઇમારત", "મકાન", "પડ", "ભૂકંપ", "ਇਮਾਰਤ", "ਡਿੱ", "ਭੂਚਾਲ", "କୋଠା", "ଭୁଶୁଡ଼", "ପଡ଼"]),
     ("accident_trauma", {"accident", "crash", "bike", "car", "hit", "bleeding", "bleed", "blood", "fracture", "broke", "broken", "wound", "injury", "injured", "run over", "apaghata", "apaghaata", "gaaya", "rakta", "haadsa", "hadsa", "khoon", "vibathu", "pramadam", "raktham", "roktho", "lohi"}, ["ಅಪಘಾತ", "ರಕ್ತ", "ಗಾಯ", "ಮುರಿ", "दुर्घटना", "हादसा", "खून", "चोट", "घाव", "फ्रैक्चर", "விபத்து", "ரத்த", "இரத்த", "காயம்", "எலும்பு", "ప్రమాదం", "రక్త", "గాయం", "విరిగ", "അപകടം", "രക്ത", "മുറിവ്", "দুর্ঘটনা", "রক্ত", "আঘাত", "ক্ষত", "અકસ્માત", "લોહી", "ઈજા", "ਹਾਦਸਾ", "ਖੂਨ", "ਸੱਟ", "ਜ਼ਖ਼ਮ", "ଦୁର୍ଘଟଣା", "ରକ୍ତ", "ଆଘାତ"]),
 ]
 
@@ -269,7 +269,7 @@ FALLBACKS = {
             "मरीज को बिल्कुल न हिलाएं, रीढ़ या गर्दन में गंभीर चोट हो सकती है।",
             "सिर, गर्दन और पीठ को सीधा और स्थिर रखें।",
             "खून बह रहा हो तो साफ कपड़े से सीधा और मजबूत दबाव डालें।",
-            "चेहरे को धूल से बचाएं और बचाव दल आने तक मरीज से बात करते रहें。"
+            "चेहरे को धूल से बचाएं और बचाव दल आने तक मरीज से बात करते रहें।"
         ]),
         "kn_IN": ("ಕಟ್ಟಡ ಕುಸಿತ / ಎತ್ತರದಿಂದ ಬಿದ್ದ ತುರ್ತು ಪರಿಸ್ಥಿತಿ! ತಕ್ಷಣ 108 ಗೆ ಕರೆ ಮಾಡಿ, ರಕ್ಷಣೆಗೆ 112 / 1078.", [
             "ರೋಗಿಯನ್ನು ಎತ್ತಬೇಡಿ ಅಥವಾ ಎಳೆಯಬೇಡಿ (ಬೆನ್ನುಮೂಳೆಯ ಗಾಯದ ಅಪಾಯ).",
@@ -343,8 +343,8 @@ FALLBACKS = {
         ]),
         "hi_IN": ("सांप के काटने की आपात स्थिति! मरीज को शांत रखें और तुरंत 108 पर कॉल करें।", [
             "काटे गए अंग को हिलाए बिना दिल के स्तर से नीचे स्थिर रखें।",
-            "कसकर पट्टी न बांधें, घाव को न काटें और जहर चूसने की कोशिश न करें。",
-            "मरीज को लिटाकर शांत रखें और चलने न दें。",
+            "कसकर पट्टी न बांधें, घाव को न काटें और जहर चूसने की कोशिश न करें।",
+            "मरीज को लिटाकर शांत रखें और चलने न दें।",
             "एंटी-स्नेक वेनम वाले नजदीकी अस्पताल में तुरंत ले जाएं।"
         ]),
         "kn_IN": ("ಹಾವು ಕಚ್ಚಿದ ತುರ್ತು ಪರಿಸ್ಥಿತಿ! ರೋಗಿಯನ್ನು ಶಾಂತವಾಗಿರಿಸಿ, ತಕ್ಷಣ 108 ಗೆ ಕರೆ ಮಾಡಿ.", [
@@ -366,10 +366,10 @@ FALLBACKS = {
             "নিকটস্থ হাসপাতালে নিয়ে যান।"
         ]),
         "pa_IN": ("ਸੱਪ ਦੇ ਕੱਟਣ ਦੀ ਐਮਰਜੈਂਸੀ! ਤੁਰੰਤ 108 'ਤੇ ਕਾਲ ਕਰੋ।", [
-            "ਕੱਟੇ ਹੋਏ ਅੰਗ ਨੂੰ ਹਿਲਾਓ ਨਾ。",
-            "ਕੱਸ ਕੇ ਪੱਟੀ ਨਾ ਬੰਨ੍ਹੋ。",
-            "ਮਰੀਜ਼ ਨੂੰ ਸ਼ਾਂਤ ਰੱਖੋ。",
-            "ਨੇੜਲੇ ਹਸਪତਾਲ ਜਾਓ।"
+            "ਕੱਟੇ ਹੋਏ ਅੰਗ ਨੂੰ ਹਿਲਾਓ ਨਾ।",
+            "ਕੱਸ ਕੇ ਪੱਟੀ ਨਾ ਬੰਨ੍ਹੋ।",
+            "ਮਰੀਜ਼ ਨੂੰ ਸ਼ਾਂਤ ਰੱਖੋ।",
+            "ਨੇੜਲੇ ਹਸਪਤਾਲ ਜਾਓ।"
         ]),
     },
     "burns": {
@@ -380,9 +380,9 @@ FALLBACKS = {
             "Cover loosely with a clean cloth and get to hospital; call 108 for face, large or chemical burns."
         ]),
         "hi_IN": ("जलने की आपात स्थिति! गंभीर मामले में तुरंत 108 / 101 पर कॉल करें।", [
-            "जले हुए हिस्से को कम से कम 20 मिनट साफ बहते नल के पानी के नीचे रखें。",
-            "कपड़ों में आग लगी हो तो भागें नहीं: व्यक्ति को लिटाकर लोटाएं या कंबल से आग बुझाएं。",
-            "बर्फ, टूथपेस्ट, मक्खन या तेल न लगाएं और छालों को न फोड़ें。",
+            "जले हुए हिस्से को कम से कम 20 मिनट साफ बहते नल के पानी के नीचे रखें।",
+            "कपड़ों में आग लगी हो तो भागें नहीं: व्यक्ति को लिटाकर लोटाएं या कंबल से आग बुझाएं।",
+            "बर्फ, टूथपेस्ट, मक्खन या तेल न लगाएं और छालों को न फोड़ें।",
             "साफ कपड़े से ढीला ढककर अस्पताल ले जाएं; चेहरे या बड़े हिस्से के जलने पर 108 बुलाएं।"
         ]),
         "kn_IN": ("ಸುಟ್ಟ ಗಾಯದ ತುರ್ತು ಪರಿಸ್ಥಿತಿ! ಗಂಭೀರವಾಗಿದ್ದರೆ ತಕ್ಷಣ 108 / 101 ಗೆ ಕರೆ ಮಾಡಿ.", [
@@ -402,9 +402,9 @@ FALLBACKS = {
             "পরিষ্কার কাপড় দিয়ে ঢেকে হাসপাতালে নিয়ে যান।"
         ]),
         "pa_IN": ("ਸੜਨ ਦੀ ਐਮਰਜੈਂਸੀ! ਤੁਰੰਤ 108 / 101 'ਤੇ ਕਾਲ ਕਰੋ।", [
-            "ਸਾੜੇ ਵਾਲੀ ਥਾਂ ਨੂੰ ਘੱਟੋ-ਘੱਟ 20 ਮਿੰਟ ਪਾਣੀ ਹੇਠਾਂ ਰੱਖੋ。",
-            "ਬਰਫ਼ ਜਾਂ ਤੇਲ ਨਾ ਲਗਾਓ。",
-            "ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਢੱਕ ਕੇ ਹਸਪତਾਲ ਜਾਓ।"
+            "ਸਾੜੇ ਵਾਲੀ ਥਾਂ ਨੂੰ ਘੱਟੋ-ਘੱਟ 20 ਮਿੰਟ ਪਾਣੀ ਹੇਠਾਂ ਰੱਖੋ।",
+            "ਬਰਫ਼ ਜਾਂ ਤੇਲ ਨਾ ਲਗਾਓ।",
+            "ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਢੱਕ ਕੇ ਹਸਪਤਾਲ ਜਾਓ।"
         ]),
     },
     "accident_trauma": {
@@ -415,10 +415,10 @@ FALLBACKS = {
             "If they are unresponsive and not breathing normally, start CPR."
         ]),
         "hi_IN": ("दुर्घटना / भारी रक्तस्राव की आपात स्थिति! तुरंत 108 पर कॉल करें।", [
-            "साफ कपड़े से घाव पर सीधा और मजबूत दबाव डालें। कपड़ा भीग जाए तो हटाएं नहीं, ऊपर और कपड़ा रखें。",
-            "गर्दन या पीठ में चोट की आशंका हो तो व्यक्ति को न हिलाएं。",
-            "खाने या पीने को कुछ न दें。 उन्हें गर्म रखें और बात करते रहें。",
-            "यदि वह बेहोश हो और सामान्य सांस न ले रहा हो तो सीपीआर शुरू करें。"
+            "साफ कपड़े से घाव पर सीधा और मजबूत दबाव डालें। कपड़ा भीग जाए तो हटाएं नहीं, ऊपर और कपड़ा रखें।",
+            "गर्दन या पीठ में चोट की आशंका हो तो व्यक्ति को न हिलाएं।",
+            "खाने या पीने को कुछ न दें। उन्हें गर्म रखें और बात करते रहें।",
+            "यदि वह बेहोश हो और सामान्य सांस न ले रहा हो तो सीपीआर शुरू करें।"
         ]),
         "kn_IN": ("ಅಪಘಾತ / ತೀವ್ರ ರಕ್ತಸ್ರಾವದ ತುರ್ತು ಪರಿಸ್ಥಿತಿ! ತಕ್ಷಣ 108 ಗೆ ಕರೆ ಮಾಡಿ.", [
             "ಸ್ವಚ್ಛ ಬಟ್ಟೆಯಿಂದ ಗಾಯದ ಮೇಲೆ ನೇರವಾಗಿ ಗಟ್ಟಿಯಾಗಿ ಒತ್ತಿ ಹಿಡಿಯಿರಿ; ಬಟ್ಟೆ ತೊಯ್ದರೆ ತೆಗೆಯದೆ ಮೇಲೆ ಇನ್ನೊಂದು ಬಟ್ಟೆ ಇಡಿ.",
@@ -436,9 +436,9 @@ FALLBACKS = {
             "রোগীকে নড়াচড়া করবেন না।",
             "কিছু খেতে বা পান করতে দেবেন না।"
         ]),
-        "pa_IN": ("ਹਾਦਸੇ / ਖ਼ੂਨ ਵਗਣ ਦੀ ਐਮਰਜੈਂਸੀ! ਤੁਰੰਤ 108 'ਤੇ ਕਾਲ ਕਰੋ。", [
-            "ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਸਿੱਧਾ ਦਬਾਅ ਪਾਓ。",
-            "ਮਰੀਜ਼ ਨੂੰ ਹਿਲਾਓ ਨਾ。",
+        "pa_IN": ("ਹਾਦਸੇ / ਖ਼ੂਨ ਵਗਣ ਦੀ ਐਮਰਜੈਂਸੀ! ਤੁਰੰਤ 108 'ਤੇ ਕਾਲ ਕਰੋ।", [
+            "ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਸਿੱਧਾ ਦਬਾਅ ਪਾਓ।",
+            "ਮਰੀਜ਼ ਨੂੰ ਹਿਲਾਓ ਨਾ।",
             "ਕੁਝ ਖਾਣ ਜਾਂ ਪੀਣ ਲਈ ਨਾ ਦਿਓ।"
         ]),
     },
@@ -450,9 +450,9 @@ FALLBACKS = {
             "Stay with them until the 108 ambulance arrives."
         ]),
         "hi_IN": ("चिकित्सा आपात स्थिति! शांत रहें और तुरंत 108 पर कॉल करें।", [
-            "लगातार देखें कि व्यक्ति होश में है और सांस ले रहा है。",
-            "उन्हें आराम की स्थिति में रखें और ढांढस बंधाएं。",
-            "यदि वह बेहोश हो और सामान्य सांस न ले रहा हो तो सीपीआर शुरू करें。",
+            "लगातार देखें कि व्यक्ति होश में है और सांस ले रहा है।",
+            "उन्हें आराम की स्थिति में रखें और ढांढस बंधाएं।",
+            "यदि वह बेहोश हो और सामान्य सांस न ले रहा हो तो सीपीआर शुरू करें।",
             "108 एम्बुलेंस आने तक उनके साथ रहें।"
         ]),
         "kn_IN": ("ವೈದ್ಯಕೀಯ ತುರ್ತು ಪರಿಸ್ಥಿತಿ! ಗಾಬರಿಯಾಗಬೇಡಿ, ತಕ್ಷಣ 108 ಗೆ ಕರೆ ಮಾಡಿ.", [
@@ -467,11 +467,11 @@ FALLBACKS = {
             "అంబులెన్స్ వచ్చే వరకు దగ్గరే ఉండండి."
         ]),
         "bn_IN": ("চিকিৎসা জরুরি অবস্থা! শান্ত থাকুন এবং 108 এ কল করুন।", [
-            "ব্যক্তি সচেতন এবং শ্বাস নিচ্ছেন কিনা তা পরীক্ষা করুন。",
+            "ব্যক্তি সচেতন এবং শ্বাস নিচ্ছেন কিনা তা পরীক্ষা করুন।",
             "শান্ত রাখুন এবং সাথে থাকুন।"
         ]),
-        "pa_IN": ("ਡਾਕਟਰੀ ਐਮਰਜੈਂਸੀ! ਸ਼ਾਂਤ ਰਹੋ ਅਤੇ 108 'ਤੇ ਕਾਲ ਕਰੋ。", [
-            "ਜਾਂਚ ਕਰੋ ਕਿ ਵਿਅਕਤੀ ਹੋਸ਼ ਵਿੱਚ ਹੈ。",
+        "pa_IN": ("ਡਾਕਟਰੀ ਐਮਰਜੈਂਸੀ! ਸ਼ਾਂਤ ਰਹੋ ਅਤੇ 108 'ਤੇ ਕਾਲ ਕਰੋ।", [
+            "ਜਾਂਚ ਕਰੋ ਕਿ ਵਿਅਕਤੀ ਹੋਸ਼ ਵਿੱਚ ਹੈ।",
             "ਉਸਨੂੰ ਆਰਾਮ ਦਿਓ ਅਤੇ ਨਾਲ ਰਹੋ।"
         ]),
     },
@@ -601,7 +601,7 @@ def preprocess_audio(path):
         return path, path, None
     data = data.mean(axis=1)
     sr = int(sr)
-    if len(data) < sr * 0.3:
+    if len(data) < sr * 0.25:
         return None, None, "too_short"
     data = data[: sr * MAX_SECONDS]
     if sr != TARGET_SR:
@@ -609,7 +609,7 @@ def preprocess_audio(path):
         data = resample_poly(data, TARGET_SR // g, sr // g).astype(np.float32)
     data = data - float(np.mean(data))
     raw_peak = float(np.max(np.abs(data)))
-    if raw_peak < 1e-3:
+    if raw_peak < 1e-4:
         return None, None, "silent"
     raw_out = tempfile.NamedTemporaryFile(suffix="_raw.wav", delete=False).name
     sf.write(raw_out, (data / raw_peak * 0.95).astype(np.float32), TARGET_SR, subtype="PCM_16")
@@ -704,11 +704,11 @@ def gnani_stt(audio_path, lang_code):
 def listen(audio_path, selected):
     clean, raw, code = preprocess_audio(audio_path)
     if code == "no_audio":
-        return "", None, "⚠️ Please record your voice message first."
+        return "", None, "⚠️ Please tap the microphone and speak your emergency."
     if code == "too_short":
-        return "", None, "⚠️ The recording was too short. Please speak for a few seconds."
+        return "", None, "⚠️ Recording was too short. Please tap to start, speak for 2–3 seconds, then tap to stop."
     if code == "silent":
-        return "", None, "⚠️ No sound was captured. Please check the microphone and try again."
+        return "", None, "⚠️ No voice detected. Please check microphone permissions and speak clearly."
 
     audio_lang = None
     whisper_text = ""
@@ -732,7 +732,7 @@ def listen(audio_path, selected):
         transcript = whisper_text
 
     if not transcript:
-        return "", audio_lang, "⚠️ Could not understand the audio. Please speak closer to the mic."
+        return "", audio_lang, "⚠️ Could not hear clearly. Please speak closer to the microphone or type below."
 
     return transcript, audio_lang or (stt_lang if selected in LANGUAGES else None), ""
 
@@ -744,7 +744,7 @@ LANGUAGE RULES:
 - Callers may speak a pure language or code-mixed speech (Hinglish, Kanglish, Tanglish, Telugu-English, Benglish, Manglish...), written in native or Roman script.
 - Language hint: {lang} = {SCRIPT_NAMES[lang]}. Hint confidence: {conf_txt}.
 - If confidence is LOW, pick the caller's main language from: {codes}. Use en_IN only when the message is mostly English.
-- CRITICAL: You MUST write "reply" and every item in "steps" strictly in the native script of the chosen language (e.g. Telugu script for te_IN, Bengali script for bn_IN, Gurmukhi script for pa_IN, Kannada script for kn_IN, Devanagari for hi_IN/mr_IN, Tamil script for ta_IN, plain English for en_IN). 
+- CRITICAL: You MUST write "reply" and every item in "steps" strictly in the native script of the chosen language (e.g. Telugu script for te_IN, Bengali script for bn_IN, Gurmukhi script for pa_IN, Kannada script for kn_IN, Devanagari for hi_IN/mr_IN, Tamil script for ta_IN, plain English for en_IN).
 - NEVER use Roman transliteration (English letters) for Indian languages under any circumstances.
 - Keep numbers like 108 and 112 as digits.
 
@@ -852,7 +852,7 @@ def timbre_speak(text: str, lang_code: str):
         return None, "🔇 Voice is not available for this language yet. Please read the steps below."
     api_key = get_env("GNANI_API_KEY")
     if not api_key:
-        return None, "🔇 Voice unavailable (API key missing)."
+        return None, ""
 
     payload = {
         "text": clip_for_tts(text),
@@ -883,49 +883,128 @@ def timbre_speak(text: str, lang_code: str):
                 return tmp.name, ""
         except requests.RequestException:
             pass
-    return None, "🔇 Voice could not be generated. Please read the steps below."
+    return None, ""
 
+# ---------------------------------------------------------------------------
+# UI Builders matching the exact 3-screen iOS card reference
+# ---------------------------------------------------------------------------
 def header_html(t):
-    return f"""
-    <div class="sahaya-header">
-      <div class="top-nav-bar">
-        <div class="sahaya-title-wrap">
-          <div class="sahaya-logo-waves">
-            <span class="s-bar"></span><span class="s-bar"></span><span class="s-bar"></span><span class="s-bar"></span>
-          </div>
-          <span class="sahaya-title">Sahaya</span>
+    return """
+    <div class="app-top-bar">
+      <div class="brand-left">
+        <div class="brand-wave-icon">
+          <span></span><span></span><span></span><span></span><span></span>
         </div>
-        <button class="settings-gear-btn" onclick="openSettingsModal()" title="App Settings">⚙️</button>
+        <span class="brand-name">Sahaya</span>
       </div>
-      <div class="sahaya-assistant-heading">Sahaya Voice Assistant</div>
-      <div class="sahaya-sub">Talk. Translate. Stay Safe.</div>
+      <div class="connected-pill" id="connPill">
+        <span class="conn-dot"></span>
+        <span id="connText">Ready</span>
+      </div>
+      <button type="button" class="gear-icon-btn" onclick="window.openSettingsModal()" title="Settings">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+      </button>
     </div>
     """
 
-def result_card(service, steps, urgency, rt, reply_text):
+def custom_mic_card_html():
+    return """
+    <div class="assistant-hero-card">
+      <h1 class="hero-title">AI Voice Assistant</h1>
+      <p class="hero-subtitle">Talk. Translate. Stay Safe.</p>
+
+      <!-- Idle / Recording Circle Button -->
+      <div class="mic-stage" id="micStage">
+        <div class="mic-ring-outer" id="micRingOuter">
+          <div class="mic-ring-inner" id="micRingInner">
+            <button type="button" class="blue-mic-btn" id="customMicBtn" onclick="window.toggleSahayaMic()">
+              <!-- Mic SVG (shown when idle) -->
+              <svg id="svgMicIcon" width="38" height="38" viewBox="0 0 24 24" fill="white">
+                <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+              </svg>
+              <!-- Stop Square SVG (shown when recording) -->
+              <svg id="svgStopIcon" width="28" height="28" viewBox="0 0 24 24" fill="white" style="display:none;">
+                <rect x="6" y="6" width="12" height="12" rx="2" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Animated Teal Soundwave (shown while listening, matching Photo 2) -->
+        <div class="listening-waves" id="listeningWaves" style="display:none;">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <div class="mic-prompt-main" id="micPromptMain">Tap to Start Listening</div>
+      <div class="mic-prompt-sub" id="micPromptSub" style="display:none;">Speak naturally</div>
+
+      <!-- Language Pill Indicator -->
+      <div class="lang-pill-wrap">
+        <button type="button" class="lang-pill-btn" onclick="window.openSettingsModal()">
+          🌐 <span id="activeLangLabel">Auto-Detect (English ⇄ ಕನ್ನಡ / हिंदी)</span>
+        </button>
+      </div>
+
+      <!-- Bottom Green Shield Banner -->
+      <div class="shield-banner">
+        <div class="shield-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#16A34A">
+            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+          </svg>
+        </div>
+        <div class="shield-text">Real-time translation during accidents</div>
+      </div>
+    </div>
+    """
+
+def result_card(service, steps, urgency, rt, reply_text, caller_text=""):
     body = "<ol class='step-list'>" + "".join(f"<li>{html.escape(s)}</li>" for s in steps) + "</ol>"
-    urgency_tag = f'<span class="badge badge-{html.escape(urgency)}">{html.escape(urgency.upper())}</span>' if urgency else ""
-    return (
-        '<div class="emergency-banner card-box">'
-        f'  <div class="emergency-icon-wrap">⚠️</div>'
-        '  <div class="emergency-info">'
-        f'   <div class="emergency-title-row"><h2>{html.escape(rt.get(service["key"], service["key"]))}</h2>{urgency_tag}</div>'
-        f'   <p class="service-desc">{html.escape(service["desc"])}</p>'
-        '  </div></div>'
-        '<div class="content-card card-box">'
-        '  <div class="translation-header-row">'
-        '    <span class="trans-title">✨ Live Translation</span>'
-        '  </div>'
-        f'  <div class="translation-message-row">'
-        f'    <span class="speak-icon">🔊</span>'
-        f'    <span class="trans-text">{html.escape(reply_text)}</span>'
-        '  </div>'
-        f'  <div class="card-heading" style="margin-top: 15px;">💊 {html.escape(rt["first_aid_label"])}</div>'
-        f'  {body}'
-        f'  <a class="call-action-btn" href="tel:{service["number"]}">'
-        f'   📞 {html.escape(rt["call_btn"].format(number=service["number"]))}</a>'
-        '</div>'
-    )
+    caller_bubble = ""
+    if caller_text:
+        caller_bubble = f"""
+        <div class="trans-bubble-blue">
+          <span class="bubble-vol">🔊</span>
+          <div class="bubble-txt">{html.escape(caller_text)}</div>
+        </div>
+        """
+    return f"""
+    <div class="accident-result-card">
+      <div class="accident-alert-top">
+        <div class="alert-triangle-wrap">
+          <div class="alert-triangle-icon">⚠️</div>
+        </div>
+        <h2 class="accident-main-title">{html.escape(rt.get(service["key"], service["key"]))}</h2>
+        <p class="accident-sub-note">Emergency Services Notified • {html.escape(urgency.upper())}</p>
+      </div>
+
+      <div class="live-trans-surface">
+        <div class="live-trans-header">
+          <span class="trans-symbol">文A</span>
+          <span>Live Translation</span>
+        </div>
+        {caller_bubble}
+        <div class="trans-bubble-gray">
+          <span class="bubble-vol">🔊</span>
+          <div class="bubble-txt">{html.escape(reply_text)}</div>
+        </div>
+
+        <div class="first-aid-section">
+          <div class="first-aid-title">🩺 {html.escape(rt["first_aid_label"])}</div>
+          {body}
+        </div>
+
+        <a class="dial-now-btn" href="tel:{service["number"]}">
+          📞 {html.escape(rt["call_btn"].format(number=service["number"]))}
+        </a>
+      </div>
+    </div>
+    """
 
 def directory_html(t):
     cards = []
@@ -942,24 +1021,24 @@ def directory_html(t):
           <a class="call-badge" href="tel:{srv['number']}">{html.escape(t['call_txt'])}</a>
         </div>""")
     return f"""
-    <div style="margin-top: 25px;">
-      <h4 style="color: #0F172A; font-size: 16px; margin-bottom: 12px; font-weight: 700;">📁 {html.escape(t['directory_header'])}</h4>
+    <div class="directory-section">
+      <h4 class="directory-heading">📁 {html.escape(t['directory_header'])}</h4>
       <div class="directory-grid">
         {''.join(cards)}
       </div>
     </div>"""
 
+# ---------------------------------------------------------------------------
+# Pipeline Handlers
+# ---------------------------------------------------------------------------
 def run_pipeline(transcript: str, selected: str, audio_lang=None):
     transcript = (transcript or "").strip()
     if not transcript:
-        yield "⚠️ Could not hear audio clearly. Please hold the mic closer.", "", None, ""
+        yield "⚠️ Could not hear audio clearly. Please tap the microphone and speak again.", gr.update(value=None, visible=False), ""
         return
 
     hint = selected if selected in LANGUAGES else None
     reply_lang, confident = resolve_language(transcript, hint, audio_lang)
-    rt = TRANSLATIONS[reply_lang]
-
-    yield "", "", None, ""
 
     triage, _ = groq_triage(transcript, reply_lang, confident)
     if triage:
@@ -970,22 +1049,29 @@ def run_pipeline(transcript: str, selected: str, audio_lang=None):
         service, reply_text, steps, urgency, reply_lang = get_fallback_response(transcript, reply_lang)
 
     rt = TRANSLATIONS[reply_lang]
-    card = result_card(service, steps, urgency, rt, reply_text)
+    card = result_card(service, steps, urgency, rt, reply_text, caller_text=transcript)
 
     narration = " ".join(f"{i + 1}. {s}" for i, s in enumerate(steps))
     audio_path, tts_note = timbre_speak(f"{reply_text} {narration}", reply_lang)
-    yield tts_note, audio_path, card, ""
+    yield tts_note, gr.update(value=audio_path, visible=bool(audio_path)), card
 
 def on_audio(audio_path, lang_code):
     if not audio_path:
-        yield "⚠️ Please record your voice message first.", None, "", ""
+        yield "", gr.update(value=None, visible=False), ""
         return
-    yield "⏳ Processing emergency audio...", None, "", ""
+    yield "⏳ Analyzing emergency & translating...", gr.update(value=None, visible=False), ""
     transcript, audio_lang, err = listen(audio_path, lang_code)
     if err or not transcript:
-        yield err or "⚠️ Could not transcribe clearly. Please repeat.", None, "", ""
+        yield err or "⚠️ Could not transcribe clearly. Please try again or type below.", gr.update(value=None, visible=False), ""
         return
     yield from run_pipeline(transcript, lang_code, audio_lang)
+
+def on_text_submit(text_input, lang_code):
+    if not text_input or not text_input.strip():
+        yield "⚠️ Please enter or speak your emergency details.", gr.update(value=None, visible=False), ""
+        return
+    yield "⏳ Analyzing emergency & translating...", gr.update(value=None, visible=False), ""
+    yield from run_pipeline(text_input.strip(), lang_code, None)
 
 def apply_language(lang_code):
     t = TRANSLATIONS.get(lang_code, TRANSLATIONS["en_IN"])
@@ -996,394 +1082,528 @@ def apply_language(lang_code):
     )
 
 # ---------------------------------------------------------------------------
-# CSS / JS (Restyled to match reference layout perfectly with modal settings)
+# CSS (Matches exact Color Palette from Photo 2 & 3, Zero Dark Boxes)
 # ---------------------------------------------------------------------------
 CSS = """
-:root {
-    --body-background-fill: #FFFDF9 !important;
+:root, .dark, body, .gradio-container {
+    --body-background-fill: #F8FAFC !important;
     --background-fill-primary: #FFFFFF !important;
     --background-fill-secondary: #F8FAFC !important;
-    --block-background-fill: #FFFFFF !important;
-    --block-border-color: #E2E8F0 !important;
+    --block-background-fill: transparent !important;
+    --block-border-color: transparent !important;
     --input-background-fill: #FFFFFF !important;
-    --input-border-color: #CBD5E1 !important;
+    --input-border-color: #E2E8F0 !important;
     --body-text-color: #0F172A !important;
     --block-label-text-color: #0F172A !important;
+    color-scheme: light !important;
 }
 
 body, .gradio-container {
-    background-color: #FFFDF9 !important;
+    background-color: #F8FAFC !important;
     color: #0F172A !important;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", "Noto Sans Kannada", "Noto Sans Devanagari", sans-serif !important;
-    max-width: 680px !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", sans-serif !important;
+    max-width: 500px !important;
     margin: 0 auto !important;
+    padding: 8px 12px 30px 12px !important;
 }
 
-.sahaya-header {
-    text-align: center;
-    margin-top: 15px;
-    margin-bottom: 8px;
+/* Remove Gradio footer and unwanted wrappers */
+footer { display: none !important; }
+.gradio-container .block,
+.gradio-container .gr-box,
+.gradio-container .gr-panel,
+.gradio-container .form {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
 }
 
-.top-nav-bar {
+/* Top Navigation Bar (Sahaya + Wave + Gear Icon) */
+.app-top-bar {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    padding: 0 10px;
-    margin-bottom: 5px;
+    padding: 12px 6px 8px 6px;
 }
-
-.sahaya-title-wrap {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.sahaya-logo-waves {
+.brand-left {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+.brand-wave-icon {
+    display: flex;
+    align-items: center;
     gap: 3px;
-    height: 22px;
+    height: 24px;
 }
-
-.s-bar {
+.brand-wave-icon span {
     width: 3.5px;
-    background: #0284c7;
-    border-radius: 3px;
-    animation: waveAnim 1s ease-in-out infinite alternate;
+    background: #2563EB;
+    border-radius: 4px;
+    display: inline-block;
 }
-.s-bar:nth-child(1) { height: 40%; animation-delay: 0.1s; }
-.s-bar:nth-child(2) { height: 80%; animation-delay: 0.3s; }
-.s-bar:nth-child(3) { height: 100%; animation-delay: 0.2s; }
-.s-bar:nth-child(4) { height: 50%; animation-delay: 0.4s; }
+.brand-wave-icon span:nth-child(1) { height: 10px; }
+.brand-wave-icon span:nth-child(2) { height: 18px; }
+.brand-wave-icon span:nth-child(3) { height: 24px; }
+.brand-wave-icon span:nth-child(4) { height: 16px; }
+.brand-wave-icon span:nth-child(5) { height: 10px; }
 
-.sahaya-title {
-    font-size: 24px;
-    font-weight: 800;
-    color: #1e3a8a;
-    margin: 0;
-}
-
-.settings-gear-btn {
-    background: transparent !important;
-    border: none !important;
-    font-size: 22px !important;
-    cursor: pointer !important;
-    padding: 5px !important;
-    box-shadow: none !important;
-}
-
-.sahaya-assistant-heading {
-    font-size: 26px;
+.brand-name {
+    font-size: 20px;
     font-weight: 800;
     color: #0F172A;
-    margin-top: 5px;
+    letter-spacing: -0.3px;
 }
 
-@keyframes waveAnim {
-    0% { transform: scaleY(0.4); background: #0284c7; }
-    100% { transform: scaleY(1); background: #16a34a; }
-}
-
-.sahaya-sub {
-    font-size: 14px;
-    color: #64748B;
-    font-weight: 600;
-    margin-top: 2px;
-}
-
-.sos-panic-btn {
-    width: 100%;
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
-    color: #ffffff !important;
-    font-size: 15px !important;
-    font-weight: 700 !important;
-    border: none !important;
-    border-radius: 8px !important;
-    padding: 14px 18px !important;
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25) !important;
-    margin: 12px 0 !important;
-    cursor: pointer;
-}
-
-/* Voice Assistant Card Container mimicking the clean iOS reference card */
-.voice-assistant-card {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 20px;
-    padding: 35px 20px;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-    margin: 15px 0;
-}
-
-.mic-container-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 20px 0 10px 0;
-}
-
-/* Custom Large Blue Microphone styling matching reference */
-.gradio-container .gr-audio {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    display: flex;
-    justify-content: center;
-}
-
-.gradio-container .gr-audio button, 
-.gradio-container .gr-audio [aria-label="Record"] {
-    background: #2563EB !important;
-    background-color: #2563EB !important;
-    color: white !important;
-    border-radius: 50% !important;
-    width: 85px !important;
-    height: 85px !important;
-    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.35) !important;
-    border: none !important;
-}
-
-.gradio-container .gr-audio svg {
-    fill: white !important;
-    color: white !important;
-    width: 38px !important;
-    height: 38px !important;
-}
-
-.mic-instruction-text {
-    font-size: 16px;
-    font-weight: 700;
-    color: #0F172A;
-    margin-top: 15px;
-}
-
-.status-badge-row {
+.connected-pill {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: #F1F5F9;
-    padding: 6px 14px;
-    border-radius: 20px;
+    gap: 6px;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
     color: #16A34A;
-    margin-top: 15px;
+    background: #F0FDF4;
+    padding: 4px 12px;
+    border-radius: 999px;
 }
-
-.status-dot {
+.conn-dot {
     width: 8px;
     height: 8px;
     background: #16A34A;
     border-radius: 50%;
 }
 
-.gradio-container .block, 
-.gradio-container .gr-box, 
-.gradio-container .gr-panel {
-    background-color: #FFFFFF !important;
+.gear-icon-btn {
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+.gear-icon-btn:hover {
+    background: #E2E8F0 !important;
+}
+
+/* Emergency SOS Button */
+.sos-panic-btn {
+    width: 100% !important;
+    background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%) !important;
+    color: #FFFFFF !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    border: none !important;
+    border-radius: 14px !important;
+    padding: 14px 16px !important;
+    box-shadow: 0 6px 16px rgba(220, 38, 38, 0.25) !important;
+    margin: 8px 0 14px 0 !important;
+    cursor: pointer !important;
+    letter-spacing: 0.3px;
+}
+
+/* Main White iOS Voice Assistant Card */
+.assistant-hero-card {
+    background: #FFFFFF;
+    border-radius: 28px;
+    padding: 32px 22px 24px 22px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+    border: 1px solid #F1F5F9;
+    margin-bottom: 14px;
+}
+.hero-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #0F172A;
+    margin: 0 0 6px 0;
+    letter-spacing: -0.5px;
+}
+.hero-subtitle {
+    font-size: 15px;
+    font-weight: 500;
+    color: #64748B;
+    margin: 0 0 26px 0;
+}
+
+/* Concentric Blue Glow Rings + Circular Mic Button */
+.mic-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 190px;
+}
+.mic-ring-outer {
+    width: 176px;
+    height: 176px;
+    border-radius: 50%;
+    background: rgba(37, 99, 235, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+.mic-ring-inner {
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+    background: rgba(37, 99, 235, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+.blue-mic-btn {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: #2563EB;
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.38);
+    transition: transform 0.18s ease, background 0.2s ease;
+}
+.blue-mic-btn:hover {
+    transform: scale(1.04);
+}
+.blue-mic-btn.recording-active {
+    background: #DC2626 !important;
+    box-shadow: 0 10px 25px rgba(220, 38, 38, 0.4) !important;
+}
+.mic-ring-outer.recording-ring {
+    background: rgba(220, 38, 38, 0.08) !important;
+    animation: pulseRing 1.4s infinite ease-in-out;
+}
+.mic-ring-inner.recording-ring {
+    background: rgba(220, 38, 38, 0.16) !important;
+}
+
+@keyframes pulseRing {
+    0% { transform: scale(0.97); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(0.97); }
+}
+
+/* Teal Soundwave Animation when Listening (Screen 2) */
+.listening-waves {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 54px;
+    margin-top: 16px;
+}
+.listening-waves span {
+    width: 5px;
+    background: #14B8A6;
+    border-radius: 99px;
+    animation: tealWave 0.75s ease-in-out infinite alternate;
+}
+.listening-waves span:nth-child(1) { height: 14px; animation-delay: 0.05s; }
+.listening-waves span:nth-child(2) { height: 24px; animation-delay: 0.15s; }
+.listening-waves span:nth-child(3) { height: 38px; animation-delay: 0.25s; }
+.listening-waves span:nth-child(4) { height: 26px; animation-delay: 0.10s; }
+.listening-waves span:nth-child(5) { height: 48px; animation-delay: 0.35s; }
+.listening-waves span:nth-child(6) { height: 54px; animation-delay: 0.20s; }
+.listening-waves span:nth-child(7) { height: 44px; animation-delay: 0.30s; }
+.listening-waves span:nth-child(8) { height: 28px; animation-delay: 0.12s; }
+.listening-waves span:nth-child(9) { height: 36px; animation-delay: 0.22s; }
+.listening-waves span:nth-child(10) { height: 20px; animation-delay: 0.18s; }
+.listening-waves span:nth-child(11) { height: 12px; animation-delay: 0.08s; }
+
+@keyframes tealWave {
+    0% { transform: scaleY(0.35); opacity: 0.75; }
+    100% { transform: scaleY(1.05); opacity: 1; }
+}
+
+.mic-prompt-main {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0F172A;
+    margin-top: 18px;
+}
+.mic-prompt-sub {
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748B;
+    margin-top: 4px;
+}
+
+.lang-pill-wrap {
+    margin-top: 16px;
+}
+.lang-pill-btn {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0F172A;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+}
+.lang-pill-btn:hover {
+    background: #F1F5F9;
+}
+
+/* Green Shield Footer inside Hero Card */
+.shield-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: #F0FDF4;
+    border-radius: 16px;
+    padding: 14px 18px;
+    margin-top: 24px;
+    text-align: left;
+}
+.shield-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.shield-text {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #334155;
+    line-height: 1.35;
+}
+
+/* Completely Hide Underlying Gradio Audio Widget so NO dark bars ever appear */
+#hidden-gradio-mic {
+    position: absolute !important;
+    left: -9999px !important;
+    top: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    opacity: 0 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Quick Text Fallback Box */
+.quick-text-row {
+    background: #FFFFFF !important;
+    border-radius: 16px !important;
+    padding: 6px 12px !important;
+    border: 1px solid #E2E8F0 !important;
+    margin-bottom: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+.quick-text-row textarea, .quick-text-row input {
     background: #FFFFFF !important;
     color: #0F172A !important;
     border: none !important;
-    border-radius: 12px !important;
     box-shadow: none !important;
+    font-size: 14px !important;
 }
-
-.gradio-container label, 
-.gradio-container .block-title, 
-.gradio-container span {
-    color: #0F172A !important;
+.send-text-btn {
+    background: #2563EB !important;
+    color: #FFFFFF !important;
+    border-radius: 10px !important;
     font-weight: 700 !important;
+    font-size: 13px !important;
+    padding: 8px 14px !important;
+    border: none !important;
 }
 
-.card-box {
-    background: #ffffff !important;
-    border: 1px solid #E2E8F0 !important;
-    border-radius: 12px !important;
+/* Screen 3: Major Accident & Live Translation Card */
+.accident-result-card {
+    border-radius: 28px;
+    overflow: hidden;
+    background: #FFFFFF;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
+    border: 1px solid #FECACA;
+    margin: 14px 0;
 }
-
-.emergency-banner {
-    display: flex;
+.accident-alert-top {
+    background: radial-gradient(circle at center, #FEE2E2 0%, #FEF2F2 100%);
+    padding: 26px 20px 20px 20px;
+    text-align: center;
+}
+.alert-triangle-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(220, 38, 38, 0.1);
+    display: inline-flex;
     align-items: center;
-    gap: 16px;
-    background: #FEF2F2 !important;
-    border: 1px solid #FCA5A5 !important;
-    border-radius: 12px;
-    padding: 1.2rem 1.4rem;
-    margin-top: 1rem;
+    justify-content: center;
+    margin-bottom: 8px;
 }
-
-.emergency-icon-wrap {
-    font-size: 2.2rem;
+.alert-triangle-icon {
+    font-size: 34px;
 }
-
-.emergency-info {
-    flex: 1;
-}
-
-.emergency-title-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.emergency-title-row h2 {
-    font-size: 1.3rem;
-    margin: 0;
-    color: #DC2626 !important;
-    font-weight: 900;
-}
-
-.service-desc {
-    color: #1E293B !important;
-    font-size: 0.98rem;
-    font-weight: 600;
-    margin: 4px 0 0;
-}
-
-.badge {
-    padding: 3px 12px;
-    border-radius: 20px;
-    font-size: 0.72rem;
+.accident-main-title {
+    font-size: 22px;
     font-weight: 800;
+    color: #DC2626 !important;
+    margin: 0;
+}
+.accident-sub-note {
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748B;
+    margin: 4px 0 0 0;
 }
 
-.badge-critical {
-    background: #DC2626;
-    color: #FFF !important;
+.live-trans-surface {
+    background: #FFFFFF;
+    padding: 20px;
 }
-
-.badge-urgent {
-    background: #D97706;
-    color: #FFF !important;
-}
-
-.content-card {
-    padding: 1.4rem 1.6rem !important;
-    margin-top: 0.8rem !important;
-}
-
-.translation-header-row {
+.live-trans-header {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 1.05rem;
+    font-size: 14px;
     font-weight: 800;
     color: #0F172A;
-    margin-bottom: 10px;
-}
-
-.translation-message-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    background: #F8FAFC;
-    border: 1px solid #E2E8F0;
-    border-radius: 10px;
-    padding: 12px 14px;
     margin-bottom: 12px;
 }
-
-.speak-icon {
-    font-size: 1.2rem;
+.trans-symbol {
+    font-weight: 900;
+    color: #334155;
 }
-
-.trans-text {
-    font-size: 1.05rem;
+.trans-bubble-blue {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: #EFF6FF;
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+}
+.trans-bubble-gray {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+}
+.bubble-vol {
+    font-size: 16px;
+    line-height: 1.4;
+}
+.bubble-txt {
+    font-size: 15px;
     font-weight: 700;
     color: #0F172A;
-    line-height: 1.5;
+    line-height: 1.45;
 }
 
-.card-heading {
-    font-size: 1.1rem !important;
-    font-weight: 900 !important;
-    color: #0F172A !important;
+.first-aid-section {
+    border-top: 1px solid #F1F5F9;
+    padding-top: 14px;
 }
-
+.first-aid-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: #0F172A;
+    margin-bottom: 8px;
+}
 .step-list {
-    margin: 0.8rem 0 1.2rem !important;
-    padding-left: 1.6rem !important;
+    margin: 0 0 16px 0 !important;
+    padding-left: 20px !important;
 }
-
 .step-list li {
     color: #0F172A !important;
-    font-size: 1.05rem !important;
+    font-size: 14.5px !important;
     font-weight: 600 !important;
-    line-height: 1.7 !important;
-    margin-bottom: 0.5rem !important;
+    line-height: 1.65 !important;
+    margin-bottom: 6px !important;
 }
-
-.call-action-btn {
+.dial-now-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     background: #16A34A;
     color: #FFFFFF !important;
     text-decoration: none !important;
-    font-size: 1.15rem;
-    font-weight: 900;
-    padding: 12px 18px;
-    border-radius: 8px;
-    margin-top: 1rem;
+    font-size: 15px;
+    font-weight: 800;
+    padding: 14px 18px;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(22, 163, 74, 0.25);
 }
 
+/* 2x2 Emergency Services Directory Grid */
+.directory-section {
+    margin-top: 18px;
+}
+.directory-heading {
+    color: #0F172A;
+    font-size: 15px;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
 .directory-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
 }
-
 .directory-card {
-    background: #ffffff;
+    background: #FFFFFF;
     border: 1px solid #E2E8F0;
-    border-radius: 10px;
-    padding: 12px 16px;
+    border-radius: 14px;
+    padding: 12px 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
 }
-
 .directory-info {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
-
 .directory-icon {
-    font-size: 24px;
+    font-size: 22px;
 }
-
 .directory-name {
     font-weight: 700;
-    font-size: 13px;
+    font-size: 12.5px;
     color: #0F172A;
+    line-height: 1.25;
 }
-
 .directory-num {
     font-size: 12px;
     font-weight: 800;
-    color: #dc2626;
+    color: #DC2626;
+    margin-top: 2px;
 }
-
 .call-badge {
     background: #F8FAFC;
-    color: #0284c7;
+    color: #2563EB !important;
     font-weight: 700;
     font-size: 12px;
-    padding: 4px 10px;
-    border-radius: 6px;
-    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 8px;
+    text-decoration: none !important;
     border: 1px solid #E2E8F0;
 }
 
-/* Modal styling for App Settings */
+/* Settings Modal Overlay (Language, Theme, Permissions) */
 .settings-modal-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(3px);
     display: none;
     justify-content: center;
     align-items: center;
@@ -1391,39 +1611,53 @@ body, .gradio-container {
 }
 .settings-modal-content {
     background: #FFFFFF;
-    padding: 25px;
-    border-radius: 16px;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    padding: 24px;
+    border-radius: 22px;
+    width: 92%;
+    max-width: 390px;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.18);
 }
 .settings-modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 .settings-modal-header h3 {
     margin: 0;
     color: #0F172A;
-    font-size: 18px;
+    font-size: 17px;
+    font-weight: 800;
 }
 .settings-close-btn {
-    background: none;
+    background: #F1F5F9;
     border: none;
-    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 18px;
     cursor: pointer;
-    color: #64748B;
+    color: #334155;
 }
 .setting-item {
-    margin-bottom: 15px;
+    margin-bottom: 16px;
 }
 .setting-item label {
     display: block;
     font-size: 13px;
     font-weight: 700;
     color: #334155;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
+}
+.setting-item select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #CBD5E1;
+    background: #FFFFFF;
+    color: #0F172A;
+    font-size: 14px;
+    font-weight: 600;
 }
 """
 
@@ -1431,6 +1665,8 @@ INIT_JS = """() => {
     window._sosCtx = null;
     window._sosOsc = null;
     window._sosPlaying = false;
+    window._sahayaRecording = false;
+
     window.startSiren = function() {
         if (window._sosPlaying) { window.stopSiren(); return; }
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1456,6 +1692,7 @@ INIT_JS = """() => {
         sweep();
         setTimeout(() => { window.stopSiren(); }, 15000);
     };
+
     window.stopSiren = function() {
         window._sosPlaying = false;
         try { window._sosOsc && window._sosOsc.stop(); } catch(e) {}
@@ -1464,7 +1701,60 @@ INIT_JS = """() => {
         window._sosCtx = null;
     };
 
-    // Modal Control Functions injected safely
+    // Bridges the custom clean circular blue button to Gradio's internal recorder
+    window.toggleSahayaMic = function() {
+        const container = document.getElementById('hidden-gradio-mic');
+        if (!container) return;
+
+        const btn = document.getElementById('customMicBtn');
+        const ringOuter = document.getElementById('micRingOuter');
+        const ringInner = document.getElementById('micRingInner');
+        const micSvg = document.getElementById('svgMicIcon');
+        const stopSvg = document.getElementById('svgStopIcon');
+        const waves = document.getElementById('listeningWaves');
+        const promptMain = document.getElementById('micPromptMain');
+        const promptSub = document.getElementById('micPromptSub');
+        const connText = document.getElementById('connText');
+
+        if (!window._sahayaRecording) {
+            // Clear previous audio if any clear button exists before recording fresh
+            const clearBtn = container.querySelector('button[aria-label="Clear"], button[title="Clear"]');
+            if (clearBtn) { clearBtn.click(); }
+
+            setTimeout(() => {
+                const recBtn = container.querySelector('button.record, button[aria-label="Record"], button');
+                if (recBtn) { recBtn.click(); }
+            }, 60);
+
+            window._sahayaRecording = true;
+            btn.classList.add('recording-active');
+            ringOuter.classList.add('recording-ring');
+            ringInner.classList.add('recording-ring');
+            micSvg.style.display = 'none';
+            stopSvg.style.display = 'block';
+            waves.style.display = 'flex';
+            promptMain.textContent = 'Listening... (Tap to Stop)';
+            promptSub.style.display = 'block';
+            if (connText) connText.textContent = 'Connected';
+        } else {
+            // Stop button inside Gradio's hidden audio container
+            const stopBtn = container.querySelector('button.stop-button, button[aria-label="Stop"], button.record, button');
+            if (stopBtn) { stopBtn.click(); }
+
+            window._sahayaRecording = false;
+            btn.classList.remove('recording-active');
+            ringOuter.classList.remove('recording-ring');
+            ringInner.classList.remove('recording-ring');
+            micSvg.style.display = 'block';
+            stopSvg.style.display = 'none';
+            waves.style.display = 'none';
+            promptMain.textContent = 'Tap to Start Listening';
+            promptSub.style.display = 'none';
+            if (connText) connText.textContent = 'Processing...';
+        }
+    };
+
+    // Settings Modal (Preferred Language, App Theme, Permissions)
     window.openSettingsModal = function() {
         let modal = document.getElementById('sahayaSettingsModal');
         if (!modal) {
@@ -1474,22 +1764,40 @@ INIT_JS = """() => {
             modal.innerHTML = `
                 <div class="settings-modal-content">
                     <div class="settings-modal-header">
-                        <h3>⚙️ App Configuration & Settings</h3>
-                        <button class="settings-close-btn" onclick="closeSettingsModal()">&times;</button>
+                        <h3>⚙️ App Settings</h3>
+                        <button class="settings-close-btn" onclick="window.closeSettingsModal()">&times;</button>
                     </div>
                     <div class="setting-item">
-                        <label>🎨 Theme Selection</label>
-                        <select id="themeSelect" onchange="changeAppTheme(this.value)" style="width:100%; padding:8px; border-radius:8px; border:1px solid #CBD5E1;">
-                            <option value="warm">Warm Minimalist (Default)</option>
-                            <option value="dark">Dark Mode</option>
+                        <label>🌐 Preferred Language</label>
+                        <select id="modalLangSelect" onchange="window.syncLanguageSelection(this.value)">
+                            <option value="auto">🌐 Auto-detect my language (Recommended)</option>
+                            <option value="kn_IN">ಕನ್ನಡ (Kannada)</option>
+                            <option value="en_IN">English (India)</option>
+                            <option value="hi_IN">हिन्दी (Hindi)</option>
+                            <option value="ta_IN">தமிழ் (Tamil)</option>
+                            <option value="te_IN">తెలుగు (Telugu)</option>
+                            <option value="ml_IN">മലയാളം (Malayalam)</option>
+                            <option value="mr_IN">मराठी (Marathi)</option>
+                            <option value="gu_IN">ગુજરાતી (Gujarati)</option>
+                            <option value="bn_IN">বাংলা (Bengali)</option>
+                            <option value="pa_IN">ਪੰਜਾਬੀ (Punjabi)</option>
+                            <option value="or_IN">ଓଡ଼ିଆ (Odia)</option>
+                            <option value="mni_IN">ꯃꯤꯇꯩꯂꯣꯟ (Manipuri)</option>
                         </select>
                     </div>
                     <div class="setting-item">
-                        <label>🔒 Permissions Status</label>
-                        <p style="font-size:12px; color:#16A34A; margin:0; font-weight:600;">✔️ Microphone & Location Enabled</p>
+                        <label>🎨 App Theme</label>
+                        <select id="themeSelect" onchange="window.changeAppTheme(this.value)">
+                            <option value="light">Crisp Light Surface (#F8FAFC)</option>
+                            <option value="warm">Warm Minimalist (#FFFDF9)</option>
+                        </select>
                     </div>
                     <div class="setting-item">
-                        <p style="font-size:11px; color:#64748B; margin-top:10px;">Sahaya v3.0 • Secure Emergency Triage</p>
+                        <label>🔒 App Permissions</label>
+                        <button type="button" onclick="window.requestMicPermission()" style="width:100%; padding:9px; border-radius:10px; border:1px solid #16A34A; background:#F0FDF4; color:#16A34A; font-weight:700; cursor:pointer;">
+                            ✔️ Verify Microphone & Audio Access
+                        </button>
+                        <p id="permStatusText" style="font-size:12px; color:#16A34A; margin:6px 0 0 0; font-weight:600;">Microphone ready for emergency triage.</p>
                     </div>
                 </div>
             `;
@@ -1503,23 +1811,50 @@ INIT_JS = """() => {
         if (modal) modal.style.display = 'none';
     };
 
-    window.changeAppTheme = function(theme) {
-        if (theme === 'dark') {
-            document.documentElement.style.setProperty('--body-background-fill', '#0F172A');
-            document.documentElement.style.setProperty('--background-fill-primary', '#1E293B');
-            document.documentElement.style.setProperty('--body-text-color', '#F8FAFC');
-        } else {
-            document.documentElement.style.setProperty('--body-background-fill', '#FFFDF9');
-            document.documentElement.style.setProperty('--background-fill-primary', '#FFFFFF');
-            document.documentElement.style.setProperty('--body-text-color', '#0F172A');
+    window.requestMicPermission = function() {
+        const statusEl = document.getElementById('permStatusText');
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    stream.getTracks().forEach(t => t.stop());
+                    if (statusEl) statusEl.textContent = '✔️ Microphone permission granted!';
+                })
+                .catch(() => {
+                    if (statusEl) statusEl.textContent = '⚠️ Please allow microphone access in your browser.';
+                });
         }
+    };
+
+    window.syncLanguageSelection = function(langCode) {
+        const labelEl = document.getElementById('activeLangLabel');
+        const sel = document.getElementById('modalLangSelect');
+        if (labelEl && sel) {
+            labelEl.textContent = sel.options[sel.selectedIndex].text;
+        }
+        // Push selected language code into hidden Gradio textbox to update backend state
+        const hiddenInput = document.querySelector('#hidden-lang-box textarea, #hidden-lang-box input');
+        if (hiddenInput) {
+            hiddenInput.value = langCode;
+            hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
+            hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+    };
+
+    window.changeAppTheme = function(theme) {
+        const bg = theme === 'warm' ? '#FFFDF9' : '#F8FAFC';
+        document.body.style.backgroundColor = bg;
+        const gc = document.querySelector('.gradio-container');
+        if (gc) gc.style.backgroundColor = bg;
     };
 }"""
 
 t0 = TRANSLATIONS["en_IN"]
 
 with gr.Blocks(title="Sahaya Emergency") as demo:
+    # 1. Top Bar (Logo + Connected Status + Settings Gear Icon)
     header = gr.HTML(header_html(t0))
+
+    # 2. Red Emergency SOS Banner
     sos_btn = gr.Button(t0["sos_btn"], elem_classes=["sos-panic-btn"])
     sos_btn.click(
         fn=None,
@@ -1529,30 +1864,69 @@ with gr.Blocks(title="Sahaya Emergency") as demo:
         }""",
     )
 
-    with gr.Column(elem_classes=["voice-assistant-card"]):
-        lang_dd = gr.Dropdown(
-            choices=[("🌐 Auto-detect my language (Recommended)", AUTO)] + [(label, code) for code, label in LANGUAGES.items()],
-            value=AUTO,
-            label="🌐 Preferred Language / भाषा / மொழி / భాష",
-        )
-        with gr.Column(elem_classes=["mic-container-center"]):
-            mic = gr.Audio(sources=["microphone", "upload"], type="filepath", label=None)
-            gr.Markdown("<div class='mic-instruction-text'>Tap to Start Listening</div>")
-            gr.Markdown("<div class='status-badge-row'><span class='status-dot'></span> Real-time translation during accidents</div>")
+    # 3. Clean White Hero Card with Circular Blue Microphone (Matches Photos 2 & 3)
+    mic_card = gr.HTML(custom_mic_card_html())
 
+    # 4. Optional Quick Text Input Fallback (also ensures testing works even without mic)
+    with gr.Row(elem_classes=["quick-text-row"]):
+        text_in = gr.Textbox(
+            placeholder="Or type emergency details (e.g., chest pain, accident)...",
+            show_label=False,
+            scale=4,
+            container=False,
+        )
+        send_btn = gr.Button("Translate & Help", elem_classes=["send-text-btn"], scale=1)
+
+    # Hidden Gradio components that power recording & language switching without any dark UI clutter
+    lang_state = gr.Textbox(value=AUTO, elem_id="hidden-lang-box", visible=False)
+    mic = gr.Audio(
+        sources=["microphone"],
+        type="filepath",
+        elem_id="hidden-gradio-mic",
+        show_label=False,
+        container=False,
+    )
+
+    # 5. Live Translation & Emergency Triage Output
     status = gr.Markdown("")
-    reply_audio = gr.Audio(label="🔊 Sahaya Voice Response", type="filepath", autoplay=True, interactive=False, visible=False)
+    reply_audio = gr.Audio(
+        label="🔊 Sahaya Voice Guidance",
+        type="filepath",
+        autoplay=True,
+        interactive=False,
+        visible=False,
+    )
     card_out = gr.HTML("")
+
+    # 6. 2x2 Emergency Services Directory
     dir_html = gr.HTML(directory_html(t0))
 
-    result_outputs = [status, reply_audio, card_out]
+    # Event Wiring
+    mic.stop_recording(
+        on_audio,
+        inputs=[mic, lang_state],
+        outputs=[status, reply_audio, card_out],
+    )
+    mic.change(
+        on_audio,
+        inputs=[mic, lang_state],
+        outputs=[status, reply_audio, card_out],
+    )
 
-    mic.stop_recording(on_audio, inputs=[mic, lang_dd], outputs=[status, reply_audio, card_out, dir_html])
-    mic.upload(on_audio, inputs=[mic, lang_dd], outputs=[status, reply_audio, card_out, dir_html])
+    send_btn.click(
+        on_text_submit,
+        inputs=[text_in, lang_state],
+        outputs=[status, reply_audio, card_out],
+    )
+    text_in.submit(
+        on_text_submit,
+        inputs=[text_in, lang_state],
+        outputs=[status, reply_audio, card_out],
+    )
 
-    lang_dd.change(
+    lang_state.change(
         apply_language,
-        inputs=lang_dd,
+        inputs=lang_state,
         outputs=[header, sos_btn, dir_html],
     )
 
