@@ -17,6 +17,7 @@ Environment variables:
   NOISE_REDUCE    (optional, "0" disables spectral denoising)
 """
 
+import base64
 from concurrent.futures import ThreadPoolExecutor
 import html
 import json
@@ -36,7 +37,6 @@ TTS_URL = "https://api.vachana.ai/api/v1/tts/inference"
 GROQ_CHAT_URL = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_STT_URL = "https://api.groq.com/openai/v1/audio/transcriptions"
 
-# Fast instant model first for sub-second emergency triage, versatile fallback second
 GROQ_MODELS = [
     "llama-3.1-8b-instant",
     "llama-3.3-70b-versatile",
@@ -45,7 +45,6 @@ GROQ_MODELS = [
 TARGET_SR = 16000
 MAX_SECONDS = 60
 
-# Persistent HTTP session for faster TLS connection reuse
 HTTP_SESSION = requests.Session()
 
 # ---------------------------------------------------------------------------
@@ -129,12 +128,13 @@ BASE_T = {
     "subtitle": "Talk. Translate. Stay Safe.",
     "sos_btn": "🚨 EMERGENCY SOS • LOUD ALARM + DIAL 112",
     "mic_header": "Tap to Start Recording",
-    "mic_recording": "Recording... (Tap to Stop)",
-    "mic_sub": "Speak naturally",
+    "mic_recording": "Recording... (Speak now — auto-detects silence)",
+    "mic_sub": "Speak naturally in any Indian language",
     "shield_text": "Real-time translation during accidents",
     "lang_pill_auto": "Auto-Detect (12 Indian Languages)",
     "placeholder": "Or type emergency details (e.g., chest pain, accident)...",
     "send_btn": "Translate & Help",
+    "clear_btn": "🗑️ Clear",
     "live_trans": "Live Translation",
     "notified_sub": "Emergency Services Notified",
     "detected": "🗣️ Detected Emergency",
@@ -158,12 +158,13 @@ LOCAL_T = {
         "subtitle": "ಮಾತನಾಡಿ. ಅನುವಾದಿಸಿ. ಸುರಕ್ಷಿತವಾಗಿರಿ.",
         "sos_btn": "🚨 ತುರ್ತು SOS • ಜೋರು ಸೈರನ್ + 112 ಗೆ ಕರೆ",
         "mic_header": "ರೆಕಾರ್ಡಿಂಗ್ ಪ್ರಾರಂಭಿಸಲು ಟ್ಯಾಪ್ ಮಾಡಿ",
-        "mic_recording": "ರೆಕಾರ್ಡ್ ಆಗುತ್ತಿದೆ... (ನಿಲ್ಲಿಸಲು ಟ್ಯಾಪ್ ಮಾಡಿ)",
+        "mic_recording": "ರೆಕಾರ್ಡ್ ಆಗುತ್ತಿದೆ... (ಈಗ ಮಾತನಾಡಿ)",
         "mic_sub": "ಸಹಜವಾಗಿ ಮಾತನಾಡಿ",
         "shield_text": "ಅಪಘಾತಗಳ ಸಮಯದಲ್ಲಿ ನೈಜ-ಸಮಯದ ಅನುವಾದ",
         "lang_pill_auto": "ಕನ್ನಡ (Kannada)",
         "placeholder": "ಅಥವಾ ತುರ್ತು ವಿವರಗಳನ್ನು ಟೈಪ್ ಮಾಡಿ (ಉದಾ: ಎದೆ ನೋವು, ಅಪಘಾತ)...",
-        "send_btn": "ಅನುವಾದಿಸಿ ಮತ್ತು ಸಹಾಯ ಪಡೆಯಿರಿ",
+        "send_btn": "ಅನುವಾದಿಸಿ & ಸಹಾಯ",
+        "clear_btn": "🗑️ ಅಳಿಸಿ (Clear)",
         "live_trans": "ನೇರ ಅನುವಾದ",
         "notified_sub": "ತುರ್ತು ಸೇವೆಗಳಿಗೆ ತಿಳಿಸಲಾಗಿದೆ",
         "detected": "🗣️ ಪತ್ತೆಯಾದ ತುರ್ತು ವಿವರ",
@@ -185,12 +186,13 @@ LOCAL_T = {
         "subtitle": "बोलें। अनुवाद करें। सुरक्षित रहें।",
         "sos_btn": "🚨 आपातकालीन SOS • तेज सायरन + 112 डायल करें",
         "mic_header": "रिकॉर्डिंग शुरू करने के लिए टैप करें",
-        "mic_recording": "रिकॉर्डिंग हो रही है... (रोकने के लिए टैप करें)",
+        "mic_recording": "रिकॉर्डिंग हो रही है... (अब बोलें)",
         "mic_sub": "स्वाभाविक रूप से बोलें",
         "shield_text": "दुर्घटनाओं के दौरान रीयल-टाइम अनुवाद",
         "lang_pill_auto": "हिन्दी (Hindi)",
         "placeholder": "या आपातकालीन विवरण टाइप करें (जैसे: सीने में दर्द, दुर्घटना)...",
         "send_btn": "अनुवाद और सहायता",
+        "clear_btn": "🗑️ साफ़ करें",
         "live_trans": "लाइव अनुवाद",
         "notified_sub": "आपातकालीन सेवाएं सूचित",
         "detected": "🗣️ पता चली आपात स्थिति",
@@ -212,12 +214,13 @@ LOCAL_T = {
         "subtitle": "பேசுங்கள். மொழிபெயர்க்கவும். பாதுகாப்பாக இருங்கள்.",
         "sos_btn": "🚨 அவசர SOS • சைரன் ஒலி + 112 அழைக்கவும்",
         "mic_header": "பதிவைத் தொடங்க தட்டவும்",
-        "mic_recording": "பதிவாகிறது... (நிறுத்த தட்டவும்)",
+        "mic_recording": "பதிவாகிறது... (இப்போது பேசுங்கள்)",
         "mic_sub": "இயல்பாகப் பேசுங்கள்",
         "shield_text": "விபத்துகளின் போது நிகழ்நேர மொழிபெயர்ப்பு",
         "lang_pill_auto": "தமிழ் (Tamil)",
         "placeholder": "அல்லது அவசர விவரங்களை தட்டச்சு செய்யவும் (எ.கா: நெஞ்சு வலி, விபத்து)...",
         "send_btn": "மொழிபெயர்த்து உதவு",
+        "clear_btn": "🗑️ அழி",
         "live_trans": "நேரடி மொழிபெயர்ப்பு",
         "notified_sub": "அவசர சேவைகளுக்கு தகவல் அளிக்கப்பட்டது",
         "detected": "🗣️ கண்டறியப்பட்ட அவசரம்",
@@ -239,12 +242,13 @@ LOCAL_T = {
         "subtitle": "మాట్లాడండి. అనువదించండి. సురక్షితంగా ఉండండి.",
         "sos_btn": "🚨 అత్యవసర SOS • సైరన్ + 112 కు కాల్ చేయండి",
         "mic_header": "రికార్డింగ్ ప్రారంభించడానికి ట్యాప్ చేయండి",
-        "mic_recording": "రికార్డింగ్ జరుగుతోంది... (ఆపడానికి ట్యాప్ చేయండి)",
+        "mic_recording": "రికార్డింగ్ జరుగుతోంది... (ఇప్పుడు మాట్లాడండి)",
         "mic_sub": "సహజంగా మాట్లాడండి",
         "shield_text": "ప్రమాదాల సమయంలో రియల్-టైమ్ అనువాదం",
         "lang_pill_auto": "తెలుగు (Telugu)",
         "placeholder": "లేదా అత్యవసర వివరాలను టైప్ చేయండి (ఉదా: గుండె నొప్పి, ప్రమాదం)...",
         "send_btn": "అనువదించు & సహాయం",
+        "clear_btn": "🗑️ క్లియర్",
         "live_trans": "ప్రత్యక్ష అనువాదం",
         "notified_sub": "అత్యవసర సేవలకు సమాచారం అందించబడింది",
         "detected": "🗣️ గుర్తించబడిన అత్యవసరం",
@@ -266,12 +270,13 @@ LOCAL_T = {
         "subtitle": "സംസാരിക്കുക. വിവർത്തനം ചെയ്യുക. സുരക്ഷിതരായിരിക്കുക.",
         "sos_btn": "🚨 അടിയന്തര SOS • സൈറൺ + 112 വിളിക്കുക",
         "mic_header": "റെക്കോർഡിംഗ് തുടങ്ങാൻ ടാപ്പ് ചെയ്യുക",
-        "mic_recording": "റെക്കോർഡ് ചെയ്യുന്നു... (നിർത്താൻ ടാപ്പ് ചെയ്യുക)",
-        "mic_sub": "স্বാഭാവികമായി സംസാരിക്കുക",
+        "mic_recording": "റെക്കോർഡ് ചെയ്യുന്നു... (ഇപ്പോൾ സംസാരിക്കുക)",
+        "mic_sub": "സ്വാഭാവികമായി സംസാരിക്കുക",
         "shield_text": "അപകടസമയത്ത് തത്സമയ വിവർത്തനം",
         "lang_pill_auto": "മലയാളം (Malayalam)",
         "placeholder": "അല്ലെങ്കിൽ അടിയന്തര വിവരങ്ങൾ ടൈപ്പ് ചെയ്യുക (ഉദാ: നെഞ്ചുവേദന)...",
         "send_btn": "വിവർത്തനവും സഹായവും",
+        "clear_btn": "🗑️ മായ്ക്കുക",
         "live_trans": "തത്സമയ വിവർത്തനം",
         "notified_sub": "അടിയന്തര സേവനങ്ങളെ അറിയിച്ചു",
         "detected": "🗣️ കണ്ടെത്തിയ അത്യാഹിതം",
@@ -293,12 +298,13 @@ LOCAL_T = {
         "subtitle": "बोला. भाषांतर करा. सुरक्षित रहा.",
         "sos_btn": "🚨 आणीबाणी SOS • सायरन + 112 वर कॉल करा",
         "mic_header": "रेकॉर्डिंग सुरू करण्यासाठी टॅप करा",
-        "mic_recording": "रेकॉर्डिंग सुरू आहे... (थांबवण्यासाठी टॅप करा)",
+        "mic_recording": "रेकॉर्डिंग सुरू आहे... (आता बोला)",
         "mic_sub": "नैसर्गिकरित्या बोला",
         "shield_text": "अपघाता दरम्यान रिअल-टाइम भाषांतर",
         "lang_pill_auto": "मराठी (Marathi)",
         "placeholder": "किंवा आणीबाणीचा तपशील टाइप करा (उदा: छातीत दुखणे, अपघात)...",
         "send_btn": "भाषांतर आणि मदत",
+        "clear_btn": "🗑️ साफ करा",
         "live_trans": "थेट भाषांतर",
         "notified_sub": "आपत्कालीन सेवांना सूचित केले",
         "detected": "🗣️ आढळलेली आणीबाणी",
@@ -320,12 +326,13 @@ LOCAL_T = {
         "subtitle": "બોલો. અનુવાદ કરો. સુરક્ષિત રહો.",
         "sos_btn": "🚨 કટોકટી SOS • સાયરન + 112 ડાયલ કરો",
         "mic_header": "રેકોર્ડિંગ શરૂ કરવા માટે ટેપ કરો",
-        "mic_recording": "રેકોર્ડ થઈ રહ્યું છે... (રોકવા માટે ટેપ કરો)",
+        "mic_recording": "રેકોર્ડ થઈ રહ્યું છે... (હવે બોલો)",
         "mic_sub": "સ્વાભાવિક રીતે બોલો",
         "shield_text": "અકસ્માત દરમિયાન રિયલ-ટાઇમ અનુવાદ",
         "lang_pill_auto": "ગુજરાતી (Gujarati)",
         "placeholder": "અથવા કટોકટીની વિગતો લખો (દા.ત. છાતીમાં દુખાવો, અકસ્માત)...",
         "send_btn": "અનુવાદ અને મદદ",
+        "clear_btn": "🗑️ સાફ કરો",
         "live_trans": "લાઇવ અનુવાદ",
         "notified_sub": "કટોકટી સેવાઓને જાણ કરવામાં આવી",
         "detected": "🗣️ મળેલી કટોકટી",
@@ -347,12 +354,13 @@ LOCAL_T = {
         "subtitle": "কথা বলুন। অনুবাদ করুন। নিরাপদে থাকুন।",
         "sos_btn": "🚨 জরুরি SOS • সাইরেন + 112 ডায়াল করুন",
         "mic_header": "রেকর্ডিং শুরু করতে ট্যাপ করুন",
-        "mic_recording": "রেকর্ড হচ্ছে... (থামাতে ট্যাপ করুন)",
+        "mic_recording": "রেকর্ড হচ্ছে... (এখন কথা বলুন)",
         "mic_sub": "স্বাভাবিকভাবে কথা বলুন",
         "shield_text": "দুর্ঘটনার সময় রিয়েল-টাইম অনুবাদ",
         "lang_pill_auto": "বাংলা (Bengali)",
         "placeholder": "অথবা জরুরি বিবরণ টাইপ করুন (যেমন: বুকে ব্যথা, দুর্ঘটনা)...",
         "send_btn": "অনুবাদ ও সাহায্য",
+        "clear_btn": "🗑️ মুছুন",
         "live_trans": "সরাসরি অনুবাদ",
         "notified_sub": "জরুরি পরিষেবাকে জানানো হয়েছে",
         "detected": "🗣️ শনাক্ত জরুরি অবস্থা",
@@ -374,12 +382,13 @@ LOCAL_T = {
         "subtitle": "ਬੋਲੋ। ਅਨੁਵਾਦ ਕਰੋ। ਸੁਰੱਖਿਅਤ ਰਹੋ।",
         "sos_btn": "🚨 ਐਮਰਜੈਂਸੀ SOS • ਸਾਇਰਨ + 112 ਡਾਇਲ ਕਰੋ",
         "mic_header": "ਰਿਕਾਰਡਿੰਗ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਟੈਪ ਕਰੋ",
-        "mic_recording": "ਰਿਕਾਰਡਿੰਗ ਜਾਰੀ ਹੈ... (ਰੋਕਣ ਲਈ ਟੈਪ ਕਰੋ)",
+        "mic_recording": "ਰਿਕਾਰਡਿੰਗ ਜਾਰੀ ਹੈ... (ਹੁਣ ਬੋਲੋ)",
         "mic_sub": "ਸੁਭਾਵਿਕ ਤੌਰ 'ਤੇ ਬੋਲੋ",
         "shield_text": "ਹਾਦਸਿਆਂ ਦੌਰਾਨ ਰੀਅਲ-ਟਾਈਮ ਅਨੁਵਾਦ",
         "lang_pill_auto": "ਪੰਜਾਬੀ (Punjabi)",
         "placeholder": "ਜਾਂ ਐਮਰਜੈਂਸੀ ਵੇਰਵੇ ਟਾਈਪ ਕਰੋ (ਜਿਵੇਂ: ਛਾਤੀ ਵਿੱਚ ਦਰਦ, ਹਾਦਸਾ)...",
         "send_btn": "ਅਨੁਵਾਦ ਅਤੇ ਮਦਦ",
+        "clear_btn": "🗑️ ਸਾਫ਼ ਕਰੋ",
         "live_trans": "ਲਾਈਵ ਅਨੁਵਾਦ",
         "notified_sub": "ਐਮਰਜੈਂਸੀ ਸੇਵਾਵਾਂ ਨੂੰ ਸੂਚਿਤ ਕੀਤਾ ਗਿਆ",
         "detected": "🗣️ ਪਤਾ ਲੱਗੀ ਐਮਰਜੈਂਸੀ",
@@ -401,12 +410,13 @@ LOCAL_T = {
         "subtitle": "କୁହନ୍ତୁ। ଅନୁବାଦ କରନ୍ତୁ। ସୁରକ୍ଷିତ ରୁହନ୍ତୁ।",
         "sos_btn": "🚨 ଜରୁରୀ SOS • ସାଇରନ୍ + 112 କଲ୍ କରନ୍ତୁ",
         "mic_header": "ରେକର୍ଡିଂ ଆରମ୍ଭ କରିବାକୁ ଟ୍ୟାପ୍ କରନ୍ତୁ",
-        "mic_recording": "ରେକର୍ଡିଂ ଚାଲିଛି... (ବନ୍ଦ କରିବାକୁ ଟ୍ୟାପ୍ କରନ୍ତୁ)",
+        "mic_recording": "ରେକର୍ଡିଂ ଚାଲିଛି... (ଏବେ କୁହନ୍ତୁ)",
         "mic_sub": "ସ୍ୱାଭାବିକ ଭାବରେ କୁହନ୍ତୁ",
         "shield_text": "ଦୁର୍ଘଟଣା ସମୟରେ ରିଅଲ୍-ଟାଇମ୍ ଅନୁବାଦ",
         "lang_pill_auto": "ଓଡ଼ିଆ (Odia)",
         "placeholder": "କିମ୍ବା ଜରୁରୀ ବିବରଣୀ ଟାଇପ୍ କରନ୍ତୁ (ଯଥା: ଛାତି ଯନ୍ତ୍ରଣା, ଦୁର୍ଘଟଣା)...",
         "send_btn": "ଅନୁବାଦ ଓ ସାହାଯ୍ୟ",
+        "clear_btn": "🗑️ ସଫା କରନ୍ତୁ",
         "live_trans": "ଲାଇଭ୍ ଅନୁବାଦ",
         "notified_sub": "ଜରୁରୀକାଳୀନ ସେବାକୁ ସୂଚିତ କରାଯାଇଛି",
         "detected": "🗣️ ଚିହ୍ନଟ ଜରୁରୀକାଳୀନ ପରିସ୍ଥିତି",
@@ -428,12 +438,13 @@ LOCAL_T = {
         "subtitle": "ꯉꯥꯡꯕꯤꯌꯨ। ꯍꯟꯗꯣꯛပꯤꯌꯨ। শাফꯅ ꯂꯩꯕꯤꯌꯨ।",
         "sos_btn": "🚨 ꯏꯃꯔꯖꯦꯟꯁꯤ SOS • ꯁ সাইরেন + 112 ꯀꯣꯜ ꯇꯧꯕꯤꯌꯨ",
         "mic_header": "ꯔꯦꯀꯣꯔꯗꯤꯡ ꯍꯧꯅꯕ ꯇꯦꯞ ꯇꯧꯕꯤꯌꯨ",
-        "mic_recording": "ꯔꯦꯀꯣꯔꯗ ꯇꯧꯔꯤ... (ꯂꯦꯞꯅꯕ ꯇꯦꯞ ꯇꯧꯕꯤꯌꯨ)",
+        "mic_recording": "ꯔꯦꯀꯣꯔꯗ ꯇꯧꯔꯤ... (ꯍꯧꯖꯤꯛ ꯉꯥꯡꯕꯤꯌꯨ)",
         "mic_sub": "ꯃꯍꯧꯁꯥগুম্না ꯉꯥꯡꯕꯤꯌꯨ",
         "shield_text": "एक्सिडेन्ट ꯊꯣꯛꯄ ꯃꯇꯝꯗ ꯔিয়েল-টাইম ꯍꯟꯗꯣꯛꯄ",
         "lang_pill_auto": "ꯃꯤꯇꯩꯂꯣꯟ (Manipuri)",
         "placeholder": "ꯅꯠꯇ꯭ꯔꯒ ꯈꯨꯗꯣꯡꯊꯤꯕ ꯑদু ꯏꯕꯤꯌꯨ...",
-        "send_btn": "ꯍꯟꯗꯣꯛপা ꯑꯃꯁꯨꯡ ꯃꯇꯦꯡ",
+        "send_btn": "ꯍꯟꯗꯣꯛপা & ꯃꯇꯦꯡ",
+        "clear_btn": "🗑️ ꯀꯛꯊတ်পা",
         "live_trans": "ꯂꯥꯏꯚ ꯍꯟꯗꯣꯛপা",
         "notified_sub": "ꯏꯃꯔꯖꯦꯟꯁꯤ ꯁার্ভিসꯁꯤꯡꯗ পাউ পীরব",
         "detected": "🗣️ ꯈꯪꯗꯣꯛꯂꯕ ꯈꯨꯗꯣꯡꯊꯤꯕ",
@@ -566,8 +577,8 @@ FALLBACKS = {
             "ਚਿਹਰੇ ਨੂੰ ਧੂੜ ਤੋਂ ਬਚਾਓ ਅਤੇ ਮਦਦ ਆਉਣ ਤੱਕ ਗੱਲ ਕਰਦੇ ਰਹੋ।"
         ]),
         "or_IN": ("କୋଠା ଭୁଶୁଡ଼ିବା / ଉଚ୍ଚତାରୁ ପଡ଼ିବା ଜରୁରୀ ପରିସ୍ଥିତି! ତୁରନ୍ତ 108 କୁ କଲ୍ କରନ୍ତୁ।", [
-            "ରୋଗୀକୁ ହଲାନ୍ତୁ ନାହିଁ (ମେରୁଦଣ୍ଡରେ ଆଘାତ ଲାଗିপାରେ)।",
-            "ମୁଣ୍ଡ, ବେକ ଏବଂ পিଠି ସିଧା ରଖନ୍ତୁ।",
+            "ରୋଗୀକୁ ହଲାନ୍ତୁ ନାହିଁ (ମେରୁଦଣ୍ଡରେ ଆଘାତ ଲାଗିପାରେ)।",
+            "ମୁଣ୍ଡ, ବେକ ଏବଂ ପିଠି ସିଧା ରଖନ୍ତୁ।",
             "ରକ୍ତସ୍ରାବ ହେଉଥିଲେ ସଫା କପଡ଼ାରେ ଚାପି ଧରନ୍ତୁ।"
         ]),
     },
@@ -923,7 +934,7 @@ def preprocess_audio(path):
         return path, path, None
     data = data.mean(axis=1)
     sr = int(sr)
-    if len(data) < sr * 0.25:
+    if len(data) < sr * 0.20:
         return None, None, "too_short"
     data = data[: sr * MAX_SECONDS]
     if sr != TARGET_SR:
@@ -983,10 +994,9 @@ def groq_whisper(audio_path, lang_code=None):
                 headers={"Authorization": f"Bearer {key}"},
                 files={"file": ("audio.wav", f, "audio/wav")},
                 data=data,
-                timeout=12,
+                timeout=10,
             )
         if r.status_code != 200:
-            # Fallback to standard whisper-large-v3 if turbo unavailable
             data["model"] = "whisper-large-v3"
             with open(audio_path, "rb") as f:
                 r = HTTP_SESSION.post(
@@ -994,7 +1004,7 @@ def groq_whisper(audio_path, lang_code=None):
                     headers={"Authorization": f"Bearer {key}"},
                     files={"file": ("audio.wav", f, "audio/wav")},
                     data=data,
-                    timeout=15,
+                    timeout=12,
                 )
         if r.status_code != 200:
             return "", None, f"whisper {r.status_code}"
@@ -1017,7 +1027,7 @@ def gnani_stt(audio_path, lang_code):
                 headers={"X-API-Key-ID": api_key},
                 files={"audio_file": ("voice.wav", f, "audio/wav")},
                 data={"language_code": stt_lang, "format": "transcribe"},
-                timeout=12,
+                timeout=10,
             )
         if r.status_code == 200:
             return _find_text(r.json()), ""
@@ -1036,7 +1046,7 @@ def listen_fast(audio_path, selected):
         return "", None, "⚠️ No voice detected. Please check microphone permissions and speak clearly."
 
     hint_lang = selected if selected in LANGUAGES else None
-    gnani_target = hint_lang or get_env("DEFAULT_LANG", "en_IN")
+    gnani_target = hint_lang or get_env("DEFAULT_LANG", "kn_IN")
     if gnani_target not in LANGUAGES:
         gnani_target = "en_IN"
 
@@ -1046,11 +1056,14 @@ def listen_fast(audio_path, selected):
         w_text, w_lang, _ = fut_whisper.result()
         g_text, _ = fut_gnani.result()
 
-    detected_lang = hint_lang or w_lang or script_lang(w_text or g_text) or gnani_target
-    # If auto-detect found an Indian language different from gnani_target, prefer Whisper's native transcript or re-check
+    # Check native scripts or Roman keywords first
+    s_lang = script_lang(w_text) or script_lang(g_text)
+    r_lang, _ = roman_lang((w_text or "") + " " + (g_text or ""), hint_lang, w_lang)
+    detected_lang = hint_lang or s_lang or r_lang or w_lang or gnani_target
+
     if hint_lang:
         transcript = g_text or w_text
-    elif w_lang and w_lang != gnani_target and w_text:
+    elif w_text and (s_lang or w_lang):
         transcript = w_text
     else:
         transcript = g_text or w_text
@@ -1108,7 +1121,7 @@ def groq_triage(transcript: str, lang: str, confident: bool):
                 GROQ_CHAT_URL,
                 headers={"Content-Type": "application/json", "Authorization": f"Bearer {key}"},
                 json=body,
-                timeout=7,
+                timeout=6,
             )
         except requests.RequestException:
             continue
@@ -1155,7 +1168,7 @@ def groq_triage(transcript: str, lang: str, confident: bool):
 
     return None, "Instant fallback active"
 
-def clip_for_tts(text: str, limit=750) -> str:
+def clip_for_tts(text: str, limit=700) -> str:
     text = re.sub(r"[*_#`>]", "", text)
     text = re.sub(r"\s+", " ", text).strip()
     if len(text) <= limit:
@@ -1191,7 +1204,7 @@ def timbre_speak(text: str, lang_code: str):
             TTS_URL,
             headers={"X-API-Key-ID": api_key, "Content-Type": "application/json"},
             json=payload,
-            timeout=14,
+            timeout=12,
         )
         if r.status_code == 200 and r.content:
             with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
@@ -1202,7 +1215,7 @@ def timbre_speak(text: str, lang_code: str):
     return None, ""
 
 # ---------------------------------------------------------------------------
-# UI Builders (Fully Localized + Animated Bouncing Wave + Tagline Animation)
+# UI Builders (Fully Localized + Animated Bouncing Wave + Clear Option)
 # ---------------------------------------------------------------------------
 def header_html(t):
     return f"""
@@ -1229,24 +1242,23 @@ def header_html(t):
 def custom_mic_card_html(t):
     idle_txt = html.escape(t["mic_header"])
     rec_txt = html.escape(t["mic_recording"])
+    ready_txt = html.escape(t["ready_status"])
     return f"""
     <div class="assistant-hero-card">
       <h1 class="hero-title">{html.escape(t['hero_title'])}</h1>
       <p class="hero-subtitle">{html.escape(t['subtitle'])}</p>
 
-      <!-- Idle / Recording Circle Button -->
+      <!-- Idle / Recording Circle Button (Powered directly by Web Audio API) -->
       <div class="mic-stage" id="micStage">
         <div class="mic-ring-outer" id="micRingOuter">
           <div class="mic-ring-inner" id="micRingInner">
             <button type="button" class="blue-mic-btn" id="customMicBtn"
-                    data-idle="{idle_txt}" data-rec="{rec_txt}"
+                    data-idle="{idle_txt}" data-rec="{rec_txt}" data-ready="{ready_txt}"
                     onclick="window.toggleSahayaMic()">
-              <!-- Mic SVG (shown when idle) -->
               <svg id="svgMicIcon" width="38" height="38" viewBox="0 0 24 24" fill="white">
                 <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
                 <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
               </svg>
-              <!-- Stop Square SVG (shown when recording) -->
               <svg id="svgStopIcon" width="28" height="28" viewBox="0 0 24 24" fill="white" style="display:none;">
                 <rect x="6" y="6" width="12" height="12" rx="2" />
               </svg>
@@ -1289,7 +1301,7 @@ def result_card(service, steps, urgency, rt, reply_text, caller_text=""):
     if caller_text:
         caller_bubble = f"""
         <div class="trans-bubble-blue">
-          <span class="bubble-vol">🔊</span>
+          <span class="bubble-vol">🗣️</span>
           <div class="bubble-txt">{html.escape(caller_text)}</div>
         </div>
         """
@@ -1304,9 +1316,14 @@ def result_card(service, steps, urgency, rt, reply_text, caller_text=""):
       </div>
 
       <div class="live-trans-surface">
-        <div class="live-trans-header">
-          <span class="trans-symbol">文A</span>
-          <span>{html.escape(rt["live_trans"])}</span>
+        <div class="live-trans-header-row">
+          <div class="live-trans-header">
+            <span class="trans-symbol">文A</span>
+            <span>{html.escape(rt["live_trans"])}</span>
+          </div>
+          <button type="button" class="inline-clear-btn" onclick="window.triggerClearEmergency()">
+            {html.escape(rt["clear_btn"])}
+          </button>
         </div>
         {caller_bubble}
         <div class="trans-bubble-gray">
@@ -1349,7 +1366,7 @@ def directory_html(t):
     </div>"""
 
 # ---------------------------------------------------------------------------
-# Sub-Second Instant Pipeline Handlers
+# Sub-Second Instant Pipeline Handlers + Base64 Direct Audio Bridge
 # ---------------------------------------------------------------------------
 def run_pipeline(transcript: str, selected: str, audio_lang=None):
     transcript = (transcript or "").strip()
@@ -1366,7 +1383,7 @@ def run_pipeline(transcript: str, selected: str, audio_lang=None):
     instant_card = result_card(fast_service, fast_steps, fast_urgency, rt, fast_reply, caller_text=transcript)
     yield "", gr.update(value=None, visible=False), instant_card
 
-    # STAGE 2: Refine with Groq Llama + synthesize Timbre Voice in parallel/sequence
+    # STAGE 2: Refine with Groq Llama + synthesize Timbre Voice
     triage, _ = groq_triage(transcript, reply_lang, confident)
     if triage:
         reply_lang = triage["lang_code"]
@@ -1383,14 +1400,23 @@ def run_pipeline(transcript: str, selected: str, audio_lang=None):
     audio_path, tts_note = timbre_speak(f"{reply_text} {narration}", reply_lang)
     yield tts_note, gr.update(value=audio_path, visible=bool(audio_path)), final_card
 
-def on_audio(audio_path, lang_code):
-    if not audio_path:
-        yield "", gr.update(value=None, visible=False), ""
+def on_b64_audio(b64_data, lang_code):
+    if not b64_data or "," not in b64_data:
+        yield "⚠️ Please tap the microphone and speak your emergency.", gr.update(value=None, visible=False), ""
         return
     yield "⚡ Detecting language & preparing instant first-aid...", gr.update(value=None, visible=False), ""
-    transcript, audio_lang, err = listen_fast(audio_path, lang_code)
+    try:
+        raw_bytes = base64.b64decode(b64_data.split(",", 1)[1])
+        tmp_path = tempfile.NamedTemporaryFile(suffix=".wav", delete=False).name
+        with open(tmp_path, "wb") as f:
+            f.write(raw_bytes)
+    except Exception as e:
+        yield f"⚠️ Audio decode error: {e}", gr.update(value=None, visible=False), ""
+        return
+
+    transcript, audio_lang, err = listen_fast(tmp_path, lang_code)
     if err or not transcript:
-        yield err or "⚠️ Could not transcribe clearly. Please try again or type below.", gr.update(value=None, visible=False), ""
+        yield err or "⚠️ Could not hear clearly. Please speak closer to the microphone or type below.", gr.update(value=None, visible=False), ""
         return
     yield from run_pipeline(transcript, lang_code, audio_lang)
 
@@ -1400,7 +1426,11 @@ def on_text_submit(text_input, lang_code):
         return
     yield from run_pipeline(text_input.strip(), lang_code, None)
 
+def on_clear():
+    return "", "", gr.update(value=None, visible=False), "", ""
+
 def apply_language(lang_code):
+    lang_code = (lang_code or AUTO).strip()
     t = TRANSLATIONS.get(lang_code, TRANSLATIONS["en_IN"])
     return (
         header_html(t),
@@ -1408,6 +1438,7 @@ def apply_language(lang_code):
         custom_mic_card_html(t),
         gr.update(placeholder=t["placeholder"]),
         t["send_btn"],
+        t["clear_btn"],
         directory_html(t),
     )
 
@@ -1442,7 +1473,6 @@ body, .gradio-container {
     padding: 8px 12px 32px 12px !important;
 }
 
-/* Remove Gradio footer and unwanted wrappers */
 footer { display: none !important; }
 .gradio-container .block,
 .gradio-container .gr-box,
@@ -1454,16 +1484,27 @@ footer { display: none !important; }
     padding: 0 !important;
 }
 
+/* Keep Hidden Bridge Components Mounted in DOM so JS Can Trigger Events Reliably */
+.js-bridge-hidden {
+    position: fixed !important;
+    left: -9999px !important;
+    top: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    opacity: 0 !important;
+    overflow: hidden !important;
+}
+
 /* Top Navigation Bar (Sahaya + Bouncing Soundwave + Gear Icon) */
 .app-top-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 12px 14px;
-    background: rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.78);
     backdrop-filter: blur(12px);
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.9);
     box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
     margin-bottom: 6px;
 }
@@ -1486,17 +1527,17 @@ footer { display: none !important; }
     border-radius: 99px;
     display: inline-block;
     transform-origin: center bottom;
-    animation: sahayaWaveBounce 1.05s ease-in-out infinite alternate;
+    animation: sahayaWaveBounce 0.95s ease-in-out infinite alternate;
 }
 .brand-wave-icon span:nth-child(1) { height: 11px; animation-delay: 0.00s; }
-.brand-wave-icon span:nth-child(2) { height: 20px; animation-delay: 0.16s; }
-.brand-wave-icon span:nth-child(3) { height: 25px; animation-delay: 0.32s; }
-.brand-wave-icon span:nth-child(4) { height: 18px; animation-delay: 0.48s; }
-.brand-wave-icon span:nth-child(5) { height: 12px; animation-delay: 0.24s; }
+.brand-wave-icon span:nth-child(2) { height: 20px; animation-delay: 0.15s; }
+.brand-wave-icon span:nth-child(3) { height: 25px; animation-delay: 0.30s; }
+.brand-wave-icon span:nth-child(4) { height: 18px; animation-delay: 0.45s; }
+.brand-wave-icon span:nth-child(5) { height: 12px; animation-delay: 0.22s; }
 
 @keyframes sahayaWaveBounce {
-    0% { transform: scaleY(0.38) translateY(2px); opacity: 0.75; }
-    50% { transform: scaleY(1.18) translateY(-2px); opacity: 1; }
+    0% { transform: scaleY(0.35) translateY(2px); opacity: 0.75; }
+    50% { transform: scaleY(1.22) translateY(-2px); opacity: 1; }
     100% { transform: scaleY(0.55) translateY(0px); opacity: 0.9; }
 }
 
@@ -1576,13 +1617,13 @@ footer { display: none !important; }
 
 /* Main Frosted White Sea-Stone Hero Card */
 .assistant-hero-card {
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.94);
     backdrop-filter: blur(14px);
     border-radius: 28px;
-    padding: 32px 22px 24px 22px;
+    padding: 30px 22px 24px 22px;
     text-align: center;
     box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.98);
     margin-bottom: 14px;
 }
 
@@ -1604,7 +1645,7 @@ footer { display: none !important; }
 .hero-subtitle {
     font-size: 15.5px;
     font-weight: 600;
-    margin: 0 0 26px 0;
+    margin: 0 0 24px 0;
     background: linear-gradient(90deg, #475569 0%, #2563EB 50%, #0D9488 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
@@ -1631,7 +1672,7 @@ footer { display: none !important; }
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 190px;
+    min-height: 186px;
 }
 .mic-ring-outer {
     width: 176px;
@@ -1724,7 +1765,7 @@ footer { display: none !important; }
     font-size: 16px;
     font-weight: 700;
     color: #0F172A;
-    margin-top: 18px;
+    margin-top: 16px;
 }
 .mic-prompt-sub {
     font-size: 14px;
@@ -1734,7 +1775,7 @@ footer { display: none !important; }
 }
 
 .lang-pill-wrap {
-    margin-top: 16px;
+    margin-top: 14px;
 }
 .lang-pill-btn {
     background: #F8FAFC;
@@ -1760,7 +1801,7 @@ footer { display: none !important; }
     background: #F0FDF4;
     border-radius: 16px;
     padding: 14px 18px;
-    margin-top: 24px;
+    margin-top: 22px;
     text-align: left;
     border: 1px solid #DCFCE7;
 }
@@ -1777,29 +1818,17 @@ footer { display: none !important; }
     line-height: 1.35;
 }
 
-/* Completely Hide Underlying Gradio Audio Widget so NO dark bars ever appear */
-#hidden-gradio-mic {
-    position: absolute !important;
-    left: -9999px !important;
-    top: -9999px !important;
-    width: 1px !important;
-    height: 1px !important;
-    opacity: 0 !important;
-    overflow: hidden !important;
-    pointer-events: none !important;
-}
-
-/* Quick Text Fallback Box */
+/* Quick Text Fallback Box + Clear Button */
 .quick-text-row {
-    background: rgba(255, 255, 255, 0.92) !important;
+    background: rgba(255, 255, 255, 0.94) !important;
     border-radius: 16px !important;
-    padding: 6px 12px !important;
-    border: 1px solid rgba(255, 255, 255, 0.95) !important;
+    padding: 6px 10px !important;
+    border: 1px solid rgba(255, 255, 255, 0.98) !important;
     box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04) !important;
     margin-bottom: 12px !important;
     display: flex !important;
     align-items: center !important;
-    gap: 8px !important;
+    gap: 6px !important;
 }
 .quick-text-row textarea, .quick-text-row input {
     background: transparent !important;
@@ -1814,8 +1843,24 @@ footer { display: none !important; }
     border-radius: 10px !important;
     font-weight: 700 !important;
     font-size: 13px !important;
-    padding: 8px 14px !important;
+    padding: 8px 12px !important;
     border: none !important;
+    cursor: pointer !important;
+}
+.clear-text-btn {
+    background: #F1F5F9 !important;
+    color: #475569 !important;
+    border: 1px solid #CBD5E1 !important;
+    border-radius: 10px !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    padding: 8px 12px !important;
+    cursor: pointer !important;
+}
+.clear-text-btn:hover {
+    background: #FEE2E2 !important;
+    color: #DC2626 !important;
+    border-color: #FECACA !important;
 }
 
 /* Screen 3: Major Accident & Live Translation Card */
@@ -1862,6 +1907,12 @@ footer { display: none !important; }
     background: #FFFFFF;
     padding: 20px;
 }
+.live-trans-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
 .live-trans-header {
     display: flex;
     align-items: center;
@@ -1869,7 +1920,19 @@ footer { display: none !important; }
     font-size: 14px;
     font-weight: 800;
     color: #0F172A;
-    margin-bottom: 12px;
+}
+.inline-clear-btn {
+    background: #FEF2F2;
+    color: #DC2626;
+    border: 1px solid #FECACA;
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.inline-clear-btn:hover {
+    background: #FEE2E2;
 }
 .trans-symbol {
     font-weight: 900;
@@ -1956,8 +2019,8 @@ footer { display: none !important; }
     gap: 10px;
 }
 .directory-card {
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.98);
     border-radius: 14px;
     padding: 12px 14px;
     display: flex;
@@ -1996,7 +2059,7 @@ footer { display: none !important; }
     border: 1px solid #E2E8F0;
 }
 
-/* Settings Modal Overlay (Language, Theme, Permissions) */
+/* Settings Modal Overlay */
 .settings-modal-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -2064,6 +2127,35 @@ INIT_JS = """() => {
     window._sosOsc = null;
     window._sosPlaying = false;
     window._sahayaRecording = false;
+    window._audioCtx = null;
+    window._mediaStream = null;
+    window._scriptNode = null;
+    window._pcmChunks = [];
+    window._silenceTimer = null;
+
+    // Helper to set value on Gradio's internal input/textarea and click a trigger button
+    window.pushToGradioBridge = function(boxId, btnId, val) {
+        const el = document.querySelector('#' + boxId + ' textarea, #' + boxId + ' input');
+        if (!el) return;
+        const proto = el.tagName === 'TEXTAREA' ? window.HTMLTextAreaElement.prototype : window.HTMLInputElement.prototype;
+        const setter = Object.getOwnPropertyDescriptor(proto, 'value')?.set;
+        if (setter) {
+            setter.call(el, val);
+        } else {
+            el.value = val;
+        }
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+        el.dispatchEvent(new Event('change', { bubbles: true }));
+        setTimeout(() => {
+            const btn = document.getElementById(btnId);
+            if (btn) btn.click();
+        }, 30);
+    };
+
+    window.triggerClearEmergency = function() {
+        const clearBtn = document.getElementById('visible-clear-btn');
+        if (clearBtn) clearBtn.click();
+    };
 
     window.startSiren = function() {
         if (window._sosPlaying) { window.stopSiren(); return; }
@@ -2099,11 +2191,60 @@ INIT_JS = """() => {
         window._sosCtx = null;
     };
 
-    // Bridges the custom circular blue button to Gradio's internal recorder
-    window.toggleSahayaMic = function() {
-        const container = document.getElementById('hidden-gradio-mic');
-        if (!container) return;
+    // Encode Float32 PCM arrays directly into a 16kHz 16-bit Mono WAV DataURL
+    window.encodeWAVBase64 = function(Buffers, inputSampleRate) {
+        let totalLength = 0;
+        for (let i = 0; i < Buffers.length; i++) totalLength += Buffers[i].length;
+        const merged = new Float32Array(totalLength);
+        let offset = 0;
+        for (let i = 0; i < Buffers.length; i++) {
+            merged.set(Buffers[i], offset);
+            offset += Buffers[i].length;
+        }
+        // Downsample to 16000 Hz for fast upload
+        const targetRate = 16000;
+        const ratio = inputSampleRate / targetRate;
+        const newLength = Math.round(merged.length / ratio);
+        const samples = new Float32Array(newLength);
+        for (let i = 0; i < newLength; i++) {
+            samples[i] = merged[Math.min(merged.length - 1, Math.floor(i * ratio))];
+        }
 
+        const buffer = new ArrayBuffer(44 + samples.length * 2);
+        const view = new DataView(buffer);
+        const writeString = (off, str) => {
+            for (let i = 0; i < str.length; i++) view.setUint8(off + i, str.charCodeAt(i));
+        };
+        writeString(0, 'RIFF');
+        view.setUint32(4, 36 + samples.length * 2, true);
+        writeString(8, 'WAVE');
+        writeString(12, 'fmt ');
+        view.setUint32(16, 16, true);
+        view.setUint16(20, 1, true);
+        view.setUint16(22, 1, true);
+        view.setUint32(24, targetRate, true);
+        view.setUint32(28, targetRate * 2, true);
+        view.setUint16(32, 2, true);
+        view.setUint16(34, 16, true);
+        writeString(36, 'data');
+        view.setUint32(40, samples.length * 2, true);
+
+        let idx = 44;
+        for (let i = 0; i < samples.length; i++, idx += 2) {
+            let s = Math.max(-1, Math.min(1, samples[i]));
+            view.setInt16(idx, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+        }
+
+        const bytes = new Uint8Array(buffer);
+        let binary = '';
+        const chunkSize = 0x8000;
+        for (let i = 0; i < bytes.length; i += chunkSize) {
+            binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
+        }
+        return 'data:audio/wav;base64,' + btoa(binary);
+    };
+
+    window.setMicVisualState = function(isRecording, statusLabel) {
         const btn = document.getElementById('customMicBtn');
         const ringOuter = document.getElementById('micRingOuter');
         const ringInner = document.getElementById('micRingInner');
@@ -2116,40 +2257,116 @@ INIT_JS = """() => {
 
         const idleText = (btn && btn.getAttribute('data-idle')) || 'Tap to Start Recording';
         const recText = (btn && btn.getAttribute('data-rec')) || 'Recording... (Tap to Stop)';
+        const readyText = (btn && btn.getAttribute('data-ready')) || 'Ready';
 
-        if (!window._sahayaRecording) {
-            const clearBtn = container.querySelector('button[aria-label="Clear"], button[title="Clear"]');
-            if (clearBtn) { clearBtn.click(); }
-
-            setTimeout(() => {
-                const recBtn = container.querySelector('button.record, button[aria-label="Record"], button');
-                if (recBtn) { recBtn.click(); }
-            }, 40);
-
-            window._sahayaRecording = true;
-            btn.classList.add('recording-active');
-            ringOuter.classList.add('recording-ring');
-            ringInner.classList.add('recording-ring');
-            micSvg.style.display = 'none';
-            stopSvg.style.display = 'block';
-            waves.style.display = 'flex';
-            promptMain.textContent = recText;
-            promptSub.style.display = 'block';
-            if (connText) connText.textContent = 'Recording';
+        if (isRecording) {
+            btn && btn.classList.add('recording-active');
+            ringOuter && ringOuter.classList.add('recording-ring');
+            ringInner && ringInner.classList.add('recording-ring');
+            if (micSvg) micSvg.style.display = 'none';
+            if (stopSvg) stopSvg.style.display = 'block';
+            if (waves) waves.style.display = 'flex';
+            if (promptMain) promptMain.textContent = recText;
+            if (promptSub) promptSub.style.display = 'block';
+            if (connText) connText.textContent = 'Recording...';
         } else {
-            const stopBtn = container.querySelector('button.stop-button, button[aria-label="Stop"], button.record, button');
-            if (stopBtn) { stopBtn.click(); }
+            btn && btn.classList.remove('recording-active');
+            ringOuter && ringOuter.classList.remove('recording-ring');
+            ringInner && ringInner.classList.remove('recording-ring');
+            if (micSvg) micSvg.style.display = 'block';
+            if (stopSvg) stopSvg.style.display = 'none';
+            if (waves) waves.style.display = 'none';
+            if (promptMain) promptMain.textContent = idleText;
+            if (promptSub) promptSub.style.display = 'none';
+            if (connText) connText.textContent = statusLabel || readyText;
+        }
+    };
 
-            window._sahayaRecording = false;
-            btn.classList.remove('recording-active');
-            ringOuter.classList.remove('recording-ring');
-            ringInner.classList.remove('recording-ring');
-            micSvg.style.display = 'block';
-            stopSvg.style.display = 'none';
-            waves.style.display = 'none';
-            promptMain.textContent = idleText;
-            promptSub.style.display = 'none';
-            if (connText) connText.textContent = 'Processing...';
+    window.stopAndSendRecording = function() {
+        if (!window._sahayaRecording) return;
+        window._sahayaRecording = false;
+        if (window._silenceTimer) {
+            clearTimeout(window._silenceTimer);
+            window._silenceTimer = null;
+        }
+        const sr = (window._audioCtx && window._audioCtx.sampleRate) || 44100;
+        try { window._scriptNode && window._scriptNode.disconnect(); } catch(e) {}
+        try {
+            if (window._mediaStream) {
+                window._mediaStream.getTracks().forEach(t => t.stop());
+            }
+        } catch(e) {}
+        try { window._audioCtx && window._audioCtx.close(); } catch(e) {}
+
+        window.setMicVisualState(false, 'Processing...');
+        if (window._pcmChunks.length > 0) {
+            const b64 = window.encodeWAVBase64(window._pcmChunks, sr);
+            window._pcmChunks = [];
+            window.pushToGradioBridge('hidden-b64-audio', 'hidden-audio-submit-btn', b64);
+            setTimeout(() => {
+                const btn = document.getElementById('customMicBtn');
+                const readyText = (btn && btn.getAttribute('data-ready')) || 'Ready';
+                const connText = document.getElementById('connText');
+                if (connText) connText.textContent = readyText;
+            }, 2200);
+        }
+    };
+
+    // Direct Web Audio API Recorder with Automatic Silence Detection (1.8s silence after speech auto-submits)
+    window.toggleSahayaMic = async function() {
+        if (window._sahayaRecording) {
+            window.stopAndSendRecording();
+            return;
+        }
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true }
+            });
+            window._mediaStream = stream;
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            const ctx = new AudioCtx();
+            window._audioCtx = ctx;
+            const source = ctx.createMediaStreamSource(stream);
+            const processor = ctx.createScriptProcessor(4096, 1, 1);
+            window._scriptNode = processor;
+            window._pcmChunks = [];
+            window._sahayaRecording = true;
+
+            let spokeOnce = false;
+            let silenceFrames = 0;
+
+            processor.onaudioprocess = function(e) {
+                if (!window._sahayaRecording) return;
+                const input = e.inputBuffer.getChannelData(0);
+                window._pcmChunks.push(new Float32Array(input));
+
+                // Calculate RMS energy for automatic silence stop after speaking
+                let sum = 0;
+                for (let i = 0; i < input.length; i++) sum += input[i] * input[i];
+                const rms = Math.sqrt(sum / input.length);
+                if (rms > 0.022) {
+                    spokeOnce = true;
+                    silenceFrames = 0;
+                } else if (spokeOnce) {
+                    silenceFrames++;
+                    // ~18 frames of 4096 samples at 44.1kHz is ~1.7 seconds of silence
+                    if (silenceFrames > 18) {
+                        window.stopAndSendRecording();
+                    }
+                }
+            };
+
+            source.connect(processor);
+            processor.connect(ctx.destination);
+            window.setMicVisualState(true);
+
+            // Safety cap at 12 seconds so emergency triage never hangs
+            window._silenceTimer = setTimeout(() => {
+                if (window._sahayaRecording) window.stopAndSendRecording();
+            }, 12000);
+        } catch (err) {
+            alert('Please allow microphone access in your browser to use voice emergency triage.');
+            window.setMicVisualState(false);
         }
     };
 
@@ -2226,18 +2443,7 @@ INIT_JS = """() => {
     };
 
     window.syncLanguageSelection = function(langCode) {
-        const hiddenInput = document.querySelector('#hidden-lang-box textarea, #hidden-lang-box input');
-        if (hiddenInput) {
-            const nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set
-                || Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value')?.set;
-            if (nativeSetter) {
-                nativeSetter.call(hiddenInput, langCode);
-            } else {
-                hiddenInput.value = langCode;
-            }
-            hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
-            hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
-        }
+        window.pushToGradioBridge('hidden-lang-box', 'hidden-lang-submit-btn', langCode);
         window.closeSettingsModal();
     };
 
@@ -2270,25 +2476,23 @@ with gr.Blocks(title="Sahaya Emergency") as demo:
     # 3. Clean Hero Card with Circular Blue Microphone ("Tap to Start Recording")
     mic_card = gr.HTML(custom_mic_card_html(t0))
 
-    # 4. Quick Text Input Fallback (also translates dynamically)
+    # 4. Quick Text Input Fallback + Translate Button + Clear Button
     with gr.Row(elem_classes=["quick-text-row"]):
         text_in = gr.Textbox(
             placeholder=t0["placeholder"],
             show_label=False,
-            scale=4,
+            scale=5,
             container=False,
         )
-        send_btn = gr.Button(t0["send_btn"], elem_classes=["send-text-btn"], scale=1)
+        send_btn = gr.Button(t0["send_btn"], elem_classes=["send-text-btn"], scale=2)
+        clear_btn = gr.Button(t0["clear_btn"], elem_id="visible-clear-btn", elem_classes=["clear-text-btn"], scale=1)
 
-    # Hidden Gradio components that power recording & full-UI language switching
-    lang_state = gr.Textbox(value=AUTO, elem_id="hidden-lang-box", visible=False)
-    mic = gr.Audio(
-        sources=["microphone"],
-        type="filepath",
-        elem_id="hidden-gradio-mic",
-        show_label=False,
-        container=False,
-    )
+    # Mounted DOM Bridges (kept visible=True so Gradio mounts them in the DOM, hidden via CSS .js-bridge-hidden)
+    with gr.Row(elem_classes=["js-bridge-hidden"]):
+        lang_state = gr.Textbox(value=AUTO, elem_id="hidden-lang-box")
+        lang_btn = gr.Button("ApplyLang", elem_id="hidden-lang-submit-btn")
+        b64_audio_in = gr.Textbox(value="", elem_id="hidden-b64-audio")
+        b64_audio_btn = gr.Button("SubmitAudio", elem_id="hidden-audio-submit-btn")
 
     # 5. Live Translation & Emergency Triage Output
     status = gr.Markdown("")
@@ -2304,18 +2508,14 @@ with gr.Blocks(title="Sahaya Emergency") as demo:
     # 6. 2x2 Emergency Services Directory
     dir_html = gr.HTML(directory_html(t0))
 
-    # Event Wiring
-    mic.stop_recording(
-        on_audio,
-        inputs=[mic, lang_state],
-        outputs=[status, reply_audio, card_out],
-    )
-    mic.change(
-        on_audio,
-        inputs=[mic, lang_state],
+    # Event Wiring for Direct WebAudio Base64 Recording
+    b64_audio_btn.click(
+        on_b64_audio,
+        inputs=[b64_audio_in, lang_state],
         outputs=[status, reply_audio, card_out],
     )
 
+    # Event Wiring for Text Input
     send_btn.click(
         on_text_submit,
         inputs=[text_in, lang_state],
@@ -2327,11 +2527,18 @@ with gr.Blocks(title="Sahaya Emergency") as demo:
         outputs=[status, reply_audio, card_out],
     )
 
-    # Translates the entire interface when Preferred Language is changed in Settings
-    lang_state.change(
+    # Event Wiring for Clear Button (Clears old emergency, audio, and text input)
+    clear_btn.click(
+        on_clear,
+        inputs=None,
+        outputs=[text_in, status, reply_audio, card_out, b64_audio_in],
+    )
+
+    # Event Wiring for Full UI Language Translation
+    lang_btn.click(
         apply_language,
         inputs=lang_state,
-        outputs=[header, sos_btn, mic_card, text_in, send_btn, dir_html],
+        outputs=[header, sos_btn, mic_card, text_in, send_btn, clear_btn, dir_html],
     )
 
     demo.queue(default_concurrency_limit=6, max_size=40)
