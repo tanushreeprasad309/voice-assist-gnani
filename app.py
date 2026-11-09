@@ -394,9 +394,9 @@ LOCAL_T = {
         "detected": "🗣️ ਪਤਾ ਲੱਗੀ ਐਮਰਜੈਂਸੀ",
         "first_aid_label": "ਤੁਰੰਤ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਕਦਮ:",
         "call_btn": "ਹੁਣੇ {number} 'ਤੇ ਕਾਲ ਕਰੋ",
-        "directory_header": "ਐਮਰਜੈਂਸੀ ਸੇਵਾਵਾਂ ਡਾਇਰੈਕਟରି",
+        "directory_header": "ਐਮਰਜੈਂਸੀ ਸੇਵਾਵਾਂ ਡਾਇਰੈਕਟਰੀ",
         "audio_response": "🔊 ਸਹਾਇਤਾ ਵੌਇਸ ਸੇਧ:",
-        "med_title": "ମେଡିକାଲ ଏବଂ ଏମ୍ବୁଲେନ୍ସ",
+        "med_title": "ਮੈਡੀਕਲ ਅਤੇ ਐਂਬੂਲੈਂਸ",
         "police_title": "ਪੁਲਿਸ ਅਤੇ ਸੁਰੱਖਿਆ",
         "women_title": "ਮਹਿਲਾ ਹੈਲਪਲਾਈਨ",
         "fire_title": "ਫਾਇਰ ਅਤੇ ਰੈਸਕਿਊ",
@@ -493,7 +493,7 @@ CONDITION_RULES = [
     ("snakebite", {"snake", "snakes", "snakebite", "bitten", "bite", "haavu", "havu", "haavina", "kachide", "saanp", "saap", "sanp", "paambu", "pambu", "paamu", "pamu", "paampu", "sap"}, ["ಹಾವು", "ಹಾವಿನ", "साँप", "सांप", "साप", "பாம்பு", "పాము", "പാമ്പ്", "সাপ", "સાપ", "ਸੱਪ", "ସାପ"]),
     ("burns", {"fire", "burn", "burns", "burnt", "burning", "scald", "scalded", "cylinder", "blast", "boiling", "benki", "aag", "thee", "neruppu", "mantalu", "agun", "aagun", "hot water"}, ["ಬೆಂಕಿ", "ಸುಟ್ಟ", "आग", "जला", "जल गया", "झुलस", "தீக்காய", "தீப்பிடி", "நெருப்பு", "మంట", "నిప్పు", "തീപിടി", "പൊള്ള", "আগুন", "পুড়ে", "পোড়া", "આગ", "દાઝ", "ਅੱਗ", "ਸੜ", "ନିଆଁ", "ପୋଡ଼"]),
     ("cardiac", {"chest", "heart", "breathe", "breathing", "breath", "cardiac", "stroke", "attack", "ede", "edeno", "edenovu", "usiru", "husiru", "usiradalu", "gundige", "seene", "seena", "chhati", "chati", "saans", "sans", "nenju", "moochu", "swasam", "gunde", "swasa", "buker", "shwas", "shwasa", "saah", "dil", "dhadkan"}, ["ಎದೆ", "ಉಸಿರ", "ಹೃದಯ", "सीने", "छाती", "सांस", "साँस", "दिल", "हृदय", "श्वास", "நெஞ்சு", "மூச்சு", "இதய", "గుండె", "ఛాతీ", "శ్వాస", "ఊపిరి", "നെഞ്ച", "ശ്വാസ", "ഹൃദയ", "বুক", "শ্বাস", "হৃদ", "છાતી", "શ્વાસ", "હૃદય", "ਛਾਤੀ", "ਸਾਹ", "ਦਿਲ", "ଛାତି", "ଶ୍ୱାସ", "ହୃଦ", "ꯊꯃꯣꯏ"]),
-    ("collapse_fall", {"collapse", "collapsed", "construction", "fell", "fall", "falling", "height", "debris", "trapped", "rubble", "building", "kattada", "bidda", "biddare", "bidde", "imarat", "imaarat", "gir", "gira", "giri", "katidom", "keezhe", "veenu", "padla", "padli", "bhukamp", "earthquake", "flood", "landslide"}, ["ಕಟ್ಟಡ", "ಕುಸಿ", "ಬಿದ್ದ", "ಬೀಳ", "ಎತ್ತರ", "इमारत", "ढह", "गिर", "भूकंप", "बाढ़", "கட்டிட", "விழு", "கீழே", "நிலநடுக்க", "భవనం", "కూలి", "పడ్డ", "పడి", "భూకంప", "കെട്ടിടം", "തകർ", "വീണ", "ഭൂചലന", "দালান", "ভবন", "ধস", "পড়ে গ", "ভূমিকম্প", "ઇમારત", "મકાન", "પડ", "ભૂકંપ", "ਇମାରਤ", "ਡਿੱ", "ਭੂଚਾਲ", "କୋଠା", "ଭୁଶୁଡ଼", "ପଡ଼"]),
+    ("collapse_fall", {"collapse", "collapsed", "construction", "fell", "fall", "falling", "height", "debris", "trapped", "rubble", "building", "kattada", "bidda", "biddare", "bidde", "imarat", "imaarat", "gir", "gira", "giri", "katidom", "keezhe", "veenu", "padla", "padli", "bhukamp", "earthquake", "flood", "landslide"}, ["ಕಟ್ಟಡ", "ಕುಸಿ", "ಬಿದ್ದ", "ಬೀಳ", "ಎತ್ತರ", "इमारत", "ढह", "गिर", "भूकंप", "बाढ़", "கட்டிட", "விழு", "கீழே", "நிலநடுக்க", "భవనం", "కూలి", "పడ్డ", "పడి", "భూకంప", "കെട്ടിടം", "തകർ", "വീണ", "ഭൂചലന", "দালান", "ভবন", "ধস", "পড়ে গ", "ভূমিকম্প", "ઇમારત", "મકાન", "પડ", "ભૂકંપ", "ਇਮାରਤ", "ਡਿੱ", "ਭੂਚਾਲ", "କୋଠା", "ଭୁଶୁଡ଼", "ପଡ଼"]),
     ("accident_trauma", {"accident", "crash", "bike", "car", "hit", "bleeding", "bleed", "blood", "fracture", "broke", "broken", "wound", "injury", "injured", "run over", "apaghata", "apaghaata", "gaaya", "rakta", "haadsa", "hadsa", "khoon", "vibathu", "pramadam", "raktham", "roktho", "lohi"}, ["ಅಪಘಾತ", "ರಕ್ತ", "ಗಾಯ", "ಮುರಿ", "दुर्घटना", "हादसा", "खून", "चोट", "घाव", "फ्रैक्चर", "விபத்து", "ரத்த", "இரத்த", "காயம்", "எலும்பு", "ప్రమాదం", "రక్త", "గాయం", "విరిగ", "അപകടം", "രക്ത", "മുറിവ്", "দুর্ঘটনা", "রক্ত", "আঘাত", "ক্ষত", "અકસ્માત", "લોહી", "ઈજા", "ਹਾਦਸਾ", "ਖੂਨ", "ਸੱਟ", "ਜ਼ਖ਼ମ", "ଦୁର୍ଘଟଣା", "ରକ୍ତ", "ଆଘାତ"]),
 ]
 
@@ -687,7 +687,7 @@ FALLBACKS = {
             "ਕੱਟੇ ਹੋਏ ਅੰਗ ਨੂੰ ਹਿਲਾਓ ਨਾ।",
             "ਕੱਸ ਕੇ ਪੱਟੀ ਨਾ ਬੰਨ੍ਹੋ।",
             "ਮਰੀਜ਼ ਨੂੰ ਸ਼ਾਂਤ ਰੱਖੋ।",
-            "ਨੇੜਲੇ ਹਸਪਤਾਲ ਜਾਓ।"
+            "ਨੇੜਲੇ ਹਸਪତਾਲ ਜਾਓ।"
         ]),
     },
     "burns": {
@@ -727,7 +727,7 @@ FALLBACKS = {
         "pa_IN": ("ਸੜਨ ਦੀ ਐਮਰਜੈਂਸੀ! ਤੁਰੰਤ 108 / 101 'ਤੇ ਕਾਲ ਕਰੋ।", [
             "ਸਾੜੇ ਵਾਲੀ ਥਾਂ ਨੂੰ ਘੱਟੋ-ਘੱਟ 20 ਮਿੰਟ ਪਾਣੀ ਹੇਠਾਂ ਰੱਖੋ।",
             "ਬਰਫ਼ ਜਾਂ ਤੇਲ ਨਾ ਲਗਾਓ।",
-            "ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਢੱਕ ਕੇ ਹਸପତਾਲ ਜਾਓ।"
+            "ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਢੱਕ ਕੇ ਹਸਪତਾਲ ਜਾਓ।"
         ]),
     },
     "accident_trauma": {
@@ -1213,7 +1213,7 @@ def timbre_speak(text: str, lang_code: str):
     return None, ""
 
 # ---------------------------------------------------------------------------
-# UI Builders (Fully Localized + Animated Bouncing Wave + Clear Option)
+# UI Builders (Fully Localized + High-Contrast Ready Status & Settings Gear)
 # ---------------------------------------------------------------------------
 def header_html(t):
     return f"""
@@ -1226,10 +1226,10 @@ def header_html(t):
       </div>
       <div class="connected-pill" id="connPill">
         <span class="conn-dot"></span>
-        <span id="connText">{html.escape(t['ready_status'])}</span>
+        <span class="conn-text-label" id="connText">{html.escape(t['ready_status'])}</span>
       </div>
       <button type="button" class="gear-icon-btn" onclick="window.openSettingsModal()" title="Settings">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="3"></circle>
           <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
         </svg>
@@ -1435,7 +1435,7 @@ def apply_language(lang_code):
     )
 
 # ---------------------------------------------------------------------------
-# CSS: Light & Dark System Themes + UI Styling
+# CSS: Light & Dark Themes with High-Contrast Text for Ready Status & Gear Icon
 # ---------------------------------------------------------------------------
 CSS = """
 :root, body, .gradio-container {
@@ -1446,7 +1446,7 @@ CSS = """
     --subtext-color: #64748B;
     --input-bg: #FFFFFF;
     --input-border: #CBD5E1;
-    --topbar-bg: rgba(255, 255, 255, 0.78);
+    --topbar-bg: rgba(255, 255, 255, 0.85);
     color-scheme: light !important;
 }
 
@@ -1458,7 +1458,7 @@ body.dark-mode, .dark-mode .gradio-container, .dark-mode {
     --subtext-color: #94A3B8 !important;
     --input-bg: #1E293B !important;
     --input-border: #475569 !important;
-    --topbar-bg: rgba(15, 23, 42, 0.85) !important;
+    --topbar-bg: rgba(15, 23, 42, 0.9) !important;
     color-scheme: dark !important;
 }
 
@@ -1502,7 +1502,7 @@ footer { display: none !important; }
     backdrop-filter: blur(12px);
     border-radius: 20px;
     border: 1px solid var(--card-border);
-    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
     margin-bottom: 6px;
 }
 .brand-left {
@@ -1553,17 +1553,27 @@ footer { display: none !important; }
     100% { background-position: 200% center; }
 }
 
+/* High-Contrast Ready Status Pill */
 .connected-pill {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #16A34A;
-    background: #F0FDF4;
-    padding: 4px 12px;
+    font-size: 13.5px;
+    font-weight: 800;
+    color: #15803D !important;
+    background: #DCFCE7 !important;
+    padding: 5px 14px;
     border-radius: 999px;
-    border: 1px solid #DCFCE7;
+    border: 1px solid #86EFAC;
+    box-shadow: 0 2px 6px rgba(22, 163, 74, 0.15);
+}
+body.dark-mode .connected-pill {
+    color: #4ADE80 !important;
+    background: rgba(22, 101, 52, 0.4) !important;
+    border-color: #166534 !important;
+}
+.conn-text-label {
+    color: inherit !important;
 }
 .conn-dot {
     width: 8px;
@@ -1578,20 +1588,24 @@ footer { display: none !important; }
     50% { transform: scale(1.3); opacity: 0.65; }
 }
 
+/* High-Contrast Gear Settings Icon */
 .gear-icon-btn {
-    background: transparent !important;
-    border: none !important;
+    background: var(--input-bg) !important;
+    border: 1px solid var(--input-border) !important;
     cursor: pointer;
-    padding: 6px;
+    padding: 8px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-color);
+    color: var(--text-color) !important;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
     transition: background 0.2s, transform 0.3s;
 }
 .gear-icon-btn:hover {
-    background: rgba(148, 163, 184, 0.2) !important;
+    background: #2563EB !important;
+    color: #FFFFFF !important;
+    border-color: #2563EB !important;
     transform: rotate(35deg);
 }
 
@@ -2342,7 +2356,6 @@ INIT_JS = """() => {
         }
     };
 
-    // Settings Modal (Preferred Language, System Dark/Light Theme, Permissions)
     window.openSettingsModal = function() {
         let modal = document.getElementById('sahayaSettingsModal');
         if (!modal) {
