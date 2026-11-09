@@ -394,9 +394,9 @@ LOCAL_T = {
         "detected": "🗣️ ਪਤਾ ਲੱਗੀ ਐਮਰਜੈਂਸੀ",
         "first_aid_label": "ਤੁਰੰਤ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਕਦਮ:",
         "call_btn": "ਹੁਣੇ {number} 'ਤੇ ਕਾਲ ਕਰੋ",
-        "directory_header": "ਐਮਰਜੈਂਸੀ ਸੇਵਾਵਾਂ ਡਾਇਰੈਕਟਰੀ",
+        "directory_header": "ਐਮਰਜੈਂਸੀ ਸੇਵਾਵਾਂ ਡਾਇਰੈਕਟରି",
         "audio_response": "🔊 ਸਹਾਇਤਾ ਵੌਇਸ ਸੇਧ:",
-        "med_title": "ਮੈਡੀਕਲ ਅਤੇ ਐਂਬੂਲੈਂਸ",
+        "med_title": "ମେଡିକାଲ ଏବଂ ଏମ୍ବୁଲେନ୍ସ",
         "police_title": "ਪੁਲਿਸ ਅਤੇ ਸੁਰੱਖਿਆ",
         "women_title": "ਮਹਿਲਾ ਹੈਲਪਲਾਈਨ",
         "fire_title": "ਫਾਇਰ ਅਤੇ ਰੈਸਕਿਊ",
@@ -493,8 +493,8 @@ CONDITION_RULES = [
     ("snakebite", {"snake", "snakes", "snakebite", "bitten", "bite", "haavu", "havu", "haavina", "kachide", "saanp", "saap", "sanp", "paambu", "pambu", "paamu", "pamu", "paampu", "sap"}, ["ಹಾವು", "ಹಾವಿನ", "साँप", "सांप", "साप", "பாம்பு", "పాము", "പാമ്പ്", "সাপ", "સાપ", "ਸੱਪ", "ସାପ"]),
     ("burns", {"fire", "burn", "burns", "burnt", "burning", "scald", "scalded", "cylinder", "blast", "boiling", "benki", "aag", "thee", "neruppu", "mantalu", "agun", "aagun", "hot water"}, ["ಬೆಂಕಿ", "ಸುಟ್ಟ", "आग", "जला", "जल गया", "झुलस", "தீக்காய", "தீப்பிடி", "நெருப்பு", "మంట", "నిప్పు", "തീപിടി", "പൊള്ള", "আগুন", "পুড়ে", "পোড়া", "આગ", "દાઝ", "ਅੱਗ", "ਸੜ", "ନିଆଁ", "ପୋଡ଼"]),
     ("cardiac", {"chest", "heart", "breathe", "breathing", "breath", "cardiac", "stroke", "attack", "ede", "edeno", "edenovu", "usiru", "husiru", "usiradalu", "gundige", "seene", "seena", "chhati", "chati", "saans", "sans", "nenju", "moochu", "swasam", "gunde", "swasa", "buker", "shwas", "shwasa", "saah", "dil", "dhadkan"}, ["ಎದೆ", "ಉಸಿರ", "ಹೃದಯ", "सीने", "छाती", "सांस", "साँस", "दिल", "हृदय", "श्वास", "நெஞ்சு", "மூச்சு", "இதய", "గుండె", "ఛాతీ", "శ్వాస", "ఊపిరి", "നെഞ്ച", "ശ്വാസ", "ഹൃദയ", "বুক", "শ্বাস", "হৃদ", "છાતી", "શ્વાસ", "હૃદય", "ਛਾਤੀ", "ਸਾਹ", "ਦਿਲ", "ଛାତି", "ଶ୍ୱାସ", "ହୃଦ", "ꯊꯃꯣꯏ"]),
-    ("collapse_fall", {"collapse", "collapsed", "construction", "fell", "fall", "falling", "height", "debris", "trapped", "rubble", "building", "kattada", "bidda", "biddare", "bidde", "imarat", "imaarat", "gir", "gira", "giri", "katidom", "keezhe", "veenu", "padla", "padli", "bhukamp", "earthquake", "flood", "landslide"}, ["ಕಟ್ಟಡ", "ಕುಸಿ", "ಬಿದ್ದ", "ಬೀಳ", "ಎತ್ತರ", "इमारत", "ढह", "गिर", "भूकंप", "बाढ़", "கட்டிட", "விழு", "கீழே", "நிலநடுக்க", "భవనం", "కూలి", "పడ్డ", "పడి", "భూకంప", "കെട്ടിടം", "തകർ", "വീണ", "ഭൂചലന", "দালান", "ভবন", "ধস", "পড়ে গ", "ভূমিকম্প", "ઇમારત", "મકાન", "પડ", "ભૂકંપ", "ਇਮਾਰਤ", "ਡਿੱ", "ਭੂਚਾਲ", "କୋଠା", "ଭୁଶୁଡ଼", "ପଡ଼"]),
-    ("accident_trauma", {"accident", "crash", "bike", "car", "hit", "bleeding", "bleed", "blood", "fracture", "broke", "broken", "wound", "injury", "injured", "run over", "apaghata", "apaghaata", "gaaya", "rakta", "haadsa", "hadsa", "khoon", "vibathu", "pramadam", "raktham", "roktho", "lohi"}, ["ಅಪಘಾತ", "ರಕ್ತ", "ಗಾಯ", "ಮುರಿ", "दुर्घटना", "हादसा", "खून", "चोट", "घाव", "फ्रैक्चर", "விபத்து", "ரத்த", "இரத்த", "காயம்", "எலும்பு", "ప్రమాదం", "రక్త", "గాయం", "విరిగ", "അപകടം", "രക്ത", "മുറിവ്", "দুর্ঘটনা", "রক্ত", "আঘাত", "ক্ষত", "અકસ્માત", "લોહી", "ઈજા", "ਹਾਦਸਾ", "ਖੂਨ", "ਸੱਟ", "ਜ਼ਖ਼ਮ", "ଦୁର୍ଘଟଣା", "ରକ୍ତ", "ଆଘାତ"]),
+    ("collapse_fall", {"collapse", "collapsed", "construction", "fell", "fall", "falling", "height", "debris", "trapped", "rubble", "building", "kattada", "bidda", "biddare", "bidde", "imarat", "imaarat", "gir", "gira", "giri", "katidom", "keezhe", "veenu", "padla", "padli", "bhukamp", "earthquake", "flood", "landslide"}, ["ಕಟ್ಟಡ", "ಕುಸಿ", "ಬಿದ್ದ", "ಬೀಳ", "ಎತ್ತರ", "इमारत", "ढह", "गिर", "भूकंप", "बाढ़", "கட்டிட", "விழு", "கீழே", "நிலநடுக்க", "భవనం", "కూలి", "పడ్డ", "పడి", "భూకంప", "കെട്ടിടം", "തകർ", "വീണ", "ഭൂചലന", "দালান", "ভবন", "ধস", "পড়ে গ", "ভূমিকম্প", "ઇમારત", "મકાન", "પડ", "ભૂકંપ", "ਇମାରਤ", "ਡਿੱ", "ਭੂଚਾਲ", "କୋଠା", "ଭୁଶୁଡ଼", "ପଡ଼"]),
+    ("accident_trauma", {"accident", "crash", "bike", "car", "hit", "bleeding", "bleed", "blood", "fracture", "broke", "broken", "wound", "injury", "injured", "run over", "apaghata", "apaghaata", "gaaya", "rakta", "haadsa", "hadsa", "khoon", "vibathu", "pramadam", "raktham", "roktho", "lohi"}, ["ಅಪಘಾತ", "ರಕ್ತ", "ಗಾಯ", "ಮುರಿ", "दुर्घटना", "हादसा", "खून", "चोट", "घाव", "फ्रैक्चर", "விபத்து", "ரத்த", "இரத்த", "காயம்", "எலும்பு", "ప్రమాదం", "రక్త", "గాయం", "విరిగ", "അപകടം", "രക്ത", "മുറിവ്", "দুর্ঘটনা", "রক্ত", "আঘাত", "ক্ষত", "અકસ્માત", "લોહી", "ઈજા", "ਹਾਦਸਾ", "ਖੂਨ", "ਸੱਟ", "ਜ਼ਖ਼ମ", "ଦୁର୍ଘଟଣା", "ରକ୍ତ", "ଆଘାତ"]),
 ]
 
 def identify_condition(text: str) -> str:
@@ -727,7 +727,7 @@ FALLBACKS = {
         "pa_IN": ("ਸੜਨ ਦੀ ਐਮਰਜੈਂਸੀ! ਤੁਰੰਤ 108 / 101 'ਤੇ ਕਾਲ ਕਰੋ।", [
             "ਸਾੜੇ ਵਾਲੀ ਥਾਂ ਨੂੰ ਘੱਟੋ-ਘੱਟ 20 ਮਿੰਟ ਪਾਣੀ ਹੇਠਾਂ ਰੱਖੋ।",
             "ਬਰਫ਼ ਜਾਂ ਤੇਲ ਨਾ ਲਗਾਓ।",
-            "ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਢੱਕ ਕੇ ਹਸਪਤਾਲ ਜਾਓ।"
+            "ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਢੱਕ ਕੇ ਹਸପତਾਲ ਜਾਓ।"
         ]),
     },
     "accident_trauma": {
@@ -1035,7 +1035,6 @@ def gnani_stt(audio_path, lang_code):
     except Exception as e:
         return "", f"Speech connection failed: {e}"
 
-# Fast Parallel STT: Runs Gnani Prisma & Groq Whisper concurrently for sub-second response
 def listen_fast(audio_path, selected):
     clean, raw, code = preprocess_audio(audio_path)
     if code == "no_audio":
@@ -1056,7 +1055,6 @@ def listen_fast(audio_path, selected):
         w_text, w_lang, _ = fut_whisper.result()
         g_text, _ = fut_gnani.result()
 
-    # Check native scripts or Roman keywords first
     s_lang = script_lang(w_text) or script_lang(g_text)
     r_lang, _ = roman_lang((w_text or "") + " " + (g_text or ""), hint_lang, w_lang)
     detected_lang = hint_lang or s_lang or r_lang or w_lang or gnani_target
@@ -1231,7 +1229,7 @@ def header_html(t):
         <span id="connText">{html.escape(t['ready_status'])}</span>
       </div>
       <button type="button" class="gear-icon-btn" onclick="window.openSettingsModal()" title="Settings">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="3"></circle>
           <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
         </svg>
@@ -1248,7 +1246,6 @@ def custom_mic_card_html(t):
       <h1 class="hero-title">{html.escape(t['hero_title'])}</h1>
       <p class="hero-subtitle">{html.escape(t['subtitle'])}</p>
 
-      <!-- Idle / Recording Circle Button (Powered directly by Web Audio API) -->
       <div class="mic-stage" id="micStage">
         <div class="mic-ring-outer" id="micRingOuter">
           <div class="mic-ring-inner" id="micRingInner">
@@ -1266,7 +1263,6 @@ def custom_mic_card_html(t):
           </div>
         </div>
 
-        <!-- Animated Teal Soundwave (shown while recording) -->
         <div class="listening-waves" id="listeningWaves" style="display:none;">
           <span></span><span></span><span></span><span></span><span></span>
           <span></span><span></span><span></span><span></span><span></span><span></span>
@@ -1276,14 +1272,12 @@ def custom_mic_card_html(t):
       <div class="mic-prompt-main" id="micPromptMain">{idle_txt}</div>
       <div class="mic-prompt-sub" id="micPromptSub" style="display:none;">{html.escape(t['mic_sub'])}</div>
 
-      <!-- Language Pill Indicator -->
       <div class="lang-pill-wrap">
         <button type="button" class="lang-pill-btn" onclick="window.openSettingsModal()">
           🌐 <span id="activeLangLabel">{html.escape(t['lang_pill_auto'])}</span>
         </button>
       </div>
 
-      <!-- Bottom Green Shield Banner -->
       <div class="shield-banner">
         <div class="shield-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="#16A34A">
@@ -1377,13 +1371,11 @@ def run_pipeline(transcript: str, selected: str, audio_lang=None):
     hint = selected if selected in LANGUAGES else None
     reply_lang, confident = resolve_language(transcript, hint, audio_lang)
 
-    # STAGE 1 (Sub-Second Instant Response): Immediately render verified first-aid steps in the detected language
     fast_service, fast_reply, fast_steps, fast_urgency, _ = get_fallback_response(transcript, reply_lang)
     rt = TRANSLATIONS.get(reply_lang, TRANSLATIONS["en_IN"])
     instant_card = result_card(fast_service, fast_steps, fast_urgency, rt, fast_reply, caller_text=transcript)
     yield "", gr.update(value=None, visible=False), instant_card
 
-    # STAGE 2: Refine with Groq Llama + synthesize Timbre Voice
     triage, _ = groq_triage(transcript, reply_lang, confident)
     if triage:
         reply_lang = triage["lang_code"]
@@ -1443,34 +1435,41 @@ def apply_language(lang_code):
     )
 
 # ---------------------------------------------------------------------------
-# CSS: Calm Sea-Stone Background + Bouncing Soundwave + Font & Tagline Animations
+# CSS: Light & Dark System Themes + UI Styling
 # ---------------------------------------------------------------------------
 CSS = """
-:root, .dark, body, .gradio-container {
-    --body-background-fill: transparent !important;
-    --background-fill-primary: #FFFFFF !important;
-    --background-fill-secondary: transparent !important;
-    --block-background-fill: transparent !important;
-    --block-border-color: transparent !important;
-    --input-background-fill: #FFFFFF !important;
-    --input-border-color: #CBD5E1 !important;
-    --body-text-color: #0F172A !important;
-    --block-label-text-color: #0F172A !important;
+:root, body, .gradio-container {
+    --bg-main: linear-gradient(145deg, #EBF0F2 0%, #DCE4E8 48%, #CFDADE 100%);
+    --card-bg: rgba(255, 255, 255, 0.94);
+    --card-border: rgba(255, 255, 255, 0.98);
+    --text-color: #0F172A;
+    --subtext-color: #64748B;
+    --input-bg: #FFFFFF;
+    --input-border: #CBD5E1;
+    --topbar-bg: rgba(255, 255, 255, 0.78);
     color-scheme: light !important;
 }
 
-/* Calm Sea-Stone Background with Smooth Pebble Radial Highlights */
+body.dark-mode, .dark-mode .gradio-container, .dark-mode {
+    --bg-main: #0F172A !important;
+    --card-bg: rgba(30, 41, 59, 0.94) !important;
+    --card-border: rgba(51, 65, 85, 0.9) !important;
+    --text-color: #F8FAFC !important;
+    --subtext-color: #94A3B8 !important;
+    --input-bg: #1E293B !important;
+    --input-border: #475569 !important;
+    --topbar-bg: rgba(15, 23, 42, 0.85) !important;
+    color-scheme: dark !important;
+}
+
 body, .gradio-container {
-    background:
-        radial-gradient(circle at 18% 15%, rgba(255, 255, 255, 0.75) 0%, transparent 45%),
-        radial-gradient(circle at 85% 80%, rgba(186, 206, 214, 0.45) 0%, transparent 50%),
-        linear-gradient(145deg, #EBF0F2 0%, #DCE4E8 48%, #CFDADE 100%) !important;
-    background-attachment: fixed !important;
-    color: #0F172A !important;
+    background: var(--bg-main) !important;
+    color: var(--text-color) !important;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", sans-serif !important;
     max-width: 500px !important;
     margin: 0 auto !important;
     padding: 8px 12px 32px 12px !important;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 footer { display: none !important; }
@@ -1484,7 +1483,6 @@ footer { display: none !important; }
     padding: 0 !important;
 }
 
-/* Keep Hidden Bridge Components Mounted in DOM so JS Can Trigger Events Reliably */
 .js-bridge-hidden {
     position: fixed !important;
     left: -9999px !important;
@@ -1495,16 +1493,15 @@ footer { display: none !important; }
     overflow: hidden !important;
 }
 
-/* Top Navigation Bar (Sahaya + Bouncing Soundwave + Gear Icon) */
 .app-top-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 12px 14px;
-    background: rgba(255, 255, 255, 0.78);
+    background: var(--topbar-bg);
     backdrop-filter: blur(12px);
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--card-border);
     box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
     margin-bottom: 6px;
 }
@@ -1514,7 +1511,6 @@ footer { display: none !important; }
     gap: 10px;
 }
 
-/* Bouncing Soundwave Animation next to Sahaya */
 .brand-wave-icon {
     display: flex;
     align-items: center;
@@ -1541,12 +1537,11 @@ footer { display: none !important; }
     100% { transform: scaleY(0.55) translateY(0px); opacity: 0.9; }
 }
 
-/* Animated Font for Brand Name */
 .brand-name {
     font-size: 21px;
     font-weight: 800;
     letter-spacing: -0.3px;
-    background: linear-gradient(90deg, #0F172A 0%, #1D4ED8 50%, #0F172A 100%);
+    background: linear-gradient(90deg, #2563EB 0%, #0EA5E9 50%, #2563EB 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1592,6 +1587,7 @@ footer { display: none !important; }
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--text-color);
     transition: background 0.2s, transform 0.3s;
 }
 .gear-icon-btn:hover {
@@ -1599,7 +1595,6 @@ footer { display: none !important; }
     transform: rotate(35deg);
 }
 
-/* Emergency SOS Button */
 .sos-panic-btn {
     width: 100% !important;
     background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%) !important;
@@ -1615,23 +1610,21 @@ footer { display: none !important; }
     letter-spacing: 0.3px;
 }
 
-/* Main Frosted White Sea-Stone Hero Card */
 .assistant-hero-card {
-    background: rgba(255, 255, 255, 0.94);
+    background: var(--card-bg);
     backdrop-filter: blur(14px);
     border-radius: 28px;
     padding: 30px 22px 24px 22px;
     text-align: center;
     box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.98);
+    border: 1px solid var(--card-border);
     margin-bottom: 14px;
 }
 
-/* Animated Font for Hero Title & Tagline ("Talk. Translate. Stay Safe.") */
 .hero-title {
     font-size: 26px;
     font-weight: 800;
-    color: #0F172A;
+    color: var(--text-color);
     margin: 0 0 6px 0;
     letter-spacing: -0.5px;
     animation: heroTitleFloat 3.6s ease-in-out infinite;
@@ -1646,7 +1639,7 @@ footer { display: none !important; }
     font-size: 15.5px;
     font-weight: 600;
     margin: 0 0 24px 0;
-    background: linear-gradient(90deg, #475569 0%, #2563EB 50%, #0D9488 100%);
+    background: linear-gradient(90deg, #64748B 0%, #3B82F6 50%, #14B8A6 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1654,19 +1647,10 @@ footer { display: none !important; }
 }
 
 @keyframes taglineGlow {
-    0% {
-        background-position: 0% center;
-        letter-spacing: 0px;
-        opacity: 0.88;
-    }
-    100% {
-        background-position: 100% center;
-        letter-spacing: 0.6px;
-        opacity: 1;
-    }
+    0% { background-position: 0% center; opacity: 0.88; }
+    100% { background-position: 100% center; opacity: 1; }
 }
 
-/* Concentric Blue Glow Rings + Circular Mic Button */
 .mic-stage {
     display: flex;
     flex-direction: column;
@@ -1729,7 +1713,6 @@ footer { display: none !important; }
     100% { transform: scale(0.97); }
 }
 
-/* Teal Soundwave Animation when Recording */
 .listening-waves {
     display: flex;
     align-items: center;
@@ -1764,13 +1747,13 @@ footer { display: none !important; }
 .mic-prompt-main {
     font-size: 16px;
     font-weight: 700;
-    color: #0F172A;
+    color: var(--text-color);
     margin-top: 16px;
 }
 .mic-prompt-sub {
     font-size: 14px;
     font-weight: 500;
-    color: #64748B;
+    color: var(--subtext-color);
     margin-top: 4px;
 }
 
@@ -1778,32 +1761,31 @@ footer { display: none !important; }
     margin-top: 14px;
 }
 .lang-pill-btn {
-    background: #F8FAFC;
-    border: 1px solid #CBD5E1;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
     border-radius: 999px;
     padding: 8px 18px;
     font-size: 13px;
     font-weight: 700;
-    color: #0F172A;
+    color: var(--text-color);
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
 }
 .lang-pill-btn:hover {
-    background: #F1F5F9;
+    opacity: 0.9;
 }
 
-/* Green Shield Footer inside Hero Card */
 .shield-banner {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
-    background: #F0FDF4;
+    background: rgba(22, 163, 74, 0.1);
     border-radius: 16px;
     padding: 14px 18px;
     margin-top: 22px;
     text-align: left;
-    border: 1px solid #DCFCE7;
+    border: 1px solid rgba(22, 163, 74, 0.2);
 }
 .shield-icon {
     display: flex;
@@ -1814,16 +1796,15 @@ footer { display: none !important; }
 .shield-text {
     font-size: 13.5px;
     font-weight: 600;
-    color: #334155;
+    color: var(--text-color);
     line-height: 1.35;
 }
 
-/* Quick Text Fallback Box + Clear Button */
 .quick-text-row {
-    background: rgba(255, 255, 255, 0.94) !important;
+    background: var(--card-bg) !important;
     border-radius: 16px !important;
     padding: 6px 10px !important;
-    border: 1px solid rgba(255, 255, 255, 0.98) !important;
+    border: 1px solid var(--card-border) !important;
     box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04) !important;
     margin-bottom: 12px !important;
     display: flex !important;
@@ -1832,7 +1813,7 @@ footer { display: none !important; }
 }
 .quick-text-row textarea, .quick-text-row input {
     background: transparent !important;
-    color: #0F172A !important;
+    color: var(--text-color) !important;
     border: none !important;
     box-shadow: none !important;
     font-size: 14px !important;
@@ -1848,9 +1829,9 @@ footer { display: none !important; }
     cursor: pointer !important;
 }
 .clear-text-btn {
-    background: #F1F5F9 !important;
-    color: #475569 !important;
-    border: 1px solid #CBD5E1 !important;
+    background: var(--input-bg) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--input-border) !important;
     border-radius: 10px !important;
     font-weight: 700 !important;
     font-size: 13px !important;
@@ -1860,20 +1841,18 @@ footer { display: none !important; }
 .clear-text-btn:hover {
     background: #FEE2E2 !important;
     color: #DC2626 !important;
-    border-color: #FECACA !important;
 }
 
-/* Screen 3: Major Accident & Live Translation Card */
 .accident-result-card {
     border-radius: 28px;
     overflow: hidden;
-    background: #FFFFFF;
+    background: var(--card-bg);
     box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
     border: 1px solid #FECACA;
     margin: 14px 0;
 }
 .accident-alert-top {
-    background: radial-gradient(circle at center, #FEE2E2 0%, #FEF2F2 100%);
+    background: radial-gradient(circle at center, rgba(254, 226, 226, 0.8) 0%, rgba(254, 242, 242, 0.9) 100%);
     padding: 26px 20px 20px 20px;
     text-align: center;
 }
@@ -1899,12 +1878,12 @@ footer { display: none !important; }
 .accident-sub-note {
     font-size: 13px;
     font-weight: 600;
-    color: #64748B;
+    color: var(--subtext-color);
     margin: 4px 0 0 0;
 }
 
 .live-trans-surface {
-    background: #FFFFFF;
+    background: var(--card-bg);
     padding: 20px;
 }
 .live-trans-header-row {
@@ -1919,12 +1898,12 @@ footer { display: none !important; }
     gap: 8px;
     font-size: 14px;
     font-weight: 800;
-    color: #0F172A;
+    color: var(--text-color);
 }
 .inline-clear-btn {
-    background: #FEF2F2;
+    background: rgba(220, 38, 38, 0.1);
     color: #DC2626;
-    border: 1px solid #FECACA;
+    border: 1px solid rgba(220, 38, 38, 0.3);
     border-radius: 8px;
     padding: 4px 10px;
     font-size: 12px;
@@ -1932,17 +1911,17 @@ footer { display: none !important; }
     cursor: pointer;
 }
 .inline-clear-btn:hover {
-    background: #FEE2E2;
+    background: rgba(220, 38, 38, 0.2);
 }
 .trans-symbol {
     font-weight: 900;
-    color: #334155;
+    color: var(--subtext-color);
 }
 .trans-bubble-blue {
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    background: #EFF6FF;
+    background: rgba(37, 99, 235, 0.1);
     border-radius: 16px;
     padding: 14px 16px;
     margin-bottom: 10px;
@@ -1951,8 +1930,8 @@ footer { display: none !important; }
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    background: #F8FAFC;
-    border: 1px solid #E2E8F0;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
     border-radius: 16px;
     padding: 14px 16px;
     margin-bottom: 16px;
@@ -1964,18 +1943,18 @@ footer { display: none !important; }
 .bubble-txt {
     font-size: 15px;
     font-weight: 700;
-    color: #0F172A;
+    color: var(--text-color);
     line-height: 1.45;
 }
 
 .first-aid-section {
-    border-top: 1px solid #F1F5F9;
+    border-top: 1px solid var(--input-border);
     padding-top: 14px;
 }
 .first-aid-title {
     font-size: 15px;
     font-weight: 800;
-    color: #0F172A;
+    color: var(--text-color);
     margin-bottom: 8px;
 }
 .step-list {
@@ -1983,7 +1962,7 @@ footer { display: none !important; }
     padding-left: 20px !important;
 }
 .step-list li {
-    color: #0F172A !important;
+    color: var(--text-color) !important;
     font-size: 14.5px !important;
     font-weight: 600 !important;
     line-height: 1.65 !important;
@@ -2003,12 +1982,11 @@ footer { display: none !important; }
     box-shadow: 0 6px 16px rgba(22, 163, 74, 0.25);
 }
 
-/* 2x2 Emergency Services Directory Grid */
 .directory-section {
     margin-top: 18px;
 }
 .directory-heading {
-    color: #0F172A;
+    color: var(--text-color);
     font-size: 15px;
     margin-bottom: 10px;
     font-weight: 800;
@@ -2019,8 +1997,8 @@ footer { display: none !important; }
     gap: 10px;
 }
 .directory-card {
-    background: rgba(255, 255, 255, 0.94);
-    border: 1px solid rgba(255, 255, 255, 0.98);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: 14px;
     padding: 12px 14px;
     display: flex;
@@ -2039,7 +2017,7 @@ footer { display: none !important; }
 .directory-name {
     font-weight: 700;
     font-size: 12.5px;
-    color: #0F172A;
+    color: var(--text-color);
     line-height: 1.25;
 }
 .directory-num {
@@ -2049,21 +2027,20 @@ footer { display: none !important; }
     margin-top: 2px;
 }
 .call-badge {
-    background: #F8FAFC;
+    background: var(--input-bg);
     color: #2563EB !important;
     font-weight: 700;
     font-size: 12px;
     padding: 5px 10px;
     border-radius: 8px;
     text-decoration: none !important;
-    border: 1px solid #E2E8F0;
+    border: 1px solid var(--input-border);
 }
 
-/* Settings Modal Overlay */
 .settings-modal-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(15, 23, 42, 0.45);
+    background: rgba(15, 23, 42, 0.55);
     backdrop-filter: blur(4px);
     display: none;
     justify-content: center;
@@ -2071,12 +2048,14 @@ footer { display: none !important; }
     z-index: 9999;
 }
 .settings-modal-content {
-    background: #FFFFFF;
+    background: var(--card-bg);
+    color: var(--text-color);
     padding: 24px;
     border-radius: 22px;
     width: 92%;
     max-width: 390px;
-    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.18);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.28);
+    border: 1px solid var(--card-border);
 }
 .settings-modal-header {
     display: flex;
@@ -2086,19 +2065,19 @@ footer { display: none !important; }
 }
 .settings-modal-header h3 {
     margin: 0;
-    color: #0F172A;
+    color: var(--text-color);
     font-size: 17px;
     font-weight: 800;
 }
 .settings-close-btn {
-    background: #F1F5F9;
-    border: none;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
     width: 30px;
     height: 30px;
     border-radius: 50%;
     font-size: 18px;
     cursor: pointer;
-    color: #334155;
+    color: var(--text-color);
 }
 .setting-item {
     margin-bottom: 16px;
@@ -2107,16 +2086,16 @@ footer { display: none !important; }
     display: block;
     font-size: 13px;
     font-weight: 700;
-    color: #334155;
+    color: var(--subtext-color);
     margin-bottom: 6px;
 }
 .setting-item select {
     width: 100%;
     padding: 10px 12px;
     border-radius: 10px;
-    border: 1px solid #CBD5E1;
-    background: #FFFFFF;
-    color: #0F172A;
+    border: 1px solid var(--input-border);
+    background: var(--input-bg);
+    color: var(--text-color);
     font-size: 14px;
     font-weight: 600;
 }
@@ -2133,7 +2112,6 @@ INIT_JS = """() => {
     window._pcmChunks = [];
     window._silenceTimer = null;
 
-    // Helper to set value on Gradio's internal input/textarea and click a trigger button
     window.pushToGradioBridge = function(boxId, btnId, val) {
         const el = document.querySelector('#' + boxId + ' textarea, #' + boxId + ' input');
         if (!el) return;
@@ -2191,7 +2169,6 @@ INIT_JS = """() => {
         window._sosCtx = null;
     };
 
-    // Encode Float32 PCM arrays directly into a 16kHz 16-bit Mono WAV DataURL
     window.encodeWAVBase64 = function(Buffers, inputSampleRate) {
         let totalLength = 0;
         for (let i = 0; i < Buffers.length; i++) totalLength += Buffers[i].length;
@@ -2201,7 +2178,6 @@ INIT_JS = """() => {
             merged.set(Buffers[i], offset);
             offset += Buffers[i].length;
         }
-        // Downsample to 16000 Hz for fast upload
         const targetRate = 16000;
         const ratio = inputSampleRate / targetRate;
         const newLength = Math.round(merged.length / ratio);
@@ -2312,7 +2288,6 @@ INIT_JS = """() => {
         }
     };
 
-    // Direct Web Audio API Recorder with Automatic Silence Detection (1.8s silence after speech auto-submits)
     window.toggleSahayaMic = async function() {
         if (window._sahayaRecording) {
             window.stopAndSendRecording();
@@ -2340,7 +2315,6 @@ INIT_JS = """() => {
                 const input = e.inputBuffer.getChannelData(0);
                 window._pcmChunks.push(new Float32Array(input));
 
-                // Calculate RMS energy for automatic silence stop after speaking
                 let sum = 0;
                 for (let i = 0; i < input.length; i++) sum += input[i] * input[i];
                 const rms = Math.sqrt(sum / input.length);
@@ -2349,7 +2323,6 @@ INIT_JS = """() => {
                     silenceFrames = 0;
                 } else if (spokeOnce) {
                     silenceFrames++;
-                    // ~18 frames of 4096 samples at 44.1kHz is ~1.7 seconds of silence
                     if (silenceFrames > 18) {
                         window.stopAndSendRecording();
                     }
@@ -2360,7 +2333,6 @@ INIT_JS = """() => {
             processor.connect(ctx.destination);
             window.setMicVisualState(true);
 
-            // Safety cap at 12 seconds so emergency triage never hangs
             window._silenceTimer = setTimeout(() => {
                 if (window._sahayaRecording) window.stopAndSendRecording();
             }, 12000);
@@ -2370,7 +2342,7 @@ INIT_JS = """() => {
         }
     };
 
-    // Settings Modal (Preferred Language, App Theme, Permissions)
+    // Settings Modal (Preferred Language, System Dark/Light Theme, Permissions)
     window.openSettingsModal = function() {
         let modal = document.getElementById('sahayaSettingsModal');
         if (!modal) {
@@ -2402,11 +2374,10 @@ INIT_JS = """() => {
                         </select>
                     </div>
                     <div class="setting-item">
-                        <label>🎨 App Theme</label>
+                        <label>🎨 Theme Mode</label>
                         <select id="themeSelect" onchange="window.changeAppTheme(this.value)">
-                            <option value="seastone">Calm Sea Stone (Default)</option>
-                            <option value="light">Crisp White Surface (#F8FAFC)</option>
-                            <option value="warm">Warm Pebble (#F5F2EB)</option>
+                            <option value="light">☀️ Light Theme</option>
+                            <option value="dark">🌙 Dark Theme</option>
                         </select>
                     </div>
                     <div class="setting-item">
@@ -2448,22 +2419,19 @@ INIT_JS = """() => {
     };
 
     window.changeAppTheme = function(theme) {
-        let bg = 'linear-gradient(145deg, #EBF0F2 0%, #DCE4E8 48%, #CFDADE 100%)';
-        if (theme === 'light') bg = '#F8FAFC';
-        if (theme === 'warm') bg = 'linear-gradient(145deg, #F7F4EF 0%, #EAE4DC 100%)';
-        document.body.style.background = bg;
-        const gc = document.querySelector('.gradio-container');
-        if (gc) gc.style.background = bg;
+        if (theme === 'dark') {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
     };
 }"""
 
 t0 = TRANSLATIONS["en_IN"]
 
 with gr.Blocks(title="Sahaya Emergency") as demo:
-    # 1. Top Bar (Bouncing Soundwave + Animated Sahaya Font + Status + Settings Gear)
     header = gr.HTML(header_html(t0))
 
-    # 2. Red Emergency SOS Banner
     sos_btn = gr.Button(t0["sos_btn"], elem_classes=["sos-panic-btn"])
     sos_btn.click(
         fn=None,
@@ -2473,10 +2441,8 @@ with gr.Blocks(title="Sahaya Emergency") as demo:
         }""",
     )
 
-    # 3. Clean Hero Card with Circular Blue Microphone ("Tap to Start Recording")
     mic_card = gr.HTML(custom_mic_card_html(t0))
 
-    # 4. Quick Text Input Fallback + Translate Button + Clear Button
     with gr.Row(elem_classes=["quick-text-row"]):
         text_in = gr.Textbox(
             placeholder=t0["placeholder"],
@@ -2487,14 +2453,12 @@ with gr.Blocks(title="Sahaya Emergency") as demo:
         send_btn = gr.Button(t0["send_btn"], elem_classes=["send-text-btn"], scale=2)
         clear_btn = gr.Button(t0["clear_btn"], elem_id="visible-clear-btn", elem_classes=["clear-text-btn"], scale=1)
 
-    # Mounted DOM Bridges (kept visible=True so Gradio mounts them in the DOM, hidden via CSS .js-bridge-hidden)
     with gr.Row(elem_classes=["js-bridge-hidden"]):
         lang_state = gr.Textbox(value=AUTO, elem_id="hidden-lang-box")
         lang_btn = gr.Button("ApplyLang", elem_id="hidden-lang-submit-btn")
         b64_audio_in = gr.Textbox(value="", elem_id="hidden-b64-audio")
         b64_audio_btn = gr.Button("SubmitAudio", elem_id="hidden-audio-submit-btn")
 
-    # 5. Live Translation & Emergency Triage Output
     status = gr.Markdown("")
     reply_audio = gr.Audio(
         label="🔊 Sahaya Voice Guidance",
@@ -2505,17 +2469,14 @@ with gr.Blocks(title="Sahaya Emergency") as demo:
     )
     card_out = gr.HTML("")
 
-    # 6. 2x2 Emergency Services Directory
     dir_html = gr.HTML(directory_html(t0))
 
-    # Event Wiring for Direct WebAudio Base64 Recording
     b64_audio_btn.click(
         on_b64_audio,
         inputs=[b64_audio_in, lang_state],
         outputs=[status, reply_audio, card_out],
     )
 
-    # Event Wiring for Text Input
     send_btn.click(
         on_text_submit,
         inputs=[text_in, lang_state],
@@ -2527,14 +2488,12 @@ with gr.Blocks(title="Sahaya Emergency") as demo:
         outputs=[status, reply_audio, card_out],
     )
 
-    # Event Wiring for Clear Button (Clears old emergency, audio, and text input)
     clear_btn.click(
         on_clear,
         inputs=None,
         outputs=[text_in, status, reply_audio, card_out, b64_audio_in],
     )
 
-    # Event Wiring for Full UI Language Translation
     lang_btn.click(
         apply_language,
         inputs=lang_state,
