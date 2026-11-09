@@ -78,13 +78,11 @@ SCRIPT_NAMES = {
     "mni_IN": "Meitei Mayek script (ꯃꯤꯇꯩꯂꯣꯟ)",
 }
 
-# Timbre (TTS) has no voice for Odia / Manipuri
 TIMBRE_LANGS = {
     "en_IN", "hi_IN", "ta_IN", "te_IN", "kn_IN",
     "ml_IN", "mr_IN", "pa_IN", "bn_IN", "gu_IN",
 }
 
-# Whisper language name -> our code
 WHISPER_NAME_TO_CODE = {
     "english": "en_IN", "hindi": "hi_IN", "urdu": "hi_IN", "nepali": "hi_IN", "sanskrit": "hi_IN",
     "kannada": "kn_IN", "tamil": "ta_IN", "telugu": "te_IN", "malayalam": "ml_IN",
@@ -102,7 +100,7 @@ CODE_TO_WHISPER = {
 
 SCRIPT_RANGES = [
     (0x0C80, 0x0CFF, "kn_IN"),
-    (0x0900, 0x097F, "hi_IN"),   # Devanagari (Hindi / Marathi)
+    (0x0900, 0x097F, "hi_IN"),
     (0x0B80, 0x0BFF, "ta_IN"),
     (0x0C00, 0x0C7F, "te_IN"),
     (0x0D00, 0x0D7F, "ml_IN"),
@@ -113,13 +111,9 @@ SCRIPT_RANGES = [
     (0xABC0, 0xABFF, "mni_IN"),
 ]
 
-# Devanagari disambiguation (Marathi vs Hindi)
 MR_MARKERS = ["आहे", "आहेत", "मला", "माझ", "तुम्ही", "करा", "झाले", "झाला", "नाही", "छातीत", "दुखत", "येत नाही"]
 HI_MARKERS = ["है", "हैं", "मुझे", "मेरे", "मेरी", "में", "रहा", "रही", "नहीं", "करो", "कृपया", "को "]
 
-# ---------------------------------------------------------------------------
-# UI strings (English base + local overrides)
-# ---------------------------------------------------------------------------
 BASE_T = {
     "title": "Sahaya",
     "subtitle": "Stay Safe. 🛡️",
@@ -233,9 +227,6 @@ EMERGENCY_DIRECTORY = [
 
 CATEGORY_INDEX = {"medical": 0, "police": 1, "assault": 2, "fire": 3, "disaster": 4}
 
-# ---------------------------------------------------------------------------
-# Romanised / code-mixed language cues
-# ---------------------------------------------------------------------------
 ROMAN_LANG_KEYWORDS = {
     "kn_IN": {"nanage", "nanna", "namma", "tande", "thande", "taayi", "thaayi", "ede", "edenovu", "edenoovu", "novu", "usiru", "husiru", "usiradalu", "huduga", "aagide", "aagtide", "aagta", "ide", "beku", "bega", "maadi", "madadi", "sahaya", "rakta", "aspatre", "kattada", "bidda", "biddidare", "haavu", "kachide", "tondare", "tondre", "gundige", "appa", "amma", "tambi", "tangi", "ishta", "idu", "alla", "gotilla"},
     "hi_IN": {"mujhe", "humein", "mere", "mera", "meri", "papa", "pitaji", "mataji", "seene", "seena", "dard", "saans", "takleef", "saanp", "bachao", "bachaao", "khoon", "aspatal", "gira", "gir", "toot", "imarat", "hai", "hain", "raha", "rahi", "nahi", "kya", "bahut", "jaldi", "behosh", "mein", "dil", "dhadkan"},
@@ -252,9 +243,6 @@ ROMAN_LANG_KEYWORDS = {
 
 EN_STOP = {"the", "is", "my", "has", "have", "he", "she", "and", "please", "help", "not", "can", "are", "was", "his", "her", "with", "from", "at", "of", "we", "there", "someone", "need", "very", "cannot", "unable", "just", "now", "fell", "hurt", "i", "am"}
 
-# ---------------------------------------------------------------------------
-# Condition recognition
-# ---------------------------------------------------------------------------
 CONDITION_RULES = [
     ("snakebite", {"snake", "snakes", "snakebite", "bitten", "bite", "haavu", "havu", "haavina", "kachide", "saanp", "saap", "sanp", "paambu", "pambu", "paamu", "pamu", "paampu", "sap"}, ["ಹಾವು", "ಹಾವಿನ", "साँप", "सांप", "साप", "பாம்பு", "పాము", "പാമ്പ്", "সাপ", "સાપ", "ਸੱਪ", "ସାପ"]),
     ("burns", {"fire", "burn", "burns", "burnt", "burning", "scald", "scalded", "cylinder", "blast", "boiling", "benki", "aag", "thee", "neruppu", "mantalu", "agun", "aagun", "hot water"}, ["ಬೆಂಕಿ", "ಸುಟ್ಟ", "आग", "जला", "जल गया", "झुलस", "தீக்காய", "தீப்பிடி", "நெருப்பு", "మంట", "నిప్పు", "തീപിടി", "പൊള്ള", "আগুন", "পুড়ে", "পোড়া", "આગ", "દાઝ", "ਅੱਗ", "ਸੜ", "ନିଆଁ", "ପୋଡ଼"]),
@@ -274,9 +262,6 @@ def identify_condition(text: str) -> str:
                 return cond
     return "general_medical"
 
-# ---------------------------------------------------------------------------
-# Offline first-aid fallbacks (Complete with Telugu, Bengali, Punjabi)
-# ---------------------------------------------------------------------------
 CONDITION_META = {
     "collapse_fall": (0, "critical"),
     "cardiac": (0, "critical"),
@@ -298,7 +283,7 @@ FALLBACKS = {
             "मरीज को बिल्कुल न हिलाएं, रीढ़ या गर्दन में गंभीर चोट हो सकती है।",
             "सिर, गर्दन और पीठ को सीधा और स्थिर रखें।",
             "खून बह रहा हो तो साफ कपड़े से सीधा और मजबूत दबाव डालें।",
-            "चेहरे को धूल से बचाएं और बचाव दल आने तक मरीज से बात करते रहें。"
+            "चेहरे को धूल से बचाएं और बचाव दल आने तक मरीज से बात करते रहें।"
         ]),
         "kn_IN": ("ಕಟ್ಟಡ ಕುಸಿತ / ಎತ್ತರದಿಂದ ಬಿದ್ದ ತುರ್ತು ಪರಿಸ್ಥಿತಿ! ತಕ್ಷಣ 108 ಗೆ ಕರೆ ಮಾಡಿ, ರಕ್ಷಣೆಗೆ 112 / 1078.", [
             "ರೋಗಿಯನ್ನು ಎತ್ತಬೇಡಿ ಅಥವಾ ಎಳೆಯಬೇಡಿ (ಬೆನ್ನುಮೂಳೆಯ ಗಾಯದ ಅಪಾಯ).",
@@ -518,9 +503,6 @@ def get_fallback_response(transcript: str, lang_code: str):
     reply, steps = data["en_IN"]
     return EMERGENCY_DIRECTORY[svc_idx], reply, list(steps), urgency, "en_IN"
 
-# ---------------------------------------------------------------------------
-# Language detection
-# ---------------------------------------------------------------------------
 def get_env(name, default=""):
     return os.getenv(name, default).strip()
 
@@ -570,7 +552,6 @@ def roman_lang(text: str, hint=None, audio_lang=None):
     return None, False
 
 def resolve_language(text: str, hint=None, audio_lang=None):
-    """Decide the reply language. Returns (code, confident)."""
     text = text or ""
     if hint and hint in LANGUAGES:
         return hint, True
@@ -598,9 +579,6 @@ def script_ok(text: str, lang: str) -> bool:
     hit = sum(1 for ch in letters if any(lo <= ord(ch) <= hi for lo, hi in wanted))
     return hit / len(letters) >= 0.5
 
-# ---------------------------------------------------------------------------
-# Audio conditioning
-# ---------------------------------------------------------------------------
 def spectral_denoise(x: np.ndarray, sr: int) -> np.ndarray:
     nper, nover = 512, 384
     _, _, Z = stft(x, fs=sr, nperseg=nper, noverlap=nover)
@@ -665,9 +643,6 @@ def preprocess_audio(path):
     except Exception:
         return raw_out, raw_out, None
 
-# ---------------------------------------------------------------------------
-# Speech recognition
-# ---------------------------------------------------------------------------
 def _find_text(obj):
     if isinstance(obj, str):
         return obj.strip()
@@ -775,9 +750,6 @@ def listen(audio_path, selected):
 
     return transcript, audio_lang or (stt_lang if selected in LANGUAGES else None), ""
 
-# ---------------------------------------------------------------------------
-# LLM triage (Strictly enforced native script response prompt)
-# ---------------------------------------------------------------------------
 def build_system_prompt(lang, confident):
     codes = ", ".join(LANGUAGES.keys())
     conf_txt = "HIGH, use it" if confident else "LOW, decide from the caller's own words"
@@ -880,9 +852,6 @@ def groq_triage(transcript: str, lang: str, confident: bool):
 
     return None, "Offline fallback active"
 
-# ---------------------------------------------------------------------------
-# Text-to-speech
-# ---------------------------------------------------------------------------
 def clip_for_tts(text: str, limit=900) -> str:
     text = re.sub(r"[*_#`>]", "", text)
     text = re.sub(r"\s+", " ", text).strip()
@@ -930,9 +899,6 @@ def timbre_speak(text: str, lang_code: str):
             pass
     return None, "🔇 Voice could not be generated. Please read the steps below."
 
-# ---------------------------------------------------------------------------
-# UI helpers
-# ---------------------------------------------------------------------------
 def header_html(t):
     return f"""
     <div class="sahaya-header">
@@ -985,9 +951,6 @@ def directory_html(t):
       {''.join(cards)}
     </div>"""
 
-# ---------------------------------------------------------------------------
-# Pipeline
-# ---------------------------------------------------------------------------
 def run_pipeline(transcript: str, selected: str, audio_lang=None):
     transcript = (transcript or "").strip()
     if not transcript:
@@ -1050,7 +1013,7 @@ def apply_language(lang_code):
     )
 
 # ---------------------------------------------------------------------------
-# CSS / JS (Enhanced High Contrast & Full Letter Visibility)
+# CSS / JS (Removed heavy dark backgrounds and overlays)
 # ---------------------------------------------------------------------------
 CSS = """
 :root {
@@ -1058,9 +1021,9 @@ CSS = """
     --background-fill-primary: #FFFFFF !important;
     --background-fill-secondary: #F8FAFC !important;
     --block-background-fill: #FFFFFF !important;
-    --block-border-color: #94A3B8 !important;
+    --block-border-color: #E2E8F0 !important;
     --input-background-fill: #FFFFFF !important;
-    --input-border-color: #64748B !important;
+    --input-border-color: #CBD5E1 !important;
     --body-text-color: #0F172A !important;
     --block-label-text-color: #0F172A !important;
 }
@@ -1150,7 +1113,7 @@ body, .gradio-container {
     background-color: #FFFFFF !important;
     background: #FFFFFF !important;
     color: #0F172A !important;
-    border: 2px solid #64748B !important;
+    border: 1px solid #E2E8F0 !important;
     border-radius: 8px !important;
 }
 
@@ -1162,10 +1125,11 @@ body, .gradio-container {
 .gradio-container [aria-label="Record"], 
 .gradio-container [aria-label="Clear"], 
 .gradio-container .playback-button {
-    background-color: #F1F5F9 !important;
-    background: #F1F5F9 !important;
+    background-color: #FFFFFF !important;
+    background: #FFFFFF !important;
     color: #0F172A !important;
-    border: 1px solid #475569 !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .gradio-container svg {
@@ -1182,8 +1146,8 @@ body, .gradio-container {
 
 .gradio-container textarea::placeholder, 
 .gradio-container input::placeholder {
-    color: #334155 !important;
-    font-weight: 600 !important;
+    color: #94A3B8 !important;
+    font-weight: 500 !important;
 }
 
 .send-alert-btn {
@@ -1200,7 +1164,7 @@ body, .gradio-container {
 
 .live-bubble {
     background: #FFFFFF !important;
-    border: 2px solid #475569 !important;
+    border: 1px solid #E2E8F0 !important;
     border-radius: 8px !important;
     padding: 14px 18px !important;
     color: #0F172A !important;
@@ -1215,7 +1179,7 @@ body, .gradio-container {
 
 .card-box {
     background: #ffffff !important;
-    border: 1.5px solid #64748B !important;
+    border: 1px solid #E2E8F0 !important;
     border-radius: 10px !important;
 }
 
@@ -1224,7 +1188,7 @@ body, .gradio-container {
     align-items: center;
     gap: 16px;
     background: #FEF2F2 !important;
-    border: 2px solid #EF4444 !important;
+    border: 1px solid #FCA5A5 !important;
     border-radius: 12px;
     padding: 1.2rem 1.4rem;
     margin-top: 1rem;
@@ -1254,7 +1218,7 @@ body, .gradio-container {
 .service-desc {
     color: #1E293B !important;
     font-size: 0.98rem;
-    font-weight: 700;
+    font-weight: 600;
     margin: 4px 0 0;
 }
 
@@ -1294,7 +1258,7 @@ body, .gradio-container {
 .step-list li {
     color: #0F172A !important;
     font-size: 1.05rem !important;
-    font-weight: 700 !important;
+    font-weight: 600 !important;
     line-height: 1.7 !important;
     margin-bottom: 0.5rem !important;
 }
@@ -1315,7 +1279,7 @@ body, .gradio-container {
 
 .directory-card {
     background: #ffffff;
-    border: 1.5px solid #64748B;
+    border: 1px solid #E2E8F0;
     border-radius: 10px;
     padding: 12px 16px;
     margin-bottom: 8px;
@@ -1335,26 +1299,26 @@ body, .gradio-container {
 }
 
 .directory-name {
-    font-weight: 800;
+    font-weight: 700;
     font-size: 14px;
     color: #0F172A;
 }
 
 .directory-num {
     font-size: 13px;
-    font-weight: 900;
+    font-weight: 800;
     color: #dc2626;
 }
 
 .call-badge {
-    background: #F1F5F9;
+    background: #F8FAFC;
     color: #0284c7;
-    font-weight: 800;
+    font-weight: 700;
     font-size: 13px;
     padding: 6px 14px;
     border-radius: 6px;
     text-decoration: none;
-    border: 1px solid #475569;
+    border: 1px solid #E2E8F0;
 }
 """
 
@@ -1396,9 +1360,6 @@ INIT_JS = """() => {
     };
 }"""
 
-# ---------------------------------------------------------------------------
-# UI assembly
-# ---------------------------------------------------------------------------
 t0 = TRANSLATIONS["en_IN"]
 
 with gr.Blocks(title="Sahaya Emergency") as demo:
