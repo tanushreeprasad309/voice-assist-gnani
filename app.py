@@ -687,7 +687,7 @@ FALLBACKS = {
             "ਕੱਟੇ ਹੋਏ ਅੰਗ ਨੂੰ ਹਿਲਾਓ ਨਾ।",
             "ਕੱਸ ਕੇ ਪੱਟੀ ਨਾ ਬੰਨ੍ਹੋ।",
             "ਮਰੀਜ਼ ਨੂੰ ਸ਼ਾਂਤ ਰੱਖੋ।",
-            "ਨੇੜਲੇ ਹਸਪତਾਲ ਜਾਓ।"
+            "ਨੇੜਲੇ ਹਸਪਤਾਲ ਜਾਓ।"
         ]),
     },
     "burns": {
@@ -1213,7 +1213,7 @@ def timbre_speak(text: str, lang_code: str):
     return None, ""
 
 # ---------------------------------------------------------------------------
-# UI Builders (Fully Localized + High-Contrast Ready Status & Settings Gear)
+# UI Builders (Fully Localized + High-Contrast Elements for Light & Dark Themes)
 # ---------------------------------------------------------------------------
 def header_html(t):
     return f"""
@@ -1435,7 +1435,7 @@ def apply_language(lang_code):
     )
 
 # ---------------------------------------------------------------------------
-# CSS: Light & Dark Themes with High-Contrast Text for Ready Status & Gear Icon
+# CSS: High-Contrast Light & Dark Themes (Fixing Gear Icon & Language Button Text)
 # ---------------------------------------------------------------------------
 CSS = """
 :root, body, .gradio-container {
@@ -1443,7 +1443,7 @@ CSS = """
     --card-bg: rgba(255, 255, 255, 0.94);
     --card-border: rgba(255, 255, 255, 0.98);
     --text-color: #0F172A;
-    --subtext-color: #64748B;
+    --subtext-color: #475569;
     --input-bg: #FFFFFF;
     --input-border: #CBD5E1;
     --topbar-bg: rgba(255, 255, 255, 0.85);
@@ -1590,17 +1590,22 @@ body.dark-mode .connected-pill {
 
 /* High-Contrast Gear Settings Icon */
 .gear-icon-btn {
-    background: var(--input-bg) !important;
-    border: 1px solid var(--input-border) !important;
+    background: #FFFFFF !important;
+    border: 1px solid #94A3B8 !important;
     cursor: pointer;
     padding: 8px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-color) !important;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+    color: #0F172A !important;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
     transition: background 0.2s, transform 0.3s;
+}
+body.dark-mode .gear-icon-btn {
+    background: #1E293B !important;
+    border-color: #475569 !important;
+    color: #F8FAFC !important;
 }
 .gear-icon-btn:hover {
     background: #2563EB !important;
@@ -1653,11 +1658,16 @@ body.dark-mode .connected-pill {
     font-size: 15.5px;
     font-weight: 600;
     margin: 0 0 24px 0;
-    background: linear-gradient(90deg, #64748B 0%, #3B82F6 50%, #14B8A6 100%);
+    background: linear-gradient(90deg, #475569 0%, #2563EB 50%, #0D9488 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: taglineGlow 3.2s ease-in-out infinite alternate;
+}
+body.dark-mode .hero-subtitle {
+    background: linear-gradient(90deg, #94A3B8 0%, #60A5FA 50%, #2DD4BF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 @keyframes taglineGlow {
@@ -1737,7 +1747,7 @@ body.dark-mode .connected-pill {
 }
 .listening-waves span {
     width: 5px;
-    background: #14B8A6;
+    background: #0D9488;
     border-radius: 99px;
     animation: tealWave 0.75s ease-in-out infinite alternate;
 }
@@ -1775,18 +1785,24 @@ body.dark-mode .connected-pill {
     margin-top: 14px;
 }
 .lang-pill-btn {
-    background: var(--input-bg);
-    border: 1px solid var(--input-border);
+    background: #FFFFFF !important;
+    border: 1px solid #94A3B8 !important;
     border-radius: 999px;
     padding: 8px 18px;
-    font-size: 13px;
+    font-size: 13.5px;
     font-weight: 700;
-    color: var(--text-color);
+    color: #0F172A !important;
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+body.dark-mode .lang-pill-btn {
+    background: #1E293B !important;
+    border-color: #475569 !important;
+    color: #F8FAFC !important;
 }
 .lang-pill-btn:hover {
-    opacity: 0.9;
+    border-color: #2563EB !important;
+    color: #2563EB !important;
 }
 
 .shield-banner {
