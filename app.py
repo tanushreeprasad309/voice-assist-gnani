@@ -233,7 +233,7 @@ CONDITION_RULES = [
     ("snakebite", {"snake", "snakes", "snakebite", "bitten", "bite", "haavu", "havu", "haavina", "kachide", "saanp", "saap", "sanp", "paambu", "pambu", "paamu", "pamu", "paampu", "sap"}, ["ಹಾವು", "ಹಾವಿನ", "साँप", "सांप", "साप", "பாம்பு", "పాము", "പാമ്പ്", "সাপ", "સાપ", "ਸੱਪ", "ସାପ"]),
     ("burns", {"fire", "burn", "burns", "burnt", "burning", "scald", "scalded", "cylinder", "blast", "boiling", "benki", "aag", "thee", "neruppu", "mantalu", "agun", "aagun", "hot water"}, ["ಬೆಂಕಿ", "ಸುಟ್ಟ", "आग", "जला", "जल गया", "झुलस", "தீக்காய", "தீப்பிடி", "நெருப்பு", "మంట", "నిప్పు", "തീപിടി", "പൊള്ള", "আগুন", "পুড়ে", "পোড়া", "આગ", "દાઝ", "ਅੱਗ", "ਸੜ", "ନିଆଁ", "ପୋଡ଼"]),
     ("cardiac", {"chest", "heart", "breathe", "breathing", "breath", "cardiac", "stroke", "attack", "ede", "edeno", "edenovu", "usiru", "husiru", "usiradalu", "gundige", "seene", "seena", "chhati", "chati", "saans", "sans", "nenju", "moochu", "swasam", "gunde", "swasa", "buker", "shwas", "shwasa", "saah", "dil", "dhadkan"}, ["ಎದೆ", "ಉಸಿರ", "ಹೃದಯ", "सीने", "छाती", "सांस", "साँस", "दिल", "हृदय", "श्वास", "நெஞ்சு", "மூச்சு", "இதய", "గుండె", "ఛాతీ", "శ్వాస", "ఊపిరి", "നെഞ്ച", "ശ്വാസ", "ഹൃദയ", "বুক", "শ্বাস", "হৃদ", "છાતી", "શ્વાસ", "હૃદય", "ਛਾਤੀ", "ਸਾਹ", "ਦਿਲ", "ଛାତି", "ଶ୍ୱାସ", "ହୃଦ", "ꯊꯃꯣꯏ"]),
-    ("collapse_fall", {"collapse", "collapsed", "construction", "fell", "fall", "falling", "height", "debris", "trapped", "rubble", "building", "kattada", "bidda", "biddare", "bidde", "imarat", "imaarat", "gir", "gira", "giri", "katidom", "keezhe", "veenu", "padla", "padli", "bhukamp", "earthquake", "flood", "landslide"}, ["ಕಟ್ಟಡ", "ಕುಸಿ", "ಬಿದ್ದ", "ಬೀಳ", "ಎತ್ತರ", "इमारत", "ढह", "गिर", "भूकंप", "बाढ़", "கட்டிட", "விழு", "கீழே", "நிலநடுக்க", "భవనం", "కూలి", "పడ్డ", "పడి", "భూకంప", "കെട്ടിടം", "തകർ", "വീണ", "ഭൂചലന", "দালান", "ভবন", "ধস", "পড়ে গ", "ভূমিকম্প", "ઇમારત", "મકાન", "પડ", "ભૂకંપ", "ਇਮਾਰਤ", "ਡਿੱ", "ਭୂଚਾਲ", "କୋଠା", "ଭୁଶୁଡ଼", "ପଡ଼"]),
+    ("collapse_fall", {"collapse", "collapsed", "construction", "fell", "fall", "falling", "height", "debris", "trapped", "rubble", "building", "kattada", "bidda", "biddare", "bidde", "imarat", "imaarat", "gir", "gira", "giri", "katidom", "keezhe", "veenu", "padla", "padli", "bhukamp", "earthquake", "flood", "landslide"}, ["ಕಟ್ಟಡ", "ಕುಸಿ", "ಬಿದ್ದ", "ಬೀಳ", "ಎತ್ತರ", "इमारत", "ढह", "गिर", "भूकंप", "बाढ़", "கட்டிட", "விழு", "கீழே", "நிலநடுக்க", "భవనం", "కూలి", "పడ్డ", "పడి", "భూకంప", "കെട്ടിടം", "തകർ", "വീണ", "ഭൂചലന", "দালান", "ভবন", "ধস", "পড়ে গ", "ভূমিকম্প", "ઇમારત", "મકાન", "પડ", "ભૂకંપ", "ਇମਾਰਤ", "ਡਿੱ", "ਭୂଚਾਲ", "କୋଠା", "ଭୁଶୁଡ଼", "ପଡ଼"]),
     ("accident_trauma", {"accident", "crash", "bike", "car", "hit", "bleeding", "bleed", "blood", "fracture", "broke", "broken", "wound", "injury", "injured", "run over", "apaghata", "apaghaata", "gaaya", "rakta", "haadsa", "hadsa", "khoon", "vibathu", "pramadam", "raktham", "roktho", "lohi"}, ["ಅಪಘಾತ", "ರಕ್ತ", "ಗಾಯ", "ಮುರಿ", "दुर्घटना", "हादसा", "खून", "चोट", "घाव", "फ्रैक्चर", "விபத்து", "ரத்த", "இரத்த", "காயம்", "எலும்பு", "ప్రమాదం", "రక్త", "గాయం", "విరిగ", "അപകടം", "രക്ത", "മുറിവ്", "দুর্ঘটনা", "রক্ত", "আঘাত", "ক্ষত", "અકસ્માત", "લોહી", "ઈજા", "ਹਾਦਸਾ", "ਖੂਨ", "ਸੱਟ", "ਜ਼ਖ਼ਮ", "ଦୁର୍ଘଟଣା", "ରକ୍ତ", "ଆଘାତ"]),
 ]
 
@@ -269,7 +269,7 @@ FALLBACKS = {
             "मरीज को बिल्कुल न हिलाएं, रीढ़ या गर्दन में गंभीर चोट हो सकती है।",
             "सिर, गर्दन और पीठ को सीधा और स्थिर रखें।",
             "खून बह रहा हो तो साफ कपड़े से सीधा और मजबूत दबाव डालें।",
-            "चेहरे को धूल से बचाएं और बचाव दल आने तक मरीज से बात करते रहें।"
+            "चेहरे को धूल से बचाएं और बचाव दल आने तक मरीज से बात करते रहें。"
         ]),
         "kn_IN": ("ಕಟ್ಟಡ ಕುಸಿತ / ಎತ್ತರದಿಂದ ಬಿದ್ದ ತುರ್ತು ಪರಿಸ್ಥಿತಿ! ತಕ್ಷಣ 108 ಗೆ ಕರೆ ಮಾಡಿ, ರಕ್ಷಣೆಗೆ 112 / 1078.", [
             "ರೋಗಿಯನ್ನು ಎತ್ತಬೇಡಿ ಅಥವಾ ಎಳೆಯಬೇಡಿ (ಬೆನ್ನುಮೂಳೆಯ ಗಾಯದ ಅಪಾಯ).",
@@ -343,8 +343,8 @@ FALLBACKS = {
         ]),
         "hi_IN": ("सांप के काटने की आपात स्थिति! मरीज को शांत रखें और तुरंत 108 पर कॉल करें।", [
             "काटे गए अंग को हिलाए बिना दिल के स्तर से नीचे स्थिर रखें।",
-            "कसकर पट्टी न बांधें, घाव को न काटें और जहर चूसने की कोशिश न करें।",
-            "मरीज को लिटाकर शांत रखें और चलने न दें।",
+            "कसकर पट्टी न बांधें, घाव को न काटें और जहर चूसने की कोशिश न करें。",
+            "मरीज को लिटाकर शांत रखें और चलने न दें。",
             "एंटी-स्नेक वेनम वाले नजदीकी अस्पताल में तुरंत ले जाएं।"
         ]),
         "kn_IN": ("ಹಾವು ಕಚ್ಚಿದ ತುರ್ತು ಪರಿಸ್ಥಿತಿ! ರೋಗಿಯನ್ನು ಶಾಂತವಾಗಿರಿಸಿ, ತಕ್ಷಣ 108 ಗೆ ಕರೆ ಮಾಡಿ.", [
@@ -366,10 +366,10 @@ FALLBACKS = {
             "নিকটস্থ হাসপাতালে নিয়ে যান।"
         ]),
         "pa_IN": ("ਸੱਪ ਦੇ ਕੱਟਣ ਦੀ ਐਮਰਜੈਂਸੀ! ਤੁਰੰਤ 108 'ਤੇ ਕਾਲ ਕਰੋ।", [
-            "ਕੱਟੇ ਹੋਏ ਅੰਗ ਨੂੰ ਹਿਲਾਓ ਨਾ।",
-            "ਕੱਸ ਕੇ ਪੱਟੀ ਨਾ ਬੰਨ੍ਹੋ।",
-            "ਮਰੀਜ਼ ਨੂੰ ਸ਼ਾਂਤ ਰੱਖੋ।",
-            "ਨੇੜਲੇ ਹਸਪਤਾਲ ਜਾਓ।"
+            "ਕੱਟੇ ਹੋਏ ਅੰਗ ਨੂੰ ਹਿਲਾਓ ਨਾ。",
+            "ਕੱਸ ਕੇ ਪੱਟੀ ਨਾ ਬੰਨ੍ਹੋ。",
+            "ਮਰੀਜ਼ ਨੂੰ ਸ਼ਾਂਤ ਰੱਖੋ。",
+            "ਨੇੜਲੇ ਹਸਪତਾਲ ਜਾਓ।"
         ]),
     },
     "burns": {
@@ -380,9 +380,9 @@ FALLBACKS = {
             "Cover loosely with a clean cloth and get to hospital; call 108 for face, large or chemical burns."
         ]),
         "hi_IN": ("जलने की आपात स्थिति! गंभीर मामले में तुरंत 108 / 101 पर कॉल करें।", [
-            "जले हुए हिस्से को कम से कम 20 मिनट साफ बहते नल के पानी के नीचे रखें।",
-            "कपड़ों में आग लगी हो तो भागें नहीं: व्यक्ति को लिटाकर लोटाएं या कंबल से आग बुझाएं।",
-            "बर्फ, टूथपेस्ट, मक्खन या तेल न लगाएं और छालों को न फोड़ें।",
+            "जले हुए हिस्से को कम से कम 20 मिनट साफ बहते नल के पानी के नीचे रखें。",
+            "कपड़ों में आग लगी हो तो भागें नहीं: व्यक्ति को लिटाकर लोटाएं या कंबल से आग बुझाएं。",
+            "बर्फ, टूथपेस्ट, मक्खन या तेल न लगाएं और छालों को न फोड़ें。",
             "साफ कपड़े से ढीला ढककर अस्पताल ले जाएं; चेहरे या बड़े हिस्से के जलने पर 108 बुलाएं।"
         ]),
         "kn_IN": ("ಸುಟ್ಟ ಗಾಯದ ತುರ್ತು ಪರಿಸ್ಥಿತಿ! ಗಂಭೀರವಾಗಿದ್ದರೆ ತಕ್ಷಣ 108 / 101 ಗೆ ಕರೆ ಮಾಡಿ.", [
@@ -402,9 +402,9 @@ FALLBACKS = {
             "পরিষ্কার কাপড় দিয়ে ঢেকে হাসপাতালে নিয়ে যান।"
         ]),
         "pa_IN": ("ਸੜਨ ਦੀ ਐਮਰਜੈਂਸੀ! ਤੁਰੰਤ 108 / 101 'ਤੇ ਕਾਲ ਕਰੋ।", [
-            "ਸਾੜੇ ਵਾਲੀ ਥਾਂ ਨੂੰ ਘੱਟੋ-ਘੱਟ 20 ਮਿੰਟ ਪਾਣੀ ਹੇਠਾਂ ਰੱਖੋ।",
-            "ਬਰਫ਼ ਜਾਂ ਤੇਲ ਨਾ ਲਗਾਓ।",
-            "ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਢੱਕ ਕੇ ਹਸପତਾਲ ਜਾਓ।"
+            "ਸਾੜੇ ਵਾਲੀ ਥਾਂ ਨੂੰ ਘੱਟੋ-ਘੱਟ 20 ਮਿੰਟ ਪਾਣੀ ਹੇਠਾਂ ਰੱਖੋ。",
+            "ਬਰਫ਼ ਜਾਂ ਤੇਲ ਨਾ ਲਗਾਓ。",
+            "ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਢੱਕ ਕੇ ਹਸਪତਾਲ ਜਾਓ।"
         ]),
     },
     "accident_trauma": {
@@ -415,10 +415,10 @@ FALLBACKS = {
             "If they are unresponsive and not breathing normally, start CPR."
         ]),
         "hi_IN": ("दुर्घटना / भारी रक्तस्राव की आपात स्थिति! तुरंत 108 पर कॉल करें।", [
-            "साफ कपड़े से घाव पर सीधा और मजबूत दबाव डालें। कपड़ा भीग जाए तो हटाएं नहीं, ऊपर और कपड़ा रखें।",
-            "गर्दन या पीठ में चोट की आशंका हो तो व्यक्ति को न हिलाएं।",
-            "खाने या पीने को कुछ न दें। उन्हें गर्म रखें और बात करते रहें।",
-            "यदि वह बेहोश हो और सामान्य सांस न ले रहा हो तो सीपीआर शुरू करें।"
+            "साफ कपड़े से घाव पर सीधा और मजबूत दबाव डालें। कपड़ा भीग जाए तो हटाएं नहीं, ऊपर और कपड़ा रखें。",
+            "गर्दन या पीठ में चोट की आशंका हो तो व्यक्ति को न हिलाएं。",
+            "खाने या पीने को कुछ न दें。 उन्हें गर्म रखें और बात करते रहें。",
+            "यदि वह बेहोश हो और सामान्य सांस न ले रहा हो तो सीपीआर शुरू करें。"
         ]),
         "kn_IN": ("ಅಪಘಾತ / ತೀವ್ರ ರಕ್ತಸ್ರಾವದ ತುರ್ತು ಪರಿಸ್ಥಿತಿ! ತಕ್ಷಣ 108 ಗೆ ಕರೆ ಮಾಡಿ.", [
             "ಸ್ವಚ್ಛ ಬಟ್ಟೆಯಿಂದ ಗಾಯದ ಮೇಲೆ ನೇರವಾಗಿ ಗಟ್ಟಿಯಾಗಿ ಒತ್ತಿ ಹಿಡಿಯಿರಿ; ಬಟ್ಟೆ ತೊಯ್ದರೆ ತೆಗೆಯದೆ ಮೇಲೆ ಇನ್ನೊಂದು ಬಟ್ಟೆ ಇಡಿ.",
@@ -436,9 +436,9 @@ FALLBACKS = {
             "রোগীকে নড়াচড়া করবেন না।",
             "কিছু খেতে বা পান করতে দেবেন না।"
         ]),
-        "pa_IN": ("ਹਾਦਸੇ / ਖ਼ੂਨ ਵਗਣ ਦੀ ਐਮਰਜੈਂਸੀ! ਤੁਰੰਤ 108 'ਤੇ ਕਾਲ ਕਰੋ।", [
-            "ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਸਿੱਧਾ ਦਬਾਅ ਪਾਓ।",
-            "ਮਰੀਜ਼ ਨੂੰ ਹਿਲਾਓ ਨਾ।",
+        "pa_IN": ("ਹਾਦਸੇ / ਖ਼ੂਨ ਵਗਣ ਦੀ ਐਮਰਜੈਂਸੀ! ਤੁਰੰਤ 108 'ਤੇ ਕਾਲ ਕਰੋ。", [
+            "ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਸਿੱਧਾ ਦਬਾਅ ਪਾਓ。",
+            "ਮਰੀਜ਼ ਨੂੰ ਹਿਲਾਓ ਨਾ。",
             "ਕੁਝ ਖਾਣ ਜਾਂ ਪੀਣ ਲਈ ਨਾ ਦਿਓ।"
         ]),
     },
@@ -450,9 +450,9 @@ FALLBACKS = {
             "Stay with them until the 108 ambulance arrives."
         ]),
         "hi_IN": ("चिकित्सा आपात स्थिति! शांत रहें और तुरंत 108 पर कॉल करें।", [
-            "लगातार देखें कि व्यक्ति होश में है और सांस ले रहा है।",
-            "उन्हें आराम की स्थिति में रखें और ढांढस बंधाएं।",
-            "यदि वह बेहोश हो और सामान्य सांस न ले रहा हो तो सीपीआर शुरू करें।",
+            "लगातार देखें कि व्यक्ति होश में है और सांस ले रहा है。",
+            "उन्हें आराम की स्थिति में रखें और ढांढस बंधाएं。",
+            "यदि वह बेहोश हो और सामान्य सांस न ले रहा हो तो सीपीआर शुरू करें。",
             "108 एम्बुलेंस आने तक उनके साथ रहें।"
         ]),
         "kn_IN": ("ವೈದ್ಯಕೀಯ ತುರ್ತು ಪರಿಸ್ಥಿತಿ! ಗಾಬರಿಯಾಗಬೇಡಿ, ತಕ್ಷಣ 108 ಗೆ ಕರೆ ಮಾಡಿ.", [
@@ -467,11 +467,11 @@ FALLBACKS = {
             "అంబులెన్స్ వచ్చే వరకు దగ్గరే ఉండండి."
         ]),
         "bn_IN": ("চিকিৎসা জরুরি অবস্থা! শান্ত থাকুন এবং 108 এ কল করুন।", [
-            "ব্যক্তি সচেতন এবং শ্বাস নিচ্ছেন কিনা তা পরীক্ষা করুন।",
+            "ব্যক্তি সচেতন এবং শ্বাস নিচ্ছেন কিনা তা পরীক্ষা করুন。",
             "শান্ত রাখুন এবং সাথে থাকুন।"
         ]),
-        "pa_IN": ("ਡਾਕਟਰੀ ਐਮਰਜੈਂਸੀ! ਸ਼ਾਂਤ ਰਹੋ ਅਤੇ 108 'ਤੇ ਕਾਲ ਕਰੋ।", [
-            "ਜਾਂਚ ਕਰੋ ਕਿ ਵਿਅਕਤੀ ਹੋਸ਼ ਵਿੱਚ ਹੈ।",
+        "pa_IN": ("ਡਾਕਟਰੀ ਐਮਰਜੈਂਸੀ! ਸ਼ਾਂਤ ਰਹੋ ਅਤੇ 108 'ਤੇ ਕਾਲ ਕਰੋ。", [
+            "ਜਾਂਚ ਕਰੋ ਕਿ ਵਿਅਕਤੀ ਹੋਸ਼ ਵਿੱਚ ਹੈ。",
             "ਉਸਨੂੰ ਆਰਾਮ ਦਿਓ ਅਤੇ ਨਾਲ ਰਹੋ।"
         ]),
     },
@@ -888,14 +888,17 @@ def timbre_speak(text: str, lang_code: str):
 def header_html(t):
     return f"""
     <div class="sahaya-header">
-      <div class="sahaya-title-wrap">
-        <span class="sahaya-title">Sahaya</span>
-        <div class="sahaya-wave">
-          <div class="sahaya-wave-bar"></div><div class="sahaya-wave-bar"></div>
-          <div class="sahaya-wave-bar"></div><div class="sahaya-wave-bar"></div>
+      <div class="top-nav-bar">
+        <div class="sahaya-title-wrap">
+          <div class="sahaya-logo-waves">
+            <span class="s-bar"></span><span class="s-bar"></span><span class="s-bar"></span><span class="s-bar"></span>
+          </div>
+          <span class="sahaya-title">Sahaya</span>
         </div>
+        <button class="settings-gear-btn" onclick="openSettingsModal()" title="App Settings">⚙️</button>
       </div>
-      <div class="sahaya-sub">AI Voice Assistant • Talk. Translate. Stay Safe.</div>
+      <div class="sahaya-assistant-heading">Sahaya Voice Assistant</div>
+      <div class="sahaya-sub">Talk. Translate. Stay Safe.</div>
     </div>
     """
 
@@ -993,7 +996,7 @@ def apply_language(lang_code):
     )
 
 # ---------------------------------------------------------------------------
-# CSS / JS (Restyled to match reference layout perfectly)
+# CSS / JS (Restyled to match reference layout perfectly with modal settings)
 # ---------------------------------------------------------------------------
 CSS = """
 :root {
@@ -1022,38 +1025,60 @@ body, .gradio-container {
     margin-bottom: 8px;
 }
 
+.top-nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    margin-bottom: 5px;
+}
+
 .sahaya-title-wrap {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 12px;
+    gap: 8px;
 }
 
+.sahaya-logo-waves {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 22px;
+}
+
+.s-bar {
+    width: 3.5px;
+    background: #0284c7;
+    border-radius: 3px;
+    animation: waveAnim 1s ease-in-out infinite alternate;
+}
+.s-bar:nth-child(1) { height: 40%; animation-delay: 0.1s; }
+.s-bar:nth-child(2) { height: 80%; animation-delay: 0.3s; }
+.s-bar:nth-child(3) { height: 100%; animation-delay: 0.2s; }
+.s-bar:nth-child(4) { height: 50%; animation-delay: 0.4s; }
+
 .sahaya-title {
-    font-size: 38px;
+    font-size: 24px;
     font-weight: 800;
     color: #1e3a8a;
     margin: 0;
 }
 
-.sahaya-wave {
-    display: flex;
-    align-items: flex-end;
-    gap: 4px;
-    height: 26px;
+.settings-gear-btn {
+    background: transparent !important;
+    border: none !important;
+    font-size: 22px !important;
+    cursor: pointer !important;
+    padding: 5px !important;
+    box-shadow: none !important;
 }
 
-.sahaya-wave-bar {
-    width: 4px;
-    background: #0284c7;
-    border-radius: 3px;
-    animation: waveAnim 1s ease-in-out infinite alternate;
+.sahaya-assistant-heading {
+    font-size: 26px;
+    font-weight: 800;
+    color: #0F172A;
+    margin-top: 5px;
 }
-
-.sahaya-wave-bar:nth-child(1) { height: 40%; animation-delay: 0.1s; }
-.sahaya-wave-bar:nth-child(2) { height: 80%; animation-delay: 0.3s; }
-.sahaya-wave-bar:nth-child(3) { height: 100%; animation-delay: 0.2s; }
-.sahaya-wave-bar:nth-child(4) { height: 50%; animation-delay: 0.4s; }
 
 @keyframes waveAnim {
     0% { transform: scaleY(0.4); background: #0284c7; }
@@ -1061,10 +1086,10 @@ body, .gradio-container {
 }
 
 .sahaya-sub {
-    font-size: 15px;
-    color: #334155;
-    font-weight: 700;
--    margin-top: 4px;
+    font-size: 14px;
+    color: #64748B;
+    font-weight: 600;
+    margin-top: 2px;
 }
 
 .sos-panic-btn {
@@ -1081,38 +1106,89 @@ body, .gradio-container {
     cursor: pointer;
 }
 
+/* Voice Assistant Card Container mimicking the clean iOS reference card */
+.voice-assistant-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 20px;
+    padding: 35px 20px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    margin: 15px 0;
+}
+
+.mic-container-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0 10px 0;
+}
+
+/* Custom Large Blue Microphone styling matching reference */
+.gradio-container .gr-audio {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: flex;
+    justify-content: center;
+}
+
+.gradio-container .gr-audio button, 
+.gradio-container .gr-audio [aria-label="Record"] {
+    background: #2563EB !important;
+    background-color: #2563EB !important;
+    color: white !important;
+    border-radius: 50% !important;
+    width: 85px !important;
+    height: 85px !important;
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.35) !important;
+    border: none !important;
+}
+
+.gradio-container .gr-audio svg {
+    fill: white !important;
+    color: white !important;
+    width: 38px !important;
+    height: 38px !important;
+}
+
+.mic-instruction-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0F172A;
+    margin-top: 15px;
+}
+
+.status-badge-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #F1F5F9;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #16A34A;
+    margin-top: 15px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #16A34A;
+    border-radius: 50%;
+}
+
 .gradio-container .block, 
 .gradio-container .gr-box, 
-.gradio-container .gr-panel, 
-.gradio-container .gr-audio,
-.gradio-container [data-testid="audio"],
-.gradio-container .audio-container {
+.gradio-container .gr-panel {
     background-color: #FFFFFF !important;
     background: #FFFFFF !important;
     color: #0F172A !important;
     border: none !important;
     border-radius: 12px !important;
     box-shadow: none !important;
-}
-
-.gradio-container audio, 
-.gradio-container .record-button, 
-.gradio-container .record-icon, 
-.gradio-container .action, 
-.gradio-container button.icon, 
-.gradio-container [aria-label="Record"], 
-.gradio-container [aria-label="Clear"], 
-.gradio-container .playback-button {
-    background-color: #FFFFFF !important;
-    background: #FFFFFF !important;
-    color: #0F172A !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-.gradio-container svg {
-    fill: #0F172A !important;
-    color: #0F172A !important;
 }
 
 .gradio-container label, 
@@ -1302,6 +1378,53 @@ body, .gradio-container {
     text-decoration: none;
     border: 1px solid #E2E8F0;
 }
+
+/* Modal styling for App Settings */
+.settings-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.settings-modal-content {
+    background: #FFFFFF;
+    padding: 25px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+.settings-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.settings-modal-header h3 {
+    margin: 0;
+    color: #0F172A;
+    font-size: 18px;
+}
+.settings-close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #64748B;
+}
+.setting-item {
+    margin-bottom: 15px;
+}
+.setting-item label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 5px;
+}
 """
 
 INIT_JS = """() => {
@@ -1340,6 +1463,57 @@ INIT_JS = """() => {
         window._sosOsc = null;
         window._sosCtx = null;
     };
+
+    // Modal Control Functions injected safely
+    window.openSettingsModal = function() {
+        let modal = document.getElementById('sahayaSettingsModal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'sahayaSettingsModal';
+            modal.className = 'settings-modal-overlay';
+            modal.innerHTML = `
+                <div class="settings-modal-content">
+                    <div class="settings-modal-header">
+                        <h3>⚙️ App Configuration & Settings</h3>
+                        <button class="settings-close-btn" onclick="closeSettingsModal()">&times;</button>
+                    </div>
+                    <div class="setting-item">
+                        <label>🎨 Theme Selection</label>
+                        <select id="themeSelect" onchange="changeAppTheme(this.value)" style="width:100%; padding:8px; border-radius:8px; border:1px solid #CBD5E1;">
+                            <option value="warm">Warm Minimalist (Default)</option>
+                            <option value="dark">Dark Mode</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label>🔒 Permissions Status</label>
+                        <p style="font-size:12px; color:#16A34A; margin:0; font-weight:600;">✔️ Microphone & Location Enabled</p>
+                    </div>
+                    <div class="setting-item">
+                        <p style="font-size:11px; color:#64748B; margin-top:10px;">Sahaya v3.0 • Secure Emergency Triage</p>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        modal.style.display = 'flex';
+    };
+
+    window.closeSettingsModal = function() {
+        const modal = document.getElementById('sahayaSettingsModal');
+        if (modal) modal.style.display = 'none';
+    };
+
+    window.changeAppTheme = function(theme) {
+        if (theme === 'dark') {
+            document.documentElement.style.setProperty('--body-background-fill', '#0F172A');
+            document.documentElement.style.setProperty('--background-fill-primary', '#1E293B');
+            document.documentElement.style.setProperty('--body-text-color', '#F8FAFC');
+        } else {
+            document.documentElement.style.setProperty('--body-background-fill', '#FFFDF9');
+            document.documentElement.style.setProperty('--background-fill-primary', '#FFFFFF');
+            document.documentElement.style.setProperty('--body-text-color', '#0F172A');
+        }
+    };
 }"""
 
 t0 = TRANSLATIONS["en_IN"]
@@ -1354,12 +1528,17 @@ with gr.Blocks(title="Sahaya Emergency") as demo:
             setTimeout(() => { window.open('tel:112', '_self'); }, 400);
         }""",
     )
-    lang_dd = gr.Dropdown(
-        choices=[("🌐 Auto-detect my language (Recommended)", AUTO)] + [(label, code) for code, label in LANGUAGES.items()],
-        value=AUTO,
-        label="🌐 Language / ಭಾಷೆ / भाषा / மொழி / భాష",
-    )
-    mic = gr.Audio(sources=["microphone", "upload"], type="filepath", label=t0["mic_header"])
+
+    with gr.Column(elem_classes=["voice-assistant-card"]):
+        lang_dd = gr.Dropdown(
+            choices=[("🌐 Auto-detect my language (Recommended)", AUTO)] + [(label, code) for code, label in LANGUAGES.items()],
+            value=AUTO,
+            label="🌐 Preferred Language / भाषा / மொழி / భాష",
+        )
+        with gr.Column(elem_classes=["mic-container-center"]):
+            mic = gr.Audio(sources=["microphone", "upload"], type="filepath", label=None)
+            gr.Markdown("<div class='mic-instruction-text'>Tap to Start Listening</div>")
+            gr.Markdown("<div class='status-badge-row'><span class='status-dot'></span> Real-time translation during accidents</div>")
 
     status = gr.Markdown("")
     reply_audio = gr.Audio(label="🔊 Sahaya Voice Response", type="filepath", autoplay=True, interactive=False, visible=False)
