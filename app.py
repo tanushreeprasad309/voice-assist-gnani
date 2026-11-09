@@ -116,12 +116,9 @@ HI_MARKERS = ["है", "हैं", "मुझे", "मेरे", "मेर�
 
 BASE_T = {
     "title": "Sahaya",
-    "subtitle": "Stay Safe. 🛡️",
+    "subtitle": "AI Voice Assistant • Talk. Translate. Stay Safe.",
     "sos_btn": "🚨 EMERGENCY SOS • LOUD ALARM + DIAL 112",
-    "mic_header": "🎙️ Tap to Record (or upload a call recording)",
-    "type_header": "⌨️ Or Type Emergency Details",
-    "type_placeholder": "e.g., Chest pain, breathing issue, building collapse, fall from height...",
-    "send": "Send Emergency Alert",
+    "mic_header": "Tap to Start Listening",
     "detected": "🗣️ Detected Emergency",
     "first_aid_label": "Immediate First-Aid Steps:",
     "call_btn": "Call {number} Immediately",
@@ -137,77 +134,66 @@ BASE_T = {
 
 LOCAL_T = {
     "kn_IN": {
-        "type_placeholder": "ಉದಾ: ಎದೆನೋವು, ಉಸಿರಾಟದ ಸಮಸ್ಯೆ, ಕಟ್ಟಡ ಕುಸಿತ, ಅಪಘಾತ, ಹಾವು ಕಡಿತ...",
         "detected": "🗣️ ಪತ್ತೆಯಾದ ತುರ್ತು ವಿವರ",
         "first_aid_label": "ತಕ್ಷಣದ ಪ್ರಥಮ ಚಿಕಿತ್ಸಾ ಕ್ರಮಗಳು:",
         "call_btn": "ತಕ್ಷಣ {number} ಗೆ ಕರೆ ಮಾಡಿ",
         "audio_response": "🔊 ಸಹಾಯ ತುರ್ತು ಮಾರ್ಗದರ್ಶನ:",
     },
     "hi_IN": {
-        "type_placeholder": "जैसे सीने में दर्द, सांस लेने में तकलीफ, इमारत ढहना, ऊंचाई से गिरना...",
         "detected": "🗣️ पता चली आपात स्थिति",
         "first_aid_label": "प्राथमिक उपचार दिशानिर्देश:",
         "call_btn": "तुरंत {number} पर कॉल करें",
         "audio_response": "🔊 सहायता वॉयस मार्गदर्शन:",
     },
     "ta_IN": {
-        "type_placeholder": "எ.கா. நெஞ்சு வலி, மூச்சுத் திணறல், கட்டிட விபத்து, கீழே விழுந்தது...",
         "detected": "🗣️ கண்டறியப்பட்ட அவசரம்",
         "first_aid_label": "உடனடி முதலுதவி வழிகாட்டுதல்கள்:",
         "call_btn": "உடனே {number} ஐ அழைக்கவும்",
         "audio_response": "🔊 சஹாயா குரல் வழிகாட்டல்:",
     },
     "te_IN": {
-        "type_placeholder": "ఉదా. గుండె నొప్పి, శ్వాస ఆడకపోవడం, భవనం కూలడం, ప్రమాదం...",
         "detected": "🗣️ గుర్తించబడిన అత్యవసరం",
         "first_aid_label": "తక్షణ ప్రథమ చికిత్స మార్గదర్శకాలు:",
         "call_btn": "ఇప్పుడే {number} కి కాల్ చేయండి",
         "audio_response": "🔊 సహాయ వాయిస్ మార్గదర్శకత్వం:",
     },
     "ml_IN": {
-        "type_placeholder": "ഉദാ. നെഞ്ചുവേദന, ശ്വാസതടസ്സം, കെട്ടിടം തകരൽ, ഉയരത്തിൽ നിന്ന് വീഴൽ...",
         "detected": "🗣️ കണ്ടെത്തിയ അത്യാഹിതം",
         "first_aid_label": "ഉടൻ ചെയ്യേണ്ട പ്രഥമശുശ്രൂഷാ ഘട്ടങ്ങൾ:",
         "call_btn": "ഉടൻ {number}-ലേക്ക് വിളിക്കുക",
         "audio_response": "🔊 സഹായ വോയ്സ് പ്രതികരണം:",
     },
     "mr_IN": {
-        "type_placeholder": "उदा. छातीत दुखणे, श्वास घेण्यास त्रास, इमारत कोसळणे, पडणे...",
         "detected": "🗣️ आढळलेली आणीबाणी",
         "first_aid_label": "तातडीच्या प्रथमोपचार सूचना:",
         "call_btn": "आता {number} वर कॉल करा",
         "audio_response": "🔊 साहाय्य व्हॉइस मार्गदर्शन:",
     },
     "gu_IN": {
-        "type_placeholder": "દા.ત. છાતીમાં દુખાવો, શ્વાસ લેવામાં તકલીફ, મકાન પડવું, પડી જવું...",
         "detected": "🗣️ મળેલી કટોકટી",
         "first_aid_label": "તાત્કાલિક પ્રાથમિક સારવારનાં પગલાં:",
         "call_btn": "હમણાં {number} પર કૉલ કરો",
         "audio_response": "🔊 સહાય વૉઇસ માર્ગદર્શન:",
     },
     "bn_IN": {
-        "type_placeholder": "যেমন বুকে ব্যথা, শ্বাসকষ্ট, বাড়ি ধসে পড়া, উঁচু থেকে পড়ে যাওয়া...",
         "detected": "🗣️ শনাক্ত জরুরি অবস্থা",
         "first_aid_label": "জরুরি প্রাথমিক চিকিৎসার পদক্ষেপ:",
         "call_btn": "এখনই {number}-এ কল করুন",
         "audio_response": "🔊 সহায় ভয়েস সহায়তা:",
     },
     "pa_IN": {
-        "type_placeholder": "ਜਿਵੇਂ ਛਾਤੀ ਵਿੱਚ ਦਰਦ, ਸਾਹ ਲੈਣ ਵਿੱਚ ਔਖ, ਇਮਾਰਤ ਡਿੱਗਣਾ, ਸੱਟ ਲੱਗਣਾ...",
         "detected": "🗣️ ਪਤਾ ਲੱਗੀ ਐਮਰਜੈਂਸੀ",
         "first_aid_label": "ਤੁਰੰਤ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਕਦਮ:",
         "call_btn": "ਹੁਣੇ {number} 'ਤੇ ਕਾਲ ਕਰੋ",
         "audio_response": "🔊 ਸਹਾਇਤਾ ਵੌਇਸ ਸੇਧ:",
     },
     "or_IN": {
-        "type_placeholder": "ଯେପରି ଛାତି ଯନ୍ତ୍ରଣା, ଶ୍ୱାସକଷ୍ଟ, କୋଠା ଭୁଶୁଡ଼ିବା, ଉପରୁ ପଡ଼ିଯିବା...",
         "detected": "🗣️ ଚିହ୍ନଟ ଜରୁରୀକାଳୀନ ପରିସ୍ଥିତି",
         "first_aid_label": "ତୁରନ୍ତ ପ୍ରଥମ ଚିକିତ୍ସା ପଦକ୍ଷେପ:",
         "call_btn": "ତୁରନ୍ତ {number} କୁ କଲ୍ କରନ୍ତୁ",
         "audio_response": "🔊 ସହାୟ ଭଏସ୍ ମାର୍ଗଦର୍ଶନ:",
     },
     "mni_IN": {
-        "type_placeholder": "ꯊꯃꯣꯏ ꯆꯤꯛꯄ, ꯁ꯭ꯕꯥꯁ ꯍꯣꯟꯕ ꯋꯥꯕ, ꯌꯨꯝ ꯇꯨꯈꯥꯏꯕ, ꯃꯩ ꯆꯥꯛꯄ...",
         "detected": "🗣️ ꯈꯪꯗꯣꯛꯂꯕ ꯈꯨꯗꯣꯡꯊꯤꯕ",
         "first_aid_label": "ꯈꯨꯗꯛꯇ ꯇꯧꯒꯗꯕ ꯊꯕꯛꯁꯤꯡ:",
         "call_btn": "{number} ꯗ ꯍꯧꯖꯤꯛꯃꯛ ꯀꯣꯜ ꯇꯧꯕꯤꯌꯨ",
@@ -247,7 +233,7 @@ CONDITION_RULES = [
     ("snakebite", {"snake", "snakes", "snakebite", "bitten", "bite", "haavu", "havu", "haavina", "kachide", "saanp", "saap", "sanp", "paambu", "pambu", "paamu", "pamu", "paampu", "sap"}, ["ಹಾವು", "ಹಾವಿನ", "साँप", "सांप", "साप", "பாம்பு", "పాము", "പാമ്പ്", "সাপ", "સાપ", "ਸੱਪ", "ସାପ"]),
     ("burns", {"fire", "burn", "burns", "burnt", "burning", "scald", "scalded", "cylinder", "blast", "boiling", "benki", "aag", "thee", "neruppu", "mantalu", "agun", "aagun", "hot water"}, ["ಬೆಂಕಿ", "ಸುಟ್ಟ", "आग", "जला", "जल गया", "झुलस", "தீக்காய", "தீப்பிடி", "நெருப்பு", "మంట", "నిప్పు", "തീപിടി", "പൊള്ള", "আগুন", "পুড়ে", "পোড়া", "આગ", "દાઝ", "ਅੱਗ", "ਸੜ", "ନିଆଁ", "ପୋଡ଼"]),
     ("cardiac", {"chest", "heart", "breathe", "breathing", "breath", "cardiac", "stroke", "attack", "ede", "edeno", "edenovu", "usiru", "husiru", "usiradalu", "gundige", "seene", "seena", "chhati", "chati", "saans", "sans", "nenju", "moochu", "swasam", "gunde", "swasa", "buker", "shwas", "shwasa", "saah", "dil", "dhadkan"}, ["ಎದೆ", "ಉಸಿರ", "ಹೃದಯ", "सीने", "छाती", "सांस", "साँस", "दिल", "हृदय", "श्वास", "நெஞ்சு", "மூச்சு", "இதய", "గుండె", "ఛాతీ", "శ్వాస", "ఊపిరి", "നെഞ്ച", "ശ്വാസ", "ഹൃദയ", "বুক", "শ্বাস", "হৃদ", "છાતી", "શ્વાસ", "હૃદય", "ਛਾਤੀ", "ਸਾਹ", "ਦਿਲ", "ଛାତି", "ଶ୍ୱାସ", "ହୃଦ", "ꯊꯃꯣꯏ"]),
-    ("collapse_fall", {"collapse", "collapsed", "construction", "fell", "fall", "falling", "height", "debris", "trapped", "rubble", "building", "kattada", "bidda", "biddare", "bidde", "imarat", "imaarat", "gir", "gira", "giri", "katidom", "keezhe", "veenu", "padla", "padli", "bhukamp", "earthquake", "flood", "landslide"}, ["ಕಟ್ಟಡ", "ಕುಸಿ", "ಬಿದ್ದ", "ಬೀಳ", "ಎತ್ತರ", "इमारत", "ढह", "गिर", "भूकंप", "बाढ़", "கட்டிட", "விழு", "கீழே", "நிலநடுக்க", "భవనం", "కూలి", "పడ్డ", "పడి", "భూకంప", "കെട്ടിടം", "തകർ", "വീണ", "ഭൂചലന", "দালান", "ভবন", "ধস", "পড়ে গ", "ভূমিকম্প", "ઇમારત", "મકાન", "પડ", "ભૂકંપ", "ਇମାରਤ", "ਡਿੱ", "ਭୂਚਾਲ", "କୋଠା", "ଭୁଶୁଡ଼", "ପଡ଼"]),
+    ("collapse_fall", {"collapse", "collapsed", "construction", "fell", "fall", "falling", "height", "debris", "trapped", "rubble", "building", "kattada", "bidda", "biddare", "bidde", "imarat", "imaarat", "gir", "gira", "giri", "katidom", "keezhe", "veenu", "padla", "padli", "bhukamp", "earthquake", "flood", "landslide"}, ["ಕಟ್ಟಡ", "ಕುಸಿ", "ಬಿದ್ದ", "ಬೀಳ", "ಎತ್ತರ", "इमारत", "ढह", "गिर", "भूकंप", "बाढ़", "கட்டிட", "விழு", "கீழே", "நிலநடுக்க", "భవనం", "కూలి", "పడ్డ", "పడి", "భూకంప", "കെട്ടിടം", "തകർ", "വീണ", "ഭൂചലന", "দালান", "ভবন", "ধস", "পড়ে গ", "ভূমিকম্প", "ઇમારત", "મકાન", "પડ", "ભૂకંપ", "ਇਮਾਰਤ", "ਡਿੱ", "ਭୂଚਾਲ", "କୋଠା", "ଭୁଶୁଡ଼", "ପଡ଼"]),
     ("accident_trauma", {"accident", "crash", "bike", "car", "hit", "bleeding", "bleed", "blood", "fracture", "broke", "broken", "wound", "injury", "injured", "run over", "apaghata", "apaghaata", "gaaya", "rakta", "haadsa", "hadsa", "khoon", "vibathu", "pramadam", "raktham", "roktho", "lohi"}, ["ಅಪಘಾತ", "ರಕ್ತ", "ಗಾಯ", "ಮುರಿ", "दुर्घटना", "हादसा", "खून", "चोट", "घाव", "फ्रैक्चर", "விபத்து", "ரத்த", "இரத்த", "காயம்", "எலும்பு", "ప్రమాదం", "రక్త", "గాయం", "విరిగ", "അപകടം", "രക്ത", "മുറിവ്", "দুর্ঘটনা", "রক্ত", "আঘাত", "ক্ষত", "અકસ્માત", "લોહી", "ઈજા", "ਹਾਦਸਾ", "ਖੂਨ", "ਸੱਟ", "ਜ਼ਖ਼ਮ", "ଦୁର୍ଘଟଣା", "ରକ୍ତ", "ଆଘାତ"]),
 ]
 
@@ -418,7 +404,7 @@ FALLBACKS = {
         "pa_IN": ("ਸੜਨ ਦੀ ਐਮਰਜੈਂਸੀ! ਤੁਰੰਤ 108 / 101 'ਤੇ ਕਾਲ ਕਰੋ।", [
             "ਸਾੜੇ ਵਾਲੀ ਥਾਂ ਨੂੰ ਘੱਟੋ-ਘੱਟ 20 ਮਿੰਟ ਪਾਣੀ ਹੇਠਾਂ ਰੱਖੋ।",
             "ਬਰਫ਼ ਜਾਂ ਤੇਲ ਨਾ ਲਗਾਓ।",
-            "ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਢੱਕ ਕੇ ਹਸਪਤਾਲ ਜਾਓ।"
+            "ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਢੱਕ ਕੇ ਹਸପତਾਲ ਜਾਓ।"
         ]),
     },
     "accident_trauma": {
@@ -746,7 +732,7 @@ def listen(audio_path, selected):
         transcript = whisper_text
 
     if not transcript:
-        return "", audio_lang, "⚠️ Could not understand the audio. Please speak closer to the mic or type below."
+        return "", audio_lang, "⚠️ Could not understand the audio. Please speak closer to the mic."
 
     return transcript, audio_lang or (stt_lang if selected in LANGUAGES else None), ""
 
@@ -909,22 +895,29 @@ def header_html(t):
           <div class="sahaya-wave-bar"></div><div class="sahaya-wave-bar"></div>
         </div>
       </div>
-      <div class="sahaya-sub">{html.escape(t['subtitle'])}</div>
+      <div class="sahaya-sub">AI Voice Assistant • Talk. Translate. Stay Safe.</div>
     </div>
     """
 
-def result_card(service, steps, urgency, rt):
+def result_card(service, steps, urgency, rt, reply_text):
     body = "<ol class='step-list'>" + "".join(f"<li>{html.escape(s)}</li>" for s in steps) + "</ol>"
     urgency_tag = f'<span class="badge badge-{html.escape(urgency)}">{html.escape(urgency.upper())}</span>' if urgency else ""
     return (
         '<div class="emergency-banner card-box">'
-        f'  <div class="emergency-icon-wrap">{service["icon"]}</div>'
+        f'  <div class="emergency-icon-wrap">⚠️</div>'
         '  <div class="emergency-info">'
         f'   <div class="emergency-title-row"><h2>{html.escape(rt.get(service["key"], service["key"]))}</h2>{urgency_tag}</div>'
         f'   <p class="service-desc">{html.escape(service["desc"])}</p>'
         '  </div></div>'
         '<div class="content-card card-box">'
-        f'  <div class="card-heading">💊 {html.escape(rt["first_aid_label"])}</div>'
+        '  <div class="translation-header-row">'
+        '    <span class="trans-title">✨ Live Translation</span>'
+        '  </div>'
+        f'  <div class="translation-message-row">'
+        f'    <span class="speak-icon">🔊</span>'
+        f'    <span class="trans-text">{html.escape(reply_text)}</span>'
+        '  </div>'
+        f'  <div class="card-heading" style="margin-top: 15px;">💊 {html.escape(rt["first_aid_label"])}</div>'
         f'  {body}'
         f'  <a class="call-action-btn" href="tel:{service["number"]}">'
         f'   📞 {html.escape(rt["call_btn"].format(number=service["number"]))}</a>'
@@ -947,22 +940,23 @@ def directory_html(t):
         </div>""")
     return f"""
     <div style="margin-top: 25px;">
-      <h4 style="color: #0f172a; font-size: 16px; margin-bottom: 12px; font-weight: 700;">📁 {html.escape(t['directory_header'])}</h4>
-      {''.join(cards)}
+      <h4 style="color: #0F172A; font-size: 16px; margin-bottom: 12px; font-weight: 700;">📁 {html.escape(t['directory_header'])}</h4>
+      <div class="directory-grid">
+        {''.join(cards)}
+      </div>
     </div>"""
 
 def run_pipeline(transcript: str, selected: str, audio_lang=None):
     transcript = (transcript or "").strip()
     if not transcript:
-        yield "⚠️ Could not hear audio clearly. Please hold the mic closer or type your emergency below.", "", "", None, ""
+        yield "⚠️ Could not hear audio clearly. Please hold the mic closer.", "", None, ""
         return
 
     hint = selected if selected in LANGUAGES else None
     reply_lang, confident = resolve_language(transcript, hint, audio_lang)
     rt = TRANSLATIONS[reply_lang]
 
-    transcript_bubble = f"**{rt['detected']} ({LANGUAGES[reply_lang]}):**\n\n💬 {transcript}"
-    yield "", transcript_bubble, "", None, ""
+    yield "", "", None, ""
 
     triage, _ = groq_triage(transcript, reply_lang, confident)
     if triage:
@@ -973,47 +967,33 @@ def run_pipeline(transcript: str, selected: str, audio_lang=None):
         service, reply_text, steps, urgency, reply_lang = get_fallback_response(transcript, reply_lang)
 
     rt = TRANSLATIONS[reply_lang]
-    transcript_bubble = f"**{rt['detected']} ({LANGUAGES[reply_lang]}):**\n\n💬 {transcript}"
-    reply_bubble = f"**{rt['audio_response']}**\n\n{reply_text}"
-    card = result_card(service, steps, urgency, rt)
-
-    yield "", transcript_bubble, reply_bubble, None, card
+    card = result_card(service, steps, urgency, rt, reply_text)
 
     narration = " ".join(f"{i + 1}. {s}" for i, s in enumerate(steps))
     audio_path, tts_note = timbre_speak(f"{reply_text} {narration}", reply_lang)
-    yield tts_note, transcript_bubble, reply_bubble, audio_path, card
+    yield tts_note, audio_path, card, ""
 
 def on_audio(audio_path, lang_code):
     if not audio_path:
-        yield "⚠️ Please record your voice message first.", "", "", None, ""
+        yield "⚠️ Please record your voice message first.", None, "", ""
         return
-    yield "⏳ Processing emergency audio...", "", "", None, ""
+    yield "⏳ Processing emergency audio...", None, "", ""
     transcript, audio_lang, err = listen(audio_path, lang_code)
     if err or not transcript:
-        yield err or "⚠️ Could not transcribe clearly. Please type or repeat.", "", "", None, ""
+        yield err or "⚠️ Could not transcribe clearly. Please repeat.", None, "", ""
         return
     yield from run_pipeline(transcript, lang_code, audio_lang)
-
-def on_text(text, lang_code):
-    text = (text or "").strip()
-    if not text:
-        yield "⚠️ Please enter your message first.", "", "", None, ""
-        return
-    yield from run_pipeline(text, lang_code)
 
 def apply_language(lang_code):
     t = TRANSLATIONS.get(lang_code, TRANSLATIONS["en_IN"])
     return (
         header_html(t),
         t["sos_btn"],
-        gr.update(label=t["mic_header"]),
-        gr.update(label=t["type_header"], placeholder=t["type_placeholder"]),
-        t["send"],
         directory_html(t),
     )
 
 # ---------------------------------------------------------------------------
-# CSS / JS (Removed heavy dark backgrounds and overlays)
+# CSS / JS (Restyled to match reference layout perfectly)
 # ---------------------------------------------------------------------------
 CSS = """
 :root {
@@ -1084,7 +1064,7 @@ body, .gradio-container {
     font-size: 15px;
     color: #334155;
     font-weight: 700;
-    margin-top: 4px;
+-    margin-top: 4px;
 }
 
 .sos-panic-btn {
@@ -1104,17 +1084,15 @@ body, .gradio-container {
 .gradio-container .block, 
 .gradio-container .gr-box, 
 .gradio-container .gr-panel, 
-.gradio-container .gr-input, 
-.gradio-container textarea, 
-.gradio-container input, 
 .gradio-container .gr-audio,
 .gradio-container [data-testid="audio"],
 .gradio-container .audio-container {
     background-color: #FFFFFF !important;
     background: #FFFFFF !important;
     color: #0F172A !important;
-    border: 1px solid #E2E8F0 !important;
-    border-radius: 8px !important;
+    border: none !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
 }
 
 .gradio-container audio, 
@@ -1144,43 +1122,10 @@ body, .gradio-container {
     font-weight: 700 !important;
 }
 
-.gradio-container textarea::placeholder, 
-.gradio-container input::placeholder {
-    color: #94A3B8 !important;
-    font-weight: 500 !important;
-}
-
-.send-alert-btn {
-    background: #0284c7 !important;
-    color: #ffffff !important;
-    font-weight: 700 !important;
-    font-size: 16px !important;
-    border-radius: 8px !important;
-    border: none !important;
-    padding: 12px !important;
-    margin-top: 6px !important;
-    cursor: pointer;
-}
-
-.live-bubble {
-    background: #FFFFFF !important;
-    border: 1px solid #E2E8F0 !important;
-    border-radius: 8px !important;
-    padding: 14px 18px !important;
-    color: #0F172A !important;
-    font-size: 15px !important;
-    line-height: 1.6 !important;
-    margin-top: 8px !important;
-}
-
-.live-bubble p, .live-bubble span, .live-bubble strong {
-    color: #0F172A !important;
-}
-
 .card-box {
     background: #ffffff !important;
     border: 1px solid #E2E8F0 !important;
-    border-radius: 10px !important;
+    border-radius: 12px !important;
 }
 
 .emergency-banner {
@@ -1244,8 +1189,40 @@ body, .gradio-container {
     margin-top: 0.8rem !important;
 }
 
+.translation-header-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #0F172A;
+    margin-bottom: 10px;
+}
+
+.translation-message-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+}
+
+.speak-icon {
+    font-size: 1.2rem;
+}
+
+.trans-text {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0F172A;
+    line-height: 1.5;
+}
+
 .card-heading {
-    font-size: 1.2rem !important;
+    font-size: 1.1rem !important;
     font-weight: 900 !important;
     color: #0F172A !important;
 }
@@ -1277,12 +1254,17 @@ body, .gradio-container {
     margin-top: 1rem;
 }
 
+.directory-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
 .directory-card {
     background: #ffffff;
     border: 1px solid #E2E8F0;
     border-radius: 10px;
     padding: 12px 16px;
-    margin-bottom: 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1300,12 +1282,12 @@ body, .gradio-container {
 
 .directory-name {
     font-weight: 700;
-    font-size: 14px;
+    font-size: 13px;
     color: #0F172A;
 }
 
 .directory-num {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 800;
     color: #dc2626;
 }
@@ -1314,8 +1296,8 @@ body, .gradio-container {
     background: #F8FAFC;
     color: #0284c7;
     font-weight: 700;
-    font-size: 13px;
-    padding: 6px 14px;
+    font-size: 12px;
+    padding: 4px 10px;
     border-radius: 6px;
     text-decoration: none;
     border: 1px solid #E2E8F0;
@@ -1378,27 +1360,21 @@ with gr.Blocks(title="Sahaya Emergency") as demo:
         label="🌐 Language / ಭಾಷೆ / भाषा / மொழி / భాష",
     )
     mic = gr.Audio(sources=["microphone", "upload"], type="filepath", label=t0["mic_header"])
-    textbox = gr.Textbox(label=t0["type_header"], placeholder=t0["type_placeholder"], lines=2)
-    send_btn = gr.Button(t0["send"], elem_classes=["send-alert-btn"])
 
     status = gr.Markdown("")
-    transcript_out = gr.Markdown("", elem_classes=["live-bubble"])
-    reply_out = gr.Markdown("", elem_classes=["live-bubble"])
-    reply_audio = gr.Audio(label="🔊 Sahaya Voice Response", type="filepath", autoplay=True, interactive=False)
+    reply_audio = gr.Audio(label="🔊 Sahaya Voice Response", type="filepath", autoplay=True, interactive=False, visible=False)
     card_out = gr.HTML("")
     dir_html = gr.HTML(directory_html(t0))
 
-    result_outputs = [status, transcript_out, reply_out, reply_audio, card_out]
+    result_outputs = [status, reply_audio, card_out]
 
-    mic.stop_recording(on_audio, inputs=[mic, lang_dd], outputs=result_outputs)
-    mic.upload(on_audio, inputs=[mic, lang_dd], outputs=result_outputs)
-    send_btn.click(on_text, inputs=[textbox, lang_dd], outputs=result_outputs)
-    textbox.submit(on_text, inputs=[textbox, lang_dd], outputs=result_outputs)
+    mic.stop_recording(on_audio, inputs=[mic, lang_dd], outputs=[status, reply_audio, card_out, dir_html])
+    mic.upload(on_audio, inputs=[mic, lang_dd], outputs=[status, reply_audio, card_out, dir_html])
 
     lang_dd.change(
         apply_language,
         inputs=lang_dd,
-        outputs=[header, sos_btn, mic, textbox, send_btn, dir_html],
+        outputs=[header, sos_btn, dir_html],
     )
 
     demo.queue(default_concurrency_limit=6, max_size=40)
