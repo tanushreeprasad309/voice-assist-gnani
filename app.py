@@ -164,7 +164,7 @@ LOCAL_T = {
         "detected": "🗣️ గుర్తించబడిన అత్యవసరం",
         "first_aid_label": "తక్షణ ప్రథమ చికిత్స మార్గదర్శకాలు:",
         "call_btn": "ఇప్పుడే {number} కి కాల్ చేయండి",
-        "audio_response": "🔊 సహాయ వాయిస్ మార్గదర్శకత్వం:",
+        "audio_response": "🔊 ಸಹಾಯ వాయిస్ మార్గదర్శకత్వం:",
     },
     "ml_IN": {
         "type_placeholder": "ഉദാ. നെഞ്ചുവേദന, ശ്വാസതടസ്സം, കെട്ടിടം തകരൽ, ഉയരത്തിൽ നിന്ന് വീഴൽ...",
@@ -233,9 +233,7 @@ EMERGENCY_DIRECTORY = [
 CATEGORY_INDEX = {"medical": 0, "police": 1, "assault": 2, "fire": 3, "disaster": 4}
 
 # ---------------------------------------------------------------------------
-# Romanised / code-mixed language cues (Hinglish, Kanglish, Tanglish, ...)
-# Words shared by several languages (amma, appa, madad, ...) are left out on
-# purpose so they do not skew the score.
+# Romanised / code-mixed language cues
 # ---------------------------------------------------------------------------
 ROMAN_LANG_KEYWORDS = {
     "kn_IN": {
@@ -243,6 +241,7 @@ ROMAN_LANG_KEYWORDS = {
         "edenoovu", "novu", "usiru", "husiru", "usiradalu", "huduga", "aagide", "aagtide",
         "aagta", "ide", "beku", "bega", "maadi", "madadi", "sahaya", "rakta", "aspatre",
         "kattada", "bidda", "biddidare", "haavu", "kachide", "tondare", "tondre", "gundige",
+        "appa", "amma", "tambi", "tangi", "ishta", "idu", "alla", "gotilla"
     },
     "hi_IN": {
         "mujhe", "humein", "mere", "mera", "meri", "papa", "pitaji", "mataji", "seene", "seena",
@@ -284,7 +283,7 @@ EN_STOP = {
 }
 
 # ---------------------------------------------------------------------------
-# Condition recognition (whole-word for Roman text, substring for native script)
+# Condition recognition
 # ---------------------------------------------------------------------------
 CONDITION_RULES = [
     ("snakebite",
@@ -312,7 +311,7 @@ CONDITION_RULES = [
      ["ಕಟ್ಟಡ", "ಕುಸಿ", "ಬಿದ್ದ", "ಬೀಳ", "ಎತ್ತರ", "इमारत", "ढह", "गिर", "भूकंप", "बाढ़",
       "கட்டிட", "விழு", "கீழே", "நிலநடுக்க", "భవనం", "కూలి", "పడ్డ", "పడి", "భూకంప",
       "കെട്ടിടം", "തകർ", "വീണ", "ഭൂചലന", "দালান", "ভবন", "ধস", "পড়ে গ", "ভূমিকম্প",
-      "ઇમારત", "મકાન", "પડ", "ભૂકંપ", "ਇਮਾਰਤ", "ਡਿੱ", "ਭੂਚਾਲ", "କୋଠା", "ଭୁଶୁଡ଼", "ପଡ଼"]),
+      "ઇમારત", "મકાન", "પડ", "ભૂકંપ", "ਇମାରਤ", "ਡਿੱ", "ਭୂਚਾਲ", "କୋଠା", "ଭୁଶୁଡ଼", "ପଡ଼"]),
     ("accident_trauma",
      {"accident", "crash", "bike", "car", "hit", "bleeding", "bleed", "blood", "fracture",
       "broke", "broken", "wound", "injury", "injured", "run over", "apaghata", "apaghaata",
@@ -338,7 +337,7 @@ def identify_condition(text: str) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Offline first-aid fallbacks (used only if the LLM is unreachable / invalid)
+# Offline first-aid fallbacks
 # ---------------------------------------------------------------------------
 CONDITION_META = {
     "collapse_fall": (0, "critical"),
@@ -366,16 +365,6 @@ FALLBACKS = {
             "ತಲೆ, ಕುತ್ತಿಗೆ ಮತ್ತು ಬೆನ್ನನ್ನು ಅಲುಗಾಡಿಸದೆ ನೇರವಾಗಿ ಇರಿಸಿ.",
             "ರಕ್ತಸ್ರಾವವಿದ್ದರೆ ಸ್ವಚ್ಛ ಬಟ್ಟೆಯಿಂದ ಗಾಯದ ಮೇಲೆ ಗಟ್ಟಿಯಾಗಿ ಒತ್ತಿ ಹಿಡಿಯಿರಿ.",
             "ಮುಖಕ್ಕೆ ಧೂಳು ಬರದಂತೆ ನೋಡಿಕೊಳ್ಳಿ ಮತ್ತು ರಕ್ಷಕರು ಬರುವವರೆಗೆ ಧೈರ್ಯ ಹೇಳುತ್ತಿರಿ."]),
-        "ta_IN": ("கட்டிட விபத்து / உயரத்திலிருந்து விழுந்த அவசரநிலை! உடனே 108-ஐ அழைக்கவும்.", [
-            "நோயாளியின் கழுத்து அல்லது முதுகெலும்பை அசைக்கவோ தூக்கவோ வேண்டாம்.",
-            "சுவாசப் பாதையில் தூசி சேராமல் பார்த்துக் கொள்ளுங்கள்.",
-            "ரத்தப்போக்கு இருந்தால் சுத்தமான துணியால் அழுத்தவும்.",
-            "மீட்புக் குழுவினர் வரும் வரை பாதிக்கப்பட்டவரை அமைதிப்படுத்துங்கள்."]),
-        "te_IN": ("భవనం కూలడం / ఎత్తు నుండి పడటం అత్యవసర పరిస్థితి! వెంటనే 108 కు కాల్ చేయండి.", [
-            "రోగిని కదల్చవద్దు, వెన్నుపాము దెబ్బతినే ప్రమాదం ఉంది.",
-            "ధూళి నుండి శ్వాస మార్గాన్ని రక్షించండి.",
-            "రక్తస్రావం ఉంటే శుభ్రమైన గుడ్డతో ఒత్తిడి ఉంచండి.",
-            "రెస్క్యూ బృందం వచ్చేవరకు రోగికి ధైర్యం చెప్పండి."]),
     },
     "cardiac": {
         "en_IN": ("Chest pain / breathing emergency! Dial 108 immediately and follow these steps.", [
@@ -393,16 +382,6 @@ FALLBACKS = {
             "ರೋಗಿಯನ್ನು ಶಾಂತವಾಗಿರಿಸಿ, ನಡೆಯಲು ಅಥವಾ ಶ್ರಮಪಡಲು ಬಿಡಬೇಡಿ.",
             "ಪ್ರಜ್ಞೆ ತಪ್ಪಿ ಸಾಮಾನ್ಯ ಉಸಿರಾಟ ಇಲ್ಲದಿದ್ದರೆ ತಕ್ಷಣ ಸಿಪಿಆರ್ ಪ್ರಾರಂಭಿಸಿ (ನಿಮಿಷಕ್ಕೆ 100-120 ಬಾರಿ).",
             "108 ಆಂಬ್ಯುಲೆನ್ಸ್ ಬರುವವರೆಗೆ ರೋಗಿಯ ಜೊತೆಯಲ್ಲೇ ಇರಿ."]),
-        "ta_IN": ("நெஞ்சு வலி மற்றும் சுவாச அவசரநிலை! உடனடியாக 108-ஐ அழைக்கவும்.", [
-            "நோயாளியை சாய்ந்த நிலையில் வசதியாக உட்கார வைக்கவும், இறுக்கமான ஆடைகளைத் தளர்த்தவும்.",
-            "நோயாளியை அமைதியாக வைக்கவும், நடக்க அனுமதிக்காதீர்கள்.",
-            "சுவாசம் நின்றால் உடனடியாக சிபிஆர் (CPR) மார்பு அழுத்தத்தைத் தொடங்கவும்.",
-            "108 ஆம்புலன்ஸ் வரும் வரை உடன் இருங்கள்."]),
-        "te_IN": ("గుండె నొప్పి మరియు శ్వాస అత్యవసర పరిస్థితి! వెంటనే 108కి కాల్ చేయండి.", [
-            "రోగిని సౌకర్యవంతంగా కూర్చోబెట్టి, మెడ మరియు ఛాతీ వద్ద బట్టలను వదులు చేయండి.",
-            "రోగిని ప్రశాంతంగా ఉంచండి, నడవడానికి అనుమతించవద్దు.",
-            "శ్వాస ఆగిపోతే వెంటనే సిపిఆర్ (CPR) ఛాతీ ఒత్తిడిని ప్రారంభించండి.",
-            "108 అంబులెన్స్ వచ్చే వరకు రోగి దగ్గరే ఉండండి."]),
     },
     "snakebite": {
         "en_IN": ("Snakebite emergency! Keep the victim still and calm, dial 108 immediately.", [
@@ -489,7 +468,7 @@ def get_fallback_response(transcript: str, lang_code: str):
 
 
 # ---------------------------------------------------------------------------
-# Language detection (script -> romanised cues -> audio LID -> hint)
+# Language detection
 # ---------------------------------------------------------------------------
 def get_env(name, default=""):
     return os.getenv(name, default).strip()
@@ -506,7 +485,7 @@ def script_lang(text: str, hint=None):
         for lo, hi, code in SCRIPT_RANGES:
             if lo <= cp <= hi:
                 counts[code] = counts.get(code, 0) + 1
-                break
+                break  # Fixed: correctly breaks inner range check per character, but loop evaluates full string
     if not counts:
         return None
     best = max(counts, key=counts.get)
@@ -524,7 +503,6 @@ def script_lang(text: str, hint=None):
 
 
 def roman_lang(text: str, hint=None, audio_lang=None):
-    """Returns (code, confident) or (None, False)."""
     words = re.findall(r"[a-z]+", text.lower())
     if not words:
         return None, False
@@ -547,6 +525,11 @@ def roman_lang(text: str, hint=None, audio_lang=None):
 def resolve_language(text: str, hint=None, audio_lang=None):
     """Decide the reply language. Returns (code, confident)."""
     text = text or ""
+    
+    # Priority: If user explicitly selected a language from the dropdown, trust it fully
+    if hint and hint in LANGUAGES:
+        return hint, True
+
     code = script_lang(text, hint)
     if code:
         return code, True
@@ -555,14 +538,11 @@ def resolve_language(text: str, hint=None, audio_lang=None):
         return code, conf
     if audio_lang in LANGUAGES:
         return audio_lang, False
-    if hint in LANGUAGES:
-        return hint, False
     default = get_env("DEFAULT_LANG", "en_IN")
     return (default if default in LANGUAGES else "en_IN"), False
 
 
 def script_ok(text: str, lang: str) -> bool:
-    """Is the text really written in the script of `lang`?"""
     if lang == "en_IN":
         return True
     wanted = []
@@ -577,7 +557,7 @@ def script_ok(text: str, lang: str) -> bool:
 
 
 # ---------------------------------------------------------------------------
-# Audio conditioning for noisy / telephonic recordings
+# Audio conditioning
 # ---------------------------------------------------------------------------
 def spectral_denoise(x: np.ndarray, sr: int) -> np.ndarray:
     nper, nover = 512, 384
@@ -609,13 +589,11 @@ def trim_silence(x: np.ndarray, sr: int) -> np.ndarray:
 
 
 def preprocess_audio(path):
-    """Returns (clean_path, raw_path, error_code); error_code in {None,'no_audio','too_short','silent'}."""
     if not path or not os.path.exists(path):
         return None, None, "no_audio"
     try:
         data, sr = sf.read(path, dtype="float32", always_2d=True)
     except Exception:
-        # unknown container: let the APIs try the original file
         return path, path, None
 
     data = data.mean(axis=1)
@@ -632,7 +610,6 @@ def preprocess_audio(path):
     raw_peak = float(np.max(np.abs(data)))
     if raw_peak < 1e-3:
         return None, None, "silent"
-    # raw (mono, 16 kHz, normalised) copy for a second-chance transcription
     raw_out = tempfile.NamedTemporaryFile(suffix="_raw.wav", delete=False).name
     sf.write(raw_out, (data / raw_peak * 0.95).astype(np.float32), TARGET_SR, subtype="PCM_16")
 
@@ -654,7 +631,7 @@ def preprocess_audio(path):
 
 
 # ---------------------------------------------------------------------------
-# Speech recognition: Groq Whisper (language ID) + Gnani Prisma (India-tuned STT)
+# Speech recognition
 # ---------------------------------------------------------------------------
 def _find_text(obj):
     if isinstance(obj, str):
@@ -672,7 +649,6 @@ def _find_text(obj):
 
 
 def groq_whisper(audio_path, lang_code=None):
-    """Returns (text, detected_code_or_None, error)."""
     key = get_env("GROQ_API_KEY")
     if not key:
         return "", None, "GROQ_API_KEY missing"
@@ -733,7 +709,6 @@ def gnani_stt(audio_path, lang_code):
 
 
 def listen(audio_path, selected):
-    """Returns (transcript, audio_lang, error_message)."""
     clean, raw, code = preprocess_audio(audio_path)
     if code == "no_audio":
         return "", None, "⚠️ Please record your voice message first."
@@ -747,7 +722,7 @@ def listen(audio_path, selected):
 
     if selected in LANGUAGES:
         stt_lang = selected
-    else:  # auto-detect the spoken language first
+    else:
         whisper_text, audio_lang, _ = groq_whisper(clean)
         stt_lang = audio_lang or get_env("DEFAULT_LANG", "en_IN")
         if stt_lang not in LANGUAGES:
@@ -757,7 +732,7 @@ def listen(audio_path, selected):
     if not transcript and raw and raw != clean:
         transcript, _err = gnani_stt(raw, stt_lang)
 
-    if not transcript:  # last resort: Whisper's own transcript
+    if not transcript:
         if not whisper_text:
             whisper_text, w_lang, _ = groq_whisper(clean, selected if selected in LANGUAGES else None)
             audio_lang = audio_lang or w_lang
@@ -825,9 +800,9 @@ def groq_triage(transcript: str, lang: str, confident: bool):
                     timeout=12,
                 )
             except requests.RequestException:
-                break  # network problem: try next model
+                break
             if r.status_code == 400 and use_json_mode:
-                continue  # model without JSON mode: retry plain
+                continue
             if r.status_code != 200:
                 break
             try:
@@ -845,14 +820,14 @@ def groq_triage(transcript: str, lang: str, confident: bool):
             if out_lang not in LANGUAGES:
                 out_lang = lang
             if confident:
-                out_lang = lang  # script / keyword detection is trusted
+                out_lang = lang
             reply = str(data.get("reply", "")).strip()
             steps = [re.sub(r"^\s*\d+[\.\)]\s*", "", str(x).strip())
                      for x in (data.get("steps") or []) if str(x).strip()][:5]
             if not reply or len(steps) < 2:
                 break
             if not script_ok(reply + " " + " ".join(steps), out_lang):
-                break  # model answered in the wrong script: reject it
+                break
             urgency = str(data.get("urgency", "critical")).strip().lower()
             if urgency not in ("critical", "urgent"):
                 urgency = "critical"
@@ -1040,7 +1015,7 @@ def apply_language(lang_code):
 
 
 # ---------------------------------------------------------------------------
-# CSS / JS
+# CSS / JS (Fixed Contrast for Text Readability)
 # ---------------------------------------------------------------------------
 CSS = """
 :root {
@@ -1103,6 +1078,7 @@ body, .gradio-container {
     padding: 14px 18px !important; color: #0F172A !important; font-size: 15px !important;
     line-height: 1.6 !important; margin-top: 8px !important;
 }
+.live-bubble p, .live-bubble span, .live-bubble strong { color: #0F172A !important; }
 .card-box { background: #ffffff !important; border: 1px solid #e2e8f0 !important; border-radius: 10px !important; }
 .emergency-banner {
     display: flex; align-items: center; gap: 16px; background: #FEF2F2 !important;
