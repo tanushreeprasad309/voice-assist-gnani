@@ -398,10 +398,10 @@ LOCAL_T = {
         "audio_response": "🔊 ਸਹਾਇਤਾ ਵੌਇਸ ਸੇਧ:",
         "med_title": "ମେଡିକାଲ୍ ଏବଂ ଏମ୍ବୁଲାନ୍ସ",
         "police_title": "ਪੁਲਿਸ ਅਤੇ ਸੁਰੱਖਿਆ",
-        "women_title": "ਮਹਿਲਾ ਹੈਲਪਲਾਈਨ",
+        "women_title": "ମਹਿਲਾ ਹੈਲਪਲਾਈਨ",
         "fire_title": "ਫਾਇਰ ਅਤੇ ਰੈਸਕਿਊ",
         "disaster_title": "ਆਫ਼ਤ ਸਹਾਇਤਾ",
-        "call_txt": "ਕਾਲ ਕਰੋ",
+        "call_txt": "କାଲ୍ କରନ୍ତୁ",
     },
     "or_IN": {
         "brand": "ସହାୟ (Sahaya)",
@@ -568,7 +568,7 @@ FALLBACKS = {
             "আহত ব্যক্তিকে নাড়াচাড়া করবেন না (মেরুদণ্ডে আঘাতের ঝুঁকি)।",
             "মাথা, ঘাড় এবং পিঠ সোজা ও স্থির রাখুন।",
             "রক্তপাত হলে পরিষ্কার কাপড় দিয়ে শক্ত করে চাপ দিন।",
-            "মুখ থেকে ধুলোবালি দূরে রাখুন এবং উদ্ধারকারীরা না আসা পর্যন্ত কথা বলুন।"
+            "মুখ থেকে ধুলোবালি দূরে রাখুন এবং উদ্ধারকারীরা না আসা পর্যন্ত কথা বলুন."
         ]),
         "pa_IN": ("ਇਮਾਰਤ ਡਿੱਗਣ / ਉਚਾਈ ਤੋਂ ਡਿੱਗਣ ਦੀ ਐਮਰਜੈਂਸੀ! ਤੁਰੰਤ 108 'ਤੇ ਕਾਲ ਕਰੋ।", [
             "ਮਰੀਜ਼ ਨੂੰ ਹਿਲਾਓ ਜਾਂ ਖਿੱਚੋ ਨਾ (ਰੀੜ੍ਹ ਦੀ ਹੱਡੀ ਵਿੱਚ ਸੱਟ ਦਾ ਖ਼ਤਰਾ)।",
@@ -632,7 +632,7 @@ FALLBACKS = {
             "ব্যক্তিকে আরামদায়কভাবে বসান এবং গলা ও বুকের টাইট পোশাক ঢিলে করুন।",
             "তাকে শান্ত ও স্থির রাখুন। হাঁটতে বা বেশি পরিশ্রম করতে দেবেন না।",
             "চেতনা হারিয়ে ফেললে এবং স্বাভাবিক শ্বাস না নিলে অবিলম্বে CPR শুরু করুন।",
-            "108 অ্যাম্বুলেন্স না আসা পর্যন্ত সাথে থাকুন।"
+            "108 অ্যাম্বুলেন্স না আসা পর্যন্ত সাথে থাকুন."
         ]),
         "pa_IN": ("ਛਾਤੀ ਵਿੱਚ ਦਰਦ / ਸਾਹ ਦੀ ਐਮਰਜੈਂਸੀ! ਤੁਰੰਤ 108 'ਤੇ ਕਾਲ ਕਰੋ।", [
             "ਮਰੀਜ਼ ਨੂੰ ਆਰਾਮ ਨਾਲ ਬਿਠਾਓ ਅਤੇ ਗਰਦਨ ਤੇ ਛਾਤੀ ਦੇ ਕੱਪੜੇ ਢਿੱਲੇ ਕਰੋ।",
@@ -687,7 +687,7 @@ FALLBACKS = {
             "ਕੱਟੇ ਹੋਏ ਅੰਗ ਨੂੰ ਹਿਲਾਓ ਨਾ।",
             "ਕੱਸ ਕੇ ਪੱਟੀ ਨਾ ਬੰਨ੍ਹੋ।",
             "ਮਰੀਜ਼ ਨੂੰ ਸ਼ਾਂਤ ਰੱਖੋ।",
-            "ਨੇੜਲੇ ਹਸਪਤਾਲ ਜਾਓ।"
+            "ਨੇੜਲੇ ਹਸਪତਾਲ ਜਾਓ।"
         ]),
     },
     "burns": {
@@ -711,7 +711,7 @@ FALLBACKS = {
         ]),
         "ta_IN": ("தீக்காயம் அவசரம்! உடனே 108 / 101 ஐ அழைக்கவும்.", [
             "தீக்காயத்தை குறைந்தது 20 நிமிடங்கள் ஓடும் குளிர்ந்த நீரின் கீழ் வைக்கவும்.",
-            "ஐஸ், பற்பசை அல்லது எண்ணெய் தடவ வேண்டாம்; கொப்புளங்களை உடைக்க வேண்டாம்.",
+            "ஐஸ், பற்பசை లేదా எண்ணெய் தடவ வேண்டாம்; கொப்புளங்களை உடைக்க வேண்டாம்.",
             "சுத்தமான துணியால் மூடி உடனடியாக மருத்துவமனைக்கு கொண்டு செல்லவும்."
         ]),
         "te_IN": ("కాలిన గాయం అత్యవసర పరిస్థితి! వెంటనే 108 / 101 కి కాల్ చేయండి.", [
@@ -1213,7 +1213,7 @@ def timbre_speak(text: str, lang_code: str):
     return None, ""
 
 # ---------------------------------------------------------------------------
-# UI Builders (Compact Layout & High-Contrast Elements for Light & Dark Themes)
+# UI Builders (Warm Background, Compact Layout & High-Contrast Elements)
 # ---------------------------------------------------------------------------
 def header_html(t):
     return f"""
@@ -1274,7 +1274,7 @@ def custom_mic_card_html(t):
 
       <div class="lang-pill-wrap">
         <button type="button" class="lang-pill-btn" onclick="window.openSettingsModal()">
-          🌐 <span id="activeLangLabel">{html.escape(t['lang_pill_auto'])}</span>
+          🌐 <span id="activeLangLabel" style="color: #000000 !important; font-weight: 800;">{html.escape(t['lang_pill_auto'])}</span>
         </button>
       </div>
 
@@ -1435,30 +1435,30 @@ def apply_language(lang_code):
     )
 
 # ---------------------------------------------------------------------------
-# CSS: High-Contrast Light & Dark Themes (Compact Layout & Fixed Icon/Text Visibility)
+# CSS: Warm Background, Compact Layout & High-Contrast Elements
 # ---------------------------------------------------------------------------
 CSS = """
 :root, body, .gradio-container {
-    --bg-main: linear-gradient(145deg, #EBF0F2 0%, #DCE4E8 48%, #CFDADE 100%);
-    --card-bg: rgba(255, 255, 255, 0.94);
-    --card-border: rgba(255, 255, 255, 0.98);
-    --text-color: #0F172A;
-    --subtext-color: #475569;
-    --input-bg: #FFFFFF;
-    --input-border: #CBD5E1;
-    --topbar-bg: rgba(255, 255, 255, 0.85);
+    --bg-main: linear-gradient(135deg, #FDF8F2 0%, #F5EBE0 50%, #EBE1D2 100%);
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --card-border: rgba(245, 235, 224, 0.9);
+    --text-color: #1C1917;
+    --subtext-color: #57534E;
+    --input-bg: #FAFAF9;
+    --input-border: #D7D3CD;
+    --topbar-bg: rgba(255, 255, 255, 0.9);
     color-scheme: light !important;
 }
 
 body.dark-mode, .dark-mode .gradio-container, .dark-mode {
-    --bg-main: #0F172A !important;
-    --card-bg: rgba(30, 41, 59, 0.94) !important;
-    --card-border: rgba(51, 65, 85, 0.9) !important;
-    --text-color: #F8FAFC !important;
-    --subtext-color: #94A3B8 !important;
-    --input-bg: #1E293B !important;
-    --input-border: #475569 !important;
-    --topbar-bg: rgba(15, 23, 42, 0.9) !important;
+    --bg-main: #1C1917 !important;
+    --card-bg: rgba(41, 37, 36, 0.95) !important;
+    --card-border: rgba(68, 64, 60, 0.9) !important;
+    --text-color: #F5F5F4 !important;
+    --subtext-color: #A8A29E !important;
+    --input-bg: #292524 !important;
+    --input-border: #57534E !important;
+    --topbar-bg: rgba(28, 25, 23, 0.9) !important;
     color-scheme: dark !important;
 }
 
@@ -1503,7 +1503,7 @@ footer { display: none !important; }
     backdrop-filter: blur(12px);
     border-radius: 18px;
     border: 1px solid var(--card-border);
-    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+    box-shadow: 0 4px 16px rgba(28, 25, 23, 0.05);
     margin-bottom: 8px;
 }
 .brand-left {
@@ -1520,7 +1520,7 @@ footer { display: none !important; }
 }
 .brand-wave-icon span {
     width: 3.5px;
-    background: linear-gradient(180deg, #2563EB 0%, #0EA5E9 100%);
+    background: linear-gradient(180deg, #D97706 0%, #B45309 100%);
     border-radius: 99px;
     display: inline-block;
     transform-origin: center bottom;
@@ -1542,7 +1542,7 @@ footer { display: none !important; }
     font-size: 20px;
     font-weight: 800;
     letter-spacing: -0.3px;
-    background: linear-gradient(90deg, #2563EB 0%, #0EA5E9 50%, #2563EB 100%);
+    background: linear-gradient(90deg, #D97706 0%, #B45309 50%, #D97706 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1592,26 +1592,26 @@ body.dark-mode .connected-pill {
 /* High-Contrast Gear Settings Icon */
 .gear-icon-btn {
     background: #FFFFFF !important;
-    border: 1px solid #94A3B8 !important;
+    border: 1px solid #78716C !important;
     cursor: pointer;
     padding: 7px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #0F172A !important;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
+    color: #1C1917 !important;
+    box-shadow: 0 2px 8px rgba(28, 25, 23, 0.12);
     transition: background 0.2s, transform 0.3s;
 }
 body.dark-mode .gear-icon-btn {
-    background: #1E293B !important;
-    border-color: #475569 !important;
-    color: #F8FAFC !important;
+    background: #292524 !important;
+    border-color: #78716C !important;
+    color: #F5F5F4 !important;
 }
 .gear-icon-btn:hover {
-    background: #2563EB !important;
+    background: #D97706 !important;
     color: #FFFFFF !important;
-    border-color: #2563EB !important;
+    border-color: #D97706 !important;
     transform: rotate(35deg);
 }
 
@@ -1636,7 +1636,7 @@ body.dark-mode .gear-icon-btn {
     border-radius: 24px;
     padding: 20px 18px 18px 18px;
     text-align: center;
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+    box-shadow: 0 10px 24px rgba(28, 25, 23, 0.05);
     border: 1px solid var(--card-border);
     margin-bottom: 10px;
 }
@@ -1659,14 +1659,14 @@ body.dark-mode .gear-icon-btn {
     font-size: 14.5px;
     font-weight: 600;
     margin: 0 0 16px 0;
-    background: linear-gradient(90deg, #475569 0%, #2563EB 50%, #0D9488 100%);
+    background: linear-gradient(90deg, #78716C 0%, #D97706 50%, #0D9488 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: taglineGlow 3.2s ease-in-out infinite alternate;
 }
 body.dark-mode .hero-subtitle {
-    background: linear-gradient(90deg, #94A3B8 0%, #60A5FA 50%, #2DD4BF 100%);
+    background: linear-gradient(90deg, #A8A29E 0%, #FBBF24 50%, #2DD4BF 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -1687,7 +1687,7 @@ body.dark-mode .hero-subtitle {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    background: rgba(37, 99, 235, 0.07);
+    background: rgba(217, 119, 6, 0.07);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1697,7 +1697,7 @@ body.dark-mode .hero-subtitle {
     width: 114px;
     height: 114px;
     border-radius: 50%;
-    background: rgba(37, 99, 235, 0.13);
+    background: rgba(217, 119, 6, 0.13);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1707,14 +1707,14 @@ body.dark-mode .hero-subtitle {
     width: 78px;
     height: 78px;
     border-radius: 50%;
-    background: #2563EB;
+    background: #D97706;
     border: none;
     color: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.38);
+    box-shadow: 0 8px 20px rgba(217, 119, 6, 0.38);
     transition: transform 0.18s ease, background 0.2s ease;
 }
 .blue-mic-btn:hover {
@@ -1787,23 +1787,23 @@ body.dark-mode .hero-subtitle {
 }
 .lang-pill-btn {
     background: #FFFFFF !important;
-    border: 1px solid #94A3B8 !important;
+    border: 1px solid #78716C !important;
     border-radius: 999px;
     padding: 6px 16px;
     font-size: 13px;
     font-weight: 700;
-    color: #0F172A !important;
+    color: #1C1917 !important;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 2px 8px rgba(28, 25, 23, 0.08);
 }
 body.dark-mode .lang-pill-btn {
-    background: #1E293B !important;
-    border-color: #475569 !important;
-    color: #F8FAFC !important;
+    background: #292524 !important;
+    border-color: #78716C !important;
+    color: #F5F5F4 !important;
 }
 .lang-pill-btn:hover {
-    border-color: #2563EB !important;
-    color: #2563EB !important;
+    border-color: #D97706 !important;
+    color: #D97706 !important;
 }
 
 .shield-banner {
@@ -1836,7 +1836,7 @@ body.dark-mode .lang-pill-btn {
     border-radius: 14px !important;
     padding: 4px 8px !important;
     border: 1px solid var(--card-border) !important;
-    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04) !important;
+    box-shadow: 0 4px 14px rgba(28, 25, 23, 0.04) !important;
     margin-bottom: 10px !important;
     display: flex !important;
     align-items: center !important;
@@ -1850,7 +1850,7 @@ body.dark-mode .lang-pill-btn {
     font-size: 13.5px !important;
 }
 .send-text-btn {
-    background: #2563EB !important;
+    background: #D97706 !important;
     color: #FFFFFF !important;
     border-radius: 10px !important;
     font-weight: 700 !important;
@@ -1878,7 +1878,7 @@ body.dark-mode .lang-pill-btn {
     border-radius: 22px;
     overflow: hidden;
     background: var(--card-bg);
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 10px 24px rgba(28, 25, 23, 0.07);
     border: 1px solid #FECACA;
     margin: 10px 0;
 }
@@ -1952,7 +1952,7 @@ body.dark-mode .lang-pill-btn {
     display: flex;
     align-items: flex-start;
     gap: 8px;
-    background: rgba(37, 99, 235, 0.1);
+    background: rgba(217, 119, 6, 0.1);
     border-radius: 14px;
     padding: 12px 14px;
     margin-bottom: 8px;
@@ -2035,7 +2035,7 @@ body.dark-mode .lang-pill-btn {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
+    box-shadow: 0 3px 10px rgba(28, 25, 23, 0.04);
 }
 .directory-info {
     display: flex;
@@ -2059,7 +2059,7 @@ body.dark-mode .lang-pill-btn {
 }
 .call-badge {
     background: var(--input-bg);
-    color: #2563EB !important;
+    color: #D97706 !important;
     font-weight: 700;
     font-size: 11.5px;
     padding: 4px 8px;
@@ -2071,7 +2071,7 @@ body.dark-mode .lang-pill-btn {
 .settings-modal-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(15, 23, 42, 0.55);
+    background: rgba(28, 25, 23, 0.55);
     backdrop-filter: blur(4px);
     display: none;
     justify-content: center;
@@ -2085,7 +2085,7 @@ body.dark-mode .lang-pill-btn {
     border-radius: 20px;
     width: 92%;
     max-width: 380px;
-    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.28);
+    box-shadow: 0 20px 40px rgba(28, 25, 23, 0.28);
     border: 1px solid var(--card-border);
 }
 .settings-modal-header {
