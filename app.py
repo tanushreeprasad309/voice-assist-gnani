@@ -529,7 +529,8 @@ def custom_mic_card_html(t):
 
       <div class="lang-pill-wrap">
         <div class="autonomous-detect-badge">
-          ⚡ <span>{html.escape(t['auto_detect_badge'])}</span>
+          <span class="badge-icon">⚡</span>
+          <span class="badge-text">{html.escape(t['auto_detect_badge'])}</span>
         </div>
       </div>
 
@@ -670,7 +671,7 @@ def set_app_ui_language(lang_code: str):
     )
 
 # ---------------------------------------------------------------------------
-# CSS Overhaul (High Contrast, Solid Backgrounds, Absolute Readability)
+# Strict CSS Overhaul (High Contrast, Bold Text, 100% Theme Safe)
 # ---------------------------------------------------------------------------
 CSS = """
 :root, body, .gradio-container {
@@ -832,20 +833,42 @@ footer { display: none !important; }
     margin-top: 10px !important;
 }
 
-.lang-pill-wrap { margin-top: 10px; display: flex; justify-content: center; }
+/* Autonomous Detect Badge (Fixed Visibility) */
+.lang-pill-wrap {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
 .autonomous-detect-badge {
     background: #E2E8F0 !important;
-    border: 1.5px solid #64748B !important;
-    padding: 6px 14px !important;
+    border: 2px solid #0F172A !important;
+    padding: 8px 18px !important;
     border-radius: 999px !important;
-    font-size: 12px !important;
-    font-weight: 800 !important;
-    color: #0F172A !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
 }
+.autonomous-detect-badge,
+.autonomous-detect-badge span,
+.autonomous-detect-badge .badge-text {
+    font-size: 13px !important;
+    font-weight: 900 !important;
+    color: #0F172A !important;
+    letter-spacing: 0.2px !important;
+}
+body.dark-mode .autonomous-detect-badge,
 .dark-mode .autonomous-detect-badge {
-    background: #374151 !important;
-    border-color: #6B7280 !important;
-    color: #F9FAFB !important;
+    background: #18181B !important;
+    border-color: #60A5FA !important;
+}
+body.dark-mode .autonomous-detect-badge,
+body.dark-mode .autonomous-detect-badge span,
+body.dark-mode .autonomous-detect-badge .badge-text,
+.dark-mode .autonomous-detect-badge,
+.dark-mode .autonomous-detect-badge span,
+.dark-mode .autonomous-detect-badge .badge-text {
+    color: #FFFFFF !important;
 }
 
 .shield-banner {
@@ -934,7 +957,7 @@ footer { display: none !important; }
     font-size: 12px;
 }
 
-/* Result Card & Bubbles (High Contrast Fix) */
+/* Result Card & Bubbles */
 .accident-result-card {
     background: var(--card-bg) !important;
     border-radius: 18px;
