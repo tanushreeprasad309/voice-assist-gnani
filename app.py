@@ -4,7 +4,6 @@ High-Speed Voice-First Emergency Triage & First Aid for India.
 """
 
 import base64
-from concurrent.futures import ThreadPoolExecutor
 import html
 import json
 import math
@@ -281,9 +280,6 @@ def identify_condition(text: str) -> str:
                 return cond
     return "general_medical"
 
-# ---------------------------------------------------------------------------
-# High-Accuracy Autonomous Language Detection
-# ---------------------------------------------------------------------------
 def script_lang(text: str):
     counts = {}
     for ch in (text or ""):
@@ -304,24 +300,18 @@ def script_lang(text: str):
     return best
 
 def autonomous_spoken_language_detector(transcript: str, w_lang: str) -> str:
-    """
-    Decoupled language detector. Guarantees English is NEVER misclassified as Hindi.
-    """
     t = (transcript or "").strip()
     if not t:
         return "en_IN"
 
-    # 1. Native script detection
     s_lang = script_lang(t)
     if s_lang in LANGUAGES:
         return s_lang
 
-    # 2. English word matching
     words = re.findall(r"[a-z]+", t.lower())
     wset = set(words)
     en_matches = len(wset & EN_COMMON)
 
-    # 3. Romanized Indic word matching
     indic_scores = {c: len(wset & kw) for c, kw in ROMAN_LANG_KEYWORDS.items()}
     best_indic = max(indic_scores, key=indic_scores.get) if indic_scores else None
     best_score = indic_scores[best_indic] if best_indic else 0
@@ -337,9 +327,6 @@ def autonomous_spoken_language_detector(transcript: str, w_lang: str) -> str:
 
     return "en_IN"
 
-# ---------------------------------------------------------------------------
-# High-Speed Audio Preprocessing (<50ms)
-# ---------------------------------------------------------------------------
 def fast_preprocess(audio_path):
     if not audio_path or not os.path.exists(audio_path):
         return None, "no_audio"
@@ -357,7 +344,6 @@ def fast_preprocess(audio_path):
     if peak < 1e-4:
         return None, "silent"
 
-    # Fast 80Hz highpass to remove mic pop
     sos = butter(2, 80.0, btype="highpass", fs=sr, output="sos")
     data = sosfilt(sos, data).astype(np.float32)
 
@@ -400,8 +386,8 @@ def run_groq_triage(transcript: str, lang_code: str):
 MANDATORY LANGUAGE RULE:
 The user spoke in {lang_code} ({target_script}).
 You MUST write both 'reply' and all 'steps' in {lang_code} ({target_script}).
-If the user spoke in English, respond in clear English.
-NEVER answer in Hindi or another language if the user is in English.
+If the user spoke in English, respond strictly in clear English.
+NEVER answer in Hindi or another language if the user spoke in English.
 
 Return JSON ONLY:
 {{
@@ -444,7 +430,6 @@ Return JSON ONLY:
         except Exception:
             pass
 
-    # Instant Fallback matching exact language
     cond = identify_condition(transcript)
     cat_data = FALLBACKS.get(cond, FALLBACKS["general_medical"])
     reply, steps = cat_data.get(lang_code, cat_data.get("en_IN", list(cat_data.values())[0]))
@@ -494,7 +479,7 @@ def fast_tts(text: str, lang_code: str):
     return None
 
 # ---------------------------------------------------------------------------
-# UI Components & High Contrast Colors
+# High-Contrast UI HTML Renderers
 # ---------------------------------------------------------------------------
 def header_html(t):
     return f"""
@@ -685,25 +670,23 @@ def set_app_ui_language(lang_code: str):
     )
 
 # ---------------------------------------------------------------------------
-# Strict CSS for 100% Font Visibility in Light & Dark Mode
+# CSS Overhaul (High Contrast, Solid Backgrounds, Absolute Readability)
 # ---------------------------------------------------------------------------
 CSS = """
 :root, body, .gradio-container {
-    --bg-main: #F8FAFC;
+    --bg-main: #F4F6F9;
     --card-bg: #FFFFFF;
-    --card-border: #E2E8F0;
+    --card-border: #CBD5E1;
     --text-primary: #0F172A;
-    --text-secondary: #334155;
     --topbar-bg: #FFFFFF;
 }
 
 body.dark-mode, .dark-mode .gradio-container {
-    --bg-main: #09090B !important;
-    --card-bg: #18181B !important;
-    --card-border: #27272A !important;
-    --text-primary: #FAFAFA !important;
-    --text-secondary: #E4E4E7 !important;
-    --topbar-bg: #18181B !important;
+    --bg-main: #111827 !important;
+    --card-bg: #1F2937 !important;
+    --card-border: #374151 !important;
+    --text-primary: #FFFFFF !important;
+    --topbar-bg: #1F2937 !important;
 }
 
 body, .gradio-container {
@@ -752,7 +735,7 @@ footer { display: none !important; }
     padding: 10px 14px;
     background: var(--topbar-bg) !important;
     border-radius: 16px;
-    border: 1px solid var(--card-border);
+    border: 1.5px solid var(--card-border);
     margin-bottom: 8px;
 }
 .brand-name { font-size: 22px; font-weight: 800; color: #2563EB !important; }
@@ -779,8 +762,8 @@ footer { display: none !important; }
 }
 
 .gear-icon-btn {
-    background: #FFFFFF !important;
-    border: 1.5px solid #000000 !important;
+    background: #F1F5F9 !important;
+    border: 1.5px solid #64748B !important;
     padding: 6px;
     border-radius: 50%;
     cursor: pointer;
@@ -802,7 +785,7 @@ footer { display: none !important; }
     border-radius: 20px;
     padding: 18px 16px;
     text-align: center;
-    border: 1px solid var(--card-border);
+    border: 1.5px solid var(--card-border);
     margin-bottom: 8px;
 }
 .hero-title {
@@ -851,8 +834,8 @@ footer { display: none !important; }
 
 .lang-pill-wrap { margin-top: 10px; display: flex; justify-content: center; }
 .autonomous-detect-badge {
-    background: #F1F5F9 !important;
-    border: 1.5px solid #94A3B8 !important;
+    background: #E2E8F0 !important;
+    border: 1.5px solid #64748B !important;
     padding: 6px 14px !important;
     border-radius: 999px !important;
     font-size: 12px !important;
@@ -860,14 +843,14 @@ footer { display: none !important; }
     color: #0F172A !important;
 }
 .dark-mode .autonomous-detect-badge {
-    background: #27272A !important;
-    border-color: #52525B !important;
-    color: #FAFAFA !important;
+    background: #374151 !important;
+    border-color: #6B7280 !important;
+    color: #F9FAFB !important;
 }
 
 .shield-banner {
-    background: rgba(22, 163, 74, 0.12) !important;
-    border: 1px solid rgba(22, 163, 74, 0.3) !important;
+    background: rgba(22, 163, 74, 0.15) !important;
+    border: 1.5px solid rgba(22, 163, 74, 0.4) !important;
     border-radius: 10px;
     padding: 8px 12px;
     margin-top: 12px;
@@ -875,9 +858,9 @@ footer { display: none !important; }
 .shield-text {
     font-size: 12px !important;
     font-weight: 800 !important;
-    color: #15803D !important;
+    color: #166534 !important;
 }
-.dark-mode .shield-text { color: #4ADE80 !important; }
+.dark-mode .shield-text { color: #86EFAC !important; }
 
 /* Text Submission Input */
 .quick-text-row {
@@ -887,13 +870,13 @@ footer { display: none !important; }
     display: flex !important;
     gap: 6px !important;
     margin-bottom: 8px !important;
-    border: 1px solid var(--card-border) !important;
+    border: 1.5px solid var(--card-border) !important;
 }
 .quick-text-row textarea,
 .quick-text-row input {
     background: #FFFFFF !important;
     color: #0F172A !important;
-    border: 1.5px solid #CBD5E1 !important;
+    border: 1.5px solid #94A3B8 !important;
     border-radius: 10px !important;
     padding: 8px 12px !important;
     font-size: 13px !important;
@@ -901,12 +884,13 @@ footer { display: none !important; }
 }
 .dark-mode .quick-text-row textarea,
 .dark-mode .quick-text-row input {
-    background: #27272A !important;
-    color: #FAFAFA !important;
-    border-color: #52525B !important;
+    background: #111827 !important;
+    color: #F9FAFB !important;
+    border-color: #6B7280 !important;
 }
 .send-text-btn { background: #2563EB !important; color: #FFFFFF !important; font-weight: 800 !important; border-radius: 10px !important; }
-.clear-text-btn { background: #F1F5F9 !important; color: #0F172A !important; font-weight: 700 !important; border-radius: 10px !important; border: 1px solid #CBD5E1 !important; }
+.clear-text-btn { background: #E2E8F0 !important; color: #0F172A !important; font-weight: 700 !important; border-radius: 10px !important; border: 1.5px solid #94A3B8 !important; }
+.dark-mode .clear-text-btn { background: #374151 !important; color: #F9FAFB !important; border-color: #6B7280 !important; }
 
 /* Directory Grid */
 .directory-section { margin-top: 6px; }
@@ -923,7 +907,7 @@ footer { display: none !important; }
 }
 .directory-card {
     background: var(--card-bg) !important;
-    border: 1px solid var(--card-border) !important;
+    border: 1.5px solid var(--card-border) !important;
     border-radius: 12px;
     padding: 10px;
     display: flex;
@@ -941,27 +925,28 @@ footer { display: none !important; }
     color: #DC2626 !important;
 }
 .call-badge {
-    background: #EFF6FF !important;
-    color: #2563EB !important;
-    border: 1px solid #BFDBFE !important;
+    background: #DBEAFE !important;
+    color: #1D4ED8 !important;
+    border: 1px solid #93C5FD !important;
     padding: 4px 8px;
     border-radius: 8px;
     font-weight: 800;
     font-size: 12px;
 }
 
-/* Result Card & Bubbles */
+/* Result Card & Bubbles (High Contrast Fix) */
 .accident-result-card {
     background: var(--card-bg) !important;
     border-radius: 18px;
-    border: 1px solid #FECACA !important;
+    border: 2px solid #EF4444 !important;
     overflow: hidden;
     margin-bottom: 8px;
 }
 .accident-alert-top { background: #FEE2E2 !important; padding: 12px; text-align: center; }
-.dark-mode .accident-alert-top { background: #450A0A !important; }
-.accident-main-title { font-size: 18px !important; font-weight: 800 !important; color: #DC2626 !important; margin: 0; }
-.accident-sub-note { font-size: 12px !important; font-weight: 700 !important; color: #991B1B !important; margin: 4px 0 0 0; }
+.dark-mode .accident-alert-top { background: #7F1D1D !important; }
+.accident-main-title { font-size: 18px !important; font-weight: 800 !important; color: #B91C1C !important; margin: 0; }
+.dark-mode .accident-main-title { color: #FECACA !important; }
+.accident-sub-note { font-size: 12px !important; font-weight: 700 !important; color: #7F1D1D !important; margin: 4px 0 0 0; }
 .dark-mode .accident-sub-note { color: #FCA5A5 !important; }
 
 .live-trans-surface {
@@ -971,48 +956,62 @@ footer { display: none !important; }
 }
 .live-trans-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
 .live-trans-header { font-weight: 800 !important; color: var(--text-primary) !important; font-size: 13px; }
-.inline-clear-btn { background: #FEE2E2 !important; color: #DC2626 !important; border: 1px solid #FCA5A5 !important; border-radius: 6px; padding: 3px 8px; cursor: pointer; font-weight: 700; }
+.inline-clear-btn { background: #FEE2E2 !important; color: #DC2626 !important; border: 1.5px solid #F87171 !important; border-radius: 6px; padding: 3px 8px; cursor: pointer; font-weight: 700; }
 
 .trans-bubble-blue {
     background: #EFF6FF !important;
-    color: #1E3A8A !important;
-    border: 1px solid #BFDBFE !important;
+    border: 1.5px solid #3B82F6 !important;
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 8px;
-    font-weight: 700;
-    font-size: 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
 }
 .dark-mode .trans-bubble-blue {
     background: #1E293B !important;
-    color: #93C5FD !important;
-    border-color: #3B82F6 !important;
+    border-color: #60A5FA !important;
+}
+.trans-bubble-blue .bubble-txt {
+    color: #1E3A8A !important;
+    font-weight: 800 !important;
+    font-size: 14px !important;
+}
+.dark-mode .trans-bubble-blue .bubble-txt {
+    color: #BFDBFE !important;
 }
 
 .trans-bubble-gray {
-    background: #F8FAFC !important;
-    color: #0F172A !important;
-    border: 1.5px solid #CBD5E1 !important;
+    background: #F1F5F9 !important;
+    border: 1.5px solid #64748B !important;
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 10px;
-    font-weight: 700;
-    font-size: 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
 }
 .dark-mode .trans-bubble-gray {
-    background: #27272A !important;
-    color: #FAFAFA !important;
-    border-color: #3F3F46 !important;
+    background: #374151 !important;
+    border-color: #9CA3AF !important;
+}
+.trans-bubble-gray .bubble-txt {
+    color: #0F172A !important;
+    font-weight: 800 !important;
+    font-size: 14px !important;
+}
+.dark-mode .trans-bubble-gray .bubble-txt {
+    color: #F9FAFB !important;
 }
 
 .detected-lang-pill {
     font-size: 11px;
     font-weight: 800;
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
 .first-aid-section { color: var(--text-primary) !important; }
-.first-aid-title { font-size: 13px !important; font-weight: 800 !important; color: var(--text-primary) !important; margin-bottom: 6px; }
+.first-aid-title { font-size: 14px !important; font-weight: 800 !important; color: var(--text-primary) !important; margin-bottom: 6px; }
 
 .step-list {
     margin: 0 0 12px 0;
@@ -1021,8 +1020,8 @@ footer { display: none !important; }
     color: var(--text-primary) !important;
 }
 .step-item {
-    margin-bottom: 5px;
-    font-weight: 600;
+    margin-bottom: 6px;
+    font-weight: 700 !important;
     color: var(--text-primary) !important;
 }
 
@@ -1041,21 +1040,23 @@ footer { display: none !important; }
 /* Modal */
 .settings-modal-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px);
     display: none; justify-content: center; align-items: center; z-index: 9999;
 }
 .settings-modal-content {
     background: #FFFFFF !important; color: #0F172A !important; padding: 20px;
     border-radius: 18px; width: 90%; max-width: 380px;
+    border: 2px solid #CBD5E1;
 }
-.dark-mode .settings-modal-content { background: #18181B !important; color: #FAFAFA !important; }
+.dark-mode .settings-modal-content { background: #1F2937 !important; color: #FFFFFF !important; border-color: #4B5563; }
 .settings-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-.settings-close-btn { border: none; background: #E2E8F0; border-radius: 50%; width: 28px; height: 28px; cursor: pointer; }
+.settings-close-btn { border: none; background: #E2E8F0; border-radius: 50%; width: 28px; height: 28px; cursor: pointer; font-weight: 800; }
+.dark-mode .settings-close-btn { background: #374151; color: #FFFFFF; }
 .setting-item { margin-bottom: 14px; }
 .setting-item label { font-size: 12px; font-weight: 800; color: #475569; display: block; margin-bottom: 6px; }
-.dark-mode .setting-item label { color: #A1A1AA !important; }
+.dark-mode .setting-item label { color: #D1D5DB !important; }
 .setting-item select { width: 100%; padding: 8px 10px; border-radius: 8px; border: 1.5px solid #CBD5E1; font-weight: 700; color: #0F172A; background: #FFF; }
-.dark-mode .setting-item select { background: #27272A !important; color: #FAFAFA !important; border-color: #3F3F46 !important; }
+.dark-mode .setting-item select { background: #111827 !important; color: #FFFFFF !important; border-color: #4B5563 !important; }
 """
 
 INIT_JS = """() => {
