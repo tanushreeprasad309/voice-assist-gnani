@@ -396,12 +396,12 @@ LOCAL_T = {
         "call_btn": "ਹੁਣੇ {number} 'ਤੇ ਕਾਲ ਕਰੋ",
         "directory_header": "ਐਮਰਜੈਂਸੀ ਸੇਵਾਵਾਂ ਡਾਇਰੈਕਟਰੀ",
         "audio_response": "🔊 ਸਹਾਇਤਾ ਵੌਇਸ ਸੇਧ:",
-        "med_title": "ମେଡିକାଲ୍ ଏବଂ ଏମ୍ବୁଲାନ୍ସ",
+        "med_title": "ਮੈਡੀਕਲ ਅਤੇ ਐਂਬੂਲੈਂਸ",
         "police_title": "ਪੁਲਿਸ ਅਤੇ ਸੁਰੱਖਿਆ",
-        "women_title": "ମਹਿਲਾ ਹੈਲਪਲਾਈਨ",
+        "women_title": "ਮਹਿਲਾ ਹੈਲਪਲਾਈਨ",
         "fire_title": "ਫਾਇਰ ਅਤੇ ਰੈਸਕਿਊ",
         "disaster_title": "ਆਫ਼ਤ ਸਹਾਇਤਾ",
-        "call_txt": "କାଲ୍ କରନ୍ତୁ",
+        "call_txt": "ਕਾਲ ਕਰੋ",
     },
     "or_IN": {
         "brand": "ସହାୟ (Sahaya)",
@@ -687,7 +687,7 @@ FALLBACKS = {
             "ਕੱਟੇ ਹੋਏ ਅੰਗ ਨੂੰ ਹਿਲਾਓ ਨਾ।",
             "ਕੱਸ ਕੇ ਪੱਟੀ ਨਾ ਬੰਨ੍ਹੋ।",
             "ਮਰੀਜ਼ ਨੂੰ ਸ਼ਾਂਤ ਰੱਖੋ।",
-            "ਨੇੜਲੇ ਹਸਪତਾਲ ਜਾਓ।"
+            "ਨੇੜਲੇ ਹਸਪਤਾਲ ਜਾਓ।"
         ]),
     },
     "burns": {
@@ -711,7 +711,7 @@ FALLBACKS = {
         ]),
         "ta_IN": ("தீக்காயம் அவசரம்! உடனே 108 / 101 ஐ அழைக்கவும்.", [
             "தீக்காயத்தை குறைந்தது 20 நிமிடங்கள் ஓடும் குளிர்ந்த நீரின் கீழ் வைக்கவும்.",
-            "ஐஸ், பற்பசை లేదా எண்ணெய் தடவ வேண்டாம்; கொப்புளங்களை உடைக்க வேண்டாம்.",
+            "ஐஸ், பற்பசை அல்லது எண்ணெய் தடவ வேண்டாம்; கொப்புளங்களை உடைக்க வேண்டாம்.",
             "சுத்தமான துணியால் மூடி உடனடியாக மருத்துவமனைக்கு கொண்டு செல்லவும்."
         ]),
         "te_IN": ("కాలిన గాయం అత్యవసర పరిస్థితి! వెంటనే 108 / 101 కి కాల్ చేయండి.", [
@@ -727,7 +727,7 @@ FALLBACKS = {
         "pa_IN": ("ਸੜਨ ਦੀ ਐਮਰਜੈਂਸੀ! ਤੁਰੰਤ 108 / 101 'ਤੇ ਕਾਲ ਕਰੋ।", [
             "ਸਾੜੇ ਵਾਲੀ ਥਾਂ ਨੂੰ ਘੱਟੋ-ਘੱਟ 20 ਮਿੰਟ ਪਾਣੀ ਹੇਠਾਂ ਰੱਖੋ।",
             "ਬਰਫ਼ ਜਾਂ ਤੇਲ ਨਾ ਲਗਾਓ।",
-            "ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਢੱਕ ਕੇ ਹਸପତਾਲ ਜਾਓ।"
+            "ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਢੱਕ ਕੇ ਹਸਪਤਾਲ ਜਾਓ।"
         ]),
     },
     "accident_trauma": {
@@ -1213,7 +1213,7 @@ def timbre_speak(text: str, lang_code: str):
     return None, ""
 
 # ---------------------------------------------------------------------------
-# UI Builders (Warm Background, Compact Layout & High-Contrast Elements)
+# UI Builders (Blue Brand & Mic, Solid Black Gear Icon, Zero-Gap Layout)
 # ---------------------------------------------------------------------------
 def header_html(t):
     return f"""
@@ -1229,7 +1229,7 @@ def header_html(t):
         <span class="conn-text-label" id="connText">{html.escape(t['ready_status'])}</span>
       </div>
       <button type="button" class="gear-icon-btn" onclick="window.openSettingsModal()" title="Settings">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="gear-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="3"></circle>
           <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
         </svg>
@@ -1280,7 +1280,7 @@ def custom_mic_card_html(t):
 
       <div class="shield-banner">
         <div class="shield-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="#16A34A">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#16A34A">
             <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
           </svg>
         </div>
@@ -1365,7 +1365,7 @@ def directory_html(t):
 def run_pipeline(transcript: str, selected: str, audio_lang=None):
     transcript = (transcript or "").strip()
     if not transcript:
-        yield "⚠️ Could not hear audio clearly. Please tap the microphone and speak again.", gr.update(value=None, visible=False), ""
+        yield gr.update(value="⚠️ Could not hear audio clearly. Please tap the microphone and speak again.", visible=True), gr.update(value=None, visible=False), gr.update(value="", visible=False)
         return
 
     hint = selected if selected in LANGUAGES else None
@@ -1374,7 +1374,7 @@ def run_pipeline(transcript: str, selected: str, audio_lang=None):
     fast_service, fast_reply, fast_steps, fast_urgency, _ = get_fallback_response(transcript, reply_lang)
     rt = TRANSLATIONS.get(reply_lang, TRANSLATIONS["en_IN"])
     instant_card = result_card(fast_service, fast_steps, fast_urgency, rt, fast_reply, caller_text=transcript)
-    yield "", gr.update(value=None, visible=False), instant_card
+    yield gr.update(value="", visible=False), gr.update(value=None, visible=False), gr.update(value=instant_card, visible=True)
 
     triage, _ = groq_triage(transcript, reply_lang, confident)
     if triage:
@@ -1383,43 +1383,43 @@ def run_pipeline(transcript: str, selected: str, audio_lang=None):
         reply_text, steps, urgency = triage["reply"], triage["steps"], triage["urgency"]
         rt = TRANSLATIONS.get(reply_lang, TRANSLATIONS["en_IN"])
         final_card = result_card(service, steps, urgency, rt, reply_text, caller_text=transcript)
-        yield "", gr.update(value=None, visible=False), final_card
+        yield gr.update(value="", visible=False), gr.update(value=None, visible=False), gr.update(value=final_card, visible=True)
     else:
         service, reply_text, steps, urgency = fast_service, fast_reply, fast_steps, fast_urgency
         final_card = instant_card
 
     narration = " ".join(f"{i + 1}. {s}" for i, s in enumerate(steps))
     audio_path, tts_note = timbre_speak(f"{reply_text} {narration}", reply_lang)
-    yield tts_note, gr.update(value=audio_path, visible=bool(audio_path)), final_card
+    yield gr.update(value=tts_note, visible=bool(tts_note)), gr.update(value=audio_path, visible=bool(audio_path)), gr.update(value=final_card, visible=True)
 
 def on_b64_audio(b64_data, lang_code):
     if not b64_data or "," not in b64_data:
-        yield "⚠️ Please tap the microphone and speak your emergency.", gr.update(value=None, visible=False), ""
+        yield gr.update(value="⚠️ Please tap the microphone and speak your emergency.", visible=True), gr.update(value=None, visible=False), gr.update(value="", visible=False)
         return
-    yield "⚡ Detecting language & preparing instant first-aid...", gr.update(value=None, visible=False), ""
+    yield gr.update(value="⚡ Detecting language & preparing instant first-aid...", visible=True), gr.update(value=None, visible=False), gr.update(value="", visible=False)
     try:
         raw_bytes = base64.b64decode(b64_data.split(",", 1)[1])
         tmp_path = tempfile.NamedTemporaryFile(suffix=".wav", delete=False).name
         with open(tmp_path, "wb") as f:
             f.write(raw_bytes)
     except Exception as e:
-        yield f"⚠️ Audio decode error: {e}", gr.update(value=None, visible=False), ""
+        yield gr.update(value=f"⚠️ Audio decode error: {e}", visible=True), gr.update(value=None, visible=False), gr.update(value="", visible=False)
         return
 
     transcript, audio_lang, err = listen_fast(tmp_path, lang_code)
     if err or not transcript:
-        yield err or "⚠️ Could not hear clearly. Please speak closer to the microphone or type below.", gr.update(value=None, visible=False), ""
+        yield gr.update(value=err or "⚠️ Could not hear clearly. Please speak closer to the microphone or type below.", visible=True), gr.update(value=None, visible=False), gr.update(value="", visible=False)
         return
     yield from run_pipeline(transcript, lang_code, audio_lang)
 
 def on_text_submit(text_input, lang_code):
     if not text_input or not text_input.strip():
-        yield "⚠️ Please enter or speak your emergency details.", gr.update(value=None, visible=False), ""
+        yield gr.update(value="⚠️ Please enter or speak your emergency details.", visible=True), gr.update(value=None, visible=False), gr.update(value="", visible=False)
         return
     yield from run_pipeline(text_input.strip(), lang_code, None)
 
 def on_clear():
-    return "", "", gr.update(value=None, visible=False), "", ""
+    return "", gr.update(value="", visible=False), gr.update(value=None, visible=False), gr.update(value="", visible=False), ""
 
 def apply_language(lang_code):
     lang_code = (lang_code or AUTO).strip()
@@ -1435,18 +1435,22 @@ def apply_language(lang_code):
     )
 
 # ---------------------------------------------------------------------------
-# CSS: Warm Background, Compact Layout & High-Contrast Elements
+# CSS: Warm Theme, Blue Sahaya Logo & Mic, Black Gear Icon, Zero-Gap Spacing
 # ---------------------------------------------------------------------------
 CSS = """
+@import url('[https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&display=swap](https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&display=swap)');
+
 :root, body, .gradio-container {
     --bg-main: linear-gradient(135deg, #FDF8F2 0%, #F5EBE0 50%, #EBE1D2 100%);
-    --card-bg: rgba(255, 255, 255, 0.95);
-    --card-border: rgba(245, 235, 224, 0.9);
-    --text-color: #1C1917;
-    --subtext-color: #57534E;
-    --input-bg: #FAFAF9;
-    --input-border: #D7D3CD;
-    --topbar-bg: rgba(255, 255, 255, 0.9);
+    --card-bg: rgba(255, 255, 255, 0.96);
+    --card-border: rgba(231, 222, 210, 0.95);
+    --text-color: #0F172A;
+    --subtext-color: #475569;
+    --input-bg: #FFFFFF;
+    --input-border: #CBD5E1;
+    --topbar-bg: rgba(255, 255, 255, 0.95);
+    --block-padding: 0px !important;
+    --layout-gap: 4px !important;
     color-scheme: light !important;
 }
 
@@ -1458,7 +1462,7 @@ body.dark-mode, .dark-mode .gradio-container, .dark-mode {
     --subtext-color: #A8A29E !important;
     --input-bg: #292524 !important;
     --input-border: #57534E !important;
-    --topbar-bg: rgba(28, 25, 23, 0.9) !important;
+    --topbar-bg: rgba(28, 25, 23, 0.92) !important;
     color-scheme: dark !important;
 }
 
@@ -1468,43 +1472,60 @@ body, .gradio-container {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", sans-serif !important;
     max-width: 500px !important;
     margin: 0 auto !important;
-    padding: 6px 10px 20px 10px !important;
+    padding: 4px 10px 14px 10px !important;
     transition: background 0.3s ease, color 0.3s ease;
 }
 
 footer { display: none !important; }
+
+/* Eliminate Gradio's default large vertical gaps between blocks */
+.gradio-container .contain,
+.gradio-container .column,
+.gradio-container .gr-column,
+.gradio-container > .main > .wrap > .contain {
+    gap: 4px !important;
+}
+
 .gradio-container .block,
 .gradio-container .gr-box,
 .gradio-container .gr-panel,
-.gradio-container .form {
+.gradio-container .form,
+.gradio-container .styler {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
     padding: 0 !important;
     margin: 0 !important;
+    min-height: 0 !important;
+}
+
+.gradio-container .block:empty,
+.gradio-container .html-container:empty,
+.gradio-container .prose:empty {
+    display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .js-bridge-hidden {
-    position: fixed !important;
-    left: -9999px !important;
-    top: -9999px !important;
-    width: 1px !important;
-    height: 1px !important;
-    opacity: 0 !important;
-    overflow: hidden !important;
+    display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .app-top-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 14px;
+    padding: 8px 14px;
     background: var(--topbar-bg);
     backdrop-filter: blur(12px);
-    border-radius: 18px;
+    border-radius: 16px;
     border: 1px solid var(--card-border);
-    box-shadow: 0 4px 16px rgba(28, 25, 23, 0.05);
-    margin-bottom: 8px;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.05);
+    margin-bottom: 4px;
 }
 .brand-left {
     display: flex;
@@ -1520,7 +1541,7 @@ footer { display: none !important; }
 }
 .brand-wave-icon span {
     width: 3.5px;
-    background: linear-gradient(180deg, #D97706 0%, #B45309 100%);
+    background: linear-gradient(180deg, #1D4ED8 0%, #2563EB 50%, #0EA5E9 100%);
     border-radius: 99px;
     display: inline-block;
     transform-origin: center bottom;
@@ -1533,25 +1554,21 @@ footer { display: none !important; }
 .brand-wave-icon span:nth-child(5) { height: 10px; animation-delay: 0.22s; }
 
 @keyframes sahayaWaveBounce {
-    0% { transform: scaleY(0.35) translateY(2px); opacity: 0.75; }
+    0% { transform: scaleY(0.35) translateY(2px); opacity: 0.8; }
     50% { transform: scaleY(1.22) translateY(-2px); opacity: 1; }
     100% { transform: scaleY(0.55) translateY(0px); opacity: 0.9; }
 }
 
+/* Updated Sahaya Font Style & Blue Color */
 .brand-name {
-    font-size: 20px;
+    font-family: 'Poppins', 'Montserrat', 'Trebuchet MS', 'Segoe UI', sans-serif !important;
+    font-size: 22px;
     font-weight: 800;
-    letter-spacing: -0.3px;
-    background: linear-gradient(90deg, #D97706 0%, #B45309 50%, #D97706 100%);
-    background-size: 200% auto;
+    letter-spacing: 0.4px;
+    color: #1D4ED8 !important;
+    background: linear-gradient(90deg, #1E40AF 0%, #2563EB 50%, #0284C7 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: fontShimmer 4.5s linear infinite;
-}
-
-@keyframes fontShimmer {
-    0% { background-position: 0% center; }
-    100% { background-position: 200% center; }
 }
 
 /* High-Contrast Ready Status Pill */
@@ -1589,30 +1606,44 @@ body.dark-mode .connected-pill {
     50% { transform: scale(1.3); opacity: 0.65; }
 }
 
-/* High-Contrast Gear Settings Icon */
+/* Solid Black Gear Settings Icon */
 .gear-icon-btn {
     background: #FFFFFF !important;
-    border: 1px solid #78716C !important;
+    border: 1.8px solid #000000 !important;
     cursor: pointer;
     padding: 7px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #1C1917 !important;
-    box-shadow: 0 2px 8px rgba(28, 25, 23, 0.12);
+    color: #000000 !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.14);
     transition: background 0.2s, transform 0.3s;
+}
+.gear-icon-btn svg,
+.gear-icon-btn svg circle,
+.gear-icon-btn svg path {
+    stroke: #000000 !important;
 }
 body.dark-mode .gear-icon-btn {
     background: #292524 !important;
-    border-color: #78716C !important;
+    border-color: #F5F5F4 !important;
     color: #F5F5F4 !important;
 }
+body.dark-mode .gear-icon-btn svg,
+body.dark-mode .gear-icon-btn svg circle,
+body.dark-mode .gear-icon-btn svg path {
+    stroke: #F5F5F4 !important;
+}
 .gear-icon-btn:hover {
-    background: #D97706 !important;
-    color: #FFFFFF !important;
-    border-color: #D97706 !important;
+    background: #2563EB !important;
+    border-color: #2563EB !important;
     transform: rotate(35deg);
+}
+.gear-icon-btn:hover svg,
+.gear-icon-btn:hover svg circle,
+.gear-icon-btn:hover svg path {
+    stroke: #FFFFFF !important;
 }
 
 .sos-panic-btn {
@@ -1623,9 +1654,9 @@ body.dark-mode .gear-icon-btn {
     font-weight: 800 !important;
     border: none !important;
     border-radius: 14px !important;
-    padding: 12px 14px !important;
-    box-shadow: 0 6px 16px rgba(220, 38, 38, 0.28) !important;
-    margin: 4px 0 10px 0 !important;
+    padding: 10px 14px !important;
+    box-shadow: 0 5px 14px rgba(220, 38, 38, 0.26) !important;
+    margin: 2px 0 6px 0 !important;
     cursor: pointer !important;
     letter-spacing: 0.3px;
 }
@@ -1633,47 +1664,27 @@ body.dark-mode .gear-icon-btn {
 .assistant-hero-card {
     background: var(--card-bg);
     backdrop-filter: blur(14px);
-    border-radius: 24px;
-    padding: 20px 18px 18px 18px;
+    border-radius: 22px;
+    padding: 16px 16px 14px 16px;
     text-align: center;
-    box-shadow: 0 10px 24px rgba(28, 25, 23, 0.05);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
     border: 1px solid var(--card-border);
-    margin-bottom: 10px;
+    margin-bottom: 6px;
 }
 
 .hero-title {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 800;
     color: var(--text-color);
-    margin: 0 0 4px 0;
-    letter-spacing: -0.5px;
-    animation: heroTitleFloat 3.6s ease-in-out infinite;
-}
-
-@keyframes heroTitleFloat {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-2.5px); }
+    margin: 0 0 2px 0;
+    letter-spacing: -0.4px;
 }
 
 .hero-subtitle {
-    font-size: 14.5px;
+    font-size: 14px;
     font-weight: 600;
-    margin: 0 0 16px 0;
-    background: linear-gradient(90deg, #78716C 0%, #D97706 50%, #0D9488 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: taglineGlow 3.2s ease-in-out infinite alternate;
-}
-body.dark-mode .hero-subtitle {
-    background: linear-gradient(90deg, #A8A29E 0%, #FBBF24 50%, #2DD4BF 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-@keyframes taglineGlow {
-    0% { background-position: 0% center; opacity: 0.88; }
-    100% { background-position: 100% center; opacity: 1; }
+    margin: 0 0 12px 0;
+    color: #2563EB !important;
 }
 
 .mic-stage {
@@ -1681,40 +1692,41 @@ body.dark-mode .hero-subtitle {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 150px;
+    min-height: 136px;
 }
 .mic-ring-outer {
-    width: 150px;
-    height: 150px;
+    width: 136px;
+    height: 136px;
     border-radius: 50%;
-    background: rgba(217, 119, 6, 0.07);
+    background: rgba(37, 99, 235, 0.09);
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
 }
 .mic-ring-inner {
-    width: 114px;
-    height: 114px;
+    width: 104px;
+    height: 104px;
     border-radius: 50%;
-    background: rgba(217, 119, 6, 0.13);
+    background: rgba(37, 99, 235, 0.16);
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
 }
+/* Blue Microphone Button */
 .blue-mic-btn {
-    width: 78px;
-    height: 78px;
+    width: 74px;
+    height: 74px;
     border-radius: 50%;
-    background: #D97706;
+    background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%) !important;
     border: none;
     color: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(217, 119, 6, 0.38);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.38);
     transition: transform 0.18s ease, background 0.2s ease;
 }
 .blue-mic-btn:hover {
@@ -1743,12 +1755,12 @@ body.dark-mode .hero-subtitle {
     align-items: center;
     justify-content: center;
     gap: 5px;
-    height: 44px;
-    margin-top: 12px;
+    height: 38px;
+    margin-top: 8px;
 }
 .listening-waves span {
     width: 4px;
-    background: #0D9488;
+    background: #2563EB;
     border-radius: 99px;
     animation: tealWave 0.75s ease-in-out infinite alternate;
 }
@@ -1756,11 +1768,11 @@ body.dark-mode .hero-subtitle {
 .listening-waves span:nth-child(2) { height: 20px; animation-delay: 0.15s; }
 .listening-waves span:nth-child(3) { height: 32px; animation-delay: 0.25s; }
 .listening-waves span:nth-child(4) { height: 22px; animation-delay: 0.10s; }
-.listening-waves span:nth-child(5) { height: 40px; animation-delay: 0.35s; }
-.listening-waves span:nth-child(6) { height: 44px; animation-delay: 0.20s; }
-.listening-waves span:nth-child(7) { height: 36px; animation-delay: 0.30s; }
+.listening-waves span:nth-child(5) { height: 36px; animation-delay: 0.35s; }
+.listening-waves span:nth-child(6) { height: 38px; animation-delay: 0.20s; }
+.listening-waves span:nth-child(7) { height: 32px; animation-delay: 0.30s; }
 .listening-waves span:nth-child(8) { height: 24px; animation-delay: 0.12s; }
-.listening-waves span:nth-child(9) { height: 30px; animation-delay: 0.22s; }
+.listening-waves span:nth-child(9) { height: 28px; animation-delay: 0.22s; }
 .listening-waves span:nth-child(10) { height: 18px; animation-delay: 0.18s; }
 .listening-waves span:nth-child(11) { height: 10px; animation-delay: 0.08s; }
 
@@ -1770,53 +1782,56 @@ body.dark-mode .hero-subtitle {
 }
 
 .mic-prompt-main {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--text-color);
-    margin-top: 10px;
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #000000 !important;
+    margin-top: 8px;
+}
+body.dark-mode .mic-prompt-main {
+    color: #FFFFFF !important;
 }
 .mic-prompt-sub {
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--subtext-color);
     margin-top: 2px;
 }
 
 .lang-pill-wrap {
-    margin-top: 10px;
+    margin-top: 8px;
 }
 .lang-pill-btn {
     background: #FFFFFF !important;
-    border: 1px solid #78716C !important;
+    border: 1.5px solid #475569 !important;
     border-radius: 999px;
-    padding: 6px 16px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #1C1917 !important;
+    padding: 5px 15px;
+    font-size: 12.5px;
+    font-weight: 800;
+    color: #000000 !important;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(28, 25, 23, 0.08);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
 }
 body.dark-mode .lang-pill-btn {
     background: #292524 !important;
-    border-color: #78716C !important;
-    color: #F5F5F4 !important;
+    border-color: #94A3B8 !important;
+    color: #FFFFFF !important;
 }
 .lang-pill-btn:hover {
-    border-color: #D97706 !important;
-    color: #D97706 !important;
+    border-color: #2563EB !important;
+    color: #2563EB !important;
 }
 
 .shield-banner {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     background: rgba(22, 163, 74, 0.1);
-    border-radius: 14px;
-    padding: 10px 14px;
-    margin-top: 14px;
+    border-radius: 12px;
+    padding: 8px 12px;
+    margin-top: 10px;
     text-align: left;
-    border: 1px solid rgba(22, 163, 74, 0.2);
+    border: 1px solid rgba(22, 163, 74, 0.22);
 }
 .shield-icon {
     display: flex;
@@ -1825,19 +1840,20 @@ body.dark-mode .lang-pill-btn {
     flex-shrink: 0;
 }
 .shield-text {
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 600;
     color: var(--text-color);
-    line-height: 1.35;
+    line-height: 1.3;
 }
 
+/* Compact Typing Section with Minimal Bottom Margin */
 .quick-text-row {
     background: var(--card-bg) !important;
     border-radius: 14px !important;
-    padding: 4px 8px !important;
+    padding: 6px 8px !important;
     border: 1px solid var(--card-border) !important;
-    box-shadow: 0 4px 14px rgba(28, 25, 23, 0.04) !important;
-    margin-bottom: 10px !important;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04) !important;
+    margin: 0 0 4px 0 !important;
     display: flex !important;
     align-items: center !important;
     gap: 6px !important;
@@ -1848,14 +1864,15 @@ body.dark-mode .lang-pill-btn {
     border: none !important;
     box-shadow: none !important;
     font-size: 13.5px !important;
+    padding: 4px 6px !important;
 }
 .send-text-btn {
-    background: #D97706 !important;
+    background: #2563EB !important;
     color: #FFFFFF !important;
     border-radius: 10px !important;
     font-weight: 700 !important;
     font-size: 12.5px !important;
-    padding: 7px 10px !important;
+    padding: 8px 12px !important;
     border: none !important;
     cursor: pointer !important;
 }
@@ -1866,7 +1883,7 @@ body.dark-mode .lang-pill-btn {
     border-radius: 10px !important;
     font-weight: 700 !important;
     font-size: 12.5px !important;
-    padding: 7px 10px !important;
+    padding: 8px 10px !important;
     cursor: pointer !important;
 }
 .clear-text-btn:hover {
@@ -1875,59 +1892,59 @@ body.dark-mode .lang-pill-btn {
 }
 
 .accident-result-card {
-    border-radius: 22px;
+    border-radius: 20px;
     overflow: hidden;
     background: var(--card-bg);
-    box-shadow: 0 10px 24px rgba(28, 25, 23, 0.07);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
     border: 1px solid #FECACA;
-    margin: 10px 0;
+    margin: 4px 0;
 }
 .accident-alert-top {
-    background: radial-gradient(circle at center, rgba(254, 226, 226, 0.8) 0%, rgba(254, 242, 242, 0.9) 100%);
-    padding: 20px 16px 14px 16px;
+    background: radial-gradient(circle at center, rgba(254, 226, 226, 0.85) 0%, rgba(254, 242, 242, 0.92) 100%);
+    padding: 16px 14px 12px 14px;
     text-align: center;
 }
 .alert-triangle-wrap {
-    width: 54px;
-    height: 54px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     background: rgba(220, 38, 38, 0.1);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 .alert-triangle-icon {
-    font-size: 28px;
+    font-size: 24px;
 }
 .accident-main-title {
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 800;
     color: #DC2626 !important;
     margin: 0;
 }
 .accident-sub-note {
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--subtext-color);
-    margin: 3px 0 0 0;
+    margin: 2px 0 0 0;
 }
 
 .live-trans-surface {
     background: var(--card-bg);
-    padding: 16px;
+    padding: 14px;
 }
 .live-trans-header-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 .live-trans-header {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 800;
     color: var(--text-color);
 }
@@ -1941,9 +1958,6 @@ body.dark-mode .lang-pill-btn {
     font-weight: 700;
     cursor: pointer;
 }
-.inline-clear-btn:hover {
-    background: rgba(220, 38, 38, 0.2);
-}
 .trans-symbol {
     font-weight: 900;
     color: var(--subtext-color);
@@ -1952,10 +1966,10 @@ body.dark-mode .lang-pill-btn {
     display: flex;
     align-items: flex-start;
     gap: 8px;
-    background: rgba(217, 119, 6, 0.1);
-    border-radius: 14px;
-    padding: 12px 14px;
-    margin-bottom: 8px;
+    background: rgba(37, 99, 235, 0.1);
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-bottom: 6px;
 }
 .trans-bubble-gray {
     display: flex;
@@ -1963,16 +1977,16 @@ body.dark-mode .lang-pill-btn {
     gap: 8px;
     background: var(--input-bg);
     border: 1px solid var(--input-border);
-    border-radius: 14px;
-    padding: 12px 14px;
-    margin-bottom: 12px;
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
 }
 .bubble-vol {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.4;
 }
 .bubble-txt {
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 700;
     color: var(--text-color);
     line-height: 1.4;
@@ -1980,24 +1994,24 @@ body.dark-mode .lang-pill-btn {
 
 .first-aid-section {
     border-top: 1px solid var(--input-border);
-    padding-top: 12px;
+    padding-top: 10px;
 }
 .first-aid-title {
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 800;
     color: var(--text-color);
-    margin-bottom: 6px;
+    margin-bottom: 5px;
 }
 .step-list {
-    margin: 0 0 12px 0 !important;
+    margin: 0 0 10px 0 !important;
     padding-left: 18px !important;
 }
 .step-list li {
     color: var(--text-color) !important;
-    font-size: 13.5px !important;
+    font-size: 13px !important;
     font-weight: 600 !important;
-    line-height: 1.55 !important;
-    margin-bottom: 5px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 4px !important;
 }
 .dial-now-btn {
     display: flex;
@@ -2006,36 +2020,38 @@ body.dark-mode .lang-pill-btn {
     background: #16A34A;
     color: #FFFFFF !important;
     text-decoration: none !important;
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 800;
-    padding: 12px 16px;
+    padding: 11px 14px;
     border-radius: 12px;
-    box-shadow: 0 5px 14px rgba(22, 163, 74, 0.25);
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
 }
 
+/* Tight Directory Spacing Directly Under Typing Box */
 .directory-section {
-    margin-top: 14px;
+    margin-top: 2px !important;
+    padding-top: 0 !important;
 }
 .directory-heading {
     color: var(--text-color);
     font-size: 14px;
-    margin-bottom: 8px;
+    margin: 2px 0 6px 0 !important;
     font-weight: 800;
 }
 .directory-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    gap: 6px;
 }
 .directory-card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 12px;
-    padding: 10px 12px;
+    padding: 8px 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 3px 10px rgba(28, 25, 23, 0.04);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
 }
 .directory-info {
     display: flex;
@@ -2043,7 +2059,7 @@ body.dark-mode .lang-pill-btn {
     gap: 8px;
 }
 .directory-icon {
-    font-size: 20px;
+    font-size: 19px;
 }
 .directory-name {
     font-weight: 700;
@@ -2059,7 +2075,7 @@ body.dark-mode .lang-pill-btn {
 }
 .call-badge {
     background: var(--input-bg);
-    color: #D97706 !important;
+    color: #2563EB !important;
     font-weight: 700;
     font-size: 11.5px;
     padding: 4px 8px;
@@ -2071,7 +2087,7 @@ body.dark-mode .lang-pill-btn {
 .settings-modal-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(28, 25, 23, 0.55);
+    background: rgba(15, 23, 42, 0.55);
     backdrop-filter: blur(4px);
     display: none;
     justify-content: center;
@@ -2081,11 +2097,11 @@ body.dark-mode .lang-pill-btn {
 .settings-modal-content {
     background: var(--card-bg);
     color: var(--text-color);
-    padding: 22px;
+    padding: 20px;
     border-radius: 20px;
     width: 92%;
     max-width: 380px;
-    box-shadow: 0 20px 40px rgba(28, 25, 23, 0.28);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.28);
     border: 1px solid var(--card-border);
 }
 .settings-modal-header {
@@ -2483,13 +2499,7 @@ with gr.Blocks(title="Sahaya Emergency") as demo:
         send_btn = gr.Button(t0["send_btn"], elem_classes=["send-text-btn"], scale=2)
         clear_btn = gr.Button(t0["clear_btn"], elem_id="visible-clear-btn", elem_classes=["clear-text-btn"], scale=1)
 
-    with gr.Row(elem_classes=["js-bridge-hidden"]):
-        lang_state = gr.Textbox(value=AUTO, elem_id="hidden-lang-box")
-        lang_btn = gr.Button("ApplyLang", elem_id="hidden-lang-submit-btn")
-        b64_audio_in = gr.Textbox(value="", elem_id="hidden-b64-audio")
-        b64_audio_btn = gr.Button("SubmitAudio", elem_id="hidden-audio-submit-btn")
-
-    status = gr.Markdown("")
+    status = gr.Markdown("", visible=False)
     reply_audio = gr.Audio(
         label="🔊 Sahaya Voice Guidance",
         type="filepath",
@@ -2497,9 +2507,15 @@ with gr.Blocks(title="Sahaya Emergency") as demo:
         interactive=False,
         visible=False,
     )
-    card_out = gr.HTML("")
+    card_out = gr.HTML("", visible=False)
 
     dir_html = gr.HTML(directory_html(t0))
+
+    with gr.Row(elem_classes=["js-bridge-hidden"]):
+        lang_state = gr.Textbox(value=AUTO, elem_id="hidden-lang-box")
+        lang_btn = gr.Button("ApplyLang", elem_id="hidden-lang-submit-btn")
+        b64_audio_in = gr.Textbox(value="", elem_id="hidden-b64-audio")
+        b64_audio_btn = gr.Button("SubmitAudio", elem_id="hidden-audio-submit-btn")
 
     b64_audio_btn.click(
         on_b64_audio,
