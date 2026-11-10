@@ -396,7 +396,7 @@ LOCAL_T = {
         "call_btn": "ਹੁਣੇ {number} 'ਤੇ ਕਾਲ ਕਰੋ",
         "directory_header": "ਐਮਰਜੈਂਸੀ ਸੇਵਾਵਾਂ ਡਾਇਰੈਕਟਰੀ",
         "audio_response": "🔊 ਸਹਾਇਤਾ ਵੌਇਸ ਸੇਧ:",
-        "med_title": "ਮੈਡੀਕਲ ਅਤੇ ਐਂਬੂਲੈਂਸ",
+        "med_title": "ମେଡିକାଲ୍ ଏବଂ ଏମ୍ବୁଲାନ୍ସ",
         "police_title": "ਪੁਲਿਸ ਅਤੇ ਸੁਰੱਖਿਆ",
         "women_title": "ਮਹਿਲਾ ਹੈਲਪਲਾਈਨ",
         "fire_title": "ਫਾਇਰ ਅਤੇ ਰੈਸਕਿਊ",
@@ -493,7 +493,7 @@ CONDITION_RULES = [
     ("snakebite", {"snake", "snakes", "snakebite", "bitten", "bite", "haavu", "havu", "haavina", "kachide", "saanp", "saap", "sanp", "paambu", "pambu", "paamu", "pamu", "paampu", "sap"}, ["ಹಾವು", "ಹಾವಿನ", "साँप", "सांप", "साप", "பாம்பு", "పాము", "പാമ്പ്", "সাপ", "સાપ", "ਸੱਪ", "ସାପ"]),
     ("burns", {"fire", "burn", "burns", "burnt", "burning", "scald", "scalded", "cylinder", "blast", "boiling", "benki", "aag", "thee", "neruppu", "mantalu", "agun", "aagun", "hot water"}, ["ಬೆಂಕಿ", "ಸುಟ್ಟ", "आग", "जला", "जल गया", "झुलस", "தீக்காய", "தீப்பிடி", "நெருப்பு", "మంట", "నిప్పు", "തീപിടി", "പൊള്ള", "আগুন", "পুড়ে", "পোড়া", "આગ", "દાઝ", "ਅੱਗ", "ਸੜ", "ନିଆଁ", "ପୋଡ଼"]),
     ("cardiac", {"chest", "heart", "breathe", "breathing", "breath", "cardiac", "stroke", "attack", "ede", "edeno", "edenovu", "usiru", "husiru", "usiradalu", "gundige", "seene", "seena", "chhati", "chati", "saans", "sans", "nenju", "moochu", "swasam", "gunde", "swasa", "buker", "shwas", "shwasa", "saah", "dil", "dhadkan"}, ["ಎದೆ", "ಉಸಿರ", "ಹೃದಯ", "सीने", "छाती", "सांस", "साँस", "दिल", "हृदय", "श्वास", "நெஞ்சு", "மூச்சு", "இதய", "గుండె", "ఛాతీ", "శ్వాస", "ఊపిరి", "നെഞ്ച", "ശ്വാസ", "ഹൃദയ", "বুক", "শ্বাস", "হৃদ", "છાતી", "શ્વાસ", "હૃદય", "ਛਾਤੀ", "ਸਾਹ", "ਦਿਲ", "ଛାତି", "ଶ୍ୱାସ", "ହୃଦ", "ꯊꯃꯣꯏ"]),
-    ("collapse_fall", {"collapse", "collapsed", "construction", "fell", "fall", "falling", "height", "debris", "trapped", "rubble", "building", "kattada", "bidda", "biddare", "bidde", "imarat", "imaarat", "gir", "gira", "giri", "katidom", "keezhe", "veenu", "padla", "padli", "bhukamp", "earthquake", "flood", "landslide"}, ["ಕಟ್ಟಡ", "ಕುಸಿ", "ಬಿದ್ದ", "ಬೀಳ", "ಎತ್ತರ", "इमारत", "ढह", "गिर", "भूकंप", "बाढ़", "கட்டிட", "விழு", "கீழே", "நிலநடுக்க", "భవనం", "కూలి", "పడ్డ", "పడి", "భూకంప", "കെട്ടിടം", "തകർ", "വീണ", "ഭൂചലന", "দালান", "ভবন", "ধস", "পড়ে গ", "ভূমিকম্প", "ઇમારત", "મકાન", "પડ", "ભૂકંપ", "ਇਮାରਤ", "ਡਿੱ", "ਭੂਚਾਲ", "କୋଠା", "ଭୁଶୁଡ଼", "ପଡ଼"]),
+    ("collapse_fall", {"collapse", "collapsed", "construction", "fell", "fall", "falling", "height", "debris", "trapped", "rubble", "building", "kattada", "bidda", "biddare", "bidde", "imarat", "imaarat", "gir", "gira", "giri", "katidom", "keezhe", "veenu", "padla", "padli", "bhukamp", "earthquake", "flood", "landslide"}, ["ಕಟ್ಟಡ", "ಕುಸಿ", "ಬಿದ್ದ", "ಬೀಳ", "ಎತ್ತರ", "इमारत", "ढह", "गिर", "भूकंप", "बाढ़", "கட்டிட", "விழு", "கீழே", "நிலநடுக்க", "భవనం", "కూలి", "పడ్డ", "పడి", "భూకంప", "കെട്ടിടം", "തകർ", "വീണ", "ഭൂചലന", "দালান", "ভবন", "ধস", "পড়ে গ", "ভূমিকম্প", "ઇમાରત", "મકાન", "પડ", "ભૂકંપ", "ਇମାରਤ", "ਡਿੱ", "ਭୂଚାଳ", "କୋଠା", "ଭୁଶୁଡ଼", "ପଡ଼"]),
     ("accident_trauma", {"accident", "crash", "bike", "car", "hit", "bleeding", "bleed", "blood", "fracture", "broke", "broken", "wound", "injury", "injured", "run over", "apaghata", "apaghaata", "gaaya", "rakta", "haadsa", "hadsa", "khoon", "vibathu", "pramadam", "raktham", "roktho", "lohi"}, ["ಅಪಘಾತ", "ರಕ್ತ", "ಗಾಯ", "ಮುರಿ", "दुर्घटना", "हादसा", "खून", "चोट", "घाव", "फ्रैक्चर", "விபத்து", "ரத்த", "இரத்த", "காயம்", "எலும்பு", "ప్రమాదం", "రక్త", "గాయం", "విరిగ", "അപകടം", "രക്ത", "മുറിവ്", "দুর্ঘটনা", "রক্ত", "আঘাত", "ক্ষত", "અકસ્માત", "લોહી", "ઈજા", "ਹਾਦਸਾ", "ਖੂਨ", "ਸੱਟ", "ਜ਼ਖ਼ମ", "ଦୁର୍ଘଟଣା", "ରକ୍ତ", "ଆଘାତ"]),
 ]
 
@@ -727,7 +727,7 @@ FALLBACKS = {
         "pa_IN": ("ਸੜਨ ਦੀ ਐਮਰਜੈਂਸੀ! ਤੁਰੰਤ 108 / 101 'ਤੇ ਕਾਲ ਕਰੋ।", [
             "ਸਾੜੇ ਵਾਲੀ ਥਾਂ ਨੂੰ ਘੱਟੋ-ਘੱਟ 20 ਮਿੰਟ ਪਾਣੀ ਹੇਠਾਂ ਰੱਖੋ।",
             "ਬਰਫ਼ ਜਾਂ ਤੇਲ ਨਾ ਲਗਾਓ।",
-            "ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਢੱਕ ਕੇ ਹਸਪତਾਲ ਜਾਓ।"
+            "ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਢੱਕ ਕੇ ਹਸପତਾਲ ਜਾਓ।"
         ]),
     },
     "accident_trauma": {
@@ -1213,7 +1213,7 @@ def timbre_speak(text: str, lang_code: str):
     return None, ""
 
 # ---------------------------------------------------------------------------
-# UI Builders (Fully Localized + High-Contrast Elements for Light & Dark Themes)
+# UI Builders (Compact Layout & High-Contrast Elements for Light & Dark Themes)
 # ---------------------------------------------------------------------------
 def header_html(t):
     return f"""
@@ -1435,7 +1435,7 @@ def apply_language(lang_code):
     )
 
 # ---------------------------------------------------------------------------
-# CSS: High-Contrast Light & Dark Themes (Fixing Gear Icon & Language Button Text)
+# CSS: High-Contrast Light & Dark Themes (Compact Layout & Fixed Icon/Text Visibility)
 # ---------------------------------------------------------------------------
 CSS = """
 :root, body, .gradio-container {
@@ -1468,7 +1468,7 @@ body, .gradio-container {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", sans-serif !important;
     max-width: 500px !important;
     margin: 0 auto !important;
-    padding: 8px 12px 32px 12px !important;
+    padding: 6px 10px 20px 10px !important;
     transition: background 0.3s ease, color 0.3s ease;
 }
 
@@ -1481,6 +1481,7 @@ footer { display: none !important; }
     border: none !important;
     box-shadow: none !important;
     padding: 0 !important;
+    margin: 0 !important;
 }
 
 .js-bridge-hidden {
@@ -1497,13 +1498,13 @@ footer { display: none !important; }
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 14px;
+    padding: 10px 14px;
     background: var(--topbar-bg);
     backdrop-filter: blur(12px);
-    border-radius: 20px;
+    border-radius: 18px;
     border: 1px solid var(--card-border);
     box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 .brand-left {
     display: flex;
@@ -1515,21 +1516,21 @@ footer { display: none !important; }
     display: flex;
     align-items: center;
     gap: 3px;
-    height: 26px;
+    height: 24px;
 }
 .brand-wave-icon span {
-    width: 3.8px;
+    width: 3.5px;
     background: linear-gradient(180deg, #2563EB 0%, #0EA5E9 100%);
     border-radius: 99px;
     display: inline-block;
     transform-origin: center bottom;
     animation: sahayaWaveBounce 0.95s ease-in-out infinite alternate;
 }
-.brand-wave-icon span:nth-child(1) { height: 11px; animation-delay: 0.00s; }
-.brand-wave-icon span:nth-child(2) { height: 20px; animation-delay: 0.15s; }
-.brand-wave-icon span:nth-child(3) { height: 25px; animation-delay: 0.30s; }
-.brand-wave-icon span:nth-child(4) { height: 18px; animation-delay: 0.45s; }
-.brand-wave-icon span:nth-child(5) { height: 12px; animation-delay: 0.22s; }
+.brand-wave-icon span:nth-child(1) { height: 10px; animation-delay: 0.00s; }
+.brand-wave-icon span:nth-child(2) { height: 18px; animation-delay: 0.15s; }
+.brand-wave-icon span:nth-child(3) { height: 23px; animation-delay: 0.30s; }
+.brand-wave-icon span:nth-child(4) { height: 16px; animation-delay: 0.45s; }
+.brand-wave-icon span:nth-child(5) { height: 10px; animation-delay: 0.22s; }
 
 @keyframes sahayaWaveBounce {
     0% { transform: scaleY(0.35) translateY(2px); opacity: 0.75; }
@@ -1538,7 +1539,7 @@ footer { display: none !important; }
 }
 
 .brand-name {
-    font-size: 21px;
+    font-size: 20px;
     font-weight: 800;
     letter-spacing: -0.3px;
     background: linear-gradient(90deg, #2563EB 0%, #0EA5E9 50%, #2563EB 100%);
@@ -1558,11 +1559,11 @@ footer { display: none !important; }
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 800;
     color: #15803D !important;
     background: #DCFCE7 !important;
-    padding: 5px 14px;
+    padding: 4px 12px;
     border-radius: 999px;
     border: 1px solid #86EFAC;
     box-shadow: 0 2px 6px rgba(22, 163, 74, 0.15);
@@ -1576,8 +1577,8 @@ body.dark-mode .connected-pill {
     color: inherit !important;
 }
 .conn-dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     background: #16A34A;
     border-radius: 50%;
     animation: dotPulse 1.8s infinite;
@@ -1593,7 +1594,7 @@ body.dark-mode .connected-pill {
     background: #FFFFFF !important;
     border: 1px solid #94A3B8 !important;
     cursor: pointer;
-    padding: 8px;
+    padding: 7px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1618,13 +1619,13 @@ body.dark-mode .gear-icon-btn {
     width: 100% !important;
     background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%) !important;
     color: #FFFFFF !important;
-    font-size: 14px !important;
+    font-size: 13.5px !important;
     font-weight: 800 !important;
     border: none !important;
     border-radius: 14px !important;
-    padding: 14px 16px !important;
+    padding: 12px 14px !important;
     box-shadow: 0 6px 16px rgba(220, 38, 38, 0.28) !important;
-    margin: 6px 0 14px 0 !important;
+    margin: 4px 0 10px 0 !important;
     cursor: pointer !important;
     letter-spacing: 0.3px;
 }
@@ -1632,19 +1633,19 @@ body.dark-mode .gear-icon-btn {
 .assistant-hero-card {
     background: var(--card-bg);
     backdrop-filter: blur(14px);
-    border-radius: 28px;
-    padding: 30px 22px 24px 22px;
+    border-radius: 24px;
+    padding: 20px 18px 18px 18px;
     text-align: center;
-    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
     border: 1px solid var(--card-border);
-    margin-bottom: 14px;
+    margin-bottom: 10px;
 }
 
 .hero-title {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 800;
     color: var(--text-color);
-    margin: 0 0 6px 0;
+    margin: 0 0 4px 0;
     letter-spacing: -0.5px;
     animation: heroTitleFloat 3.6s ease-in-out infinite;
 }
@@ -1655,9 +1656,9 @@ body.dark-mode .gear-icon-btn {
 }
 
 .hero-subtitle {
-    font-size: 15.5px;
+    font-size: 14.5px;
     font-weight: 600;
-    margin: 0 0 24px 0;
+    margin: 0 0 16px 0;
     background: linear-gradient(90deg, #475569 0%, #2563EB 50%, #0D9488 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
@@ -1680,11 +1681,11 @@ body.dark-mode .hero-subtitle {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 186px;
+    min-height: 150px;
 }
 .mic-ring-outer {
-    width: 176px;
-    height: 176px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     background: rgba(37, 99, 235, 0.07);
     display: flex;
@@ -1693,8 +1694,8 @@ body.dark-mode .hero-subtitle {
     transition: all 0.3s ease;
 }
 .mic-ring-inner {
-    width: 132px;
-    height: 132px;
+    width: 114px;
+    height: 114px;
     border-radius: 50%;
     background: rgba(37, 99, 235, 0.13);
     display: flex;
@@ -1703,8 +1704,8 @@ body.dark-mode .hero-subtitle {
     transition: all 0.3s ease;
 }
 .blue-mic-btn {
-    width: 88px;
-    height: 88px;
+    width: 78px;
+    height: 78px;
     border-radius: 50%;
     background: #2563EB;
     border: none;
@@ -1713,7 +1714,7 @@ body.dark-mode .hero-subtitle {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.38);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.38);
     transition: transform 0.18s ease, background 0.2s ease;
 }
 .blue-mic-btn:hover {
@@ -1721,7 +1722,7 @@ body.dark-mode .hero-subtitle {
 }
 .blue-mic-btn.recording-active {
     background: #DC2626 !important;
-    box-shadow: 0 10px 25px rgba(220, 38, 38, 0.4) !important;
+    box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4) !important;
 }
 .mic-ring-outer.recording-ring {
     background: rgba(220, 38, 38, 0.08) !important;
@@ -1741,27 +1742,27 @@ body.dark-mode .hero-subtitle {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    height: 54px;
-    margin-top: 16px;
+    gap: 5px;
+    height: 44px;
+    margin-top: 12px;
 }
 .listening-waves span {
-    width: 5px;
+    width: 4px;
     background: #0D9488;
     border-radius: 99px;
     animation: tealWave 0.75s ease-in-out infinite alternate;
 }
-.listening-waves span:nth-child(1) { height: 14px; animation-delay: 0.05s; }
-.listening-waves span:nth-child(2) { height: 24px; animation-delay: 0.15s; }
-.listening-waves span:nth-child(3) { height: 38px; animation-delay: 0.25s; }
-.listening-waves span:nth-child(4) { height: 26px; animation-delay: 0.10s; }
-.listening-waves span:nth-child(5) { height: 48px; animation-delay: 0.35s; }
-.listening-waves span:nth-child(6) { height: 54px; animation-delay: 0.20s; }
-.listening-waves span:nth-child(7) { height: 44px; animation-delay: 0.30s; }
-.listening-waves span:nth-child(8) { height: 28px; animation-delay: 0.12s; }
-.listening-waves span:nth-child(9) { height: 36px; animation-delay: 0.22s; }
-.listening-waves span:nth-child(10) { height: 20px; animation-delay: 0.18s; }
-.listening-waves span:nth-child(11) { height: 12px; animation-delay: 0.08s; }
+.listening-waves span:nth-child(1) { height: 12px; animation-delay: 0.05s; }
+.listening-waves span:nth-child(2) { height: 20px; animation-delay: 0.15s; }
+.listening-waves span:nth-child(3) { height: 32px; animation-delay: 0.25s; }
+.listening-waves span:nth-child(4) { height: 22px; animation-delay: 0.10s; }
+.listening-waves span:nth-child(5) { height: 40px; animation-delay: 0.35s; }
+.listening-waves span:nth-child(6) { height: 44px; animation-delay: 0.20s; }
+.listening-waves span:nth-child(7) { height: 36px; animation-delay: 0.30s; }
+.listening-waves span:nth-child(8) { height: 24px; animation-delay: 0.12s; }
+.listening-waves span:nth-child(9) { height: 30px; animation-delay: 0.22s; }
+.listening-waves span:nth-child(10) { height: 18px; animation-delay: 0.18s; }
+.listening-waves span:nth-child(11) { height: 10px; animation-delay: 0.08s; }
 
 @keyframes tealWave {
     0% { transform: scaleY(0.35); opacity: 0.75; }
@@ -1769,27 +1770,27 @@ body.dark-mode .hero-subtitle {
 }
 
 .mic-prompt-main {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     color: var(--text-color);
-    margin-top: 16px;
+    margin-top: 10px;
 }
 .mic-prompt-sub {
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 500;
     color: var(--subtext-color);
-    margin-top: 4px;
+    margin-top: 2px;
 }
 
 .lang-pill-wrap {
-    margin-top: 14px;
+    margin-top: 10px;
 }
 .lang-pill-btn {
     background: #FFFFFF !important;
     border: 1px solid #94A3B8 !important;
     border-radius: 999px;
-    padding: 8px 18px;
-    font-size: 13.5px;
+    padding: 6px 16px;
+    font-size: 13px;
     font-weight: 700;
     color: #0F172A !important;
     cursor: pointer;
@@ -1809,11 +1810,11 @@ body.dark-mode .lang-pill-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
     background: rgba(22, 163, 74, 0.1);
-    border-radius: 16px;
-    padding: 14px 18px;
-    margin-top: 22px;
+    border-radius: 14px;
+    padding: 10px 14px;
+    margin-top: 14px;
     text-align: left;
     border: 1px solid rgba(22, 163, 74, 0.2);
 }
@@ -1824,7 +1825,7 @@ body.dark-mode .lang-pill-btn {
     flex-shrink: 0;
 }
 .shield-text {
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 600;
     color: var(--text-color);
     line-height: 1.35;
@@ -1832,11 +1833,11 @@ body.dark-mode .lang-pill-btn {
 
 .quick-text-row {
     background: var(--card-bg) !important;
-    border-radius: 16px !important;
-    padding: 6px 10px !important;
+    border-radius: 14px !important;
+    padding: 4px 8px !important;
     border: 1px solid var(--card-border) !important;
     box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04) !important;
-    margin-bottom: 12px !important;
+    margin-bottom: 10px !important;
     display: flex !important;
     align-items: center !important;
     gap: 6px !important;
@@ -1846,15 +1847,15 @@ body.dark-mode .lang-pill-btn {
     color: var(--text-color) !important;
     border: none !important;
     box-shadow: none !important;
-    font-size: 14px !important;
+    font-size: 13.5px !important;
 }
 .send-text-btn {
     background: #2563EB !important;
     color: #FFFFFF !important;
     border-radius: 10px !important;
     font-weight: 700 !important;
-    font-size: 13px !important;
-    padding: 8px 12px !important;
+    font-size: 12.5px !important;
+    padding: 7px 10px !important;
     border: none !important;
     cursor: pointer !important;
 }
@@ -1864,8 +1865,8 @@ body.dark-mode .lang-pill-btn {
     border: 1px solid var(--input-border) !important;
     border-radius: 10px !important;
     font-weight: 700 !important;
-    font-size: 13px !important;
-    padding: 8px 12px !important;
+    font-size: 12.5px !important;
+    padding: 7px 10px !important;
     cursor: pointer !important;
 }
 .clear-text-btn:hover {
@@ -1874,59 +1875,59 @@ body.dark-mode .lang-pill-btn {
 }
 
 .accident-result-card {
-    border-radius: 28px;
+    border-radius: 22px;
     overflow: hidden;
     background: var(--card-bg);
-    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
     border: 1px solid #FECACA;
-    margin: 14px 0;
+    margin: 10px 0;
 }
 .accident-alert-top {
     background: radial-gradient(circle at center, rgba(254, 226, 226, 0.8) 0%, rgba(254, 242, 242, 0.9) 100%);
-    padding: 26px 20px 20px 20px;
+    padding: 20px 16px 14px 16px;
     text-align: center;
 }
 .alert-triangle-wrap {
-    width: 64px;
-    height: 64px;
+    width: 54px;
+    height: 54px;
     border-radius: 50%;
     background: rgba(220, 38, 38, 0.1);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 .alert-triangle-icon {
-    font-size: 34px;
+    font-size: 28px;
 }
 .accident-main-title {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 800;
     color: #DC2626 !important;
     margin: 0;
 }
 .accident-sub-note {
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 600;
     color: var(--subtext-color);
-    margin: 4px 0 0 0;
+    margin: 3px 0 0 0;
 }
 
 .live-trans-surface {
     background: var(--card-bg);
-    padding: 20px;
+    padding: 16px;
 }
 .live-trans-header-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 .live-trans-header {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 800;
     color: var(--text-color);
 }
@@ -1935,8 +1936,8 @@ body.dark-mode .lang-pill-btn {
     color: #DC2626;
     border: 1px solid rgba(220, 38, 38, 0.3);
     border-radius: 8px;
-    padding: 4px 10px;
-    font-size: 12px;
+    padding: 3px 8px;
+    font-size: 11.5px;
     font-weight: 700;
     cursor: pointer;
 }
@@ -1950,53 +1951,53 @@ body.dark-mode .lang-pill-btn {
 .trans-bubble-blue {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: 8px;
     background: rgba(37, 99, 235, 0.1);
-    border-radius: 16px;
-    padding: 14px 16px;
-    margin-bottom: 10px;
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
 }
 .trans-bubble-gray {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: 8px;
     background: var(--input-bg);
     border: 1px solid var(--input-border);
-    border-radius: 16px;
-    padding: 14px 16px;
-    margin-bottom: 16px;
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
 }
 .bubble-vol {
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.4;
 }
 .bubble-txt {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
     color: var(--text-color);
-    line-height: 1.45;
+    line-height: 1.4;
 }
 
 .first-aid-section {
     border-top: 1px solid var(--input-border);
-    padding-top: 14px;
+    padding-top: 12px;
 }
 .first-aid-title {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 800;
     color: var(--text-color);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 .step-list {
-    margin: 0 0 16px 0 !important;
-    padding-left: 20px !important;
+    margin: 0 0 12px 0 !important;
+    padding-left: 18px !important;
 }
 .step-list li {
     color: var(--text-color) !important;
-    font-size: 14.5px !important;
+    font-size: 13.5px !important;
     font-weight: 600 !important;
-    line-height: 1.65 !important;
-    margin-bottom: 6px !important;
+    line-height: 1.55 !important;
+    margin-bottom: 5px !important;
 }
 .dial-now-btn {
     display: flex;
@@ -2005,64 +2006,64 @@ body.dark-mode .lang-pill-btn {
     background: #16A34A;
     color: #FFFFFF !important;
     text-decoration: none !important;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 800;
-    padding: 14px 18px;
-    border-radius: 14px;
-    box-shadow: 0 6px 16px rgba(22, 163, 74, 0.25);
+    padding: 12px 16px;
+    border-radius: 12px;
+    box-shadow: 0 5px 14px rgba(22, 163, 74, 0.25);
 }
 
 .directory-section {
-    margin-top: 18px;
+    margin-top: 14px;
 }
 .directory-heading {
     color: var(--text-color);
-    font-size: 15px;
-    margin-bottom: 10px;
+    font-size: 14px;
+    margin-bottom: 8px;
     font-weight: 800;
 }
 .directory-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 8px;
 }
 .directory-card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
-    border-radius: 14px;
-    padding: 12px 14px;
+    border-radius: 12px;
+    padding: 10px 12px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
 }
 .directory-info {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 .directory-icon {
-    font-size: 22px;
+    font-size: 20px;
 }
 .directory-name {
     font-weight: 700;
-    font-size: 12.5px;
+    font-size: 12px;
     color: var(--text-color);
-    line-height: 1.25;
+    line-height: 1.2;
 }
 .directory-num {
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 800;
     color: #DC2626;
-    margin-top: 2px;
+    margin-top: 1px;
 }
 .call-badge {
     background: var(--input-bg);
     color: #2563EB !important;
     font-weight: 700;
-    font-size: 12px;
-    padding: 5px 10px;
-    border-radius: 8px;
+    font-size: 11.5px;
+    padding: 4px 8px;
+    border-radius: 7px;
     text-decoration: none !important;
     border: 1px solid var(--input-border);
 }
@@ -2080,10 +2081,10 @@ body.dark-mode .lang-pill-btn {
 .settings-modal-content {
     background: var(--card-bg);
     color: var(--text-color);
-    padding: 24px;
-    border-radius: 22px;
+    padding: 22px;
+    border-radius: 20px;
     width: 92%;
-    max-width: 390px;
+    max-width: 380px;
     box-shadow: 0 20px 40px rgba(15, 23, 42, 0.28);
     border: 1px solid var(--card-border);
 }
@@ -2091,42 +2092,42 @@ body.dark-mode .lang-pill-btn {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
 }
 .settings-modal-header h3 {
     margin: 0;
     color: var(--text-color);
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 800;
 }
 .settings-close-btn {
     background: var(--input-bg);
     border: 1px solid var(--input-border);
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     color: var(--text-color);
 }
 .setting-item {
-    margin-bottom: 16px;
+    margin-bottom: 14px;
 }
 .setting-item label {
     display: block;
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 700;
     color: var(--subtext-color);
-    margin-bottom: 6px;
+    margin-bottom: 5px;
 }
 .setting-item select {
     width: 100%;
-    padding: 10px 12px;
+    padding: 9px 10px;
     border-radius: 10px;
     border: 1px solid var(--input-border);
     background: var(--input-bg);
     color: var(--text-color);
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 600;
 }
 """
