@@ -1,18 +1,6 @@
 """
 Sahaya Emergency Assistant (Gradio on Render)
 Voice-first emergency triage and first aid for India across 12 languages.
-
-Stack:
-  Gnani STT / TTS
-  Groq Whisper (speech detection) + Groq Llama (triage reasoning)
-
-Key Architecture:
-  1. Auto-Detection Engine:
-     Autonomous backend function that independently detects the spoken dialect 
-     from the audio stream and generates triage instructions in that language.
-  2. UI Translation Engine:
-     Dedicated interface translation across 12 Indic languages controlled
-     exclusively via the App Settings modal.
 """
 
 import base64
@@ -74,7 +62,7 @@ SCRIPT_NAMES = {
     "gu_IN": "Gujarati script (ગુજરાતી)",
     "bn_IN": "Bengali script (বাংলা)",
     "pa_IN": "Gurmukhi script (ਪੰਜਾਬੀ)",
-    "or_IN": "Odia script (ଓଡ଼ିଆ)",
+    "or_IN": "Odia script (ଓଡ଼ಿଆ)",
     "mni_IN": "Meitei Mayek script (ꯃꯤꯇꯩꯂꯣꯟ)",
 }
 
@@ -275,7 +263,7 @@ CONDITION_RULES = [
     ("snakebite", {"snake", "snakes", "snakebite", "bitten", "bite", "haavu", "havu", "haavina", "kachide", "saanp", "saap", "sanp", "paambu", "pambu", "paamu", "pamu", "paampu", "sap"}, ["ಹಾವು", "ಹಾವಿನ", "साँप", "सांप", "साप", "பாம்பு", "పాము", "പാമ്പ്", "সাপ", "સાપ", "ਸੱਪ", "ସାପ"]),
     ("burns", {"fire", "burn", "burns", "burnt", "burning", "scald", "scalded", "cylinder", "blast", "boiling", "benki", "aag", "thee", "neruppu", "mantalu", "agun", "aagun", "hot water"}, ["ಬೆಂಕಿ", "ಸುಟ್ಟ", "आग", "जला", "जल गया", "झुलस", "தீக்காய", "தீப்பிடி", "நெருப்பு", "మంట", "నిప్పు", "തീപിടി", "പൊള്ള", "আগুন", "পুড়ে", "পোড়া", "આગ", "દાઝ", "ਅੱਗ", "ਸੜ", "ନିଆଁ", "ପୋଡ଼"]),
     ("cardiac", {"chest", "heart", "breathe", "breathing", "breath", "cardiac", "stroke", "attack", "ede", "edeno", "edenovu", "usiru", "husiru", "usiradalu", "gundige", "seene", "seena", "chhati", "chati", "saans", "sans", "nenju", "moochu", "swasam", "gunde", "swasa", "buker", "shwas", "shwasa", "saah", "dil", "dhadkan"}, ["ಎದೆ", "ಉಸಿರ", "ಹೃದಯ", "सीने", "छाती", "सांस", "साँस", "दिल", "हृदय", "श्वास", "நெஞ்சு", "மூச்சு", "இதய", "గుండె", "ఛాతీ", "శ్వాస", "ఊపిరి", "നെഞ്ച", "ശ്വാസ", "ഹൃദയ", "বুক", "শ্বাস", "হৃদ", "છાતી", "શ્વાસ", "હૃદય", "ਛਾਤੀ", "ਸਾਹ", "ਦਿਲ", "ଛାତି", "ଶ୍ୱାସ", "ହୃଦ", "ꯊꯃꯣꯏ"]),
-    ("collapse_fall", {"collapse", "collapsed", "construction", "fell", "fall", "falling", "height", "debris", "trapped", "rubble", "building", "kattada", "bidda", "biddare", "bidde", "imarat", "imaarat", "gir", "gira", "giri", "katidom", "keezhe", "veenu", "padla", "padli", "bhukamp", "earthquake", "flood", "landslide"}, ["ಕಟ್ಟಡ", "ಕುಸಿ", "ಬಿದ್ದ", "ಬೀಳ", "ಎತ್ತರ", "इमारत", "ढह", "गिर", "भूकंप", "बाढ़", "கட்டிட", "விழு", "கீழே", "நிலநடுக்க", "భవనం", "కూలి", "పడ్డ", "పడి", "భూకంప", "കെട്ടിടം", "തകർ", "വീണ", "ഭൂചലന", "দালান", "ভবন", "ধস", "পড়ে গ", "ভূমিকম্প", "ઇમારત", "મકાન", "પડ", "ભૂકંપ", "ਇਮਾਰਤ", "ਡਿੱ", "ਭੂਚਾଳ", "କୋଠା", "ଭୁଶୁଡ଼", "ପଡ଼"]),
+    ("collapse_fall", {"collapse", "collapsed", "construction", "fell", "fall", "falling", "height", "debris", "trapped", "rubble", "building", "kattada", "bidda", "biddare", "bidde", "imarat", "imaarat", "gir", "gira", "giri", "katidom", "keezhe", "veenu", "padla", "padli", "bhukamp", "earthquake", "flood", "landslide"}, ["ಕಟ್ಟಡ", "ಕುಸಿ", "ಬಿದ್ದ", "ಬೀಳ", "ಎತ್ತರ", "इमारत", "ढह", "गिर", "भूकंप", "बाढ़", "கட்டிட", "விழு", "கீழே", "நிலநடுக்க", "భవనం", "కూలి", "పడ్డ", "పడి", "భూకంప", "കെട്ടിടം", "തകർ", "വീണ", "ഭൂചലന", "দালান", "ভবন", "ধস", "পড়ে ਗ", "ভূমিকম্প", "ઇમારત", "મકાન", "પડ", "ભૂકંપ", "ਇਮਾਰਤ", "ਡਿੱ", "ਭੂਚਾଳ", "କୋଠା", "ଭୁଶୁଡ଼", "ପଡ଼"]),
     ("accident_trauma", {"accident", "crash", "bike", "car", "hit", "bleeding", "bleed", "blood", "fracture", "broke", "broken", "wound", "injury", "injured", "run over", "apaghata", "apaghaata", "gaaya", "rakta", "haadsa", "hadsa", "khoon", "vibathu", "pramadam", "raktham", "roktho", "lohi"}, ["ಅಪಘಾತ", "ರಕ್ತ", "ಗಾಯ", "ಮುರಿ", "दुर्घटना", "हादसा", "खून", "चोट", "घाव", "फ्रैक्चर", "விபத்து", "ரத்த", "இரத்த", "காயம்", "எலும்பு", "ప్రమాదం", "రక్త", "గాయం", "విరిగ", "അപകടം", "രക്ത", "മുറിവ്", "দুর্ঘটনা", "রক্ত", "আঘাত", "ক্ষত", "અકસ્માત", "લોહી", "ઈજા", "ਹਾਦਸਾ", "ਖੂਨ", "ਸੱਟ", "ਜ਼ਖ਼ਮ", "ଦୁର୍ଘଟଣା", "ରକ୍ତ", "ଆଘାତ"]),
 ]
 
@@ -443,10 +431,6 @@ def roman_lang(text: str, audio_lang=None):
     return None, False
 
 def autonomous_spoken_language_detector(w_text: str, g_text: str, w_lang: str) -> str:
-    """
-    Dedicated function that purely evaluates the caller's spoken audio/speech.
-    Operates without ANY dependency on the UI language selection.
-    """
     s_lang = script_lang(w_text) or script_lang(g_text)
     if s_lang in LANGUAGES:
         return s_lang
@@ -461,10 +445,6 @@ def autonomous_spoken_language_detector(w_text: str, g_text: str, w_lang: str) -
 # FUNCTION 2: Dedicated UI Localization Engine
 # ---------------------------------------------------------------------------
 def set_app_ui_language(lang_code: str):
-    """
-    Translates the whole interface into the selected Indic language.
-    Does NOT modify the caller's spoken audio triage language.
-    """
     target = lang_code if lang_code in LANGUAGES else "en_IN"
     t = TRANSLATIONS.get(target, TRANSLATIONS["en_IN"])
     return (
@@ -629,9 +609,6 @@ def listen_and_detect_spoken_language(audio_path):
     return transcript, detected_spoken_lang, ""
 
 def run_groq_triage(transcript: str, detected_spoken_lang: str):
-    """
-    Answers directly in the caller's spoken language without resetting to English.
-    """
     key = get_env("GROQ_API_KEY")
     target_script = SCRIPT_NAMES.get(detected_spoken_lang, "English")
 
@@ -763,9 +740,6 @@ def custom_mic_card_html(t):
             </button>
           </div>
         </div>
-        <div class="listening-waves" id="listeningWaves" style="display:none;">
-          <span></span><span></span><span></span><span></span><span></span>
-        </div>
       </div>
 
       <div class="mic-prompt-main" id="micPromptMain">{html.escape(t['mic_header'])}</div>
@@ -858,7 +832,6 @@ def process_emergency_flow(transcript: str, detected_spoken_lang: str):
         yield gr.update(value="⚠️ No voice or input received. Please speak clearly.", visible=True), gr.update(value=None, visible=False), gr.update(value="", visible=False)
         return
 
-    # Triage and instructions strictly match the caller's spoken language
     triage = run_groq_triage(transcript, detected_spoken_lang)
     svc = EMERGENCY_DIRECTORY[CATEGORY_INDEX.get(triage["category"], 0)]
     rt = TRANSLATIONS.get(detected_spoken_lang, TRANSLATIONS["en_IN"])
@@ -902,34 +875,36 @@ def on_clear():
     return "", gr.update(value="", visible=False), gr.update(value=None, visible=False), gr.update(value="", visible=False), ""
 
 # ---------------------------------------------------------------------------
-# CSS & JS Front-End (Pure string literal to prevent Decimal Literal syntax errors)
+# CSS & JS Front-End (Comprehensive high-contrast styling & wave animation)
 # ---------------------------------------------------------------------------
 CSS = """
 :root, body, .gradio-container {
     --bg-main: linear-gradient(135deg, #FDF8F2 0%, #F5EBE0 50%, #EBE1D2 100%);
-    --card-bg: rgba(255, 255, 255, 0.96);
-    --card-border: rgba(231, 222, 210, 0.95);
-    --text-color: #0F172A;
-    --subtext-color: #475569;
+    --card-bg: #FFFFFF;
+    --card-border: #E2E8F0;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
     --input-bg: #FFFFFF;
+    --input-text: #0F172A;
     --input-border: #CBD5E1;
-    --topbar-bg: rgba(255, 255, 255, 0.95);
+    --topbar-bg: #FFFFFF;
 }
 
 body.dark-mode, .dark-mode .gradio-container {
-    --bg-main: #1C1917 !important;
-    --card-bg: rgba(41, 37, 36, 0.95) !important;
-    --card-border: rgba(68, 64, 60, 0.9) !important;
-    --text-color: #F5F5F4 !important;
-    --subtext-color: #A8A29E !important;
-    --input-bg: #292524 !important;
-    --input-border: #57534E !important;
-    --topbar-bg: rgba(28, 25, 23, 0.92) !important;
+    --bg-main: #18181B !important;
+    --card-bg: #27272A !important;
+    --card-border: #3F3F46 !important;
+    --text-primary: #F8FAFC !important;
+    --text-secondary: #CBD5E1 !important;
+    --input-bg: #18181B !important;
+    --input-text: #F8FAFC !important;
+    --input-border: #52525B !important;
+    --topbar-bg: #27272A !important;
 }
 
 body, .gradio-container {
     background: var(--bg-main) !important;
-    color: var(--text-color) !important;
+    color: var(--text-primary) !important;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
     max-width: 500px !important;
     margin: 0 auto !important;
@@ -939,132 +914,310 @@ body, .gradio-container {
 footer { display: none !important; }
 .js-bridge-hidden { display: none !important; }
 
+/* Bouncy Sound Wave Bars Animation */
+.brand-wave-icon {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    height: 22px;
+}
+.brand-wave-icon span {
+    display: inline-block;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #F97316 0%, #2563EB 100%);
+    border-radius: 4px;
+    animation: waveBounce 1.2s ease-in-out infinite alternate;
+}
+.brand-wave-icon span:nth-child(1) { height: 8px; animation-delay: 0.1s; }
+.brand-wave-icon span:nth-child(2) { height: 18px; animation-delay: 0.3s; }
+.brand-wave-icon span:nth-child(3) { height: 12px; animation-delay: 0.15s; }
+.brand-wave-icon span:nth-child(4) { height: 20px; animation-delay: 0.4s; }
+.brand-wave-icon span:nth-child(5) { height: 10px; animation-delay: 0.2s; }
+
+@keyframes waveBounce {
+    0% { transform: scaleY(0.35); }
+    100% { transform: scaleY(1.0); }
+}
+
+/* App Top Bar */
 .app-top-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 14px;
-    background: var(--topbar-bg);
+    padding: 10px 14px;
+    background: var(--topbar-bg) !important;
     border-radius: 16px;
     border: 1px solid var(--card-border);
     box-shadow: 0 3px 12px rgba(15, 23, 42, 0.05);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 .brand-left { display: flex; align-items: center; gap: 8px; }
-.brand-name { font-size: 22px; font-weight: 800; color: #2563EB; }
+.brand-name { font-size: 22px; font-weight: 800; color: #2563EB !important; }
+
+/* Connected Pill (Ready status) */
 .connected-pill {
-    display: flex; align-items: center; gap: 6px;
-    font-size: 13px; font-weight: 800; color: #16A34A;
-    background: #DCFCE7; padding: 4px 10px; border-radius: 999px;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    background: #DCFCE7 !important;
+    border: 1px solid #86EFAC !important;
+    padding: 5px 12px !important;
+    border-radius: 999px !important;
 }
-.conn-dot { width: 7px; height: 7px; background: #16A34A; border-radius: 50%; }
-.gear-icon-btn {
-    background: #FFFFFF; border: 1.5px solid #000;
-    padding: 6px; border-radius: 50%; cursor: pointer;
+.conn-dot {
+    width: 8px; height: 8px;
+    background: #16A34A !important;
+    border-radius: 50%;
+    display: inline-block;
+}
+.conn-text-label {
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    color: #15803D !important;
+    display: inline-block !important;
 }
 
+.gear-icon-btn {
+    background: #FFFFFF !important;
+    border: 1.5px solid #000000 !important;
+    padding: 6px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* SOS Panic Button */
 .sos-panic-btn {
     width: 100% !important;
-    background: #EF4444 !important;
+    background: #DC2626 !important;
     color: #FFFFFF !important;
     font-size: 14px !important;
     font-weight: 800 !important;
     border-radius: 14px !important;
-    margin-bottom: 6px !important;
+    margin-bottom: 8px !important;
+    border: none !important;
 }
 
+/* Hero Mic Card */
 .assistant-hero-card {
-    background: var(--card-bg);
+    background: var(--card-bg) !important;
     border-radius: 20px;
-    padding: 16px;
+    padding: 18px 16px;
     text-align: center;
     border: 1px solid var(--card-border);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
-.hero-title { font-size: 22px; font-weight: 800; margin: 0; }
-.hero-subtitle { font-size: 14px; color: #2563EB; font-weight: 600; margin: 2px 0 12px 0; }
+.hero-title {
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    color: var(--text-primary) !important;
+    margin: 0 !important;
+}
+.hero-subtitle {
+    font-size: 14px !important;
+    color: #2563EB !important;
+    font-weight: 700 !important;
+    margin: 3px 0 12px 0 !important;
+}
 
 .mic-stage {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin: 8px 0;
 }
 .mic-ring-outer {
     width: 120px; height: 120px; border-radius: 50%;
-    background: rgba(37, 99, 235, 0.1);
+    background: rgba(37, 99, 235, 0.12);
     display: flex; align-items: center; justify-content: center;
 }
 .mic-ring-inner {
     width: 90px; height: 90px; border-radius: 50%;
-    background: rgba(37, 99, 235, 0.15);
+    background: rgba(37, 99, 235, 0.2);
     display: flex; align-items: center; justify-content: center;
 }
 .blue-mic-btn {
     width: 68px; height: 68px; border-radius: 50%;
-    background: #2563EB; border: none; cursor: pointer;
+    background: #2563EB !important; border: none; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
 }
 .blue-mic-btn.recording-active { background: #DC2626 !important; }
 
-.mic-prompt-main { font-size: 14px; font-weight: 800; margin-top: 8px; }
+/* Mic Prompt Main */
+.mic-prompt-main {
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    color: var(--text-primary) !important;
+    margin-top: 10px !important;
+}
 
-.lang-pill-wrap { margin-top: 8px; display: flex; justify-content: center; }
+/* Language Badge */
+.lang-pill-wrap {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
 .autonomous-detect-badge {
-    background: #F1F5F9; border: 1.5px solid #94A3B8;
-    padding: 5px 12px; border-radius: 999px;
-    font-size: 12px; font-weight: 800; color: #0F172A;
+    background: #F1F5F9 !important;
+    border: 1.5px solid #94A3B8 !important;
+    padding: 6px 14px !important;
+    border-radius: 999px !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    color: #0F172A !important;
+}
+.dark-mode .autonomous-detect-badge {
+    background: #334155 !important;
+    border: 1.5px solid #64748B !important;
+    color: #F8FAFC !important;
+}
+.autonomous-detect-badge span {
+    color: inherit !important;
+    font-weight: inherit !important;
 }
 
+/* Shield Banner */
 .shield-banner {
-    background: rgba(22, 163, 74, 0.1); border-radius: 10px;
-    padding: 6px 10px; margin-top: 10px; font-size: 12px; font-weight: 700;
+    background: rgba(22, 163, 74, 0.12) !important;
+    border: 1px solid rgba(22, 163, 74, 0.25) !important;
+    border-radius: 10px;
+    padding: 8px 12px;
+    margin-top: 12px;
+}
+.shield-text {
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    color: #15803D !important;
+}
+.dark-mode .shield-text {
+    color: #4ADE80 !important;
 }
 
+/* Quick Text Row & Textbox overrides */
 .quick-text-row {
     background: var(--card-bg) !important;
-    border-radius: 12px !important;
-    padding: 6px !important;
-    display: flex !important; gap: 6px !important;
-    margin-bottom: 6px !important;
+    border-radius: 14px !important;
+    padding: 8px !important;
+    display: flex !important;
+    gap: 6px !important;
+    margin-bottom: 8px !important;
+    border: 1px solid var(--card-border) !important;
 }
-.send-text-btn { background: #2563EB !important; color: #FFF !important; font-weight: 700 !important; }
-.clear-text-btn { background: #FFF !important; color: #333 !important; font-weight: 700 !important; }
+.quick-text-row textarea,
+.quick-text-row input {
+    background: var(--input-bg) !important;
+    color: var(--input-text) !important;
+    border: 1.5px solid var(--input-border) !important;
+    border-radius: 10px !important;
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+}
+.quick-text-row textarea::placeholder,
+.quick-text-row input::placeholder {
+    color: #64748B !important;
+    opacity: 1 !important;
+}
+.send-text-btn {
+    background: #2563EB !important;
+    color: #FFFFFF !important;
+    font-weight: 800 !important;
+    border-radius: 10px !important;
+    border: none !important;
+}
+.clear-text-btn {
+    background: #F1F5F9 !important;
+    color: #0F172A !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+    border: 1px solid #CBD5E1 !important;
+}
 
-.accident-result-card {
-    background: var(--card-bg); border-radius: 18px;
-    border: 1px solid #FECACA; overflow: hidden; margin-bottom: 6px;
+/* Directory Section & Cards */
+.directory-section { margin-top: 6px; }
+.directory-heading {
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    color: var(--text-primary) !important;
+    margin: 0 0 8px 2px !important;
 }
-.accident-alert-top { background: #FEE2E2; padding: 12px; text-align: center; }
-.accident-main-title { font-size: 18px; font-weight: 800; color: #DC2626; margin: 0; }
+.directory-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+.directory-card {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.directory-name {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    color: var(--text-primary) !important;
+}
+.directory-num {
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    color: #DC2626 !important;
+}
+.call-badge {
+    background: #EFF6FF !important;
+    color: #2563EB !important;
+    border: 1px solid #BFDBFE !important;
+    padding: 4px 8px;
+    border-radius: 8px;
+    text-decoration: none !important;
+    font-weight: 800;
+    font-size: 12px;
+}
+
+/* Result Card */
+.accident-result-card {
+    background: var(--card-bg) !important;
+    border-radius: 18px;
+    border: 1px solid #FECACA !important;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+.accident-alert-top { background: #FEE2E2 !important; padding: 12px; text-align: center; }
+.accident-main-title { font-size: 18px !important; font-weight: 800 !important; color: #DC2626 !important; margin: 0; }
+.accident-sub-note { font-size: 12px !important; font-weight: 700 !important; color: #991B1B !important; margin: 4px 0 0 0; }
 .live-trans-surface { padding: 12px; }
 .live-trans-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.inline-clear-btn { background: #FEE2E2; color: #DC2626; border: 1px solid #FCA5A5; border-radius: 6px; padding: 2px 8px; cursor: pointer; }
-.trans-bubble-blue { background: #EFF6FF; border-radius: 10px; padding: 8px; margin-bottom: 6px; font-weight: 700; }
-.trans-bubble-gray { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 8px; margin-bottom: 8px; font-weight: 700; }
-.first-aid-title { font-size: 13px; font-weight: 800; margin-bottom: 4px; }
-.step-list { margin: 0 0 10px 0; padding-left: 20px; font-size: 13px; }
-.dial-now-btn { display: block; text-align: center; background: #16A34A; color: #FFF !important; padding: 10px; border-radius: 10px; text-decoration: none !important; font-weight: 800; }
-
-.directory-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
-.directory-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 8px; display: flex; justify-content: space-between; align-items: center; }
-.directory-name { font-size: 12px; font-weight: 700; }
-.directory-num { font-size: 12px; font-weight: 800; color: #DC2626; }
-.call-badge { background: #EFF6FF; color: #2563EB !important; border: 1px solid #BFDBFE; padding: 3px 6px; border-radius: 6px; text-decoration: none !important; font-weight: 700; font-size: 11px; }
+.live-trans-header { font-weight: 800 !important; color: var(--text-primary) !important; font-size: 13px; }
+.inline-clear-btn { background: #FEE2E2 !important; color: #DC2626 !important; border: 1px solid #FCA5A5 !important; border-radius: 6px; padding: 3px 8px; cursor: pointer; font-weight: 700; }
+.trans-bubble-blue { background: #EFF6FF !important; color: #1E3A8A !important; border-radius: 10px; padding: 10px; margin-bottom: 8px; font-weight: 700; font-size: 13px; }
+.trans-bubble-gray { background: #F8FAFC !important; color: #0F172A !important; border: 1px solid #E2E8F0 !important; border-radius: 10px; padding: 10px; margin-bottom: 10px; font-weight: 700; font-size: 13px; }
+.dark-mode .trans-bubble-gray { background: #1E293B !important; color: #F8FAFC !important; border-color: #334155 !important; }
+.first-aid-title { font-size: 13px !important; font-weight: 800 !important; color: var(--text-primary) !important; margin-bottom: 6px; }
+.step-list { margin: 0 0 12px 0; padding-left: 20px; font-size: 13px; color: var(--text-primary) !important; }
+.step-list li { margin-bottom: 4px; font-weight: 600; }
+.dial-now-btn { display: block; text-align: center; background: #16A34A !important; color: #FFFFFF !important; padding: 10px; border-radius: 10px; text-decoration: none !important; font-weight: 800; font-size: 14px; }
 
 /* Modal Settings Overlay */
 .settings-modal-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px);
+    background: rgba(15, 23, 42, 0.55); backdrop-filter: blur(4px);
     display: none; justify-content: center; align-items: center; z-index: 9999;
 }
 .settings-modal-content {
-    background: #FFFFFF; color: #000; padding: 20px;
-    border-radius: 18px; width: 90%; max-width: 380px;
+    background: #FFFFFF !important; color: #0F172A !important; padding: 20px;
+    border-radius: 18px; width: 90%; max-width: 380px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
-.settings-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.settings-close-btn { border: none; background: #E2E8F0; border-radius: 50%; width: 26px; height: 26px; cursor: pointer; }
-.setting-item { margin-bottom: 12px; }
-.setting-item label { font-size: 12px; font-weight: 700; color: #475569; display: block; margin-bottom: 4px; }
-.setting-item select { width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #CBD5E1; font-weight: 600; }
+.settings-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.settings-close-btn { border: none; background: #E2E8F0; border-radius: 50%; width: 28px; height: 28px; cursor: pointer; font-size: 16px; font-weight: 800; }
+.setting-item { margin-bottom: 14px; }
+.setting-item label { font-size: 12px; font-weight: 800; color: #475569; display: block; margin-bottom: 6px; }
+.setting-item select { width: 100%; padding: 8px 10px; border-radius: 8px; border: 1.5px solid #CBD5E1; font-weight: 700; color: #0F172A; }
 """
 
 INIT_JS = """() => {
@@ -1332,4 +1485,3 @@ if __name__ == "__main__":
         css=CSS,
         js=INIT_JS,
     )
-
