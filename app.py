@@ -62,7 +62,7 @@ SCRIPT_NAMES = {
     "gu_IN": "Gujarati script (ગુજરાતી)",
     "bn_IN": "Bengali script (বাংলা)",
     "pa_IN": "Gurmukhi script (ਪੰਜਾਬੀ)",
-    "or_IN": "Odia script (ଓଡ଼ಿଆ)",
+    "or_IN": "Odia script (ଓଡ଼ିଆ)",
     "mni_IN": "Meitei Mayek script (ꯃꯤꯇꯩꯂꯣꯟ)",
 }
 
@@ -263,8 +263,8 @@ CONDITION_RULES = [
     ("snakebite", {"snake", "snakes", "snakebite", "bitten", "bite", "haavu", "havu", "haavina", "kachide", "saanp", "saap", "sanp", "paambu", "pambu", "paamu", "pamu", "paampu", "sap"}, ["ಹಾವು", "ಹಾವಿನ", "साँप", "सांप", "साप", "பாம்பு", "పాము", "പാമ്പ്", "সাপ", "સાપ", "ਸੱਪ", "ସାପ"]),
     ("burns", {"fire", "burn", "burns", "burnt", "burning", "scald", "scalded", "cylinder", "blast", "boiling", "benki", "aag", "thee", "neruppu", "mantalu", "agun", "aagun", "hot water"}, ["ಬೆಂಕಿ", "ಸುಟ್ಟ", "आग", "जला", "जल गया", "झुलस", "தீக்காய", "தீப்பிடி", "நெருப்பு", "మంట", "నిప్పు", "തീപിടി", "പൊള്ള", "আগুন", "পুড়ে", "পোড়া", "આગ", "દાઝ", "ਅੱਗ", "ਸੜ", "ନିଆଁ", "ପୋଡ଼"]),
     ("cardiac", {"chest", "heart", "breathe", "breathing", "breath", "cardiac", "stroke", "attack", "ede", "edeno", "edenovu", "usiru", "husiru", "usiradalu", "gundige", "seene", "seena", "chhati", "chati", "saans", "sans", "nenju", "moochu", "swasam", "gunde", "swasa", "buker", "shwas", "shwasa", "saah", "dil", "dhadkan"}, ["ಎದೆ", "ಉಸಿರ", "ಹೃದಯ", "सीने", "छाती", "सांस", "साँस", "दिल", "हृदय", "श्वास", "நெஞ்சு", "மூச்சு", "இதய", "గుండె", "ఛాతీ", "శ్వాస", "ఊపిరి", "നെഞ്ച", "ശ്വാസ", "ഹൃദയ", "বুক", "শ্বাস", "হৃদ", "છાતી", "શ્વાસ", "હૃદય", "ਛਾਤੀ", "ਸਾਹ", "ਦਿਲ", "ଛାତି", "ଶ୍ୱାସ", "ହୃଦ", "ꯊꯃꯣꯏ"]),
-    ("collapse_fall", {"collapse", "collapsed", "construction", "fell", "fall", "falling", "height", "debris", "trapped", "rubble", "building", "kattada", "bidda", "biddare", "bidde", "imarat", "imaarat", "gir", "gira", "giri", "katidom", "keezhe", "veenu", "padla", "padli", "bhukamp", "earthquake", "flood", "landslide"}, ["ಕಟ್ಟಡ", "ಕುಸಿ", "ಬಿದ್ದ", "ಬೀಳ", "ಎತ್ತರ", "इमारत", "ढह", "गिर", "भूकंप", "बाढ़", "கட்டிட", "விழு", "கீழே", "நிலநடுக்க", "భవనం", "కూలి", "పడ్డ", "పడి", "భూకంప", "കെട്ടിടം", "തകർ", "വീണ", "ഭൂചലന", "দালান", "ভবন", "ধস", "পড়ে ਗ", "ভূমিকম্প", "ઇમારત", "મકાન", "પડ", "ભૂકંપ", "ਇਮਾਰਤ", "ਡਿੱ", "ਭੂਚਾଳ", "କୋଠା", "ଭୁଶୁଡ଼", "ପଡ଼"]),
-    ("accident_trauma", {"accident", "crash", "bike", "car", "hit", "bleeding", "bleed", "blood", "fracture", "broke", "broken", "wound", "injury", "injured", "run over", "apaghata", "apaghaata", "gaaya", "rakta", "haadsa", "hadsa", "khoon", "vibathu", "pramadam", "raktham", "roktho", "lohi"}, ["ಅಪಘಾತ", "ರಕ್ತ", "ಗಾಯ", "ಮುರಿ", "दुर्घटना", "हादसा", "खून", "चोट", "घाव", "फ्रैक्चर", "விபத்து", "ரத்த", "இரத்த", "காயம்", "எலும்பு", "ప్రమాదం", "రక్త", "గాయం", "విరిగ", "അപകടം", "രക്ത", "മുറിവ്", "দুর্ঘটনা", "রক্ত", "আঘাত", "ক্ষত", "અકસ્માત", "લોહી", "ઈજા", "ਹਾਦਸਾ", "ਖੂਨ", "ਸੱਟ", "ਜ਼ਖ਼ਮ", "ଦୁର୍ଘଟଣା", "ରକ୍ତ", "ଆଘାତ"]),
+    ("collapse_fall", {"collapse", "collapsed", "construction", "fell", "fall", "falling", "height", "debris", "trapped", "rubble", "building", "kattada", "bidda", "biddare", "bidde", "imarat", "imaarat", "gir", "gira", "giri", "katidom", "keezhe", "veenu", "padla", "padli", "bhukamp", "earthquake", "flood", "landslide"}, ["ಕಟ್ಟಡ", "ಕುಸಿ", "ಬಿದ್ದ", "ಬೀಳ", "ಎತ್ತರ", "इमारत", "ढह", "गिर", "भूकंप", "बाढ़", "கட்டிட", "விழு", "கீழே", "நிலநடுக்க", "భవనం", "కూలి", "పడ్డ", "పడి", "భూకంప", "കെട്ടിടം", "തകർ", "വീണ", "ഭൂചലന", "দালান", "ভবন", "ধস", "পড়ে ગ", "ভূমিকম্প", "ઇમારત", "મકાન", "પડ", "ભૂકંપ", "ਇਮਾਰਤ", "ਡਿੱ", "ਭੂਚਾଳ", "କୋଠା", "ଭୁଶୁଡ଼", "ପଡ଼"]),
+    ("accident_trauma", {"accident", "crash", "bike", "car", "hit", "bleeding", "bleed", "blood", "fracture", "broke", "broken", "wound", "injury", "injured", "run over", "apaghata", "apaghaata", "gaaya", "rakta", "haadsa", "hadsa", "khoon", "vibathu", "pramadam", "raktham", "roktho", "lohi"}, ["ಅಪಘಾತ", "ರಕ್ತ", "ಗಾಯ", "ಮುರಿ", "दुर्घटना", "हादसा", "खून", "चोट", "घाव", "फ्रैक्चर", "விபத்து", "ரத்த", "இரத்த", "காயம்", "எலும்பு", "ಪ್ರಮಾదం", "రక్త", "గాయం", "విరిగ", "അപകടം", "രക്ത", "മുറിവ്", "দুর্ঘটনা", "রক্ত", "আঘাত", "ক্ষত", "અકસ્માત", "લોહી", "ઈજા", "ਹਾਦਸਾ", "ਖੂਨ", "ਸੱਟ", "ਜ਼ਖ਼ਮ", "ଦୁର୍ଘଟଣା", "ରକ୍ତ", "ଆଘାତ"]),
 ]
 
 FALLBACKS = {
@@ -696,13 +696,13 @@ def timbre_speak(text: str, lang_code: str):
     return None, ""
 
 # ---------------------------------------------------------------------------
-# UI Renderers
+# UI Renderers (Explicit Inline Colors & High-Contrast Fallbacks)
 # ---------------------------------------------------------------------------
 def header_html(t):
     return f"""
     <div class="app-top-bar">
       <div class="brand-left">
-        <div class="brand-wave-icon" aria-hidden="true">
+        <div class="brand-wave-icon" aria-label="Audio Wave">
           <span></span><span></span><span></span><span></span><span></span>
         </div>
         <span class="brand-name">{html.escape(t['brand'])}</span>
@@ -744,7 +744,6 @@ def custom_mic_card_html(t):
 
       <div class="mic-prompt-main" id="micPromptMain">{html.escape(t['mic_header'])}</div>
 
-      <!-- Autonomous Spoken Language Detector Badge -->
       <div class="lang-pill-wrap">
         <div class="autonomous-detect-badge">
           ⚡ <span>{html.escape(t['auto_detect_badge'])}</span>
@@ -758,14 +757,14 @@ def custom_mic_card_html(t):
     """
 
 def result_card(service, steps, urgency, rt, reply_text, caller_text="", detected_speech=""):
-    body = "<ol class='step-list'>" + "".join(f"<li>{html.escape(s)}</li>" for s in steps) + "</ol>"
+    body = "<ol class='step-list'>" + "".join(f"<li style='color:inherit !important;'>{html.escape(s)}</li>" for s in steps) + "</ol>"
     caller_bubble = ""
     if caller_text:
         tag = f" <span style='font-size:11px; opacity:0.8;'>[{detected_speech}]</span>" if detected_speech else ""
         caller_bubble = f"""
-        <div class="trans-bubble-blue">
+        <div class="trans-bubble-blue" style="color: #1E3A8A !important;">
           <span class="bubble-vol">🗣️</span>
-          <div class="bubble-txt">{html.escape(caller_text)}{tag}</div>
+          <div class="bubble-txt" style="color: #1E3A8A !important;">{html.escape(caller_text)}{tag}</div>
         </div>
         """
     return f"""
@@ -875,7 +874,7 @@ def on_clear():
     return "", gr.update(value="", visible=False), gr.update(value=None, visible=False), gr.update(value="", visible=False), ""
 
 # ---------------------------------------------------------------------------
-# CSS & JS Front-End (Comprehensive high-contrast styling & wave animation)
+# CSS & JS Front-End
 # ---------------------------------------------------------------------------
 CSS = """
 :root, body, .gradio-container {
@@ -896,7 +895,7 @@ body.dark-mode, .dark-mode .gradio-container {
     --card-border: #3F3F46 !important;
     --text-primary: #F8FAFC !important;
     --text-secondary: #CBD5E1 !important;
-    --input-bg: #18181B !important;
+    --input-bg: #27272A !important;
     --input-text: #F8FAFC !important;
     --input-border: #52525B !important;
     --topbar-bg: #27272A !important;
@@ -1180,7 +1179,7 @@ footer { display: none !important; }
     font-size: 12px;
 }
 
-/* Result Card */
+/* Result Card & Bubbles */
 .accident-result-card {
     background: var(--card-bg) !important;
     border-radius: 18px;
@@ -1188,20 +1187,118 @@ footer { display: none !important; }
     overflow: hidden;
     margin-bottom: 8px;
 }
-.accident-alert-top { background: #FEE2E2 !important; padding: 12px; text-align: center; }
-.accident-main-title { font-size: 18px !important; font-weight: 800 !important; color: #DC2626 !important; margin: 0; }
-.accident-sub-note { font-size: 12px !important; font-weight: 700 !important; color: #991B1B !important; margin: 4px 0 0 0; }
-.live-trans-surface { padding: 12px; }
-.live-trans-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.live-trans-header { font-weight: 800 !important; color: var(--text-primary) !important; font-size: 13px; }
-.inline-clear-btn { background: #FEE2E2 !important; color: #DC2626 !important; border: 1px solid #FCA5A5 !important; border-radius: 6px; padding: 3px 8px; cursor: pointer; font-weight: 700; }
-.trans-bubble-blue { background: #EFF6FF !important; color: #1E3A8A !important; border-radius: 10px; padding: 10px; margin-bottom: 8px; font-weight: 700; font-size: 13px; }
-.trans-bubble-gray { background: #F8FAFC !important; color: #0F172A !important; border: 1px solid #E2E8F0 !important; border-radius: 10px; padding: 10px; margin-bottom: 10px; font-weight: 700; font-size: 13px; }
-.dark-mode .trans-bubble-gray { background: #1E293B !important; color: #F8FAFC !important; border-color: #334155 !important; }
-.first-aid-title { font-size: 13px !important; font-weight: 800 !important; color: var(--text-primary) !important; margin-bottom: 6px; }
-.step-list { margin: 0 0 12px 0; padding-left: 20px; font-size: 13px; color: var(--text-primary) !important; }
-.step-list li { margin-bottom: 4px; font-weight: 600; }
-.dial-now-btn { display: block; text-align: center; background: #16A34A !important; color: #FFFFFF !important; padding: 10px; border-radius: 10px; text-decoration: none !important; font-weight: 800; font-size: 14px; }
+.accident-alert-top {
+    background: #FEE2E2 !important;
+    padding: 12px;
+    text-align: center;
+}
+.dark-mode .accident-alert-top {
+    background: #450A0A !important;
+}
+.accident-main-title {
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    color: #DC2626 !important;
+    margin: 0;
+}
+.accident-sub-note {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    color: #991B1B !important;
+    margin: 4px 0 0 0;
+}
+.dark-mode .accident-sub-note {
+    color: #FCA5A5 !important;
+}
+.live-trans-surface {
+    padding: 12px;
+    background: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+}
+.live-trans-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.live-trans-header {
+    font-weight: 800 !important;
+    color: var(--text-primary) !important;
+    font-size: 13px;
+}
+.inline-clear-btn {
+    background: #FEE2E2 !important;
+    color: #DC2626 !important;
+    border: 1px solid #FCA5A5 !important;
+    border-radius: 6px;
+    padding: 3px 8px;
+    cursor: pointer;
+    font-weight: 700;
+}
+.trans-bubble-blue {
+    background: #EFF6FF !important;
+    color: #1E3A8A !important;
+    border: 1px solid #BFDBFE !important;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 13px;
+}
+.dark-mode .trans-bubble-blue {
+    background: #1E293B !important;
+    color: #93C5FD !important;
+    border-color: #3B82F6 !important;
+}
+.trans-bubble-gray {
+    background: #F8FAFC !important;
+    color: #0F172A !important;
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-size: 13px;
+}
+.dark-mode .trans-bubble-gray {
+    background: #334155 !important;
+    color: #F8FAFC !important;
+    border-color: #475569 !important;
+}
+.bubble-txt {
+    color: inherit !important;
+}
+.first-aid-section {
+    color: var(--text-primary) !important;
+}
+.first-aid-title {
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    color: var(--text-primary) !important;
+    margin-bottom: 6px;
+}
+.step-list {
+    margin: 0 0 12px 0;
+    padding-left: 20px;
+    font-size: 13px;
+    color: var(--text-primary) !important;
+}
+.step-list li {
+    margin-bottom: 4px;
+    font-weight: 600;
+    color: var(--text-primary) !important;
+}
+.dial-now-btn {
+    display: block;
+    text-align: center;
+    background: #16A34A !important;
+    color: #FFFFFF !important;
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none !important;
+    font-weight: 800;
+    font-size: 14px;
+}
 
 /* Modal Settings Overlay */
 .settings-modal-overlay {
@@ -1213,11 +1310,17 @@ footer { display: none !important; }
     background: #FFFFFF !important; color: #0F172A !important; padding: 20px;
     border-radius: 18px; width: 90%; max-width: 380px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
+.dark-mode .settings-modal-content {
+    background: #27272A !important;
+    color: #F8FAFC !important;
+}
 .settings-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
 .settings-close-btn { border: none; background: #E2E8F0; border-radius: 50%; width: 28px; height: 28px; cursor: pointer; font-size: 16px; font-weight: 800; }
 .setting-item { margin-bottom: 14px; }
 .setting-item label { font-size: 12px; font-weight: 800; color: #475569; display: block; margin-bottom: 6px; }
-.setting-item select { width: 100%; padding: 8px 10px; border-radius: 8px; border: 1.5px solid #CBD5E1; font-weight: 700; color: #0F172A; }
+.dark-mode .setting-item label { color: #CBD5E1 !important; }
+.setting-item select { width: 100%; padding: 8px 10px; border-radius: 8px; border: 1.5px solid #CBD5E1; font-weight: 700; color: #0F172A; background: #FFFFFF; }
+.dark-mode .setting-item select { background: #18181B !important; color: #F8FAFC !important; border-color: #52525B !important; }
 """
 
 INIT_JS = """() => {
@@ -1485,3 +1588,4 @@ if __name__ == "__main__":
         css=CSS,
         js=INIT_JS,
     )
+
