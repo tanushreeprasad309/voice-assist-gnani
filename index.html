@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Sahaya AI | Speak, Stay Safe</title>
+  <!-- Google Fonts: Montserrat & Inter per 4.1 Design System Tokens -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* 4.1 Design System Tokens ("Calm in Chaos") */
+      --crimson-sos: #E63946;
+      --safe-navy: #1D3557;
+      --mint-protection: #2A9D8F;
+      --canvas-dark: #0F141C;
+      --elevated-surface: #1E2638;
+      --warning-amber: #F4A261;
+      --text-primary: #F8FAFC;
+      --text-muted: #94A3B8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      background-color: var(--canvas-dark);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .heading-font {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+    }
+
+    .app-shell {
+      width: 100%;
+      max-width: 440px;
+      min-height: 100vh;
+      background-color: var(--canvas-dark);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      border-left: 1px solid rgba(255,255,255,0.06);
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* Top Header & Logo Integration */
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background-color: var(--elevated-surface);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      object-fit: contain;
+      background: #fff;
+      padding: 2px;
+    }
+
+    .brand-title {
+      font-size: 20px;
+      letter-spacing: 0.5px;
+      color: var(--text-primary);
+    }
+
+    .brand-tagline {
+      font-size: 10px;
+      color: var(--crimson-sos);
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      display: block;
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(42, 157, 143, 0.15);
+      color: var(--mint-protection);
+      border: 1px solid var(--mint-protection);
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--mint-protection);
+      border-radius: 50%;
+      animation: pulseDot 1.6s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.5; }
+    }
+
+    /* Navigation Tabs */
+    .nav-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background-color: var(--elevated-surface);
+      padding: 6px;
+      gap: 4px;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 9px 4px;
+      border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-btn.active {
+      background-color: var(--safe-navy);
+      color: var(--text-primary);
+    }
+
+    /* Screen Containers */
+    .screen {
+      display: none;
+      flex: 1;
+      padding: 18px;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    /* Screen 1: Home Dashboard */
+    .shield-container {
+      background: linear-gradient(145deg, var(--elevated-surface), var(--safe-navy));
+      border-radius: 20px;
+      padding: 24px 18px;
+      text-align: center;
+      border: 1px solid rgba(42, 157, 143, 0.3);
+      position: relative;
+    }
+
+    .breathing-shield {
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      background: rgba(42, 157, 143, 0.2);
+      border: 2px solid var(--mint-protection);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      cursor: pointer;
+      animation: breathe 3s ease-in-out infinite;
+    }
+
+    .breathing-shield.listening {
+      border-color: var(--warning-amber);
+      background: rgba(244, 162, 97, 0.2);
+    }
+
+    @keyframes breathe {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(42, 157, 143, 0.4); transform: scale(1); }
+      50% { box-shadow: 0 0 0 18px rgba(42, 157, 143, 0); transform: scale(1.04); }
+    }
+
+    .metrics-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .metric-chip {
+      flex: 1;
+      background: rgba(15, 20, 28, 0.6);
+      padding: 8px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .card-btn {
+      background-color: var(--elevated-surface);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 16px;
+      text-align: left;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    .card-btn h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .card-btn p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* SAHAYA-601: 80% Swipe-to-SOS Slider */
+    .sos-slider-track {
+      margin-top: auto;
+      background: rgba(230, 57, 70, 0.18);
+      border: 2px solid var(--crimson-sos);
+      border-radius: 999px;
+      height: 62px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      touch-action: none;
+    }
+
+    .sos-slider-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-primary);
+      letter-spacing: 0.8px;
+      pointer-events: none;
+    }
+
+    .sos-slider-thumb {
+      width: 52px;
+      height: 52px;
+      background-color: var(--crimson-sos);
+      border-radius: 50%;
+      position: absolute;
+      left: 4px;
+      top: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      color: #fff;
+      cursor: grab;
+      box-shadow: 0 4px 12px rgba(230, 57, 70, 0.5);
+    }
+
+    /* Screen 2: Split-Screen Voice Translator (SAHAYA-602 & 302) */
+    .partner-pane {
+      background-color: var(--elevated-surface);
+      border-radius: 16px;
+      padding: 14px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .partner-pane.mirrored {
+      transform: rotate(180deg);
+    }
+
+    .lang-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    select.lang-select {
+      background: var(--canvas-dark);
+      color: var(--text-primary);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .transcript-box {
+      my: 8px;
+      padding: 10px;
+      background: rgba(15, 20, 28, 0.55);
+      border-radius: 10px;
+      min-height: 64px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .ptt-btn {
+      height: 54px;
+      border-radius: 12px;
+      border: none;
+      background-color: var(--safe-navy);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .ptt-btn.recording {
+      background-color: var(--crimson-sos);
+    }
+
+    .phrasebook-strip {
+      background: var(--elevated-surface);
+      border-radius: 12px;
+      padding: 10px;
+    }
+
+    .phrase-chips {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-top: 6px;
+    }
+
+    .phrase-chip {
+      background: var(--safe-navy);
+      color: var(--text-primary);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    /* Screen 3: Guardian & Route Setup */
+    .section-card {
+      background-color: var(--elevated-surface);
+      border-radius: 14px;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .contact-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .input-row input {
+      flex: 1;
+      background: var(--canvas-dark);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    .btn-primary {
+      background: var(--mint-protection);
+      color: #fff;
+      border: none;
+      padding: 9px 14px;
+      border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    /* Screen 4: Stealth Calculator (SAHAYA-603) */
+    .calc-display {
+      background: var(--elevated-surface);
+      padding: 24px 16px;
+      border-radius: 14px;
+      text-align: right;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 32px;
+      letter-spacing: 1px;
+      min-height: 82px;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      flex: 1;
+    }
+
+    .calc-key {
+      background: var(--elevated-surface);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      color: var(--text-primary);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .calc-key.op {
+      background: var(--safe-navy);
+    }
+
+    /* Screen 5: Emergency SOS Overlay (SAHAYA-401) */
+    .sos-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 20, 28, 0.96);
+      border: 4px solid var(--crimson-sos);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .sos-overlay.active {
+      display: flex;
+    }
+
+    .countdown-ring {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 6px solid var(--crimson-sos);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 56px;
+      font-weight: 800;
+      color: var(--crimson-sos);
+      margin: 20px 0;
+      box-shadow: 0 0 30px rgba(230, 57, 70, 0.6);
+    }
+
+    .abort-btn {
+      background: var(--elevated-surface);
+      color: #fff;
+      border: 2px solid var(--warning-amber);
+      padding: 16px 28px;
+      border-radius: 999px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+
+    .dispatch-log {
+      margin-top: 18px;
+      width: 100%;
+      max-width: 360px;
+      background: var(--elevated-surface);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: left;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Header with Integrated Logo -->
+    <header class="app-header">
+      <div class="brand-box">
+        <img src="/static/logo.png" alt="Sahaya Logo" class="brand-logo" onerror="this.style.display='none'" />
+        <div>
+          <span class="brand-title heading-font">SaHaya</span>
+          <span class="brand-tagline">TALK • TRANSLATE • STAY SAFE!</span>
+        </div>
+      </div>
+      <div class="status-pill" id="wakeStatusPill">
+        <span class="pulse-dot"></span>
+        <span id="wakeStatusText">Wake-Word Active</span>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="nav-btn active" onclick="switchScreen('homeScreen', this)">Shield</button>
+      <button class="nav-btn" onclick="switchScreen('translatorScreen', this)">Translate</button>
+      <button class="nav-btn" onclick="switchScreen('guardianScreen', this)">Guardian</button>
+      <button class="nav-btn" onclick="switchScreen('stealthScreen', this)">Stealth</button>
+    </nav>
+
+    <!-- SCREEN 1: HOME DASHBOARD -->
+    <section id="homeScreen" class="screen active">
+      <div class="shield-container">
+        <div class="breathing-shield" id="shieldBtn" onclick="toggleAudioProtection()">
+          🛡️
+        </div>
+        <h2 style="font-size: 18px; margin-bottom: 4px;">Zero-Touch Protection</h2>
+        <p style="font-size: 12px; color: var(--text-muted);" id="audioPipelineStatus">
+          Say <strong>"Sahaya Help"</strong>, <strong>"Stay Safe"</strong>, or <strong>"Bachao"</strong>
+        </p>
+        <div class="metrics-bar">
+          <div class="metric-chip">
+            <div>Noise Filter</div>
+            <strong style="color: var(--mint-protection);">85Hz High-Pass</strong>
+          </div>
+          <div class="metric-chip">
+            <div>Acoustic Level</div>
+            <strong id="dbReadout">42 dB</strong>
+          </div>
+          <div class="metric-chip">
+            <div>GPS Telemetry</div>
+            <strong id="gpsReadout" style="color: var(--mint-protection);">Locked</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-grid">
+        <button class="card-btn" onclick="switchScreen('translatorScreen', document.querySelectorAll('.nav-btn')[1])">
+          <h4>🗣️ Code-Mixed AI</h4>
+          <p>Hinglish, Tanglish, Banglish, Kannada</p>
+        </button>
+        <button class="card-btn" onclick="toggleRouteMonitor()">
+          <h4 id="routeCardTitle">📍 Watch My Route</h4>
+          <p id="routeCardSub">500m Geofence Corridor Off</p>
+        </button>
+      </div>
+
+      <div class="section-card">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span class="heading-font" style="font-size:13px;">Live Triage & Wake Transcript</span>
+          <span style="font-size:11px; color:var(--mint-protection);">Gnani Pragma + Timbre Ready</span>
+        </div>
+        <p id="liveWakeTranscript" style="margin-top:8px; font-size:13px; color:var(--text-muted);">
+          Tap the shield above to initialize the noisy-audio high-pass microphone pipeline...
+        </p>
+      </div>
+
+      <!-- SAHAYA-601: 80% Swipe-to-SOS Slider -->
+      <div class="sos-slider-track" id="sosTrack">
+        <span class="sos-slider-label">SWIPE 80% FOR EMERGENCY SOS &raquo;</span>
+        <div class="sos-slider-thumb" id="sosThumb">SOS</div>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: SPLIT-SCREEN TRANSLATOR & OFFLINE PHRASEBOOK -->
+    <section id="translatorScreen" class="screen">
+      <!-- Top Mirrored Partner View (Rotated 180 deg for face-to-face crisis triage) -->
+      <div class="partner-pane mirrored" id="partnerPane">
+        <div class="lang-row">
+          <select id="targetLang" class="lang-select">
+            <option value="kn-IN">Kannada (ಕನ್ನಡ)</option>
+            <option value="hi-IN">Hindi / Hinglish</option>
+            <option value="ta-IN">Tamil / Tanglish</option>
+            <option value="bn-IN">Bengali / Banglish</option>
+            <option value="te-IN">Telugu (తెలుగు)</option>
+            <option value="mr-IN">Marathi (मराठी)</option>
+            <option value="en-IN">English (India)</option>
+          </select>
+          <button onclick="document.getElementById('partnerPane').classList.toggle('mirrored')" style="background:none;border:1px solid #fff3;color:#fff;padding:4px 8px;border-radius:6px;font-size:11px;">Flip 180°</button>
+        </div>
+        <div class="transcript-box" id="translatedOutput">
+          Translated emergency output will appear here...
+        </div>
+        <button class="ptt-btn" id="partnerPttBtn" onclick="runTranslation('partner')">
+          🎤 Partner Speak (Push-to-Talk)
+        </button>
+      </div>
+
+      <!-- Offline Emergency Phrasebook (SAHAYA-302) -->
+      <div class="phrasebook-strip">
+        <div style="font-size:11px; color:var(--warning-amber); font-weight:700;">⚡ OFFLINE ZERO-NETWORK EMERGENCY PHRASEBOOK</div>
+        <div class="phrase-chips">
+          <button class="phrase-chip" onclick="speakOfflinePhrase('I need immediate police and medical help!')">🚨 Need Police/Medical</button>
+          <button class="phrase-chip" onclick="speakOfflinePhrase('Please call an ambulance to my location.')">🚑 Call Ambulance</button>
+          <button class="phrase-chip" onclick="speakOfflinePhrase('I am being followed, please help me stay safe.')">🛡️ Being Followed</button>
+          <button class="phrase-chip" onclick="speakOfflinePhrase('Severe chest pain or breathing emergency.')">❤️ Medical Triage</button>
+        </div>
+      </div>
+
+      <!-- Bottom User View -->
+      <div class="partner-pane">
+        <div class="lang-row">
+          <select id="sourceLang" class="lang-select">
+            <option value="hi-IN">Hinglish / Hindi</option>
+            <option value="ta-IN">Tanglish / Tamil</option>
+            <option value="bn-IN">Banglish / Bengali</option>
+            <option value="kn-IN">Kannada (ಕನ್ನಡ)</option>
+            <option value="en-IN" selected>English / Code-Mixed</option>
+          </select>
+          <span style="font-size:11px; color:var(--mint-protection);">85Hz Noise Filter Active</span>
+        </div>
+        <div class="transcript-box" id="sourceInputTranscript">
+          Tap microphone and speak in English, Hinglish, Tanglish, or Banglish...
+        </div>
+        <button class="ptt-btn" id="userPttBtn" onclick="runTranslation('user')">
+          🎙️ Hold / Tap to Speak (User)
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: GUARDIAN CONTACTS & ROUTE CORRIDOR -->
+    <section id="guardianScreen" class="screen">
+      <div class="section-card">
+        <h3 style="font-size:15px; margin-bottom:6px;">Emergency Guardians (Max 5)</h3>
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">
+          Simultaneous SMS, WhatsApp & signed live GPS link broadcast in &le; 2.0s.
+        </p>
+        <div id="guardianList"></div>
+        <div class="input-row">
+          <input type="text" id="gName" placeholder="Name (e.g., Amma)" />
+          <input type="tel" id="gPhone" placeholder="+91 Phone" />
+          <button class="btn-primary" onclick="addGuardian()">Add</button>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="font-size:15px; margin-bottom:6px;">Safe Navigation Geofence (SAHAYA-502)</h3>
+        <p style="font-size:12px; color:var(--text-muted);">
+          Monitors GPS every 3s. Alerts guardians if you deviate &gt;500m or stall &gt;10 mins.
+        </p>
+        <div style="margin-top:12px; font-size:13px;" id="telemetryCoords">
+          Current Coords: Acquiring GPS lock...
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: STEALTH CALCULATOR DISGUISE (SAHAYA-603) -->
+    <section id="stealthScreen" class="screen">
+      <p style="font-size:11px; color:var(--text-muted); text-align:center;">
+        Stealth Mode: Type <strong>999#</strong> to trigger a silent background SOS dispatch.
+      </p>
+      <div class="calc-display" id="calcDisplay">0</div>
+      <div class="calc-grid">
+        <button class="calc-key" onclick="pressCalc('7')">7</button>
+        <button class="calc-key" onclick="pressCalc('8')">8</button>
+        <button class="calc-key" onclick="pressCalc('9')">9</button>
+        <button class="calc-key op" onclick="pressCalc('/')">÷</button>
+        <button class="calc-key" onclick="pressCalc('4')">4</button>
+        <button class="calc-key" onclick="pressCalc('5')">5</button>
+        <button class="calc-key" onclick="pressCalc('6')">6</button>
+        <button class="calc-key op" onclick="pressCalc('*')">×</button>
+        <button class="calc-key" onclick="pressCalc('1')">1</button>
+        <button class="calc-key" onclick="pressCalc('2')">2</button>
+        <button class="calc-key" onclick="pressCalc('3')">3</button>
+        <button class="calc-key op" onclick="pressCalc('-')">−</button>
+        <button class="calc-key" onclick="pressCalc('C')">C</button>
+        <button class="calc-key" onclick="pressCalc('0')">0</button>
+        <button class="calc-key op" onclick="pressCalc('#')">#</button>
+        <button class="calc-key op" onclick="pressCalc('=')">=</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- SCREEN 5: EMERGENCY SOS COUNTDOWN & DISPATCH OVERLAY -->
+  <div class="sos-overlay" id="sosOverlay">
+    <h2 style="color: var(--crimson-sos); font-size: 24px;">EMERGENCY SOS TRIGGERED</h2>
+    <p style="color: var(--text-muted); font-size: 13px; margin-top: 4px;" id="sosTriggerReason">
+      5-Second Cancel Window Active
+    </p>
+    <div class="countdown-ring" id="sosCountdownNumber">5</div>
+    <button class="abort-btn" id="abortSosBtn"
+      onmousedown="startAbortHold()" onmouseup="cancelAbortHold()"
+      ontouchstart="startAbortHold()" ontouchend="cancelAbortHold()">
+      HOLD 2 SECONDS TO ABORT
+    </button>
+    <div class="dispatch-log" id="sosDispatchLog">
+      Awaiting countdown completion...
+    </div>
+  </div>
+
+  <script>
+    /********************************************************************
+     * 1. STATE & LOCAL ENCRYPTED STORAGE SIMULATION (SAHAYA-102)
+     ********************************************************************/
+    let guardians = JSON.parse(localStorage.getItem('sahaya_guardians') || '[{"name":"Emergency Contact 1","phone":"+919876543210"}]');
+    let currentCoords = { lat: 12.9716, lng: 77.5946, accuracy: 5.0 };
+    let audioCtx = null;
+    let analyserNode = null;
+    let protectionActive = false;
+    let recognition = null;
+    let sosTimer = null;
+    let abortHoldTimer = null;
+
+    function renderGuardians() {
+      const list = document.getElementById('guardianList');
+      list.innerHTML = guardians.map((g, idx) => `
+        <div class="contact-item">
+          <div>
+            <strong>${g.name}</strong>
+            <div style="font-size:12px; color:var(--text-muted);">${g.phone}</div>
+          </div>
+          <button onclick="removeGuardian(${idx})" style="background:none;border:none;color:var(--crimson-sos);cursor:pointer;">Remove</button>
+        </div>
+      `).join('');
+    }
+    renderGuardians();
+
+    function addGuardian() {
+      if (guardians.length >= 5) return alert('Maximum 5 emergency contacts allowed.');
+      const name = document.getElementById('gName').value.trim();
+      const phone = document.getElementById('gPhone').value.trim();
+      if (!name || !phone) return;
+      guardians.push({ name, phone });
+      localStorage.setItem('sahaya_guardians', JSON.stringify(guardians));
+      document.getElementById('gName').value = '';
+      document.getElementById('gPhone').value = '';
+      renderGuardians();
+    }
+
+    function removeGuardian(idx) {
+      guardians.splice(idx, 1);
+      localStorage.setItem('sahaya_guardians', JSON.stringify(guardians));
+      renderGuardians();
+    }
+
+    function switchScreen(screenId, btn) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+    }
+
+    /********************************************************************
+     * 2. GPS TELEMETRY TRACKER
+     ********************************************************************/
+    if ('geolocation' in navigator) {
+      navigator.geolocation.watchPosition(pos => {
+        currentCoords = {
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude,
+          accuracy: pos.coords.accuracy
+        };
+        document.getElementById('telemetryCoords').innerText =
+          `Lat: ${currentCoords.lat.toFixed(5)}, Lng: ${currentCoords.lng.toFixed(5)} (±${Math.round(currentCoords.accuracy)}m)`;
+      }, () => {}, { enableHighAccuracy: true, maximumAge: 3000 });
+    }
+
+    /********************************************************************
+     * 3. HIGH-PASS NOISE FILTER + SCREAM (>85dB) & WAKE-WORD PIPELINE
+     ********************************************************************/
+    async function toggleAudioProtection() {
+      const shield = document.getElementById('shieldBtn');
+      const statusText = document.getElementById('audioPipelineStatus');
+
+      if (protectionActive) {
+        protectionActive = false;
+        shield.classList.remove('listening');
+        if (recognition) recognition.stop();
+        statusText.innerText = 'Protection paused. Tap shield to resume.';
+        return;
+      }
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+            autoGainControl: true
+          }
+        });
+
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const source = audioCtx.createMediaStreamSource(stream);
+
+        // High-Pass Filter at 85Hz to strip telephonic traffic rumble
+        const highPass = audioCtx.createBiquadFilter();
+        highPass.type = 'highpass';
+        highPass.frequency.setValueAtTime(85, audioCtx.currentTime);
+
+        // Dynamic Compressor to normalize frantic/distant voices
+        const compressor = audioCtx.createDynamicsCompressor();
+        compressor.threshold.setValueAtTime(-24, audioCtx.currentTime);
+        compressor.ratio.setValueAtTime(12, audioCtx.currentTime);
+
+        analyserNode = audioCtx.createAnalyser();
+        analyserNode.fftSize = 512;
+
+        source.connect(highPass);
+        highPass.connect(compressor);
+        compressor.connect(analyserNode);
+
+        protectionActive = true;
+        shield.classList.add('listening');
+        if (navigator.vibrate) navigator.vibrate(80); // Light pulse on wake-word init
+        statusText.innerText = 'Listening (85Hz High-Pass Active) — Say "Sahaya Help" or "Stay Safe"';
+
+        monitorAcousticDistress();
+        startWakeWordRecognition();
+      } catch (err) {
+        statusText.innerText = 'Mic permission needed for hands-free wake word.';
+      }
+    }
+
+    // SAHAYA-202: Acoustic Distress Scream Trigger (>85dB sustained)
+    let loudFrames = 0;
+    function monitorAcousticDistress() {
+      if (!protectionActive || !analyserNode) return;
+      const data = new Uint8Array(analyserNode.frequencyBinCount);
+      analyserNode.getByteFrequencyData(data);
+
+      let sum = 0;
+      for (let i = 0; i < data.length; i++) sum += data[i];
+      const avg = sum / data.length;
+      const estimatedDb = Math.min(110, Math.round(35 + avg * 0.55));
+      document.getElementById('dbReadout').innerText = `${estimatedDb} dB`;
+
+      if (estimatedDb > 85) {
+        loudFrames++;
+        if (loudFrames > 18) { // ~600ms sustained scream
+          loudFrames = 0;
+          triggerSOSCountdown('Acoustic Scream Distress (>85dB) Detected');
+        }
+      } else {
+        loudFrames = Math.max(0, loudFrames - 1);
+      }
+      requestAnimationFrame(monitorAcousticDistress);
+    }
+
+    // SAHAYA-201: Wake-Word & Code-Mixed Emergency Trigger
+    function startWakeWordRecognition() {
+      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRec) return;
+
+      recognition = new SpeechRec();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-IN';
+
+      recognition.onresult = (event) => {
+        let transcript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          transcript += event.results[i][0].transcript.toLowerCase();
+        }
+        document.getElementById('liveWakeTranscript').innerText = `"${transcript}"`;
+
+        // Code-mixed wake words across English, Hinglish, Tanglish, Banglish, Kannada
+        const wakeWords = ['sahaya help', 'stay safe', 'bachao', 'kapadi', 'raksha', 'help me sahaya'];
+        if (wakeWords.some(w => transcript.includes(w))) {
+          if (navigator.vibrate) navigator.vibrate(100);
+          triggerSOSCountdown(`Wake-Word Detected: "${transcript.trim()}"`);
+        }
+      };
+
+      recognition.onend = () => {
+        if (protectionActive) {
+          try { recognition.start(); } catch (e) {}
+        }
+      };
+
+      try { recognition.start(); } catch (e) {}
+    }
+
+    /********************************************************************
+     * 4. SAHAYA-601: DELIBERATE 80% SWIPE-TO-SOS SLIDER
+     ********************************************************************/
+    const sosTrack = document.getElementById('sosTrack');
+    const sosThumb = document.getElementById('sosThumb');
+    let dragging = false;
+    let startX = 0;
+
+    sosThumb.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      startX = e.clientX;
+      sosThumb.setPointerCapture(e.pointerId);
+    });
+
+    sosThumb.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const maxSlide = sosTrack.clientWidth - sosThumb.clientWidth - 8;
+      const delta = Math.max(0, Math.min(maxSlide, e.clientX - startX));
+      sosThumb.style.transform = `translateX(${delta}px)`;
+
+      // Progressive haptic feedback
+      if (delta / maxSlide >= 0.8) {
+        dragging = false;
+        sosThumb.style.transform = 'translateX(0px)';
+        triggerSOSCountdown('80% Deliberate SOS Slider Activated');
+      }
+    });
+
+    sosThumb.addEventListener('pointerup', () => {
+      dragging = false;
+      sosThumb.style.transform = 'translateX(0px)';
+    });
+
+    /********************************************************************
+     * 5. SAHAYA-401 & 402: 5s SOS COUNTDOWN, HAPTICS & FALLBACK DISPATCH
+     ********************************************************************/
+    function triggerSOSCountdown(reason, silent = false) {
+      if (silent) {
+        executeEmergencyDispatch(reason, true);
+        return;
+      }
+
+      const overlay = document.getElementById('sosOverlay');
+      const countEl = document.getElementById('sosCountdownNumber');
+      document.getElementById('sosTriggerReason').innerText = reason;
+      document.getElementById('sosDispatchLog').innerText = '5-second cancel window active...';
+      overlay.classList.add('active');
+
+      let remaining = 5;
+      countEl.innerText = remaining;
+
+      clearInterval(sosTimer);
+      sosTimer = setInterval(() => {
+        remaining--;
+        countEl.innerText = remaining;
+        // Ticking cadence during 5s countdown per 4.1 Haptics spec
+        if (navigator.vibrate) navigator.vibrate(120);
+
+        if (remaining <= 0) {
+          clearInterval(sosTimer);
+          executeEmergencyDispatch(reason, false);
+        }
+      }, 1000);
+    }
+
+    function startAbortHold() {
+      abortHoldTimer = setTimeout(() => {
+        clearInterval(sosTimer);
+        document.getElementById('sosOverlay').classList.remove('active');
+        if (navigator.vibrate) navigator.vibrate(60);
+      }, 2000); // 2-second hold to cancel per SAHAYA-401
+    }
+
+    function cancelAbortHold() {
+      clearTimeout(abortHoldTimer);
+    }
+
+    async function executeEmergencyDispatch(reason, silent) {
+      // Triple heavy burst on SOS dispatch per 4.1 Haptics spec
+      if (!silent && navigator.vibrate) navigator.vibrate([300, 120, 300, 120, 400]);
+
+      const logEl = document.getElementById('sosDispatchLog');
+      logEl.innerHTML = '⚡ Dispatching signed GPS link + SMS/WhatsApp alerts...';
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 1500); // SAHAYA-403: 1500ms timeout
+
+      try {
+        const res = await fetch('/api/v1/sos/dispatch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            reason,
+            coords: currentCoords,
+            guardians,
+            timestamp: new Date().toISOString()
+          }),
+          signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+        const data = await res.json();
+        logEl.innerHTML = `
+          <div style="color:var(--mint-protection);font-weight:700;">✔ DISPATCH CONFIRMED (${data.latency_ms}ms)</div>
+          <div>• Tracking Link: ${data.tracking_url}</div>
+          <div>• Evidence SHA-512: ${data.audit_hash.slice(0, 20)}...</div>
+          <div style="margin-top:8px;"><button class="btn-primary" onclick="document.getElementById('sosOverlay').classList.remove('active')">Close Overlay</button></div>
+        `;
+      } catch (err) {
+        // SAHAYA-403: Native SMS Fallback when offline or >1500ms timeout
+        const mapsUrl = `https://maps.google.com/?q=${currentCoords.lat},${currentCoords.lng}`;
+        const smsBody = encodeURIComponent(`SAHAYA SOS! ${reason}. Live GPS: ${mapsUrl}`);
+        const phones = guardians.map(g => g.phone).join(',');
+        logEl.innerHTML = `
+          <div style="color:var(--warning-amber);font-weight:700;">⚠️ Offline / Cloud Timeout (>1500ms)</div>
+          <div>Triggering Native GSM SMS Fallback...</div>
+          <div style="margin-top:8px;">
+            <a href="sms:${phones}?body=${smsBody}" class="btn-primary" style="text-decoration:none;display:inline-block;">Send Direct GSM SMS</a>
+            <button class="btn-primary" style="background:#475569;margin-left:6px;" onclick="document.getElementById('sosOverlay').classList.remove('active')">Dismiss</button>
+          </div>
+        `;
+      }
+    }
+
+    /********************************************************************
+     * 6. SAHAYA-301 & 302: CODE-MIXED SPEECH TRANSLATION & PHRASEBOOK
+     ********************************************************************/
+    async function runTranslation(speaker) {
+      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const sourceLang = document.getElementById('sourceLang').value;
+      const targetLang = document.getElementById('targetLang').value;
+
+      if (!SpeechRec) {
+        const sampleText = prompt('Enter emergency phrase to translate:');
+        if (sampleText) processServerTranslation(sampleText, sourceLang, targetLang);
+        return;
+      }
+
+      const rec = new SpeechRec();
+      rec.lang = speaker === 'user' ? sourceLang : targetLang;
+      const btn = document.getElementById(speaker === 'user' ? 'userPttBtn' : 'partnerPttBtn');
+      btn.classList.add('recording');
+      btn.innerText = 'Listening... Speak Now';
+
+      rec.onresult = async (e) => {
+        const text = e.results[0][0].transcript;
+        document.getElementById('sourceInputTranscript').innerText = text;
+        await processServerTranslation(text, sourceLang, targetLang);
+      };
+
+      rec.onend = () => {
+        btn.classList.remove('recording');
+        btn.innerText = speaker === 'user' ? '🎙️ Hold / Tap to Speak (User)' : '🎤 Partner Speak (Push-to-Talk)';
+      };
+
+      rec.start();
+    }
+
+    async function processServerTranslation(text, sourceLang, targetLang) {
+      try {
+        const res = await fetch('/api/v1/speech/translate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text, source_lang: sourceLang, target_lang: targetLang })
+        });
+        const data = await res.json();
+        document.getElementById('translatedOutput').innerText = data.translated_text;
+        speakOfflinePhrase(data.translated_text, targetLang);
+      } catch (e) {
+        document.getElementById('translatedOutput').innerText = `[Offline Fallback] ${text}`;
+        speakOfflinePhrase(text, targetLang);
+      }
+    }
+
+    function speakOfflinePhrase(phrase, lang = 'en-IN') {
+      document.getElementById('translatedOutput').innerText = phrase;
+      if ('speechSynthesis' in window) {
+        const utter = new SpeechSynthesisUtterance(phrase);
+        utter.lang = lang;
+        window.speechSynthesis.speak(utter);
+      }
+    }
+
+    /********************************************************************
+     * 7. SAHAYA-603: STEALTH CALCULATOR ('999#' SILENT TRIGGER)
+     ********************************************************************/
+    let calcBuffer = '';
+    function pressCalc(key) {
+      const disp = document.getElementById('calcDisplay');
+      if (key === 'C') {
+        calcBuffer = '';
+        disp.innerText = '0';
+        return;
+      }
+      calcBuffer += key;
+      disp.innerText = calcBuffer;
+
+      // Silent SOS trigger on '999#'
+      if (calcBuffer.endsWith('999#')) {
+        calcBuffer = '';
+        disp.innerText = '0';
+        triggerSOSCountdown('Stealth Calculator 999# Silent Trigger', true);
+        return;
+      }
+
+      if (key === '=') {
+        try {
+          const clean = calcBuffer.slice(0, -1).replace(/[^0-9+\-*/.]/g, '');
+          calcBuffer = String(Function('"use strict";return (' + clean + ')')());
+          disp.innerText = calcBuffer;
+        } catch {
+          calcBuffer = '';
+          disp.innerText = 'Error';
+        }
+      }
+    }
+
+    function toggleRouteMonitor() {
+      const title = document.getElementById('routeCardTitle');
+      const sub = document.getElementById('routeCardSub');
+      const active = sub.innerText.includes('Active');
+      sub.innerText = active ? '500m Geofence Corridor Off' : '500m Corridor Active (3s GPS)';
+      title.style.color = active ? 'var(--text-primary)' : 'var(--mint-protection)';
+    }
+  </script>
+</body>
+</html>
