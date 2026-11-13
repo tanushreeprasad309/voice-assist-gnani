@@ -4,6 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SaHaya • Talk • Translate • Stay Safe</title>
+
+  <!-- Custom SEO Metadata & Branding Assets Integration (Open Graph Specs) -->
+  <meta name="description" content="SaHaya: Talk • Translate • Stay Safe. AI-powered multilingual voice and text first-aid responder with 10-language code-mix auto-detection, DSP noise cancellation, SOS alarm, and geofencing safeguards." />
+  
+  <!-- Open Graph / WhatsApp Preview Meta (image_0.png cover page) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SaHaya • Multilingual Emergency Assistant" />
+  <meta property="og:description" content="Immediate multi-language first-aid guidance. Powered by Gnani and Groq AI." />
+  <meta property="og:image" content="/static/cover.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="1200" />
+  <meta property="og:site_name" content="SaHaya Application" />
+
+  <!-- Twitter Preview Meta -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SaHaya Emergency Voice Assistant" />
+  <meta name="twitter:description" content="Voice-first offline and online crisis aid." />
+  <meta name="twitter:image" content="/static/cover.png" />
+
+  <!-- Application Brand Icon (image_1.png logo) -->
+  <link rel="icon" type="image/png" href="/static/logo.png" />
+
   <style>
     :root {
       --bg-dark: #0b1325;
@@ -45,7 +67,7 @@
       gap: 18px;
     }
 
-    /* ================= HEADER & BLUE-GREEN SOUND WAVE ================= */
+    /* ================= HEADER & BRANDING LOGO ================= */
     .header {
       display: flex;
       justify-content: space-between;
@@ -59,7 +81,15 @@
       gap: 10px;
     }
 
-    /* Animated SaHaya Font in Blue-Green Gradient */
+    /* image_1.png brand Logo Integration styling */
+    .brand-logo-img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(56, 189, 248, 0.45));
+      animation: floatTitle 2.8s ease-in-out infinite;
+    }
+
     .animated-title {
       font-size: 2rem;
       font-weight: 900;
@@ -89,7 +119,6 @@
       50% { transform: translateY(-2px); }
     }
 
-    /* Bouncy Sound Wave in Gradient Blue & Green */
     .sound-wave {
       display: flex;
       align-items: center;
@@ -225,7 +254,7 @@
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
     }
 
-    /* ================= 1. SHIELD TAB (ORIGINAL RED CIRCLE SOS RETAINED) ================= */
+    /* ================= 1. SHIELD TAB ================= */
     .shield-center-box {
       display: flex;
       flex-direction: column;
@@ -269,7 +298,7 @@
     }
 
     .sos-big-btn.alarm-active {
-      animation: pulseRed 0.7s infinite alternate;
+      animation: pulseRed 0.6s infinite alternate;
       background: radial-gradient(circle, #ef4444 0%, #7f1d1d 100%);
     }
 
@@ -301,7 +330,7 @@
       font-weight: 600;
     }
 
-    /* ================= 2. TRANSLATE TAB (BLUE GLOWING MIC FROM REFERENCE) ================= */
+    /* ================= 2. TRANSLATE TAB ================= */
     .mic-center-card {
       display: flex;
       flex-direction: column;
@@ -310,7 +339,6 @@
       gap: 12px;
     }
 
-    /* Reference-Style Soft Outer Glow Aura in Blue */
     .mic-glow-aura {
       width: 114px;
       height: 114px;
@@ -324,7 +352,6 @@
       transition: all 0.25s ease;
     }
 
-    /* Solid Blue Circle Microphone Button with White SVG Mic */
     .mic-circle-btn {
       width: 84px;
       height: 84px;
@@ -356,7 +383,6 @@
       animation: pulseRed 0.8s infinite alternate;
     }
 
-    /* Tagline Directly Underneath the Mic Button */
     .mic-tagline {
       font-size: 0.78rem;
       color: #38bdf8;
@@ -370,47 +396,97 @@
       margin-top: 2px;
     }
 
-    .lang-detect-row {
+    /* Status badges show selected intelligence engine vs physical filter states */
+    .status-pills-row {
       display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.82rem;
-      color: var(--text-muted);
       flex-wrap: wrap;
       justify-content: center;
+      gap: 8px;
       margin-top: 2px;
     }
 
-    .lang-select {
-      background: #0f172a;
-      color: #38bdf8;
+    .auto-detect-pill {
+      background: rgba(15, 23, 42, 0.85);
       border: 1px solid var(--card-border);
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      outline: none;
+      color: #38bdf8;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
     }
 
+    .noise-cancel-pill {
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      color: #4ade80;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Input Row with Inline Circular Clear Button (✕) */
     .manual-input-row {
       display: flex;
       width: 100%;
       gap: 8px;
       margin-top: 4px;
+      align-items: center;
     }
 
-    .manual-input-row input {
+    .input-clear-wrapper {
+      position: relative;
       flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-clear-wrapper input {
+      width: 100%;
       background: #0f172a;
       border: 1px solid var(--card-border);
       color: white;
-      padding: 10px 12px;
+      padding: 10px 36px 10px 12px;
       border-radius: 10px;
       font-size: 0.9rem;
       outline: none;
+      transition: border-color 0.2s ease;
     }
 
-    .manual-input-row button {
+    .input-clear-wrapper input:focus {
+      border-color: var(--blue-light);
+    }
+
+    .clear-input-btn {
+      position: absolute;
+      right: 8px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(148, 163, 184, 0.22);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: #f8fafc;
+      font-size: 0.75rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      transition: all 0.15s ease;
+    }
+
+    .clear-input-btn:hover {
+      background: var(--red);
+      border-color: var(--red);
+      color: #ffffff;
+      transform: scale(1.08);
+    }
+
+    .translate-help-btn {
       background: var(--blue-main);
       color: white;
       border: none;
@@ -420,9 +496,14 @@
       font-size: 0.85rem;
       cursor: pointer;
       white-space: nowrap;
+      transition: background 0.15s ease;
     }
 
-    /* First Aid Output Box */
+    .translate-help-btn:hover {
+      background: #1d4ed8;
+    }
+
+    /* Output Box */
     .first-aid-box {
       width: 100%;
       background: #0f172a;
@@ -435,6 +516,14 @@
       gap: 8px;
     }
 
+    .first-aid-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
     .detected-badge {
       display: inline-block;
       background: rgba(56, 189, 248, 0.15);
@@ -443,7 +532,25 @@
       border-radius: 6px;
       font-size: 0.76rem;
       font-weight: 700;
-      align-self: flex-start;
+    }
+
+    .speak-aloud-btn {
+      background: rgba(34, 197, 94, 0.16);
+      border: 1px solid rgba(34, 197, 94, 0.45);
+      color: #86efac;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .speak-aloud-btn:hover {
+      background: rgba(34, 197, 94, 0.3);
     }
 
     .spoken-transcript {
@@ -460,7 +567,7 @@
       white-space: pre-line;
     }
 
-    /* WHITE HEADINGS FOR EMERGENCY CALL SCENARIOS & EMERGENCY DIRECTORIES */
+    /* Section Headings */
     .section-label {
       font-size: 0.82rem;
       font-weight: 800;
@@ -619,11 +726,13 @@
 <body>
 
   <div class="app-container">
-    <!-- Top Header: Animated SaHaya + Blue-Green Bouncy Sound Wave + Decoupled Preferred Language -->
+    <!-- Top Header Branding -->
     <div class="header">
       <div class="brand-row">
+        <!-- Integrated your Official Logo Icon (image_1.png) -->
+        <img class="brand-logo-img" src="/static/logo.png" alt="SaHaya Brand Logo Pattern" onerror="this.style.display='none';" />
         <h1 class="animated-title" data-i18n="app_title">SaHaya</h1>
-        <div class="sound-wave" title="Voice AI Active">
+        <div class="sound-wave" title="Gnani Prisma, Timbre & Groq AI Active">
           <span class="wave-bar"></span>
           <span class="wave-bar"></span>
           <span class="wave-bar"></span>
@@ -645,7 +754,7 @@
             <option value="gu">Gujarati (ગુજરાતી)</option>
             <option value="kn">Kannada (ಕನ್ನಡ)</option>
             <option value="ml">Malayalam (മലയാളം)</option>
-            <option value="mr">Marathi (मराठी)</option>
+            <option value="mr">Marathi (മराठी)</option>
             <option value="pa">Punjabi (ਪੰਜਾਬੀ)</option>
             <option value="ta">Tamil (தமிழ்)</option>
             <option value="te">Telugu (తెలుగు)</option>
@@ -661,7 +770,7 @@
       <button class="tab-btn" onclick="switchTab('guardian', this)" data-i18n="tab_guardian">Guardian</button>
     </div>
 
-    <!-- ==================== TAB 1: SHIELD (ORIGINAL RED SOS BUTTON RETAINED) ==================== -->
+    <!-- ==================== TAB 1: SHIELD ==================== -->
     <div id="tab-shield" class="tab-content active">
       <div class="card shield-center-box">
         <button id="sosBtn" class="sos-big-btn" onclick="toggleSOSAlarm()">
@@ -670,7 +779,7 @@
         </button>
 
         <p id="sosStatus" class="sos-status-text" data-i18n="sos_status">
-          Press the SOS button in an emergency to trigger a loud police siren and broadcast your live GPS location to your Guardians.
+          Press the SOS button in an emergency to trigger a high-decibel emergency wail siren and broadcast your live GPS location to your Guardians.
         </p>
 
         <div id="gpsDisplay" class="gps-live-pill" data-i18n="gps_ready">
@@ -684,7 +793,7 @@
       <div class="card mic-center-card">
         <span class="section-label" data-i18n="mic_label">🎙️ AUTO-DETECT CODE-MIXED & MULTILINGUAL ASSISTANT</span>
 
-        <!-- Blue Circle Microphone Button with Soft Glowing Ring (Reference Format) -->
+        <!-- Microphone Trigger with Outer Ring Aura -->
         <div class="mic-glow-aura">
           <button id="micBtn" class="mic-circle-btn" onclick="toggleVoiceRecognition()" title="Tap to Speak">
             <svg viewBox="0 0 24 24">
@@ -693,49 +802,61 @@
           </button>
         </div>
 
-        <!-- Tagline Directly Under the Mic Record Button -->
+        <!-- Pill Tagline -->
         <p class="mic-tagline" data-i18n="app_sub">TALK • TRANSLATE • STAY SAFE!</p>
 
-        <!-- Completely Separate Auto-Detect Speech Mode Selector -->
-        <div class="lang-detect-row">
-          <span data-i18n="speech_mode_label">Voice Detection Mode:</span>
-          <select id="speechLangSelect" class="lang-select">
-            <option value="auto">✨ Auto-Detect (10 Languages + Code-Mixed)</option>
-            <option value="en-IN">English (India)</option>
-            <option value="hi-IN">Hindi (हिन्दी / Hinglish)</option>
-            <option value="bn-IN">Bengali (বাংলা / Banglish)</option>
-            <option value="gu-IN">Gujarati (ગુજરાતી / Gujlish)</option>
-            <option value="kn-IN">Kannada (ಕನ್ನಡ / Kanglish)</option>
-            <option value="ml-IN">Malayalam (മലയാളം / Manglish)</option>
-            <option value="mr-IN">Marathi (मराठी / Minglish)</option>
-            <option value="pa-IN">Punjabi (ਪੰਜਾਬੀ / Punglish)</option>
-            <option value="ta-IN">Tamil (தமிழ் / Tanglish)</option>
-            <option value="te-IN">Telugu (తెలుగు / Tenglish)</option>
-          </select>
+        <!-- Auto-Detect & Dynamic Filtering Labels -->
+        <div class="status-pills-row">
+          <span class="auto-detect-pill" data-i18n="auto_detect_badge">
+            ✨ Gnani Prisma + Groq Auto-Detect (10 Languages + Code-Mix)
+          </span>
+          <span id="noiseCancelBadge" class="noise-cancel-pill" data-i18n="noise_cancel_badge">
+            🛡️ Telephonic Noise Canceller: ON
+          </span>
         </div>
 
+        <!-- Input Box with Inline Clear circular trigger (✕) -->
         <div class="manual-input-row">
-          <input
-            type="text"
-            id="emergencyInput"
-            placeholder="Speak or type in any language or code-mix (e.g. haavu kachide help)"
-            data-i18n-placeholder="input_placeholder"
-          />
-          <button onclick="handleManualInput()" data-i18n="btn_translate">Translate & Help</button>
+          <div class="input-clear-wrapper">
+            <input
+              type="text"
+              id="emergencyInput"
+              placeholder="Speak or type in any language or code-mix (e.g. haavu kachide help)"
+              data-i18n-placeholder="input_placeholder"
+              onkeydown="if(event.key === 'Enter') handleManualInput()"
+            />
+            <button
+              type="button"
+              id="clearEmergencyBtn"
+              class="clear-input-btn"
+              onclick="clearEmergencyQuery()"
+              title="Clear & ask a fresh emergency"
+              aria-label="Clear input"
+            >
+              ✕
+            </button>
+          </div>
+          <button class="translate-help-btn" onclick="handleManualInput()" data-i18n="btn_translate">Translate & Help</button>
         </div>
 
+        <!-- First Aid Output Display -->
         <div class="first-aid-box">
-          <span id="detectedLangBadge" class="detected-badge" data-i18n="waiting_input">Language: Waiting for input...</span>
+          <div class="first-aid-header-row">
+            <span id="detectedLangBadge" class="detected-badge" data-i18n="waiting_input">Language: Waiting for input...</span>
+            <button type="button" class="speak-aloud-btn" onclick="replayLastGuidance()" title="Read guidance aloud with Gnani Timbre">
+              🔊 <span data-i18n="btn_read_aloud">Read Aloud (Timbre)</span>
+            </button>
+          </div>
           <div id="spokenTextDisplay" class="spoken-transcript" data-i18n="transcript_prompt">
             Speak naturally in English, Hindi, Bengali, Gujarati, Kannada, Malayalam, Marathi, Punjabi, Tamil, Telugu, or code-mixed speech.
           </div>
           <div id="firstAidOutput" class="guidance-steps" data-i18n="output_prompt">
-            First-aid steps will appear here and be spoken aloud in your detected language.
+            First-aid steps will appear here and be spoken aloud automatically via Gnani Timbre TTS.
           </div>
         </div>
       </div>
 
-      <!-- White Heading for Emergency Scenarios -->
+      <!-- Quick Touch Cases Card -->
       <div class="card">
         <span class="section-label" data-i18n="quick_tap_label">⚡ QUICK-TAP EMERGENCY SCENARIOS</span>
         <div class="phrase-pills">
@@ -748,7 +869,7 @@
         </div>
       </div>
 
-      <!-- White Heading for Emergency Directories -->
+      <!-- Directives Quick Connect -->
       <div class="card">
         <span class="section-label" data-i18n="directories_label">🚨 EMERGENCY DIRECTORIES</span>
         <div class="directory-grid">
@@ -830,8 +951,7 @@
 
   <script>
     /* =========================================================================
-       FUNCTION 1: PREFERRED LANGUAGE UI SWITCHER (100% SEPARATE FROM VOICE AI)
-       Only updates static interface labels. Does NOT touch speech recognition.
+       1. PREFERRED LANGUAGE UI SWITCHER (100% DECOUPLED FROM VOICE AUTO-DETECT)
        ========================================================================= */
     const UI_TRANSLATIONS = {
       en: {
@@ -844,15 +964,17 @@
         tab_guardian: "Guardian",
         sos_btn: "SOS",
         sos_sub: "TAP FOR SIREN & LIVE GPS",
-        sos_status: "Press the SOS button in an emergency to trigger a loud police siren and broadcast your live GPS location to your Guardians.",
+        sos_status: "Press the SOS button in an emergency to trigger a high-decibel emergency wail siren and broadcast your live GPS location to your Guardians.",
         gps_ready: "📍 Live Location: Ready to lock GPS coordinates",
         mic_label: "🎙️ AUTO-DETECT CODE-MIXED & MULTILINGUAL ASSISTANT",
-        speech_mode_label: "Voice Detection Mode:",
+        auto_detect_badge: "✨ Gnani Prisma + Groq Auto-Detect (10 Languages + Code-Mix)",
+        noise_cancel_badge: "🛡️ Telephonic Noise Canceller: ON",
         input_placeholder: "Speak or type in any language or code-mix (e.g. haavu kachide help)",
         btn_translate: "Translate & Help",
+        btn_read_aloud: "Read Aloud (Timbre)",
         waiting_input: "Language: Waiting for input...",
         transcript_prompt: "Speak naturally in English, Hindi, Bengali, Gujarati, Kannada, Malayalam, Marathi, Punjabi, Tamil, Telugu, or code-mixed speech.",
-        output_prompt: "First-aid steps will appear here and be spoken aloud in your detected language.",
+        output_prompt: "First-aid steps will appear here and be spoken aloud automatically via Gnani Timbre TTS.",
         quick_tap_label: "⚡ QUICK-TAP EMERGENCY SCENARIOS",
         directories_label: "🚨 EMERGENCY DIRECTORIES",
         dir_ambulance: "Ambulance",
@@ -881,12 +1003,14 @@
         tab_guardian: "ಪಾಲಕರು",
         sos_btn: "SOS",
         sos_sub: "ಸೈರನ್ ಮತ್ತು ಲೈವ್ ಜಿಪಿಎಸ್‌ಗಾಗಿ ಒತ್ತಿರಿ",
-        sos_status: "ತುರ್ತು ಪರಿಸ್ಥಿತಿಯಲ್ಲಿ ದೊಡ್ಡ ಪೊಲೀಸ್ ಸೈರನ್ ಮೊಳಗಿಸಲು ಮತ್ತು ನಿಮ್ಮ ಲೈವ್ ಜಿಪಿಎಸ್ ಸ್ಥಳವನ್ನು ಪಾಲಕರಿಗೆ ಕಳುಹಿಸಲು SOS ಬಟನ್ ಒತ್ತಿರಿ.",
+        sos_status: "ತುರ್ತು ಪರಿಸ್ಥಿತಿಯಲ್ಲಿ ದೊಡ್ಡ ಸೈರನ್ ಮೊಳಗಿಸಲು ಮತ್ತು ನಿಮ್ಮ ಲೈವ್ ಜಿಪಿಎಸ್ ಸ್ಥಳವನ್ನು ಪಾಲಕರಿಗೆ ಕಳುಹಿಸಲು SOS ಬಟನ್ ಒತ್ತಿರಿ.",
         gps_ready: "📍 ಲೈವ್ ಸ್ಥಳ: ಜಿಪಿಎಸ್ ನಿರ್ದೇಶಾಂಕಗಳನ್ನು ಲಾಕ್ ಮಾಡಲು ಸಿದ್ಧವಾಗಿದೆ",
         mic_label: "🎙️ ಆಟೋ-ಡಿಟೆಕ್ಟ್ ಬಹುಭಾಷಾ ಧ್ವನಿ ಸಹಾಯಕ",
-        speech_mode_label: "ಧ್ವನಿ ಗುರುತಿಸುವಿಕೆ ಮೋಡ್:",
+        auto_detect_badge: "✨ Gnani Prisma + Groq ಆಟೋ-ಡಿಟೆಕ್ಟ್ (10 ಭಾಷೆಗಳು)",
+        noise_cancel_badge: "🛡️ ಶಬ್ದ ನಿವಾರಕ (Noise Canceller): ON",
         input_placeholder: "ಯಾವುದೇ ಭಾಷೆಯಲ್ಲಿ ಮಾತನಾಡಿ ಅಥವಾ ಟೈಪ್ ಮಾಡಿ (ಉದಾ. ಹಾವು ಕಚ್ಚಿದೆ ಸಹಾಯ ಮಾಡಿ)",
         btn_translate: "ಅನುವಾದಿಸಿ & ಸಹಾಯ",
+        btn_read_aloud: "ಜೋರಾಗಿ ಓದಿ (Timbre)",
         waiting_input: "ಭಾಷೆ: ಇನ್‌ಪುಟ್‌ಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ...",
         transcript_prompt: "ಕನ್ನಡ, ಹಿಂದಿ, ಇಂಗ್ಲಿಷ್ ಅಥವಾ ಇತರ ಭಾರತೀಯ ಭಾಷೆಗಳಲ್ಲಿ ಸ್ವಾಭಾವಿಕವಾಗಿ ಮಾತನಾಡಿ.",
         output_prompt: "ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ ಹಂತಗಳು ಇಲ್ಲಿ ಕಾಣಿಸಿಕೊಳ್ಳುತ್ತವೆ ಮತ್ತು ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ಜೋರಾಗಿ ಹೇಳಲಾಗುತ್ತದೆ.",
@@ -918,12 +1042,14 @@
         tab_guardian: "संरक्षक",
         sos_btn: "SOS",
         sos_sub: "सायरन और लाइव जीपीएस के लिए दबाएं",
-        sos_status: "आपात स्थिति में तेज पुलिस सायरन बजाने और अपनी लाइव जीपीएस लोकेशन भेजने के लिए SOS बटन दबाएं।",
+        sos_status: "आपात स्थिति में तेज सायरन बजाने और अपनी लाइव जीपीएस लोकेशन भेजने के लिए SOS बटन दबाएं।",
         gps_ready: "📍 लाइव लोकेशन: जीपीएस कोऑर्डिनेट्स लॉक करने के लिए तैयार",
         mic_label: "🎙️ ऑटो-डिटेक्ट बहुभाषी सहायक",
-        speech_mode_label: "वॉइस डिटेक्शन मोड:",
+        auto_detect_badge: "✨ Gnani Prisma + Groq ऑटो-डिटेक्ट (10 भाषाएं)",
+        noise_cancel_badge: "🛡️ टेलीफोनिक नॉइज़ कैंसलर: ON",
         input_placeholder: "किसी भी भाषा या कोड-मिक्स में बोलें या टाइप करें",
         btn_translate: "अनुवाद और मदद",
+        btn_read_aloud: "सुनें (Timbre)",
         waiting_input: "भाषा: इनपुट की प्रतीक्षा...",
         transcript_prompt: "हिंदी, अंग्रेजी या किसी भी भारतीय भाषा में स्वाभाविक रूप से बोलें।",
         output_prompt: "प्राथमिक उपचार के चरण यहां दिखाई देंगे और आपकी भाषा में बोले जाएंगे।",
@@ -955,12 +1081,14 @@
         tab_guardian: "पालक",
         sos_btn: "SOS",
         sos_sub: "सायरन आणि लाइव्ह जीपीएससाठी दाबा",
-        sos_status: "आणीबाणीच्या वेळी पोलीस सायरन वाजवण्यासाठी आणि तुमचे लाइव्ह जीपीएस लोकेशन पाठवण्यासाठी SOS बटण दाबा.",
+        sos_status: "आणीबाणीच्या वेळी सायरन वाजवण्यासाठी आणि तुमचे लाइव्ह जीपीएस लोकेशन पाठवण्यासाठी SOS बटण दाबा.",
         gps_ready: "📍 लाइव्ह लोकेशन: जीपीएस लॉक करण्यास तयार",
         mic_label: "🎙️ ऑटो-डिटेक्ट बहुभाषिक सहाय्यक",
-        speech_mode_label: "व्हॉइस डिटेक्शन मोड:",
+        auto_detect_badge: "✨ Gnani Prisma + Groq ऑटो-डिटेक्ट (१० भाषा)",
+        noise_cancel_badge: "🛡️ नॉइज कॅन्सलर: ON",
         input_placeholder: "कोणत्याही भाषेत बोला किंवा टाईप करा",
         btn_translate: "भाषांतर आणि मदत",
+        btn_read_aloud: "मोठ्याने वाचा (Timbre)",
         waiting_input: "भाषा: इनपुटची प्रतीक्षा...",
         transcript_prompt: "मराठी, हिंदी, इंग्रजी किंवा इतर भाषांमध्ये नैसर्गिकरित्या बोला.",
         output_prompt: "प्रथमोपचाराच्या पायऱ्या येथे दिसतील आणि तुमच्या भाषेत सांगितल्या जातील.",
@@ -983,7 +1111,7 @@
         geofence_status: "सध्याचे कोऑर्डिनेट्स: जीपीएस लॉक मिळवत आहे..."
       },
       bn: {
-        app_title: "সহায়",
+        app_title: "সহায়",
         app_sub: "কথা বলুন • অনুবাদ করুন • সুরক্ষিত থাকুন!",
         status_ready: "প্রস্তুত",
         ui_label: "পছন্দের ভাষা:",
@@ -992,15 +1120,17 @@
         tab_guardian: "অভিভাবক",
         sos_btn: "SOS",
         sos_sub: "সাইরেন এবং লাইভ জিপিএস-এর জন্য চাপুন",
-        sos_status: "জরুরী পরিস্থিতিতে পুলিশ সাইরেন বাজাতে এবং আপনার লাইভ জিপিএস লোকেশন পাঠাতে SOS বোতাম টিপুন।",
+        sos_status: "জরুরী পরিস্থিতিতে সাইরেন বাজাতে এবং আপনার লাইভ জিপিএস লোকেশন পাঠাতে SOS বোতাম টিপুন।",
         gps_ready: "📍 লাইভ লোকেশন: জিপিএস লক করার জন্য প্রস্তুত",
         mic_label: "🎙️ স্বয়ংক্রিয় বহুভাষিক সহকারী",
-        speech_mode_label: "ভয়েস ডিটেকশন মোড:",
-        input_placeholder: "যেকোনো ভাষায় কথা বলুন বা টাইপ করুন",
+        auto_detect_badge: "✨ Gnani Prisma + Groq অটো-ডিটেক্ট (১০টি ভাষা)",
+        noise_cancel_badge: "🛡️ নয়েজ ক্যান্সেলার: ON",
+        input_placeholder: "যেকোনো ভাষায় কথা বলুন বা টাইপ করুন",
         btn_translate: "অনুবাদ ও সাহায্য",
+        btn_read_aloud: "শুনুন (Timbre)",
         waiting_input: "ভাষা: ইনপুটের জন্য অপেক্ষা করা হচ্ছে...",
         transcript_prompt: "বাংলা, হিন্দি বা ইংরেজিতে স্বাভাবিকভাবে কথা বলুন।",
-        output_prompt: "প্রাথমিক চিকিৎসার পদক্ষেপগুলি এখানে দেখা যাবে।",
+        output_prompt: "প্রাথমিক চিকিৎসার পদক্ষেপগুলি এখানে দেখা যাবে এবং পড়ে শোনানো হবে।",
         quick_tap_label: "⚡ জরুরী পরিস্থিতি",
         directories_label: "🚨 জরুরী হেল্পলাইন",
         dir_ambulance: "অ্যাম্বুলেন্স",
@@ -1015,7 +1145,7 @@
         name_placeholder: "নাম",
         phone_placeholder: "+৯১ ফোন",
         btn_add: "যোগ করুন",
-        geofence_title: "সুরক্ষিত নেভিগেশন জিওফেন্স (SAHAYA-S02)",
+        geofence_title: "सुरक्षित नेविगेशन जियोफेंस (SAHAYA-S02)",
         geofence_sub: "প্রতি ৩ সেকেন্ডে জিপিএস মনিটর করে।",
         geofence_status: "বর্তমান কোঅর্ডিনেট: জিপিএস লক পাওয়া যাচ্ছে..."
       },
@@ -1029,15 +1159,17 @@
         tab_guardian: "વાલી",
         sos_btn: "SOS",
         sos_sub: "સાઇરન અને લાઇવ જીપીએસ માટે દબાવો",
-        sos_status: "કટોકટીમાં પોલીસ સાઇરન વગાડવા અને લાઇવ જીપીએસ લોકેશન મોકલવા SOS બટન દબાવો.",
+        sos_status: "કટોકટીમાં સાઇરન વગાડવા અને લાઇવ જીપીએસ લોકેશન મોકલવા SOS બટન દબાવો.",
         gps_ready: "📍 લાઇવ લોકેશન: જીપીએસ લોક કરવા માટે તૈયાર",
         mic_label: "🎙️ ઓટો-ડિટેક્ટ બહુભાષી સહાયક",
-        speech_mode_label: "વોઇસ ડિટેક્શન મોડ:",
+        auto_detect_badge: "✨ Gnani Prisma + Groq ઓટો-ડિટેક્ટ (10 ભાષાઓ)",
+        noise_cancel_badge: "🛡️ નોઈઝ કેન્સલર: ON",
         input_placeholder: "કોઈપણ ભાષામાં બોલો અથવા ટાઈપ કરો",
         btn_translate: "અનુવાદ અને મદદ",
+        btn_read_aloud: "સાંભળો (Timbre)",
         waiting_input: "ભાષા: ઇનપુટની રાહ જોવાય છે...",
         transcript_prompt: "ગુજરાતી, હિન્દી અથવા અંગ્રેજીમાં સ્વાભાવિક રીતે બોલો.",
-        output_prompt: "પ્રાથમિક સારવારના પગલાં અહીં દેખાશે.",
+        output_prompt: "પ્રાથમિક સારવારના પગલાં અહીં દેખાશે અને બોલીને સંભળાવવામાં આવશે.",
         quick_tap_label: "⚡ કટોકટીની પરિસ્થિતિઓ",
         directories_label: "🚨 કટોકટી હેલ્પલાઇન",
         dir_ambulance: "એમ્બ્યુલન્સ",
@@ -1066,12 +1198,14 @@
         tab_guardian: "സംരക്ഷകർ",
         sos_btn: "SOS",
         sos_sub: "സൈറണിനും ലൈവ് ജിപിഎസിനുമായി അമർത്തുക",
-        sos_status: "അടിയന്തിര സാഹചര്യത്തിൽ പോലീസ് സൈറൺ മുഴക്കാനും ലൈവ് ജിപിഎസ് അയക്കാനും SOS അമർത്തുക.",
+        sos_status: "അടിയന്തിര സാഹചര്യത്തിൽ സൈറൺ മുഴക്കാനും ലൈവ് ജിപിഎസ് അയക്കാനും SOS അമർത്തുക.",
         gps_ready: "📍 ലൈവ് ലൊക്കേഷൻ: ജിപിഎസ് ലോക്ക് ചെയ്യാൻ തയ്യാറാണ്",
         mic_label: "🎙️ ഓട്ടോ-ഡിറ്റക്ട് ബഹുഭാഷാ സഹായി",
-        speech_mode_label: "വോയ്സ് ഡിറ്റക്ഷൻ മോഡ്:",
+        auto_detect_badge: "✨ Gnani Prisma + Groq ഓട്ടോ-ഡിറ്റക്ട് (10 ഭാഷകൾ)",
+        noise_cancel_badge: "🛡️ നോയ്സ് ക്യാൻസലർ: ON",
         input_placeholder: "ഏത് ഭാഷയിലും സംസാരിക്കുകയോ ടൈപ്പ് ചെയ്യുകയോ ചെയ്യുക",
         btn_translate: "വിവർത്തനവും സഹായവും",
+        btn_read_aloud: "ഉറക്കെ വായിക്കുക (Timbre)",
         waiting_input: "ഭാഷ: ഇൻപുട്ടിനായി കാത്തിരിക്കുന്നു...",
         transcript_prompt: "മലയാളം, ഹിന്ദി അല്ലെങ്കിൽ ഇംഗ്ലീഷിൽ സംസാരിക്കുക.",
         output_prompt: "പ്രഥമശുശ്രൂഷാ ഘട്ടങ്ങൾ ഇവിടെ ദൃശ്യമാകും.",
@@ -1103,12 +1237,14 @@
         tab_guardian: "ਰੱਖਿਅਕ",
         sos_btn: "SOS",
         sos_sub: "ਸਾਇਰਨ ਅਤੇ ਲਾਈਵ ਜੀਪੀਐਸ ਲਈ ਦਬਾਓ",
-        sos_status: "ਐਮਰਜੈਂਸੀ ਵਿੱਚ ਪੁਲਿਸ ਸਾਇਰਨ ਵਜਾਉਣ ਅਤੇ ਲਾਈਵ ਜੀਪੀਐਸ ਭੇਜਣ ਲਈ SOS ਬਟਨ ਦਬਾਓ।",
+        sos_status: "ਐਮਰਜੈਂਸੀ ਵਿੱਚ ਸਾਇਰਨ ਵਜਾਉਣ ਅਤੇ ਲਾਈਵ ਜੀਪੀਐਸ ਭੇਜਣ ਲਈ SOS ਬਟਨ ਦਬਾਓ।",
         gps_ready: "📍 ਲਾਈਵ ਲੋਕੇਸ਼ਨ: ਜੀਪੀਐਸ ਲਾਕ ਕਰਨ ਲਈ ਤਿਆਰ",
         mic_label: "🎙️ ਆਟੋ-ਡਿਟੈਕਟ ਬਹੁ-ਭਾਸ਼ਾਈ ਸਹਾਇਕ",
-        speech_mode_label: "ਵੌਇਸ ਡਿਟੈਕਸ਼ਨ ਮੋਡ:",
+        auto_detect_badge: "✨ Gnani Prisma + Groq ਆਟੋ-ਡਿਟੈਕਟ (10 ਭਾਸ਼ਾਵਾਂ)",
+        noise_cancel_badge: "🛡️ ਨੌਇਜ਼ ਕੈਂਸਲਰ: ON",
         input_placeholder: "ਕਿਸੇ ਵੀ ਭਾਸ਼ਾ ਵਿੱਚ ਬੋਲੋ ਜਾਂ ਟਾਈਪ ਕਰੋ",
         btn_translate: "ਅਨੁਵਾਦ ਅਤੇ ਮਦਦ",
+        btn_read_aloud: "ਸੁਣੋ (Timbre)",
         waiting_input: "ਭਾਸ਼ਾ: ਇਨਪੁਟ ਦੀ ਉਡੀਕ...",
         transcript_prompt: "ਪੰਜਾਬੀ, ਹਿੰਦੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੁਭਾਵਿਕ ਤੌਰ 'ਤੇ ਬੋਲੋ।",
         output_prompt: "ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦੇ ਕਦਮ ਇੱਥੇ ਦਿਖਾਈ ਦੇਣਗੇ।",
@@ -1140,13 +1276,15 @@
         tab_guardian: "பாதுகாவலர்",
         sos_btn: "SOS",
         sos_sub: "சைரன் மற்றும் நேரலை ஜிபிஎஸிற்கு அழுத்தவும்",
-        sos_status: "அவசர காலத்தில் போலீஸ் சைரனை ஒலிக்கச் செய்து நேரலை ஜிபிஎஸ் அனுப்ப SOS பொத்தானை அழுத்தவும்.",
+        sos_status: "அவசர காலத்தில் சைரனை ஒலிக்கச் செய்து நேரலை ஜிபிஎஸ் அனுப்ப SOS பொத்தானை அழுத்தவும்.",
         gps_ready: "📍 நேரலை இருப்பிடம்: ஜிபிஎஸ் பெறத் தயார்",
         mic_label: "🎙️ தானியங்கி பன்மொழி உதவியாளர்",
-        speech_mode_label: "குரல் கண்டறிதல் முறை:",
+        auto_detect_badge: "✨ Gnani Prisma + Groq தானியங்கி (10 மொழிகள்)",
+        noise_cancel_badge: "🛡️ இரைச்சல் நீக்கி: ON",
         input_placeholder: "எந்த மொழியிலும் பேசுங்கள் அல்லது தட்டச்சு செய்யுங்கள்",
         btn_translate: "மொழிபெயர்ப்பு & உதவி",
-        waiting_input: "மொழி: உள்ளீட்டிற்காக காத்திருக்கிறது...",
+        btn_read_aloud: "சத்தமாக வாசி (Timbre)",
+        waiting_input: "மகிழி: உள்ளீட்டிற்காக காத்திருக்கிறது...",
         transcript_prompt: "தமிழ், இந்தி அல்லது ஆங்கிலத்தில் இயல்பாகப் பேசுங்கள்.",
         output_prompt: "முதலுதவி படிகள் இங்கே தோன்றும் மற்றும் வாசிக்கப்படும்.",
         quick_tap_label: "⚡ அவசர சூழ்நிலைகள்",
@@ -1177,12 +1315,14 @@
         tab_guardian: "సంరక్షకులు",
         sos_btn: "SOS",
         sos_sub: "సైరన్ మరియు లైవ్ జిపిఎస్ కోసం నొక్కండి",
-        sos_status: "అత్యవసర సమయంలో పోలీసు సైరన్ మోగించడానికి మరియు లైవ్ జిపిఎస్ పంపడానికి SOS బటన్ నొక్కండి.",
+        sos_status: "అత్యవసర సమయంలో సైరన్ మోగించడానికి మరియు లైవ్ జిపిఎస్ పంపడానికి SOS బటన్ నొక్కండి.",
         gps_ready: "📍 లైవ్ లొకేషన్: జిపిఎస్ లాక్ చేయడానికి సిద్ధంగా ఉంది",
         mic_label: "🎙️ ఆటో-డిటెక్ట్ బహుభాషా సహాయకుడు",
-        speech_mode_label: "వాయిస్ డిటెక్షన్ మోడ్:",
+        auto_detect_badge: "✨ Gnani Prisma + Groq ఆటో-డిటెక్ట్ (10 భాషలు)",
+        noise_cancel_badge: "🛡️ నాయిస్ క్యాన్సిలర్: ON",
         input_placeholder: "ఏ భాషలోనైనా మాట్లాడండి లేదా టైప్ చేయండి",
         btn_translate: "అనువాదం & సహాయం",
+        btn_read_aloud: "బిగ్గరగా చదవండి (Timbre)",
         waiting_input: "భాష: ఇన్‌పుట్ కోసం వేచి ఉంది...",
         transcript_prompt: "తెలుగు, హిందీ లేదా ఇంగ్లీషులో సహజంగా మాట్లాడండి.",
         output_prompt: "ప్రథమ చికిత్స దశలు ఇక్కడ కనిపిస్తాయి మరియు చదవబడతాయి.",
@@ -1232,9 +1372,14 @@
       btnEl.classList.add('active');
     }
 
-    /* ================= SHIELD: LOUD SOS SIREN + LIVE GPS ================= */
-    let audioCtx = null;
-    let sirenInterval = null;
+    /* =========================================================================
+       2. SWEEPING EMERGENCY WAIL SIREN + LIVE GPS
+       ========================================================================= */
+    let sirenAudioCtx = null;
+    let sirenOsc1 = null;
+    let sirenOsc2 = null;
+    let sirenGain = null;
+    let sirenSweepInterval = null;
     let isSirenPlaying = false;
 
     function toggleSOSAlarm() {
@@ -1246,48 +1391,20 @@
       const t = UI_TRANSLATIONS[currentUiLang] || UI_TRANSLATIONS['en'];
 
       if (isSirenPlaying) {
-        clearInterval(sirenInterval);
-        sirenInterval = null;
-        isSirenPlaying = false;
+        stopEmergencySiren();
         sosBtn.classList.remove('alarm-active');
         sosSub.textContent = t.sos_sub;
         sosStatus.textContent = t.sos_status;
         return;
       }
 
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-
-      isSirenPlaying = true;
+      startEmergencySiren();
       sosBtn.classList.add('alarm-active');
       sosSub.textContent = "TAP TO STOP SIREN";
-      sosStatus.innerHTML = "<strong style='color:#ef4444;'>🚨 EMERGENCY SOS ACTIVE!</strong> Loud siren triggered & broadcasting live location to Guardians...";
-
-      let highPitch = true;
-      const playTone = () => {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(highPitch ? 980 : 740, audioCtx.currentTime);
-        gain.gain.setValueAtTime(1.0, audioCtx.currentTime);
-
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.32);
-        highPitch = !highPitch;
-      };
-
-      playTone();
-      sirenInterval = setInterval(playTone, 340);
+      sosStatus.innerHTML = "<strong style='color:#ef4444;'>🚨 EMERGENCY WAIL SIREN ACTIVE!</strong> Broadcasting live GPS coordinates to Guardians...";
 
       if (navigator.vibrate) {
-        navigator.vibrate([500, 200, 500, 200, 1000]);
+        navigator.vibrate([600, 150, 600, 150, 1200]);
       }
 
       if (navigator.geolocation) {
@@ -1308,104 +1425,464 @@
       }
     }
 
-    /* =========================================================================
-       FUNCTION 2: INDEPENDENT VOICE AUTO-DETECTION ENGINE
-       Operates strictly on #speechLangSelect and spoken/typed emergency input.
-       Never coupled with #globalUiLang (Preferred Language).
-       ========================================================================= */
-    let recognition = null;
-    let isListening = false;
+    function startEmergencySiren() {
+      if (!sirenAudioCtx) {
+        sirenAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (sirenAudioCtx.state === 'suspended') {
+        sirenAudioCtx.resume();
+      }
 
-    function toggleVoiceRecognition() {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      isSirenPlaying = true;
+      sirenOsc1 = sirenAudioCtx.createOscillator();
+      sirenOsc2 = sirenAudioCtx.createOscillator();
+      sirenGain = sirenAudioCtx.createGain();
+
+      sirenOsc1.type = 'sawtooth';
+      sirenOsc2.type = 'triangle';
+      sirenGain.gain.setValueAtTime(0.85, sirenAudioCtx.currentTime);
+
+      sirenOsc1.connect(sirenGain);
+      sirenOsc2.connect(sirenGain);
+      sirenGain.connect(sirenAudioCtx.destination);
+
+      const now = sirenAudioCtx.currentTime;
+      sirenOsc1.frequency.setValueAtTime(620, now);
+      sirenOsc2.frequency.setValueAtTime(632, now);
+
+      sirenOsc1.start(now);
+      sirenOsc2.start(now);
+
+      const sweepCycle = () => {
+        if (!isSirenPlaying || !sirenAudioCtx) return;
+        const t0 = sirenAudioCtx.currentTime;
+        sirenOsc1.frequency.linearRampToValueAtTime(1420, t0 + 0.65);
+        sirenOsc2.frequency.linearRampToValueAtTime(1435, t0 + 0.65);
+
+        sirenOsc1.frequency.linearRampToValueAtTime(620, t0 + 1.3);
+        sirenOsc2.frequency.linearRampToValueAtTime(632, t0 + 1.3);
+      };
+
+      sweepCycle();
+      sirenSweepInterval = setInterval(sweepCycle, 1320);
+    }
+
+    function stopEmergencySiren() {
+      isSirenPlaying = false;
+      if (sirenSweepInterval) {
+        clearInterval(sirenSweepInterval);
+        sirenSweepInterval = null;
+      }
+      try {
+        if (sirenOsc1) { sirenOsc1.stop(); sirenOsc1.disconnect(); sirenOsc1 = null; }
+        if (sirenOsc2) { sirenOsc2.stop(); sirenOsc2.disconnect(); sirenOsc2 = null; }
+        if (sirenGain) { sirenGain.disconnect(); sirenGain = null; }
+      } catch (e) {}
+    }
+
+    /* =========================================================================
+       3. CLEAR BUTTON FUNCTION (RESETS INPUT & STOPS TIMBRE / TTS AUDIO)
+       ========================================================================= */
+    let lastSpokenGuidance = "";
+    let lastSpokenLang = "en-IN";
+    let currentTimbreAudio = null;
+
+    function clearEmergencyQuery() {
+      const inputEl = document.getElementById('emergencyInput');
+      const badge = document.getElementById('detectedLangBadge');
+      const spokenDisplay = document.getElementById('spokenTextDisplay');
+      const output = document.getElementById('firstAidOutput');
+      const currentUiLang = document.getElementById('globalUiLang').value;
+      const t = UI_TRANSLATIONS[currentUiLang] || UI_TRANSLATIONS['en'];
+
+      inputEl.value = "";
+      inputEl.focus();
+
+      if (currentTimbreAudio) {
+        currentTimbreAudio.pause();
+        currentTimbreAudio = null;
+      }
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+
+      lastSpokenGuidance = "";
+      badge.textContent = t.waiting_input;
+      spokenDisplay.textContent = t.transcript_prompt;
+      output.textContent = t.output_prompt;
+    }
+
+    /* =========================================================================
+       4. TELEPHONIC DSP NOISE CANCELLER + GNANI PRISMA (STT) + GROQ PIPELINE
+       ========================================================================= */
+    let isListening = false;
+    let noiseFilterCtx = null;
+    let activeMicStream = null;
+    let scriptProcessorNode = null;
+    let recordedPcmChunks = [];
+    let recordingSampleRate = 16000;
+    let browserRecognition = null;
+    let browserTranscriptBackup = "";
+    let autoStopTimer = null;
+
+    function encodeWavFromFloat32(samples, sampleRate) {
+      const buffer = new ArrayBuffer(44 + samples.length * 2);
+      const view = new DataView(buffer);
+
+      const writeString = (offset, str) => {
+        for (let i = 0; i < str.length; i++) {
+          view.setUint8(offset + i, str.charCodeAt(i));
+        }
+      };
+
+      writeString(0, 'RIFF');
+      view.setUint32(4, 36 + samples.length * 2, true);
+      writeString(8, 'WAVE');
+      writeString(12, 'fmt ');
+      view.setUint32(16, 16, true);
+      view.setUint16(20, 1, true);
+      view.setUint16(22, 1, true);
+      view.setUint32(24, sampleRate, true);
+      view.setUint32(28, sampleRate * 2, true);
+      view.setUint16(32, 2, true);
+      view.setUint16(34, 16, true);
+      writeString(36, 'data');
+      view.setUint32(40, samples.length * 2, true);
+
+      let offset = 44;
+      for (let i = 0; i < samples.length; i++, offset += 2) {
+        const s = Math.max(-1, Math.min(1, samples[i]));
+        view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+      }
+
+      return new Blob([buffer], { type: 'audio/wav' });
+    }
+
+    async function toggleVoiceRecognition() {
       const micBtn = document.getElementById('micBtn');
       const spokenDisplay = document.getElementById('spokenTextDisplay');
+      const badge = document.getElementById('noiseCancelBadge');
 
-      if (!SpeechRecognition) {
-        alert("Speech recognition works best in Google Chrome or Microsoft Edge. You can also type or tap a scenario below!");
+      if (isListening) {
+        await stopAndSendToGnaniPrisma();
         return;
       }
 
-      if (isListening && recognition) {
-        recognition.stop();
-        return;
-      }
+      try {
+        activeMicStream = await navigator.mediaDevices.getUserMedia({
+          audio: {
+            noiseSuppression: { ideal: true },
+            echoCancellation: { ideal: true },
+            autoGainControl: { ideal: true },
+            channelCount: 1,
+            sampleRate: 16000
+          }
+        });
 
-      recognition = new SpeechRecognition();
-      const selectedVoiceMode = document.getElementById('speechLangSelect').value;
+        noiseFilterCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 });
+        recordingSampleRate = noiseFilterCtx.sampleRate || 16000;
+        const source = noiseFilterCtx.createMediaStreamSource(activeMicStream);
 
-      recognition.lang = selectedVoiceMode === 'auto' ? 'en-IN' : selectedVoiceMode;
-      recognition.interimResults = false;
-      recognition.maxAlternatives = 1;
+        // 1. High-pass filter at 300 Hz to strip traffic, wind, and low-end rumble
+        const highpass = noiseFilterCtx.createBiquadFilter();
+        highpass.type = 'highpass';
+        highpass.frequency.value = 300;
 
-      recognition.onstart = () => {
+        // 2. Low-pass filter at 3400 Hz to isolate telephonic human speech band
+        const lowpass = noiseFilterCtx.createBiquadFilter();
+        lowpass.type = 'lowpass';
+        lowpass.frequency.value = 3400;
+
+        // 3. Presence boost at 1800 Hz for crisp code-mixed consonant clarity
+        const presencePeak = noiseFilterCtx.createBiquadFilter();
+        presencePeak.type = 'peaking';
+        presencePeak.frequency.value = 1800;
+        presencePeak.Q.value = 1.2;
+        presencePeak.gain.value = 4.5;
+
+        // 4. Dynamic range compressor for messy/distant audio
+        const compressor = noiseFilterCtx.createDynamicsCompressor();
+        compressor.threshold.setValueAtTime(-28, noiseFilterCtx.currentTime);
+        compressor.knee.setValueAtTime(20, noiseFilterCtx.currentTime);
+        compressor.ratio.setValueAtTime(8, noiseFilterCtx.currentTime);
+        compressor.attack.setValueAtTime(0.003, noiseFilterCtx.currentTime);
+        compressor.release.setValueAtTime(0.2, noiseFilterCtx.currentTime);
+
+        // 5. Capture noise-cancelled PCM samples for Gnani Prisma v3.0
+        scriptProcessorNode = noiseFilterCtx.createScriptProcessor(4096, 1, 1);
+        recordedPcmChunks = [];
+        scriptProcessorNode.onaudioprocess = (e) => {
+          if (!isListening) return;
+          const inputData = e.inputBuffer.getChannelData(0);
+          recordedPcmChunks.push(new Float32Array(inputData));
+        };
+
+        const zeroGain = noiseFilterCtx.createGain();
+        zeroGain.gain.value = 0;
+
+        source.connect(highpass);
+        highpass.connect(lowpass);
+        lowpass.connect(presencePeak);
+        presencePeak.connect(compressor);
+        compressor.connect(scriptProcessorNode);
+        scriptProcessorNode.connect(zeroGain);
+        zeroGain.connect(noiseFilterCtx.destination);
+
+        if (badge) {
+          badge.innerHTML = "🛡️ Telephonic Noise Canceller: ACTIVE (300-3400Hz DSP)";
+        }
+
+        // Start parallel browser SpeechRecognition as instant backup
+        browserTranscriptBackup = "";
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRecognition) {
+          try {
+            browserRecognition = new SpeechRecognition();
+            browserRecognition.lang = 'en-IN';
+            browserRecognition.interimResults = true;
+            browserRecognition.maxAlternatives = 3;
+            browserRecognition.onresult = (ev) => {
+              const alts = [];
+              for (let i = 0; i < ev.results[0].length; i++) {
+                alts.push(ev.results[0][i].transcript);
+              }
+              browserTranscriptBackup = alts.join(" | ");
+            };
+            browserRecognition.start();
+          } catch (err) {}
+        }
+
         isListening = true;
         micBtn.classList.add('listening');
-        spokenDisplay.textContent = "🎙️ Listening... Speak naturally in your language or code-mix...";
-      };
+        spokenDisplay.textContent = "🎙️ Recording with Telephonic Noise Canceller for Gnani Prisma... Tap mic again when done (or wait 4.5s)...";
 
-      recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        document.getElementById('emergencyInput').value = transcript;
-        processEmergencyVoiceText(transcript);
-      };
+        autoStopTimer = setTimeout(() => {
+          if (isListening) {
+            stopAndSendToGnaniPrisma();
+          }
+        }, 4500);
 
-      recognition.onerror = () => {
-        spokenDisplay.textContent = "Could not catch that clearly. Please tap the mic again or type below.";
-      };
+      } catch (err) {
+        spokenDisplay.textContent = "Microphone access is required for voice capture. You can also type below.";
+      }
+    }
 
-      recognition.onend = () => {
-        isListening = false;
-        micBtn.classList.remove('listening');
-      };
+    async function stopAndSendToGnaniPrisma() {
+      if (!isListening) return;
+      isListening = false;
 
-      recognition.start();
+      if (autoStopTimer) {
+        clearTimeout(autoStopTimer);
+        autoStopTimer = null;
+      }
+
+      const micBtn = document.getElementById('micBtn');
+      const spokenDisplay = document.getElementById('spokenTextDisplay');
+      const badge = document.getElementById('detectedLangBadge');
+      const output = document.getElementById('firstAidOutput');
+
+      micBtn.classList.remove('listening');
+
+      if (browserRecognition) {
+        try { browserRecognition.stop(); } catch (e) {}
+        browserRecognition = null;
+      }
+
+      if (scriptProcessorNode) {
+        try { scriptProcessorNode.disconnect(); } catch (e) {}
+        scriptProcessorNode = null;
+      }
+      if (activeMicStream) {
+        activeMicStream.getTracks().forEach(track => track.stop());
+        activeMicStream = null;
+      }
+      if (noiseFilterCtx) {
+        noiseFilterCtx.close().catch(() => {});
+        noiseFilterCtx = null;
+      }
+
+      const totalLen = recordedPcmChunks.reduce((acc, c) => acc + c.length, 0);
+      const mergedSamples = new Float32Array(totalLen);
+      let offset = 0;
+      for (const chunk of recordedPcmChunks) {
+        mergedSamples.set(chunk, offset);
+        offset += chunk.length;
+      }
+
+      const wavBlob = encodeWavFromFloat32(mergedSamples, recordingSampleRate);
+      spokenDisplay.textContent = "⏳ Sending noise-cancelled audio to Gnani Prisma STT & Groq AI...";
+
+      try {
+        const formData = new FormData();
+        formData.append('audio_file', wavBlob, 'emergency_query.wav');
+        formData.append('backup_transcript', browserTranscriptBackup || '');
+
+        const res = await fetch('/api/stt-prisma', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          const finalTranscript = data.transcript || browserTranscriptBackup.split(" | ")[0] || "";
+          if (finalTranscript) {
+            document.getElementById('emergencyInput').value = finalTranscript;
+            spokenDisplay.textContent = `You said (${data.stt_engine || 'Gnani Prisma'}): "${finalTranscript}"`;
+            badge.textContent = `Detected: ${data.language_name} • ${data.scenario}`;
+            output.textContent = data.first_aid;
+            lastSpokenGuidance = data.first_aid;
+            lastSpokenLang = data.lang_code;
+            speakWithGnaniTimbre(data.first_aid, data.lang_code);
+            return;
+          }
+        }
+      } catch (e) {
+        // Handled below
+      }
+
+      if (browserTranscriptBackup) {
+        const cleanPrimary = browserTranscriptBackup.split(" | ")[0];
+        document.getElementById('emergencyInput').value = cleanPrimary;
+        processEmergencyVoiceText(cleanPrimary, browserTranscriptBackup);
+      } else {
+        spokenDisplay.textContent = "Could not catch speech clearly. Please tap the mic again or type your emergency below.";
+      }
     }
 
     function handleManualInput() {
       const text = document.getElementById('emergencyInput').value.trim();
       if (!text) return;
-      processEmergencyVoiceText(text);
+      processEmergencyVoiceText(text, text);
     }
 
     function quickEmergency(phrase) {
       document.getElementById('emergencyInput').value = phrase;
-      processEmergencyVoiceText(phrase);
+      processEmergencyVoiceText(phrase, phrase);
     }
 
-    async function processEmergencyVoiceText(userText) {
+    async function processEmergencyVoiceText(displayUserText, noisyCandidatesText = "") {
       const badge = document.getElementById('detectedLangBadge');
       const spokenDisplay = document.getElementById('spokenTextDisplay');
       const output = document.getElementById('firstAidOutput');
-      const voiceLangOverride = document.getElementById('speechLangSelect').value;
+      const queryPayload = noisyCandidatesText || displayUserText;
 
-      spokenDisplay.textContent = `You said: "${userText}"`;
-      output.textContent = "Analyzing emergency & preparing first-aid steps...";
+      spokenDisplay.textContent = `You said: "${displayUserText}"`;
+      output.textContent = "Analyzing emergency with Groq AI & preparing Gnani Timbre voice read-aloud...";
 
       try {
         const res = await fetch('/api/first-aid', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: userText, lang_override: voiceLangOverride })
+          body: JSON.stringify({ text: queryPayload, lang_override: "auto" })
         });
 
         if (res.ok) {
           const data = await res.json();
           badge.textContent = `Detected: ${data.language_name} • ${data.scenario}`;
           output.textContent = data.first_aid;
-          speakResponse(data.first_aid, data.lang_code);
+          lastSpokenGuidance = data.first_aid;
+          lastSpokenLang = data.lang_code;
+          speakWithGnaniTimbre(data.first_aid, data.lang_code);
           return;
         }
       } catch (e) {
         // Offline fallback
       }
 
-      const result = offlineEmergencyEngine(userText, voiceLangOverride);
+      const result = offlineEmergencyEngine(queryPayload);
       badge.textContent = `Detected: ${result.language_name} • ${result.scenario}`;
       output.textContent = result.first_aid;
-      speakResponse(result.first_aid, result.lang_code);
+      lastSpokenGuidance = result.first_aid;
+      lastSpokenLang = result.lang_code;
+      speakWithGnaniTimbre(result.first_aid, result.lang_code);
     }
 
+    /* =========================================================================
+       5. GNANI TIMBRE TEXT-TO-SPEECH (TTS) AUTOMATIC READ-ALOUD + FALLBACK
+       ========================================================================= */
+    let availableVoices = [];
+    if ('speechSynthesis' in window) {
+      const loadVoices = () => { availableVoices = window.speechSynthesis.getVoices(); };
+      loadVoices();
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    async function speakWithGnaniTimbre(text, langCode) {
+      if (!text) return;
+
+      if (currentTimbreAudio) {
+        currentTimbreAudio.pause();
+        currentTimbreAudio = null;
+      }
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+
+      const cleanText = text
+        .replace(/[🐍❤️🚗🔥🏢🚨⚡📍🎙️✨🛡️]/g, '')
+        .replace(/\n+/g, '. ');
+
+      try {
+        const res = await fetch('/api/tts-timbre', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: cleanText, lang_code: langCode || 'en-IN' })
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.audio_base64) {
+            const audioSrc = `data:audio/wav;base64,${data.audio_base64}`;
+            currentTimbreAudio = new Audio(audioSrc);
+            await currentTimbreAudio.play();
+            return;
+          }
+        }
+      } catch (e) {
+        // Handled below
+      }
+
+      fallbackBrowserSpeak(cleanText, langCode);
+    }
+
+    function fallbackBrowserSpeak(cleanText, langCode) {
+      if (!('speechSynthesis' in window)) return;
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+      }
+
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+      utterance.lang = langCode || 'en-IN';
+      utterance.rate = 0.94;
+      utterance.pitch = 1.0;
+      utterance.volume = 1.0;
+
+      if (availableVoices.length === 0) {
+        availableVoices = window.speechSynthesis.getVoices();
+      }
+
+      const langPrefix = (langCode || 'en-IN').split('-')[0].toLowerCase();
+      const matchedVoice =
+        availableVoices.find(v => v.lang.toLowerCase() === (langCode || '').toLowerCase()) ||
+        availableVoices.find(v => v.lang.toLowerCase().startsWith(langPrefix)) ||
+        availableVoices.find(v => v.lang.toLowerCase().includes('in')) ||
+        availableVoices[0];
+
+      if (matchedVoice) {
+        utterance.voice = matchedVoice;
+      }
+
+      setTimeout(() => {
+        window.speechSynthesis.speak(utterance);
+      }, 60);
+    }
+
+    function replayLastGuidance() {
+      const outputText = lastSpokenGuidance || document.getElementById('firstAidOutput').textContent;
+      speakWithGnaniTimbre(outputText, lastSpokenLang);
+    }
+
+    /* Offline Emergency Engine with Fuzzy Noisy-Audio Token Matching */
     const OFFLINE_MARKERS = {
       'kn-IN': ['haavu', 'havu', 'kachide', 'kacchide', 'sahaya', 'maadi', 'madi', 'agide', 'benki', 'apaghata', 'ede', 'novu', 'rakta', 'kattada', 'kusidide', 'beku', 'bega', 'nanage'],
       'mr-IN': ['madat', 'kara', 'vachva', 'saap', 'chavla', 'dukhtay', 'apghat', 'zhala', 'mala', 'bhajle', 'aag', 'imarat', 'kosalli', 'lavkar', 'chatit', 'aahe'],
@@ -1418,13 +1895,11 @@
       'te-IN': ['sahayam', 'cheyandi', 'kapadandi', 'paamu', 'karichindi', 'gunde', 'noppi', 'vastundi', 'manta', 'kalindi', 'pramadam', 'raktam', 'bhavanam', 'kulipoyindi', 'naaku']
     };
 
-    function offlineEmergencyEngine(text, langOverride) {
+    function offlineEmergencyEngine(text) {
       const lower = text.toLowerCase();
       let langCode = 'en-IN';
 
-      if (langOverride && langOverride !== 'auto') {
-        langCode = langOverride;
-      } else if (/[\u0980-\u09FF]/.test(text)) langCode = 'bn-IN';
+      if (/[\u0980-\u09FF]/.test(text)) langCode = 'bn-IN';
       else if (/[\u0A80-\u0AFF]/.test(text)) langCode = 'gu-IN';
       else if (/[\u0C80-\u0CFF]/.test(text)) langCode = 'kn-IN';
       else if (/[\u0D00-\u0D7F]/.test(text)) langCode = 'ml-IN';
@@ -1449,11 +1924,11 @@
         'mr-IN': 'Marathi (मराठी)', 'pa-IN': 'Punjabi (ਪੰਜਾਬੀ)', 'ta-IN': 'Tamil (தமிழ்)', 'te-IN': 'Telugu (తెలుగు)'
       };
 
-      const isSnake = /(ಹಾವು|ಕಚ್ಚಿದೆ|haavu|havu|kachide|snake|venom|साप|सांप|चावला|काटा|সাপ|কামড়|સાપ|പാമ്പ്|ਸੱਪ|பாம்பு|పాము|pambu|paamu|shaap|sapp)/.test(lower);
-      const isChest = /(सीने|दर्द|chest|heart|attack|breath|हृदय|छाती|ಎದೆ|ನೋವು|বুক|ব্যথা|છાતી|നെഞ്ച്|ਛਾਤੀ|நெஞ்சு|గుండె|నొప్పి|seene|chatit|buke|nenju|gunde)/.test(lower);
-      const isAccident = /(accident|crash|collision|bleeding|blood|fracture|ಅಪಘಾತ|ರಕ್ತ|अपघात|धडक|दुर्घटना|खून|দুর্ঘটনা|রক্ত|અકસ્માત|അപകടം|ਐਕਸੀਡੈਂਟ|விபத்து|ప్రమాదం|apaghata|apghat|durghatna)/.test(lower);
-      const isFire = /(fire|burn|burning|smoke|flame|ಬೆಂಕಿ|ಸುಟ್ಟ|benki|आग|भाजले|जलना|আগুন|পুড়ে|આગ|દાઝી|തീ|പൊള്ളി|ਅੱਗ|தீ|మంట|aag|agun|bhajle)/.test(lower);
-      const isDisaster = /(disaster|collapse|building|earthquake|flood|trapped|ಕಟ್ಟಡ|ಕುಸಿತ|ಭೂಕಂಪ|इमारत|कोसळली|भूकंप|बाढ़|ভবন|ভূমিকম্প|મકાન|കെട്ടിടം|ਇਮਾਰਤ|கட்டிடம்|భవనం|imarat|kattada|bhukamp)/.test(lower);
+      const isSnake = /(ಹಾವು|ಕಚ್ಚಿದೆ|haavu|havu|kachide|snake|snek|snak|venom|cobra|साप|सांप|चावला|काटा|সাপ|কামড়|સાપ|પાമ്പ്|ਸੱਪ|பாம்பு|పాము|pambu|paamu|shaap|sapp)/.test(lower);
+      const isChest = /(सीने|दर्द|chest|heart|hart|attack|breath|हृदय|छाती|ಎದೆ|ನೋವು|ಬುಕ|ব্যথা|છાતી|નેંજ|ਛਾਤੀ|நெஞ்சு|గుండె|నొప్పి|seene|chatit|buke|nenju|gunde)/.test(lower);
+      const isAccident = /(accident|axident|crash|collision|bleeding|blood|fracture|ಅಪಘಾತ|ರಕ್ತ|अपघात|धडक|दुर्घटना|खून|দুর্ঘটনা|রক্ত|અકસ્માત|અપગડમ|ਐਕਸੀਡੈਂਟ|விபத்து|ప్రమాదం|apaghata|apghat|durghatna)/.test(lower);
+      const isFire = /(fire|burn|burning|smoke|flame|ಬೆಂಕಿ|ಸುಟ್ಟ|benki|आग|भाजले|जलना|আগুন|পুড়ে|આગ|દાઝી|തീ|പൊള്ളി|ਅੱਗ|தீ|மண்டா|aag|agun|bhajle)/.test(lower);
+      const isDisaster = /(disaster|collapse|building|earthquake|flood|trapped|ಕಟ್ಟಡ|ಕುಸಿತ|ಭೂಕಂಪ|इमारत|कोसळली|भूकंप|बाढ़|ভবন|ভূমিকম্প|મકાન|കെട്ടിടം|ਇਮਾਰਤ|கட்டிடம்|భవనం|imarat|kattada|bhukamp)/.test(lower);
 
       let scenario = 'General Emergency';
       let key = 'general';
@@ -1478,16 +1953,6 @@
         scenario: scenario,
         first_aid: fallbackEn[key]
       };
-    }
-
-    function speakResponse(text, langCode) {
-      if (!('speechSynthesis' in window)) return;
-      window.speechSynthesis.cancel();
-      const cleanText = text.replace(/[🐍❤️🚗🔥🏢🚨]/g, '');
-      const utterance = new SpeechSynthesisUtterance(cleanText);
-      utterance.lang = langCode;
-      utterance.rate = 0.95;
-      window.speechSynthesis.speak(utterance);
     }
 
     /* ================= GUARDIAN: ADD CONTACT ================= */
