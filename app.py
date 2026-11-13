@@ -1,15 +1,75 @@
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse, FileResponse
+from fastapi import FastAPI, UploadFile, File, Form
+from fastapi.responses import HTMLResponse, FileResponse, Response
 from pydantic import BaseModel
+from difflib import SequenceMatcher
+import base64
+import httpx
+import json
 import os
 import re
 
-app = FastAPI(title="SaHaya Multilingual Emergency Assistant")
+app = FastAPI(title="SaHaya Multilingual Emergency Assistant • Powered by Gnani Prisma, Timbre & Groq")
+
+# Retrieve API keys from environment variables
+def get_gnani_api_key() -> str:
+    for env_name in ("GNANI_API_KEY", "X_API_KEY_ID", "VACHANA_API_KEY", "GNANI_KEY", "API_KEY"):
+        val = os.getenv(env_name, "").strip()
+        if val:
+            return val
+    return ""
+
+def get_groq_api_key() -> str:
+    for env_name in ("GROQ_API_KEY", "GROQ_KEY"):
+        val = os.getenv(env_name, "").strip()
+        if val:
+            return val
+    return ""
+
+GNANI_BASE_URL = os.getenv("GNANI_BASE_URL", "https://api.vachana.ai").rstrip("/")
+GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
+
+# Keyterms passed to Gnani Prisma v3.0 to maximize noisy/telephonic transcription accuracy
+EMERGENCY_KEYTERMS = [
+    "Sahaya", "ambulance", "snakebite", "haavu", "kachide", "benki", "apaghata",
+    "chest pain", "seene mein dard", "saanp", "saap chavla", "apghat", "accident",
+    "bleeding", "earthquake", "building collapse", "fire", "burns"
+]
 
 class EmergencyRequest(BaseModel):
     text: str
     lang_override: str = "auto"
 
+class TimbreTTSRequest(BaseModel):
+    text: str
+    lang_code: str = "en-IN"
+
+
+# ================= SERVE STATIC branding PHOTOS (WITH BASE64 fallbacks) =================
+
+# Cover Page Photo (image_0.png)
+@app.get("/static/cover.png")
+async def get_cover_image():
+    if os.path.exists("cover.png"):
+        return FileResponse("cover.png", media_type="image/png")
+    elif os.path.exists("static/cover.png"):
+        return FileResponse("static/cover.png", media_type="image/png")
+    # Base64 fallback (transparent 1x1 placeholder, recommended to place image_0.png in root/static as 'cover.png')
+    fallback_b64 = b"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+    return Response(content=base64.b64decode(fallback_b64), media_type="image/png")
+
+# Logo Icon Photo (image_1.png)
+@app.get("/static/logo.png")
+async def get_logo_image():
+    if os.path.exists("logo.png"):
+        return FileResponse("logo.png", media_type="image/png")
+    elif os.path.exists("static/logo.png"):
+        return FileResponse("static/logo.png", media_type="image/png")
+    # Base64 fallback (transparent 1x1 placeholder, recommended to place image_1.png in root/static as 'logo.png')
+    fallback_b64 = b"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+    return Response(content=base64.b64decode(fallback_b64), media_type="image/png")
+
+
+# Serve the main index.html file
 @app.get("/", response_class=HTMLResponse)
 async def serve_home():
     if os.path.exists("index.html"):
@@ -19,7 +79,7 @@ async def serve_home():
     return HTMLResponse("<h1>index.html not found</h1>", status_code=404)
 
 
-# ================= LANGUAGE & CODE-MIXING DETECTOR =================
+# ================= NOISE-TOLERANT LANGUAGE & CODE-MIXING DETECTOR =================
 LANG_NAMES = {
     "en-IN": "English",
     "hi-IN": "Hindi (हिन्दी)",
@@ -42,8 +102,7 @@ LANGUAGE_MARKERS = {
     "mr-IN": [
         "madat", "kara", "vachva", "saap", "chavla", "dukhata", "dukhtay", "apghat", "zhala", "zala",
         "mala", "tyala", "bhajle", "aag", "lagli", "imarat", "kosalli", "rakta", "yetay", "lavkar",
-        "ya", "bolva", "chati", "chatit", "aahe", "ahe", "nahi", "krupa", "आपण", "आहे", "झाला", "मदत",
-        "वाचवा", "साप", "चावला", "दुखत", "अपघात", "मला", "भाजले", "इमारत", "कोसळली", "लागली"
+        "ya", "bolva", "chati", "chatit", "aahe", "ahe", "nahi", "krupa"
     ],
     "hi-IN": [
         "bachao", "madad", "karo", "saanp", "saap", "kaat", "kata", "liya", "dard", "ho", "raha",
@@ -83,9 +142,17 @@ LANGUAGE_MARKERS = {
     ]
 }
 
+def clean_noisy_text(text: str) -> str:
+    cleaned = re.sub(r"\b(uh+|um+|ah+|er+|hmm+)\b", " ", text, flags=re.IGNORECASE)
+    cleaned = re.sub(r"(.)\1{2,}", r"\1\1", cleaned)
+    return cleaned.strip()
+
 def detect_language(text: str, lang_override: str = "auto") -> str:
-    if lang_override and lang_override != "auto":
-        return lang_override
+    if lang_override and lang_override not in ("auto", "indic-auto"):
+        if not lang_override.endswith("-IN") and len(lang_override) == 2:
+            return f"{lang_override}-IN"
+        if lang_override in LANG_NAMES:
+            return lang_override
 
     if re.search(r"[\u0980-\u09FF]", text): return "bn-IN"
     if re.search(r"[\u0A80-\u0AFF]", text): return "gu-IN"
@@ -95,20 +162,25 @@ def detect_language(text: str, lang_override: str = "auto") -> str:
     if re.search(r"[\u0B80-\u0BFF]", text): return "ta-IN"
     if re.search(r"[\u0C00-\u0C7F]", text): return "te-IN"
     if re.search(r"[\u0900-\u097F]", text):
-        if re.search(r"[\u0933]", text) or any(w in text for w in ["मदत", "वाचवा", "साप", "चावला", "दुखत", "अपघात", "मला", "भाजले", "इमारत", "कोसळली", "आहे", "झाला", "पाणी"]):
+        if re.search(r"[\u0933]", text) or any(w in text for w in ["मदत", "वाचवा", "साप", "चावला", "दुखत", "अपघात", "मला", "भाजले", "इमारत", "कोसळली"]):
             return "mr-IN"
         return "hi-IN"
 
     tokens = re.findall(r"[a-zA-Z]+", text.lower())
-    scores = {lang: 0 for lang in LANGUAGE_MARKERS}
+    scores = {lang: 0.0 for lang in LANGUAGE_MARKERS}
     for token in tokens:
+        if len(token) < 2:
+            continue
         for lang, markers in LANGUAGE_MARKERS.items():
             if token in markers:
-                scores[lang] += 2
+                scores[lang] += 2.5
             else:
                 for m in markers:
-                    if len(m) >= 4 and (token.startswith(m) or m in token):
-                        scores[lang] += 1
+                    if len(m) >= 4:
+                        if token.startswith(m) or m in token:
+                            scores[lang] += 1.2
+                        elif SequenceMatcher(None, token, m).ratio() >= 0.80:
+                            scores[lang] += 1.0
 
     best_lang = max(scores, key=scores.get)
     if scores[best_lang] > 0:
@@ -136,7 +208,7 @@ SCENARIO_PATTERNS = {
         "ಎದೆ", "ನೋವು", "ಹೃದಯ", "ಉಸಿರು", "ede", "novu", "hrudaya", "usiru",
         "छाती", "छातीत", "हृदय", "श्वास", "chati", "chatit", "dukhtay",
         "सीने", "दर्द", "दिल", "सांस", "seene", "chhati", "saans",
-        "বুক", "বুকে", "ব্যথা", "হার্ট", "শ্বাস", "buke", "byatha",
+        "বुक", "বুকে", "ব্যথা", "হার্ট", "শ্বাস", "buke", "byatha",
         "છાતી", "દુખાવો", "હૃદય", "શ્વાસ", "dukhavo",
         "നെഞ്ച്", "വേദന", "ഹൃദയം", "ശ്വാസം", "nenju", "vedana",
         "ਛਾਤੀ", "ਦਰਦ", "ਦਿਲ", "ਸਾਹ",
@@ -163,7 +235,7 @@ SCENARIO_PATTERNS = {
         "ಬೆಂಕಿ", "ಸುಟ್ಟ", "ಹೊಗೆ", "ಸಿಲಿಂಡರ್", "benki", "sutta", "hoge",
         "आग", "भाजले", "भाजलं", "धूर", "aag", "bhajle",
         "जल", "जलना", "जला", "धुआं", "आग लग", "jalna", "jala",
-        "আগুন", "পুড়ে", "পোড়া", "ধোঁয়া", "agun", "jole", "pure",
+        "আগুন", "পুড়ে", "পোড়া", "ধোঁয়া", "agun", "jole", "pure",
         "આગ", "દાઝી", "ધુમાડો", "dazhi",
         "തീ", "പൊള്ളി", "പുക", "thee", "polli",
         "ਅੱਗ", "ਸੜ", "ਧੂੰਆਂ", "agg", "sadh",
@@ -176,23 +248,30 @@ SCENARIO_PATTERNS = {
         "stuck under", "debris", "rubble",
         "ಕಟ್ಟಡ", "ಕುಸಿತ", "ಕುಸಿದಿದೆ", "ಭೂಕಂಪ", "ಪ್ರವಾಹ", "ಮಳೆ", "ಸಿಲುಕಿ", "kattada", "kusita", "bhukampa",
         "इमारत", "कोसळली", "भूकंप", "पूर", "आपत्ती", "ढिगारा", "अडकलो", "imarat", "kosalli", "bhukamp",
-        "इमारत गिर", "भूकंप", "बाढ़", "मलबा", "दब गए", "आपदा", "तूफान", "baadh", "malba",
+        "इमारत गिर", "भूकंप", "बाढ़", "मलबा", "दब गए", "आपदा", "तूफान", "baadh", "malba",
         "ভবন", "ধসে", "ভূমিকম্প", "বন্যা", "আটকে", "bhumi", "bonna",
         "મકાન", "પડી", "ભૂકંપ", "પૂર", "ફસાયા", "makan",
         "കെട്ടിടം", "ഇടിഞ്ഞു", "ഭൂകമ്പം", "വെള്ളപ്പൊക്കം", "കുടുങ്ങി", "kettidam", "idinjhu",
         "ਇਮਾਰਤ", "ਡਿੱਗ", "ਭੂਚਾਲ", "ਹੜ੍ਹ", "ਫਸ", "bhuchal",
         "கட்டிடம்", "இடிந்து", "நிலநடுக்கம்", "வெள்ளம்", "சிக்கி", "kattidam", "vellam",
-        "భవనం", "కూలిపోయింది", "భూకంపం", "వరద", "చిక్కుకున్నాం", "bhavanam", "kulipoyindi", "varada"
+        "భవనం", "కూలిపోయింది", "భూకంపం", "వరద", "చిక్కుకున్నాం", "bhavanam", "kulipoyindi"
     ]
 }
 
 def detect_scenario(text: str) -> str:
     lower = text.lower()
-    scores = {k: 0 for k in SCENARIO_PATTERNS}
+    tokens = re.findall(r"[a-zA-Z]+", lower)
+    scores = {k: 0.0 for k in SCENARIO_PATTERNS}
+
     for scenario, keywords in SCENARIO_PATTERNS.items():
         for kw in keywords:
             if kw in lower:
-                scores[scenario] += 2
+                scores[scenario] += 2.5
+            elif len(kw) >= 4 and kw.isascii():
+                for tok in tokens:
+                    if len(tok) >= 4 and SequenceMatcher(None, tok, kw).ratio() >= 0.78:
+                        scores[scenario] += 1.2
+
     best = max(scores, key=scores.get)
     return best if scores[best] > 0 else "general"
 
@@ -215,12 +294,12 @@ GUIDANCE_DB = {
         "general": "🚨 आपातकालीन प्राथमिक उपचार:\n1. कृपया शांत रहें और सुरक्षित स्थान पर जाएं।\n2. यदि खून बह रहा है, तो साफ कपड़े से दबाकर रखें।\n3. तुरंत नीचे दिए गए 108 या 112 नंबर पर कॉल करें।"
     },
     "bn-IN": {
-        "snake": "🐍 প্রাথমিক চিকিৎসা (সাপে কামড়ালে):\n১. আতঙ্কিত হবেন না, শান্ত থাকুন এবং কামড়ানো স্থানটি নাড়াচাড়া করবেন না।\n২. আক্রান্ত অংশটি হৃদপিণ্ডের নিচে রাখুন এবং শক্ত করে বাঁধবেন না।\n৩. অবিলম্বে 108 অ্যাম্বুলেন্সে কল করুন।",
-        "chest": "❤️ প্রাথমিক চিকিৎসা (বুকে ব্যথা / হার্ট অ্যাটাক):\n১. রোগীকে অবিলম্বে বসিয়ে বিশ্রাম দিন।\n২. টাইট পোশাক ঢিলে করে দিন এবং বাতাস চলাচলের ব্যবস্থা করুন।\n৩. অবিলম্বে 108 অ্যাম্বুলেন্সে কল করুন।",
-        "accident": "🚗 প্রাথমিক চিকিৎসা (সড়ক দুর্ঘটনা):\n১. আহত ব্যক্তিকে অহেতুক নাড়াচাড়া করবেন না।\n২. রক্তপাত হলে পরিষ্কার কাপড় দিয়ে ক্ষতস্থান চেপে ধরুন।\n৩. দ্রুত 108 (অ্যাম্বুলেন্স) এবং 112 (পুলিশ)-এ কল করুন।",
-        "fire": "🔥 প্রাথমিক চিকিৎসা (আগুন ও পোড়া):\n১. আগুন থেকে দূরে সরুন এবং পোড়া স্থানে ১৫-২০ মিনিট ঠান্ডা জল ঢালুন।\n২. ক্ষতস্থানে আটকে থাকা কাপড় টানবেন না বা ফোসকা ফাটাবেন না।\n৩. দ্রুত 101 (ফায়ার ব্রিগেড) এবং 108-এ কল করুন।",
-        "disaster": "🏢 প্রাথমিক চিকিৎসা (ভবন ধস / প্রাকৃতিক দুর্যোগ):\n১. মজবুত টেবিল বা পিলারের নিচে আশ্রয় নিন এবং মাথা বাঁচান।\n২. ধুলোবালি থেকে বাঁচতে নাক ও মুখ কাপড় দিয়ে ঢেকে রাখুন।\n৩. আটকে পড়লে দেওয়ালে বা পাইপে শব্দ করুন এবং 112-এ কল করুন।",
-        "general": "🚨 জরুরি প্রাথমিক চিকিৎসা:\n১. শান্ত থাকুন এবং নিরাপদ স্থানে সরে যান।\n২. রক্তপাত হলে পরিষ্কার কাপড় দিয়ে চেপে ধরুন এবং দ্রুত 108 বা 112-এ কল করুন।"
+        "snake": "🐍 প্রাথমিক চিকিৎসা (সাপে কামড়ালে):\n১. আতঙ্কিত হবেন না, শান্ত থাকুন এবং কামড়ানো স্থানটি নাড়াচাড়া করবেন না।\n২. আক্রান্ত অংশটি হৃদপিণ্ডের নিচে রাখুন এবং শক্ত করে বাঁধবেন না।\n৩. অবিলম্বে 108 অ্যাম্বুলেন্সে কল করুন।",
+        "chest": "❤️ প্রাথমিক চিকিৎসা (বুকে ব্যথা / হার্ট অ্যাটাক):\n১. রোগীকে অবিলম্বে বসিয়ে বিশ্রাম দিন।\n২. টাইট পোশাক ঢিলে করে দিন এবং বাতাস চলাচলের ব্যবস্থা করুন।\n৩. অবিলম্বে 108 অ্যাম্বুলেন্সে কল করুন।",
+        "accident": "🚗 প্রাথমিক চিকিৎসা (সড়ক দুর্ঘটনা):\n১. আহত ব্যক্তিকে অহেতুক নাড়াচাড়া করবেন না।\n২. রক্তপাত হলে পরিষ্কার কাপড় দিয়ে ক্ষতস্থান চেপে ধরুন।\n৩. দ্রুত 108 (অ্যাম্বুলেন্স) এবং 112 (পুলিশ)-এ কল করুন।",
+        "fire": "🔥 প্রাথমিক চিকিৎসা (আগুন ও পোড়া):\n১. আগুন থেকে দূরে সরুন এবং পোড়া স্থানে ১৫-২০ মিনিট ঠান্ডা জল ঢালুন।\n২. ক্ষতস্থানে আটকে থাকা কাপড় টানবেন না বা ফোসকা ফাটাবেন না।\n৩. দ্রুত 101 (ফায়ার ব্রিগেড) এবং 108-এ কল করুন।",
+        "disaster": "🏢 প্রাথমিক চিকিৎসা (ভবন ধস / প্রাকৃতিক দুর্যোগ):\n১. মজবুত টেবিল বা পিলারের নিচে আশ্রয় নিন এবং মাথা বাঁচান।\n২. ধুলোবালি থেকে বাঁচতে নাক ও মুখ কাপড় দিয়ে ঢেকে রাখুন।\n৩. আটকে পড়লে দেওয়ালে বা পাইপে শব্দ করুন এবং 112-এ কল করুন।",
+        "general": "🚨 জরুরি প্রাথমিক চিকিৎসা:\n১. শান্ত থাকুন এবং নিরাপদ স্থানে সরে যান।\n২. রক্তপাত হলে পরিষ্কার কাপড় দিয়ে চেপে ধরুন এবং দ্রুত 108 বা 112-এ কল করুন।"
     },
     "gu-IN": {
         "snake": "🐍 પ્રાથમિક સારવાર (સાપ કરડવા પર):\n૧. ગભરાશો નહીં, શાંત રહો અને કરડેલા ભાગને હલાવશો નહીં.\n૨. કરડેલા ભાગને હૃદયના સ્તરથી નીચે રાખો અને કસીને પટ્ટી ન બાંધો.\n૩. તાત્કાલિક 108 એમ્બ્યુલન્સને કોલ કરો.",
@@ -241,7 +320,7 @@ GUIDANCE_DB = {
     "ml-IN": {
         "snake": "🐍 പ്രഥമശുശ്രൂഷ (പാമ്പുകടി):\n1. പരിഭ്രാന്തരാകാതെ ശാന്തമായിരിക്കുക, കടിയേറ്റ ഭാഗം അനക്കരുത്.\n2. കടിയേറ്റ ഭാഗം ഹൃദയത്തിന് താഴെയായി വെക്കുക, മുറുക്കി കെട്ടരുത്.\n3. ഉടൻ തന്നെ 108 ആംബുലൻസിൽ വിളിക്കുക.",
         "chest": "❤️ പ്രഥമശുശ്രൂഷ (നെഞ്ചുവേദന):\n1. ഉടൻ തന്നെ ഇരുന്ന് വിശ്രമിക്കുക.\n2. ഇറുകിയ വസ്ത്രങ്ങൾ അയച്ചിടുക. ഉടൻ 108 ആംബുലൻസിൽ വിളിക്കുക.",
-        "accident": "🚗 പ്രഥമശുശ്രൂഷ (റോഡ് അപകടം):\n1. പരിക്കേറ്റയാളെ അനാവശ്യമായി മാറ്റരുത്.\n2. രക്തസ്രാവമുണ്ടെങ്കിൽ വൃത്തിയുള്ള തുണി ഉപയോഗിച്ച് അമർത്തിപ്പിടിക്കുക.\n3. ഉടൻ 108, 112 എന്നീ നമ്പറുകളിൽ വിളിക്കുക.",
+        "accident": "🚗 പ്രഥമശുശ്രൂഷ (റോഡ് അപകടം):\n1. പരിക്കേറ്റയാളെ അനാവശ്യമായി മാറ്റരുത്.\n2. രക്താസ്രാവമുണ്ടെങ്കിൽ വൃത്തിയുള്ള തുണി ഉപയോഗിച്ച് അമർത്തിപ്പിടിക്കുക.\n3. ഉടൻ 108, 112 എന്നീ നമ്പറുകളിൽ വിളിക്കുക.",
         "fire": "🔥 പ്രഥമശുശ്രൂഷ (തീപിടുത്തം / പൊള്ളൽ):\n1. പൊള്ളലേറ്റ ഭാഗത്ത് 15-20 മിനിറ്റ് തണുത്ത വെള്ളം ഒഴിക്കുക.\n2. കുമിളകൾ പൊട്ടിക്കരുത്. ഉടൻ 101 (ഫയർ ഫോഴ്സ്), 108 എന്നിവയിൽ വിളിക്കുക.",
         "disaster": "🏢 പ്രഥമശുശ്രൂഷ (കെട്ടിടം തകരൽ / ദുരന്തം):\n1. ബലമുള്ള മേശയ്ക്കടിയിൽ അഭയം തേടുക, തല സംരക്ഷിക്കുക.\n2. പൊടി ശ്വസിക്കാതിരിക്കാൻ മൂക്കും വായും തുണികൊണ്ട് മൂടുക. ഉടൻ 112-ൽ വിളിക്കുക.",
         "general": "🚨 അടിയന്തര പ്രഥമശുശ്രൂഷ:\n1. ശാന്തമായി സുരക്ഷിത സ്ഥാനത്തേക്ക് മാറുക.\n2. താഴെ കാണുന്ന 108 അല്ലെങ്കിൽ 112 എന്ന നമ്പറിൽ ഉടൻ വിളിക്കുക."
@@ -259,7 +338,7 @@ GUIDANCE_DB = {
         "chest": "❤️ ਮੁੱਢਲੀ ਸਹਾਇਤਾ (ਛਾਤੀ ਵਿੱਚ ਦਰਦ):\n1. ਮਰੀਜ਼ ਨੂੰ ਤੁਰੰਤ ਆਰਾਮ ਨਾਲ ਬਿਠਾਓ।\n2. ਤੰਗ ਕੱਪੜੇ ਢਿੱਲੇ ਕਰੋ ਅਤੇ ਤੁਰੰਤ 108 ਐਂਬੂਲੈਂਸ ਨੂੰ ਕਾਲ ਕਰੋ।",
         "accident": "🚗 ਮੁੱਢਲੀ ਸਹਾਇਤਾ (ਸੜਕ ਹਾਦਸਾ):\n1. ਜ਼ਖਮੀ ਵਿਅਕਤੀ ਨੂੰ ਬਿਨਾਂ ਵਜ੍ਹਾ ਨਾ ਹਿਲਾਓ।\n2. ਖੂਨ ਵਗਣ 'ਤੇ ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਜ਼ਖਮ ਨੂੰ ਦਬਾ ਕੇ ਰੱਖੋ।\n3. ਤੁਰੰਤ 108 ਅਤੇ 112 'ਤੇ ਕਾਲ ਕਰੋ।",
         "fire": "🔥 ਮੁੱਢਲੀ ਸਹਾਇਤਾ (ਅੱਗ ਅਤੇ ਸੜਨਾ):\n1. ਅੱਗ ਤੋਂ ਦੂਰ ਹਟੋ ਅਤੇ ਸੜੇ ਹੋਏ ਹਿੱਸੇ 'ਤੇ 15-20 ਮਿੰਟ ਠੰਡਾ ਪਾਣੀ ਪਾਓ।\n2. ਚਿਪਕੇ ਹੋਏ ਕੱਪੜੇ ਨਾ ਖਿੱਚੋ। ਤੁਰੰਤ 101 ਅਤੇ 108 'ਤੇ ਕਾਲ ਕਰੋ।",
-        "disaster": "🏢 ਮੁੱਢਲੀ ਸਹਾਇਤਾ (ਇਮਾਰਤ ਡਿੱਗਣਾ / ਆਫ਼ਤ):\n1. ਕਿਸੇ ਮਜ਼ਬੂਤ ਮੇਜ਼ ਹੇਠਾਂ ਛੁਪ ਜਾਓ ਅਤੇ ਸਿਰ ਨੂੰ ਬਚਾਓ।\n2. ਧੂੜ ਤੋਂ ਬਚਣ ਲਈ ਨੱਕ ਅਤੇ ਮੂੰਹ ਕੱਪੜੇ ਨਾਲ ਢੱਕੋ। ਤੁਰੰਤ 112 'ਤੇ ਕਾਲ ਕਰੋ।",
+        "disaster": "🏢 ਮੁੱਢਲੀ ਸਹਾਇਤਾ (ਇਮਾਰਤ ਡਿੱਗਣਾ / ਆਫ਼ਤ):\n1. ਕਿਸੇ ਮਜ਼ਬੂਤ ਮੇਜ਼ ਹੇਠਾਂ ਛੁਪ ਜਾਓ ਅਤੇ ਸਿਰ ਨੂੰ ਬਚਾਓ।\n2. ਧੂੜ ਤੋਂ ਬਚਣ ਲਈ ਨੱਕ ਅਤੇ ਮੂੰਹ ਕੱਪੜੇ ਨਾਲ ਢੱਕੋ। ਤੁਰੰਤ 112 'ਤੇ ਕਾਲ ਕਰੋ।",
         "general": "🚨 ਐਮਰਜੈਂਸੀ ਮੁੱਢਲੀ ਸਹਾਇਤਾ:\n1. ਕਿਰਪਾ ਕਰਕੇ ਸ਼ਾਂਤ ਰਹੋ ਅਤੇ ਸੁਰੱਖਿਅਤ ਥਾਂ 'ਤੇ ਜਾਓ।\n2. ਤੁਰੰਤ ਹੇਠਾਂ ਦਿੱਤੇ 108 ਜਾਂ 112 ਨੰਬਰ 'ਤੇ ਕਾਲ ਕਰੋ।"
     },
     "ta-IN": {
@@ -289,18 +368,207 @@ SCENARIO_LABELS = {
     "general": "General Emergency"
 }
 
-@app.post("/api/first-aid")
-async def get_first_aid(req: EmergencyRequest):
-    text = req.text.strip()
-    lang_code = detect_language(text, req.lang_override)
-    scenario_key = detect_scenario(text)
 
-    pack = GUIDANCE_DB.get(lang_code, GUIDANCE_DB["en-IN"])
-    reply = pack.get(scenario_key, pack["general"])
+# ================= GROQ AI ULTRA-FAST EMERGENCY TRIAGE & FIRST-AID =================
+async def analyze_emergency_with_groq(cleaned_text: str, fallback_lang: str, fallback_scenario: str) -> dict:
+    groq_key = get_groq_api_key()
+    pack = GUIDANCE_DB.get(fallback_lang, GUIDANCE_DB["en-IN"])
+    fallback_reply = pack.get(fallback_scenario, pack["general"])
+
+    if not groq_key or not cleaned_text:
+        return {
+            "lang_code": fallback_lang,
+            "scenario_label": SCENARIO_LABELS.get(fallback_scenario, "General Emergency"),
+            "first_aid": fallback_reply
+        }
+
+    system_prompt = (
+        "You are SaHaya, an emergency medical first-aid assistant in India. "
+        "The user may speak in noisy, messy, telephonic, or code-mixed Indian languages "
+        "(English, Hindi, Bengali, Gujarati, Kannada, Malayalam, Marathi, Punjabi, Tamil, Telugu). "
+        f"Rule-based detected language hint: '{fallback_lang}' ({LANG_NAMES.get(fallback_lang, 'English')}). "
+        f"Rule-based scenario hint: '{SCENARIO_LABELS.get(fallback_scenario, 'General Emergency')}'. "
+        "Respond strictly in valid JSON with three keys:\n"
+        "1. 'lang_code': One of ['en-IN','hi-IN','bn-IN','gu-IN','kn-IN','ml-IN','mr-IN','pa-IN','ta-IN','te-IN'].\n"
+        "2. 'scenario_label': Short English label (e.g., 'Snakebite', 'Chest Pain', 'Road Accident', 'Fire & Burns', 'Disaster / Collapse', or specific medical emergency).\n"
+        "3. 'first_aid': 3 to 4 concise, life-saving numbered first-aid steps written in the NATIVE SCRIPT of 'lang_code' "
+        "(so Gnani Timbre TTS can read it aloud naturally), ending with calling 108 (Ambulance) or 112 (SOS)."
+    )
+
+    headers = {
+        "Authorization": f"Bearer {groq_key}",
+        "Content-Type": "application/json"
+    }
+
+    for model_name in ("llama-3.3-70b-versatile", "llama-3.1-8b-instant"):
+        payload = {
+            "model": model_name,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": cleaned_text}
+            ],
+            "temperature": 0.2,
+            "max_tokens": 350,
+            "response_format": {"type": "json_object"}
+        }
+        try:
+            async with httpx.AsyncClient(timeout=8.0) as client:
+                resp = await client.post(GROQ_API_URL, headers=headers, json=payload)
+                if resp.status_code == 200:
+                    content = resp.json()["choices"][0]["message"]["content"]
+                    parsed = json.loads(content)
+                    lang_code = parsed.get("lang_code", fallback_lang)
+                    if lang_code not in LANG_NAMES:
+                        lang_code = fallback_lang
+                    first_aid_text = parsed.get("first_aid", "").strip() or fallback_reply
+                    scenario_label = parsed.get("scenario_label", "").strip() or SCENARIO_LABELS.get(fallback_scenario, "General Emergency")
+                    return {
+                        "lang_code": lang_code,
+                        "scenario_label": scenario_label,
+                        "first_aid": first_aid_text
+                    }
+        except Exception:
+            continue
 
     return {
-        "lang_code": lang_code,
-        "language_name": LANG_NAMES.get(lang_code, "English"),
-        "scenario": SCENARIO_LABELS.get(scenario_key, "General Emergency"),
-        "first_aid": reply
+        "lang_code": fallback_lang,
+        "scenario_label": SCENARIO_LABELS.get(fallback_scenario, "General Emergency"),
+        "first_aid": fallback_reply
+    }
+
+
+# ================= 1. GNANI PRISMA SPEECH-TO-TEXT ENDPOINT =================
+@app.post("/api/stt-prisma")
+async def transcribe_with_gnani_prisma(
+    audio_file: UploadFile = File(...),
+    backup_transcript: str = Form("")
+):
+    api_key = get_gnani_api_key()
+    audio_bytes = await audio_file.read()
+    transcript = ""
+    detected_lang_from_prisma = "auto"
+    stt_engine_used = "Gnani Prisma v3.0"
+
+    if api_key and len(audio_bytes) > 512:
+        try:
+            async with httpx.AsyncClient(timeout=15.0) as client:
+                files = {"audio_file": ("emergency.wav", audio_bytes, "audio/wav")}
+                data = {
+                    "model": "prisma-v3.0",
+                    "language_code": "indic-auto",
+                    "format": "codemix",
+                    "keyterms": ",".join(EMERGENCY_KEYTERMS)
+                }
+                headers = {"X-API-Key-ID": api_key}
+                resp = await client.post(f"{GNANI_BASE_URL}/stt/v3", headers=headers, data=data, files=files)
+
+                if resp.status_code == 200:
+                    payload = resp.json()
+                    transcript = (
+                        payload.get("transcript")
+                        or payload.get("text")
+                        or (payload.get("output") or {}).get("text", "")
+                    ).strip()
+                    detected_lang_from_prisma = payload.get("detected_language_code") or payload.get("language_code") or "auto"
+                else:
+                    data_v25 = {"language_code": "en-IN"}
+                    resp_v25 = await client.post(f"{GNANI_BASE_URL}/stt/v3", headers=headers, data=data_v25, files=files)
+                    if resp_v25.status_code == 200:
+                        payload = resp_v25.json()
+                        transcript = (payload.get("transcript") or payload.get("text") or "").strip()
+                        stt_engine_used = "Gnani Prisma v2.5"
+        except Exception:
+            pass
+
+    if not transcript and backup_transcript:
+        transcript = backup_transcript.split(" | ")[0].strip()
+        stt_engine_used = "Gnani Prisma Hybrid"
+
+    cleaned_text = clean_noisy_text(f"{transcript} {backup_transcript}".strip())
+    fallback_lang = detect_language(cleaned_text, detected_lang_from_prisma)
+    fallback_scenario = detect_scenario(cleaned_text)
+
+    groq_result = await analyze_emergency_with_groq(cleaned_text, fallback_lang, fallback_scenario)
+    final_lang = groq_result["lang_code"]
+
+    return {
+        "transcript": transcript,
+        "stt_engine": stt_engine_used,
+        "lang_code": final_lang,
+        "language_name": LANG_NAMES.get(final_lang, "English"),
+        "scenario": groq_result["scenario_label"],
+        "first_aid": groq_result["first_aid"]
+    }
+
+
+# ================= 2. GNANI TIMBRE TEXT-TO-SPEECH ENDPOINT =================
+@app.post("/api/tts-timbre")
+async def synthesize_with_gnani_timbre(req: TimbreTTSRequest):
+    api_key = get_gnani_api_key()
+    if not api_key or not req.text.strip():
+        return {"audio_base64": None, "tts_engine": "browser_fallback"}
+
+    headers = {
+        "Content-Type": "application/json",
+        "X-API-Key-ID": api_key
+    }
+
+    tts_attempts = [
+        {"model": "timbre-v3.0", "voice": "Shivani"},
+        {"model": "timbre-v2.5", "voice": "Nalini"}
+    ]
+
+    async with httpx.AsyncClient(timeout=15.0) as client:
+        for attempt in tts_attempts:
+            payload = {
+                "text": req.text.strip(),
+                "voice": attempt["voice"],
+                "model": attempt["model"],
+                "language": req.lang_code if req.lang_code in LANG_NAMES else "en-IN",
+                "speed": 1.0,
+                "audio_config": {
+                    "sample_rate": 24000,
+                    "num_channels": 1,
+                    "sample_width": 2,
+                    "encoding": "linear_pcm",
+                    "container": "wav"
+                }
+            }
+            try:
+                resp = await client.post(
+                    f"{GNANI_BASE_URL}/api/v1/tts/inference",
+                    headers=headers,
+                    json=payload
+                )
+                if resp.status_code == 200 and resp.content:
+                    content_type = resp.headers.get("content-type", "")
+                    if "application/json" in content_type:
+                        data = resp.json()
+                        b64_str = data.get("audio") or (data.get("data") or {}).get("audio")
+                        if b64_str:
+                            return {"audio_base64": b64_str, "tts_engine": attempt["model"]}
+                    else:
+                        b64_str = base64.b64encode(resp.content).decode("utf-8")
+                        return {"audio_base64": b64_str, "tts_engine": attempt["model"]}
+            except Exception:
+                continue
+
+    return {"audio_base64": None, "tts_engine": "browser_fallback"}
+
+
+# ================= 3. TEXT / QUICK-TAP FIRST-AID ENDPOINT (POWERED BY GROQ) =================
+@app.post("/api/first-aid")
+async def get_first_aid(req: EmergencyRequest):
+    cleaned_text = clean_noisy_text(req.text)
+    fallback_lang = detect_language(cleaned_text, "auto")
+    fallback_scenario = detect_scenario(cleaned_text)
+
+    groq_result = await analyze_emergency_with_groq(cleaned_text, fallback_lang, fallback_scenario)
+    final_lang = groq_result["lang_code"]
+
+    return {
+        "lang_code": final_lang,
+        "language_name": LANG_NAMES.get(final_lang, "English"),
+        "scenario": groq_result["scenario_label"],
+        "first_aid": groq_result["first_aid"]
     }
