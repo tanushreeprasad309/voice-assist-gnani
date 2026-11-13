@@ -395,37 +395,6 @@
       margin-top: 2px;
     }
 
-    .status-pills-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 2px;
-    }
-
-    .auto-detect-pill {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid var(--card-border);
-      color: #38bdf8;
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-size: 0.74rem;
-      font-weight: 700;
-    }
-
-    .noise-cancel-pill {
-      background: rgba(34, 197, 94, 0.12);
-      border: 1px solid rgba(34, 197, 94, 0.4);
-      color: #4ade80;
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-size: 0.74rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
     /* Input Row with Inline Circular Clear Button (✕) */
     .manual-input-row {
       display: flex;
@@ -802,16 +771,6 @@
         <!-- Pill Tagline -->
         <p class="mic-tagline" data-i18n="app_sub">TALK • TRANSLATE • STAY SAFE!</p>
 
-        <!-- Auto-Detect & Dynamic Filtering Labels -->
-        <div class="status-pills-row">
-          <span class="auto-detect-pill" data-i18n="auto_detect_badge">
-            ✨ Gnani Prisma + Groq Auto-Detect (10 Languages + Code-Mix)
-          </span>
-          <span id="noiseCancelBadge" class="noise-cancel-pill" data-i18n="noise_cancel_badge">
-            🛡️ Telephonic Noise Canceller: ON
-          </span>
-        </div>
-
         <!-- Input Box with Inline Clear circular trigger (✕) -->
         <div class="manual-input-row">
           <div class="input-clear-wrapper">
@@ -947,7 +906,7 @@
   </div>
 
   <script>
-    /* Safe helper so DOM updates never throw "Cannot set properties of null" */
+    /* Null-safe DOM updater to prevent TypeError crashes */
     function safeSetText(id, text) {
       const el = document.getElementById(id);
       if (el) el.textContent = text;
@@ -970,8 +929,6 @@
         sos_status: "Press the SOS button in an emergency to trigger a high-decibel emergency wail siren and broadcast your live GPS location to your Guardians.",
         gps_ready: "📍 Live Location: Ready to lock GPS coordinates",
         mic_label: "🎙️ AUTO-DETECT CODE-MIXED & MULTILINGUAL ASSISTANT",
-        auto_detect_badge: "✨ Gnani Prisma + Groq Auto-Detect (10 Languages + Code-Mix)",
-        noise_cancel_badge: "🛡️ Telephonic Noise Canceller: ON",
         input_placeholder: "Speak or type in any language or code-mix (e.g. haavu kachide help)",
         btn_translate: "Translate & Help",
         btn_read_aloud: "Read Aloud",
@@ -1009,8 +966,6 @@
         sos_status: "ತುರ್ತು ಪರಿಸ್ಥಿತಿಯಲ್ಲಿ ದೊಡ್ಡ ಸೈರನ್ ಮೊಳಗಿಸಲು ಮತ್ತು ನಿಮ್ಮ ಲೈವ್ ಜಿಪಿಎಸ್ ಸ್ಥಳವನ್ನು ಪಾಲಕರಿಗೆ ಕಳುಹಿಸಲು SOS ಬಟನ್ ಒತ್ತಿರಿ.",
         gps_ready: "📍 ಲೈವ್ ಸ್ಥಳ: ಜಿಪಿಎಸ್ ನಿರ್ದೇಶಾಂಕಗಳನ್ನು ಲಾಕ್ ಮಾಡಲು ಸಿದ್ಧವಾಗಿದೆ",
         mic_label: "🎙️ ಆಟೋ-ಡಿಟೆಕ್ಟ್ ಬಹುಭಾಷಾ ಧ್ವನಿ ಸಹಾಯಕ",
-        auto_detect_badge: "✨ Gnani Prisma + Groq ಆಟೋ-ಡಿಟೆಕ್ಟ್ (10 ಭಾಷೆಗಳು)",
-        noise_cancel_badge: "🛡️ ಶಬ್ದ ನಿವಾರಕ (Noise Canceller): ON",
         input_placeholder: "ಯಾವುದೇ ಭಾಷೆಯಲ್ಲಿ ಮಾತನಾಡಿ ಅಥವಾ ಟೈಪ್ ಮಾಡಿ (ಉದಾ. ಹಾವು ಕಚ್ಚಿದೆ ಸಹಾಯ ಮಾಡಿ)",
         btn_translate: "ಅನುವಾದಿಸಿ & ಸಹಾಯ",
         btn_read_aloud: "ಜೋರಾಗಿ ಓದಿ",
@@ -1048,8 +1003,6 @@
         sos_status: "आपात स्थिति में तेज सायरन बजाने और अपनी लाइव जीपीएस लोकेशन भेजने के लिए SOS बटन दबाएं।",
         gps_ready: "📍 लाइव लोकेशन: जीपीएस कोऑर्डिनेट्स लॉक करने के लिए तैयार",
         mic_label: "🎙️ ऑटो-डिटेक्ट बहुभाषी सहायक",
-        auto_detect_badge: "✨ Gnani Prisma + Groq ऑटो-डिटेक्ट (10 भाषाएं)",
-        noise_cancel_badge: "🛡️ टेलीफोनिक नॉइज़ कैंसलर: ON",
         input_placeholder: "किसी भी भाषा या कोड-मिक्स में बोलें या टाइप करें",
         btn_translate: "अनुवाद और मदद",
         btn_read_aloud: "सुनें",
@@ -1087,8 +1040,6 @@
         sos_status: "आणीबाणीच्या वेळी सायरन वाजवण्यासाठी आणि तुमचे लाइव्ह जीपीएस लोकेशन पाठवण्यासाठी SOS बटण दाबा.",
         gps_ready: "📍 लाइव्ह लोकेशन: जीपीएस लॉक करण्यास तयार",
         mic_label: "🎙️ ऑटो-डिटेक्ट बहुभाषिक सहाय्यक",
-        auto_detect_badge: "✨ Gnani Prisma + Groq ऑटो-डिटेक्ट (१० भाषा)",
-        noise_cancel_badge: "🛡️ नॉइज कॅन्सलर: ON",
         input_placeholder: "कोणत्याही भाषेत बोला किंवा टाईप करा",
         btn_translate: "भाषांतर आणि मदत",
         btn_read_aloud: "मोठ्याने वाचा",
@@ -1126,8 +1077,6 @@
         sos_status: "জরুরী পরিস্থিতিতে সাইরেন বাজাতে এবং আপনার লাইভ জিপিএস লোকেশন পাঠাতে SOS বোতাম টিপুন।",
         gps_ready: "📍 লাইভ লোকেশন: জিপিএস লক করার জন্য প্রস্তুত",
         mic_label: "🎙️ স্বয়ংক্রিয় বহুভাষিক সহকারী",
-        auto_detect_badge: "✨ Gnani Prisma + Groq অটো-ডিটেক্ট (১০টি ভাষা)",
-        noise_cancel_badge: "🛡️ নয়েজ ক্যান্সেলার: ON",
         input_placeholder: "যেকোনো ভাষায় কথা বলুন বা টাইপ করুন",
         btn_translate: "অনুবাদ ও সাহায্য",
         btn_read_aloud: "শুনুন",
@@ -1165,8 +1114,6 @@
         sos_status: "કટોકટીમાં સાઇરન વગાડવા અને લાઇવ જીપીએસ લોકેશન મોકલવા SOS બટન દબાવો.",
         gps_ready: "📍 લાઇવ લોકેશન: જીપીએસ લોક કરવા માટે તૈયાર",
         mic_label: "🎙️ ઓટો-ડિટેક્ટ બહુભાષી સહાયક",
-        auto_detect_badge: "✨ Gnani Prisma + Groq ઓટો-ડિટેક્ટ (10 ભાષાઓ)",
-        noise_cancel_badge: "🛡️ નોઈઝ કેન્સલર: ON",
         input_placeholder: "કોઈપણ ભાષામાં બોલો અથવા ટાઈપ કરો",
         btn_translate: "અનુવાદ અને મદદ",
         btn_read_aloud: "સાંભળો",
@@ -1204,8 +1151,6 @@
         sos_status: "അടിയന്തിര സാഹചര്യത്തിൽ സൈറൺ മുഴക്കാനും ലൈവ് ജിപിഎസ് അയക്കാനും SOS അമർത്തുക.",
         gps_ready: "📍 ലൈവ് ലൊക്കേഷൻ: ജിപിഎസ് ലോക്ക് ചെയ്യാൻ തയ്യാറാണ്",
         mic_label: "🎙️ ഓട്ടോ-ഡിറ്റക്ട് ബഹുഭാഷാ സഹായി",
-        auto_detect_badge: "✨ Gnani Prisma + Groq ഓട്ടോ-ഡിറ്റക്ട് (10 ഭാഷകൾ)",
-        noise_cancel_badge: "🛡️ നോയ്സ് ക്യാൻസലർ: ON",
         input_placeholder: "ഏത് ഭാഷയിലും സംസാരിക്കുകയോ ടൈപ്പ് ചെയ്യുകയോ ചെയ്യുക",
         btn_translate: "വിവർത്തനവും സഹായവും",
         btn_read_aloud: "ഉറക്കെ വായിക്കുക",
@@ -1243,8 +1188,6 @@
         sos_status: "ਐਮਰਜੈਂਸੀ ਵਿੱਚ ਸਾਇਰਨ ਵਜਾਉਣ ਅਤੇ ਲਾਈਵ ਜੀਪੀਐਸ ਭੇਜਣ ਲਈ SOS ਬਟਨ ਦਬਾਓ।",
         gps_ready: "📍 ਲਾਈਵ ਲੋਕੇਸ਼ਨ: ਜੀਪੀਐਸ ਲਾਕ ਕਰਨ ਲਈ ਤਿਆਰ",
         mic_label: "🎙️ ਆਟੋ-ਡਿਟੈਕਟ ਬਹੁ-ਭਾਸ਼ਾਈ ਸਹਾਇਕ",
-        auto_detect_badge: "✨ Gnani Prisma + Groq ਆਟੋ-ਡਿਟੈਕਟ (10 ਭਾਸ਼ਾਵਾਂ)",
-        noise_cancel_badge: "🛡️ ਨੌਇਜ਼ ਕੈਂਸਲਰ: ON",
         input_placeholder: "ਕਿਸੇ ਵੀ ਭਾਸ਼ਾ ਵਿੱਚ ਬੋਲੋ ਜਾਂ ਟਾਈਪ ਕਰੋ",
         btn_translate: "ਅਨੁਵਾਦ ਅਤੇ ਮਦਦ",
         btn_read_aloud: "ਸੁਣੋ",
@@ -1282,8 +1225,6 @@
         sos_status: "அவசர காலத்தில் சைரனை ஒலிக்கச் செய்து நேரலை ஜிபிஎஸ் அனுப்ப SOS பொத்தானை அழுத்தவும்.",
         gps_ready: "📍 நேரலை இருப்பிடம்: ஜிபிஎஸ் பெறத் தயார்",
         mic_label: "🎙️ தானியங்கி பன்மொழி உதவியாளர்",
-        auto_detect_badge: "✨ Gnani Prisma + Groq தானியங்கி (10 மொழிகள்)",
-        noise_cancel_badge: "🛡️ இரைச்சல் நீக்கி: ON",
         input_placeholder: "எந்த மொழியிலும் பேசுங்கள் அல்லது தட்டச்சு செய்யுங்கள்",
         btn_translate: "மொழிபெயர்ப்பு & உதவி",
         btn_read_aloud: "சத்தமாக வாசி",
@@ -1321,8 +1262,6 @@
         sos_status: "అత్యవసర సమయంలో సైరన్ మోగించడానికి మరియు లైవ్ జిపిఎస్ పంపడానికి SOS బటన్ నొక్కండి.",
         gps_ready: "📍 లైవ్ లొకేషన్: జిపిఎస్ లాక్ చేయడానికి సిద్ధంగా ఉంది",
         mic_label: "🎙️ ఆటో-డిటెక్ట్ బహుభాషా సహాయకుడు",
-        auto_detect_badge: "✨ Gnani Prisma + Groq ఆటో-డిటెక్ట్ (10 భాషలు)",
-        noise_cancel_badge: "🛡️ నాయిస్ క్యాన్సిలర్: ON",
         input_placeholder: "ఏ భాషలోనైనా మాట్లాడండి లేదా టైప్ చేయండి",
         btn_translate: "అనువాదం & సహాయం",
         btn_read_aloud: "బిగ్గరగా చదవండి",
@@ -1420,7 +1359,7 @@
             const lon = pos.coords.longitude.toFixed(5);
             const mapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
             gpsDisplay.innerHTML = `📍 Live GPS Sent: <strong>${lat}, ${lon}</strong> <br/><a href="${mapsUrl}" target="_blank" style="color:#38bdf8;">View Live Map Link</a>`;
-            safeSetText('guardianGpsText', `Current Coords: ${lat}, ${lon}`);
+            safeSetText('guardianGpsText', `Current Coords: ${lat}, ${lon}`;
           },
           () => {
             gpsDisplay.textContent = "📍 GPS Alert: Location permission needed, broadcasting cell tower fallback.";
@@ -1518,7 +1457,7 @@
     }
 
     /* =========================================================================
-       4. TELEPHONIC DSP NOISE CANCELLER + GNANI PRISMA (STT) + GROQ PIPELINE
+       4. VOICE CAPTURE + SPEECH RECOGNITION + MULTILINGUAL PIPELINE
        ========================================================================= */
     let isListening = false;
     let noiseFilterCtx = null;
@@ -1565,7 +1504,6 @@
 
     async function toggleVoiceRecognition() {
       const micBtn = document.getElementById('micBtn');
-      const badge = document.getElementById('noiseCancelBadge');
 
       if (isListening) {
         await stopAndSendToGnaniPrisma();
@@ -1586,24 +1524,20 @@
         recordingSampleRate = noiseFilterCtx.sampleRate || 16000;
         const source = noiseFilterCtx.createMediaStreamSource(activeMicStream);
 
-        // 1. High-pass filter at 300 Hz
         const highpass = noiseFilterCtx.createBiquadFilter();
         highpass.type = 'highpass';
         highpass.frequency.value = 300;
 
-        // 2. Low-pass filter at 3400 Hz
         const lowpass = noiseFilterCtx.createBiquadFilter();
         lowpass.type = 'lowpass';
         lowpass.frequency.value = 3400;
 
-        // 3. Presence boost at 1800 Hz
         const presencePeak = noiseFilterCtx.createBiquadFilter();
         presencePeak.type = 'peaking';
         presencePeak.frequency.value = 1800;
         presencePeak.Q.value = 1.2;
         presencePeak.gain.value = 4.5;
 
-        // 4. Dynamic range compressor
         const compressor = noiseFilterCtx.createDynamicsCompressor();
         compressor.threshold.setValueAtTime(-28, noiseFilterCtx.currentTime);
         compressor.knee.setValueAtTime(20, noiseFilterCtx.currentTime);
@@ -1611,7 +1545,6 @@
         compressor.attack.setValueAtTime(0.003, noiseFilterCtx.currentTime);
         compressor.release.setValueAtTime(0.2, noiseFilterCtx.currentTime);
 
-        // 5. Capture noise-cancelled PCM samples
         scriptProcessorNode = noiseFilterCtx.createScriptProcessor(4096, 1, 1);
         recordedPcmChunks = [];
         scriptProcessorNode.onaudioprocess = (e) => {
@@ -1631,11 +1564,6 @@
         scriptProcessorNode.connect(zeroGain);
         zeroGain.connect(noiseFilterCtx.destination);
 
-        if (badge) {
-          badge.innerHTML = "🛡️ Telephonic Noise Canceller: ACTIVE (300-3400Hz DSP)";
-        }
-
-        // Start parallel browser SpeechRecognition as instant live transcript & fallback
         browserTranscriptBackup = "";
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRecognition) {
@@ -1794,7 +1722,6 @@
       safeSetText('spokenTextDisplay', `You said: "${displayUserText}"`);
       safeSetText('firstAidOutput', "⏳ Analyzing emergency & preparing first-aid steps...");
 
-      // 1. Try backend API with a 3.5-second timeout so UI never hangs
       try {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 3500);
@@ -1819,10 +1746,9 @@
           }
         }
       } catch (e) {
-        // Proceed immediately to instant built-in multilingual engine
+        // Proceed immediately to built-in multilingual engine
       }
 
-      // 2. Instant built-in multilingual & code-mixed fallback engine
       const result = offlineEmergencyEngine(queryPayload);
       safeSetText('detectedLangBadge', `Detected: ${result.language_name} • ${result.scenario}`);
       safeSetText('firstAidOutput', result.first_aid);
