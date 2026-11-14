@@ -91,20 +91,20 @@
       width: 34px;
       height: 34px;
       object-fit: contain;
-      filter: drop-shadow(0 2px 6px rgba(56, 189, 248, 0.35));
+      filter: drop-shadow(0 2px 6px rgba(250, 204, 21, 0.35));
     }
 
-    /* Static Title matched to Logo Color & Clean Geometric Font */
+    /* Static Title matched to Logo Color & Clean Geometric Font (No movement) */
     .animated-title {
       font-family: 'Poppins', 'Inter', sans-serif;
       font-size: 2rem;
       font-weight: 800;
       letter-spacing: 0.5px;
-      background: linear-gradient(135deg, #ffffff 15%, #7dd3fc 55%, #38bdf8 100%);
+      background: linear-gradient(90deg, #fde047 0%, #a3e635 55%, #4ade80 100%);
       color: transparent;
       -webkit-background-clip: text;
       background-clip: text;
-      filter: drop-shadow(0 2px 8px rgba(56, 189, 248, 0.2));
+      filter: drop-shadow(0 2px 8px rgba(250, 204, 21, 0.18));
     }
 
     /* Equalizer Bars Only (No background pill or border) */
@@ -121,7 +121,7 @@
 
     .wave-bar {
       width: 3.5px;
-      background: linear-gradient(to top, #2563eb, #38bdf8, #7dd3fc);
+      background: linear-gradient(to top, #eab308, #a3e635, #4ade80);
       border-radius: 999px;
       animation: bounceWave 0.85s ease-in-out infinite;
     }
@@ -186,7 +186,7 @@
 
     .global-ui-select {
       background: #1e293b;
-      color: #38bdf8;
+      color: #fde047;
       border: 1px solid var(--card-border);
       padding: 5px 10px;
       border-radius: 8px;
@@ -219,9 +219,9 @@
     }
 
     .tab-btn.active {
-      background: #2563eb;
+      background: #ea580c;
       color: #ffffff;
-      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.45);
+      box-shadow: 0 2px 10px rgba(234, 88, 12, 0.45);
     }
 
     .tab-content {
@@ -257,14 +257,14 @@
       width: 175px;
       height: 175px;
       border-radius: 50%;
-      background: radial-gradient(circle, #ff5252 0%, var(--red-dark) 100%);
-      border: 6px solid rgba(239, 68, 68, 0.35);
+      background: radial-gradient(circle, #38bdf8 0%, #2563eb 100%);
+      border: 6px solid rgba(56, 189, 248, 0.35);
       color: white;
       font-size: 1.45rem;
       font-weight: 900;
       letter-spacing: 1px;
       cursor: pointer;
-      box-shadow: 0 0 40px rgba(239, 68, 68, 0.6);
+      box-shadow: 0 0 40px rgba(37, 99, 235, 0.6);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -288,6 +288,7 @@
     .sos-big-btn.alarm-active {
       animation: pulseRed 0.6s infinite alternate;
       background: radial-gradient(circle, #ef4444 0%, #7f1d1d 100%);
+      border-color: rgba(239, 68, 68, 0.5);
     }
 
     @keyframes pulseRed {
@@ -313,7 +314,7 @@
       padding: 10px 16px;
       border-radius: 10px;
       font-size: 0.85rem;
-      color: #38bdf8;
+      color: #fde047;
       width: 100%;
       font-weight: 600;
     }
@@ -331,12 +332,12 @@
       width: 114px;
       height: 114px;
       border-radius: 50%;
-      background: var(--blue-glow);
+      background: rgba(234, 88, 12, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 4px 0;
-      box-shadow: 0 0 25px rgba(37, 99, 235, 0.25);
+      box-shadow: 0 0 25px rgba(234, 88, 12, 0.25);
       transition: all 0.25s ease;
     }
 
@@ -344,14 +345,14 @@
       width: 84px;
       height: 84px;
       border-radius: 50%;
-      background: linear-gradient(145deg, #3b82f6, #1d4ed8);
+      background: linear-gradient(145deg, #f59e0b, #ea580c);
       border: none;
       color: #ffffff;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.55);
+      box-shadow: 0 6px 20px rgba(234, 88, 12, 0.55);
       transition: all 0.2s ease;
     }
 
@@ -373,12 +374,12 @@
 
     .mic-tagline {
       font-size: 0.78rem;
-      color: #38bdf8;
+      color: #fde047;
       font-weight: 800;
       letter-spacing: 1.4px;
       text-transform: uppercase;
-      background: rgba(56, 189, 248, 0.12);
-      border: 1px solid rgba(56, 189, 248, 0.35);
+      background: rgba(250, 204, 21, 0.12);
+      border: 1px solid rgba(250, 204, 21, 0.35);
       padding: 6px 16px;
       border-radius: 999px;
       margin-top: 2px;
@@ -413,7 +414,7 @@
     }
 
     .input-clear-wrapper input:focus {
-      border-color: var(--blue-light);
+      border-color: #fde047;
     }
 
     .clear-input-btn {
@@ -443,7 +444,7 @@
     }
 
     .translate-help-btn {
-      background: var(--blue-main);
+      background: #ea580c;
       color: white;
       border: none;
       padding: 10px 14px;
@@ -456,7 +457,7 @@
     }
 
     .translate-help-btn:hover {
-      background: #1d4ed8;
+      background: #c2410c;
     }
 
     /* Output Box */
@@ -482,8 +483,8 @@
 
     .detected-badge {
       display: inline-block;
-      background: rgba(56, 189, 248, 0.15);
-      color: #38bdf8;
+      background: rgba(250, 204, 21, 0.15);
+      color: #fde047;
       padding: 4px 10px;
       border-radius: 6px;
       font-size: 0.76rem;
@@ -491,22 +492,22 @@
     }
 
     .speak-aloud-btn {
-      background: rgba(34, 197, 94, 0.16);
-      border: 1px solid rgba(34, 197, 94, 0.45);
+      background: rgba(34, 197, 94, 0.2);
+      border: 1px solid rgba(34, 197, 94, 0.5);
       color: #86efac;
-      padding: 4px 10px;
+      padding: 5px 12px;
       border-radius: 6px;
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
       transition: all 0.15s ease;
     }
 
     .speak-aloud-btn:hover {
-      background: rgba(34, 197, 94, 0.3);
+      background: rgba(34, 197, 94, 0.35);
     }
 
     .spoken-transcript {
@@ -518,7 +519,7 @@
     .guidance-steps {
       font-size: 0.95rem;
       color: #ffffff;
-      line-height: 1.5;
+      line-height: 1.55;
       font-weight: 500;
       white-space: pre-line;
     }
@@ -553,8 +554,8 @@
     }
 
     .phrase-pill:hover {
-      background: #2563eb;
-      border-color: #60a5fa;
+      background: #ea580c;
+      border-color: #fb923c;
     }
 
     .directory-grid {
@@ -577,7 +578,7 @@
     }
 
     .dir-card:hover {
-      border-color: var(--blue-light);
+      border-color: #fde047;
       transform: translateY(-2px);
     }
 
@@ -604,9 +605,9 @@
     }
 
     .dir-call-btn {
-      background: rgba(37, 99, 235, 0.2);
-      color: #60a5fa;
-      border: 1px solid rgba(59, 130, 246, 0.4);
+      background: rgba(234, 88, 12, 0.2);
+      color: #fb923c;
+      border: 1px solid rgba(234, 88, 12, 0.45);
       padding: 6px 12px;
       border-radius: 8px;
       font-size: 0.8rem;
@@ -647,7 +648,7 @@
     .remove-btn {
       background: none;
       border: none;
-      color: #60a5fa;
+      color: #fb923c;
       font-weight: 600;
       cursor: pointer;
     }
@@ -685,7 +686,7 @@
     <!-- Top Header Branding -->
     <div class="header">
       <div class="brand-row">
-        <img class="brand-logo-img" src="/static/logo.png" alt="SaHaya Brand Logo Pattern" onerror="this.style.display='none';" />
+        <img class="brand-logo-img" src="/static/logo.png" alt="SaHaya Brand Logo" onerror="this.style.display='none';" />
         <h1 class="animated-title" data-i18n="app_title">SaHaya</h1>
         <div class="sound-wave">
           <span class="wave-bar"></span>
@@ -809,7 +810,7 @@
           <button type="button" class="phrase-pill" onclick="quickEmergency('सीने में तेज दर्द हो रहा है')">❤️ Chest Pain (सीने में दर्द)</button>
           <button type="button" class="phrase-pill" onclick="quickEmergency('मला मदत करा रोड अपघात झाला आहे')">🚗 Road Accident (अपघात)</button>
           <button type="button" class="phrase-pill" onclick="quickEmergency('ಬೆಂಕಿ ಹತ್ತಿದೆ ಸುಟ್ಟ ಗಾಯವಾಗಿದೆ')">🔥 Fire & Burns (ಬೆಂಕಿ / आग)</button>
-          <button type="button" class="phrase-pill" onclick="quickEmergency('इमारत कोसळली आहे भूकंप आपत्ती')">🏢 Building Collapse / Disaster</button>
+          <button type="button" class="phrase-pill" onclick="quickEmergency('ಕಟ್ಟಡ ಕುಸಿತ ಸಹಾಯ ಮಾಡಿ')">🏢 Building Collapse (ಕಟ್ಟಡ ಕುಸಿತ)</button>
           <button type="button" class="phrase-pill" onclick="quickEmergency('Need urgent police and ambulance help')">🚨 General Emergency</button>
         </div>
       </div>
@@ -887,7 +888,7 @@
         <div class="guardian-sub" data-i18n="geofence_sub">
           Monitors GPS every 3s. Alerts guardians if you deviate &gt;500m or stall &gt;10 mins.
         </div>
-        <div id="guardianGpsText" style="font-size: 0.85rem; color: #38bdf8;" data-i18n="geofence_status">
+        <div id="guardianGpsText" style="font-size: 0.85rem; color: #fde047;" data-i18n="geofence_status">
           Current Coords: Acquiring GPS lock...
         </div>
       </div>
@@ -1252,7 +1253,7 @@
         input_placeholder: "ఏ భాషలోనైనా మాట్లాడండి లేదా టైప్ చేయండి",
         btn_translate: "అనువాదం & సహాయం",
         btn_read_aloud: "బిగ్గరగా చదవండి",
-        waiting_input: "భాష: ఇన్‌పుట్ కోసం వేచి ఉంది...",
+        waiting_input: "மொழி: ఇన్‌పుట్ కోసం వేచి ఉంది...",
         transcript_prompt: "తెలుగు, హిందీ లేదా ఇంగ్లీషులో సహజంగా మాట్లాడండి.",
         output_prompt: "ప్రథమ చికిత్స దశలు ఇక్కడ కనిపిస్తాయి.",
         quick_tap_label: "⚡ అత్యవసర పరిస్థితులు",
@@ -1357,7 +1358,7 @@
             var lat = pos.coords.latitude.toFixed(5);
             var lon = pos.coords.longitude.toFixed(5);
             var mapsUrl = "https://www.google.com/maps?q=" + lat + "," + lon;
-            gpsDisplay.innerHTML = "📍 Live GPS Sent: <strong>" + lat + ", " + lon + "</strong> <br/><a href='" + mapsUrl + "' target='_blank' style='color:#38bdf8;'>View Live Map Link</a>";
+            gpsDisplay.innerHTML = "📍 Live GPS Sent: <strong>" + lat + ", " + lon + "</strong> <br/><a href='" + mapsUrl + "' target='_blank' style='color:#fde047;'>View Live Map Link</a>";
             safeSetText('guardianGpsText', "Current Coords: " + lat + ", " + lon);
           },
           function() {
@@ -1756,6 +1757,70 @@
       speakWithGnaniTimbre(result.first_aid, result.lang_code);
     }
 
+    /* ================= PRONUNCIATION & NATIVE NUMBER NORMALIZER ================= */
+    function prepareSpeechTextForLanguage(rawText, langCode) {
+      if (!rawText) return "";
+
+      var text = rawText
+        .replace(/[🐍❤️🚗🔥🏢🚨⚡📍🎙️✨🛡️⏳🔊]/g, '')
+        .replace(/\//g, ' ಅಥವಾ ');
+
+      var langPrefix = (langCode || 'en-IN').split('-')[0].toLowerCase();
+
+      if (langPrefix === 'kn') {
+        text = text
+          .replace(/15\s*[-–]\s*20/g, 'ಹದಿನೈದರಿಂದ ಇಪ್ಪತ್ತು')
+          .replace(/\b108\b/g, 'ಒಂದು ನೂರ ಎಂಟು')
+          .replace(/\b112\b/g, 'ಒಂದು ನೂರ ಹನ್ನೆರಡು')
+          .replace(/\b101\b/g, 'ಒಂದು ನೂರ ಒಂದು')
+          .replace(/\b1091\b/g, 'ಒಂದು ಸಾವಿರದ ತೊಂಬತ್ತೊಂದು')
+          .replace(/(^|\n)\s*1\./g, '$1 ಮೊದಲನೆಯದಾಗಿ, ')
+          .replace(/(^|\n)\s*2\./g, '$1 ಎರಡನೆಯದಾಗಿ, ')
+          .replace(/(^|\n)\s*3\./g, '$1 ಮೂರನೆಯದಾಗಿ, ')
+          .replace(/(^|\n)\s*4\./g, '$1 ನಾಲ್ಕನೆಯದಾಗಿ, ')
+          .replace(/\b1\b/g, 'ಒಂದು')
+          .replace(/\b2\b/g, 'ಎರಡು')
+          .replace(/\b3\b/g, 'ಮೂರು')
+          .replace(/\b4\b/g, 'ನಾಲ್ಕು');
+      } else if (langPrefix === 'hi') {
+        text = text
+          .replace(/15\s*[-–]\s*20/g, 'पंद्रह से बीस')
+          .replace(/\b108\b/g, 'एक सौ आठ')
+          .replace(/\b112\b/g, 'एक सौ बारह')
+          .replace(/\b101\b/g, 'एक सौ एक')
+          .replace(/(^|\n)\s*1\./g, '$1 पहला कदम, ')
+          .replace(/(^|\n)\s*2\./g, '$1 दूसरा कदम, ')
+          .replace(/(^|\n)\s*3\./g, '$1 तीसरा कदम, ')
+          .replace(/(^|\n)\s*4\./g, '$1 चौथा कदम, ');
+      } else if (langPrefix === 'mr') {
+        text = text
+          .replace(/\b108\b/g, 'एकशे आठ')
+          .replace(/\b112\b/g, 'एकशे बारा')
+          .replace(/\b101\b/g, 'एकशे एक')
+          .replace(/(^|\n)\s*1\./g, '$1 पहिली पायरी, ')
+          .replace(/(^|\n)\s*2\./g, '$1 दुसरी पायरी, ')
+          .replace(/(^|\n)\s*3\./g, '$1 तिसरी पायरी, ');
+      } else if (langPrefix === 'ta') {
+        text = text
+          .replace(/\b108\b/g, 'நூற்று எட்டு')
+          .replace(/\b112\b/g, 'நூற்று பன்னிரண்டு')
+          .replace(/\b101\b/g, 'நூற்று ஒன்று')
+          .replace(/(^|\n)\s*1\./g, '$1 ஒன்று, ')
+          .replace(/(^|\n)\s*2\./g, '$1 இரண்டு, ')
+          .replace(/(^|\n)\s*3\./g, '$1 மூன்று, ');
+      } else if (langPrefix === 'te') {
+        text = text
+          .replace(/\b108\b/g, 'నూట ఎనిమిది')
+          .replace(/\b112\b/g, 'నూట పన్నెండు')
+          .replace(/\b101\b/g, 'నూట ఒకటి')
+          .replace(/(^|\n)\s*1\./g, '$1 ఒకటి, ')
+          .replace(/(^|\n)\s*2\./g, '$1 రెండు, ')
+          .replace(/(^|\n)\s*3\./g, '$1 మూడు, ');
+      }
+
+      return text.replace(/\n+/g, '. ');
+    }
+
     var availableVoices = [];
     if ('speechSynthesis' in window) {
       var loadVoices = function() { availableVoices = window.speechSynthesis.getVoices(); };
@@ -1774,18 +1839,16 @@
         window.speechSynthesis.cancel();
       }
 
-      var cleanText = text
-        .replace(/[🐍❤️🚗🔥🏢🚨⚡📍🎙️✨🛡️⏳🔊]/g, '')
-        .replace(/\n+/g, '. ');
+      var normalizedSpeechText = prepareSpeechTextForLanguage(text, langCode);
 
       try {
         var controller = new AbortController();
-        var timeoutId = setTimeout(function() { controller.abort(); }, 3000);
+        var timeoutId = setTimeout(function() { controller.abort(); }, 3500);
 
         var res = await fetch('/api/tts-timbre', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: cleanText, lang_code: langCode || 'en-IN' }),
+          body: JSON.stringify({ text: normalizedSpeechText, lang_code: langCode || 'en-IN' }),
           signal: controller.signal
         });
         clearTimeout(timeoutId);
@@ -1801,39 +1864,87 @@
         }
       } catch (e) {}
 
-      fallbackBrowserSpeak(cleanText, langCode);
+      fallbackBrowserSpeak(normalizedSpeechText, langCode);
     }
 
     function fallbackBrowserSpeak(cleanText, langCode) {
-      if (!('speechSynthesis' in window)) return;
-      if (window.speechSynthesis.paused) {
-        window.speechSynthesis.resume();
+      var targetCode = (langCode || 'en-IN').toLowerCase();
+      var langPrefix = targetCode.split('-')[0];
+
+      if ('speechSynthesis' in window) {
+        if (availableVoices.length === 0) {
+          availableVoices = window.speechSynthesis.getVoices();
+        }
+
+        // Strict native language match ONLY (Never fall back to Hindi 'hi-IN' for Kannada 'kn-IN')
+        var exactNativeVoice =
+          availableVoices.find(function(v) {
+            var vLang = v.lang.toLowerCase().replace('_', '-');
+            return vLang === targetCode && v.name.toLowerCase().indexOf('google') !== -1;
+          }) ||
+          availableVoices.find(function(v) {
+            var vLang = v.lang.toLowerCase().replace('_', '-');
+            return vLang === targetCode;
+          }) ||
+          availableVoices.find(function(v) {
+            var vLang = v.lang.toLowerCase().replace('_', '-');
+            return vLang.indexOf(langPrefix + '-') === 0 || vLang === langPrefix;
+          });
+
+        if (exactNativeVoice) {
+          if (window.speechSynthesis.paused) {
+            window.speechSynthesis.resume();
+          }
+          var utterance = new SpeechSynthesisUtterance(cleanText);
+          utterance.voice = exactNativeVoice;
+          utterance.lang = exactNativeVoice.lang;
+          utterance.rate = 0.90;
+          utterance.pitch = 1.0;
+          utterance.volume = 1.0;
+
+          setTimeout(function() {
+            window.speechSynthesis.speak(utterance);
+          }, 50);
+          return;
+        }
       }
 
-      var utterance = new SpeechSynthesisUtterance(cleanText);
-      utterance.lang = langCode || 'en-IN';
-      utterance.rate = 0.94;
-      utterance.pitch = 1.0;
-      utterance.volume = 1.0;
+      // If Windows/Browser has no native Kannada voice installed, stream cloud neural TTS in native language
+      playCloudRegionalTTS(cleanText, langPrefix, langCode);
+    }
 
-      if (availableVoices.length === 0) {
-        availableVoices = window.speechSynthesis.getVoices();
-      }
+    function playCloudRegionalTTS(cleanText, langPrefix, fullLangCode) {
+      var sentences = cleanText.split(/(?:[.।!?\n])+/g).map(function(s) { return s.trim(); }).filter(Boolean);
+      if (sentences.length === 0) return;
 
-      var langPrefix = (langCode || 'en-IN').split('-')[0].toLowerCase();
-      var matchedVoice =
-        availableVoices.find(function(v) { return v.lang.toLowerCase() === (langCode || '').toLowerCase(); }) ||
-        availableVoices.find(function(v) { return v.lang.toLowerCase().indexOf(langPrefix) === 0; }) ||
-        availableVoices.find(function(v) { return v.lang.toLowerCase().indexOf('in') !== -1; }) ||
-        availableVoices[0];
+      var idx = 0;
+      var playNextChunk = function() {
+        if (idx >= sentences.length) return;
+        var chunk = sentences[idx++];
+        var ttsUrl = "https://translate.googleapis.com/translate_tts?ie=UTF-8&client=tw-ob&tl=" + encodeURIComponent(langPrefix) + "&q=" + encodeURIComponent(chunk);
+        currentTimbreAudio = new Audio(ttsUrl);
+        currentTimbreAudio.playbackRate = 0.95;
+        currentTimbreAudio.onended = playNextChunk;
+        currentTimbreAudio.onerror = function() {
+          // Last-resort browser utterance with explicit lang tag (no voice override to Hindi)
+          if ('speechSynthesis' in window) {
+            var u = new SpeechSynthesisUtterance(cleanText);
+            u.lang = fullLangCode || 'kn-IN';
+            u.rate = 0.88;
+            window.speechSynthesis.speak(u);
+          }
+        };
+        currentTimbreAudio.play().catch(function() {
+          if ('speechSynthesis' in window) {
+            var u = new SpeechSynthesisUtterance(cleanText);
+            u.lang = fullLangCode || 'kn-IN';
+            u.rate = 0.88;
+            window.speechSynthesis.speak(u);
+          }
+        });
+      };
 
-      if (matchedVoice) {
-        utterance.voice = matchedVoice;
-      }
-
-      setTimeout(function() {
-        window.speechSynthesis.speak(utterance);
-      }, 60);
+      playNextChunk();
     }
 
     window.replayLastGuidance = function() {
@@ -1860,8 +1971,8 @@
         chest: "❤️ ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ (ಎದೆ ನೋವು):\n1. ತಕ್ಷಣ ಕುಳಿತುಕೊಳ್ಳಿ ಮತ್ತು ವಿಶ್ರಾಂತಿ ಪಡೆಯಿರಿ.\n2. ಬಿಗಿಯಾದ ಬಟ್ಟೆಗಳನ್ನು ಸಡಿಲಗೊಳಿಸಿ.\n3. ತಕ್ಷಣ 108 ಆಂಬ್ಯುಲೆನ್ಸ್‌ಗೆ ಕರೆ ಮಾಡಿ.",
         accident: "🚗 ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ (ರಸ್ತೆ ಅಪಘಾತ):\n1. ಗಾಯಗೊಂಡವರನ್ನು ಅನಗತ್ಯವಾಗಿ ಅಲುಗಾಡಿಸಬೇಡಿ.\n2. ರಕ್ತಸ್ರಾವ ನಿಲ್ಲಿಸಲು ಸ್ವಚ್ಛವಾದ ಬಟ್ಟೆಯಿಂದ ಒತ್ತಿ ಹಿಡಿಯಿರಿ.\n3. ತಕ್ಷಣ 108 ಮತ್ತು 112 ಕ್ಕೆ ಕರೆ ಮಾಡಿ.",
         fire: "🔥 ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ (ಬೆಂಕಿ ಮತ್ತು ಸುಟ್ಟ ಗಾಯ):\n1. ಬೆಂಕಿಯಿಂದ ದೂರ ಸರಿಯಿರಿ. ಸುಟ್ಟ ಜಾಗಕ್ಕೆ 15-20 ನಿಮಿಷ ತಣ್ಣೀರು ಹಾಕಿ.\n2. ಚರ್ಮಕ್ಕೆ ಅಂಟಿಕೊಂಡ ಬಟ್ಟೆಯನ್ನು ಎಳೆಯಬೇಡಿ.\n3. ತಕ್ಷಣ 101 ಮತ್ತು 108 ಕ್ಕೆ ಕರೆ ಮಾಡಿ.",
-        disaster: "🏢 ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ (ಕಟ್ಟಡ ಕುಸಿತ / ವಿಕೋಪ):\n1. ಗಟ್ಟಿಮುಟ್ಟಾದ ಮೇಜು ಅಥವಾ ಆಸರೆಯ ಕೆಳಗೆ ರಕ್ಷಣೆ ಪಡೆಯಿರಿ.\n2. ಧೂಳಿನಿಂದ ರಕ್ಷಿಸಲು ಮೂಗು ಮತ್ತು ಬಾಯಿಯನ್ನು ಬಟ್ಟೆಯಿಂದ ಮುಚ್ಚಿಕೊಳ್ಳಿ.\n3. ಅವಶೇಷಗಳಡಿ ಸಿಲುಕಿದ್ದರೆ ಪೈಪ್ ಅಥವಾ ಗೋಡೆಯನ್ನು ತಟ್ಟಿ ಶಬ್ದ ಮಾಡಿ. ತಕ್ಷಣ 112 ಕ್ಕೆ ಕರೆ ಮಾಡಿ.",
-        general: "🚨 ತುರ್ತು ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ:\n1. ಶಾಂತವಾಗಿರಿ ಮತ್ತು ಸುರಕ್ಷಿತ ಸ್ಥಳಕ್ಕೆ ತೆರಳಿ.\n2. ರಕ್ತಸ್ರಾವವಾಗುತ್ತಿದ್ದರೆ ಸ್ವಚ್ಛ ಬಟ್ಟೆಯಿಂದ ಒತ್ತಿ ಹಿಡಿಯಿರಿ.\n3. ತಕ್ಷಣ 108 (ಆಂಬ್ಯುಲೆನ್ಸ್) ಅಥವಾ 112 ಕ್ಕೆ ಕರೆ ಮಾಡಿ."
+        disaster: "🏢 ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ (ಕಟ್ಟಡ ಕುಸಿತ ಮತ್ತು ಪ್ರಕೃತಿ ವಿಕೋಪ):\n1. ಗಟ್ಟಿಮುಟ್ಟಾದ ಮೇಜು ಅಥವಾ ಪಿಲ್ಲರ್ ಕೆಳಗೆ ಆಶ್ರಯ ಪಡೆಯಿರಿ, ತಲೆಯನ್ನು ರಕ್ಷಿಸಿಕೊಳ್ಳಿ.\n2. ಧೂಳಿನಿಂದ ರಕ್ಷಿಸಲು ಬಟ್ಟೆಯಿಂದ ಮೂಗು ಮತ್ತು ಬಾಯಿಯನ್ನು ಮುಚ್ಚಿಕೊಳ್ಳಿ.\n3. ಅವಶೇಷಗಳಡಿ ಸಿಲುಕಿದ್ದರೆ ಪೈಪ್ ಅಥವಾ ಗೋಡೆ ತಟ್ಟಿ ಶಬ್ದ ಮಾಡಿ. ತಕ್ಷಣ 112 ಗೆ ಕರೆ ಮಾಡಿ.",
+        general: "🚨 ತುರ್ತು ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ:\n1. ಶಾಂತವಾಗಿರಿ ಮತ್ತು ಸುರಕ್ಷಿತ ಸ್ಥಳಕ್ಕೆ ತೆರಳಿ.\n2. ರಕ್ತಸ್ರಾವವಾಗುತ್ತಿದ್ದರೆ ಸ್ವಚ್ಛ ಬಟ್ಟೆಯಿಂದ ಒತ್ತಿ ಹಿಡಿಯಿರಿ.\n3. ತಕ್ಷಣ 108 ಆಂಬ್ಯುಲೆನ್ಸ್ ಅಥವಾ 112 ಕ್ಕೆ ಕರೆ ಮಾಡಿ."
       },
       'hi-IN': {
         snake: "🐍 प्राथमिक उपचार (सांप का काटना):\n1. शांत रहें और काटे गए अंग को बिल्कुल न हिलाएं।\n2. काटे गए हिस्से को हृदय के स्तर से नीचे रखें।\n3. कसकर पट्टी या रस्सी न बांधें।\n4. तुरंत 108 एम्बुलेंस को कॉल करें।",
@@ -1930,7 +2041,7 @@
       else if (isChest) { key = 'chest'; scenario = 'Chest Pain'; }
       else if (isAccident) { key = 'accident'; scenario = 'Road Accident'; }
       else if (isFire) { key = 'fire'; scenario = 'Fire & Burns'; }
-      else if (isDisaster) { key = 'disaster'; scenario = 'Building Collapse / Disaster'; }
+      else if (isDisaster) { key = 'disaster'; scenario = 'Disaster / Collapse'; }
 
       var langPack = MULTILINGUAL_FIRST_AID[langCode] || MULTILINGUAL_FIRST_AID['en-IN'];
 
