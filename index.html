@@ -5,10 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SaHaya • Talk • Translate • Stay Safe</title>
 
+  <!-- Google Fonts: Clean Geometric Sans-Serif (Poppins & Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet" />
+
   <!-- Custom SEO Metadata & Branding Assets Integration (Open Graph Specs) -->
   <meta name="description" content="SaHaya: Talk • Translate • Stay Safe. AI-powered multilingual voice and text first-aid responder with 10-language code-mix auto-detection, DSP noise cancellation, SOS alarm, and geofencing safeguards." />
   
-  <!-- Open Graph / WhatsApp Preview Meta (image_0.png cover page) -->
+  <!-- Open Graph / WhatsApp Preview Meta -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="SaHaya • Multilingual Emergency Assistant" />
   <meta property="og:description" content="Immediate multi-language first-aid guidance. Powered by Gnani and Groq AI." />
@@ -23,7 +28,7 @@
   <meta name="twitter:description" content="Voice-first offline and online crisis aid." />
   <meta name="twitter:image" content="/static/cover.png" />
 
-  <!-- Application Brand Icon (image_1.png logo) -->
+  <!-- Application Brand Icon -->
   <link rel="icon" type="image/png" href="/static/logo.png" />
 
   <style>
@@ -47,7 +52,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
     }
 
     body {
@@ -81,58 +86,42 @@
       gap: 10px;
     }
 
+    /* Static Logo (No bouncing) */
     .brand-logo-img {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       object-fit: contain;
-      filter: drop-shadow(0 2px 8px rgba(56, 189, 248, 0.45));
-      animation: floatTitle 2.8s ease-in-out infinite;
+      filter: drop-shadow(0 2px 6px rgba(56, 189, 248, 0.35));
     }
 
+    /* Static Title matched to Logo Color & Clean Geometric Font */
     .animated-title {
+      font-family: 'Poppins', 'Inter', sans-serif;
       font-size: 2rem;
-      font-weight: 900;
-      letter-spacing: 0.8px;
-      background: linear-gradient(
-        90deg,
-        #38bdf8 0%,
-        #22c55e 35%,
-        #60a5fa 70%,
-        #4ade80 100%
-      );
-      background-size: 200% auto;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      background: linear-gradient(135deg, #ffffff 15%, #7dd3fc 55%, #38bdf8 100%);
       color: transparent;
       -webkit-background-clip: text;
       background-clip: text;
-      animation: shimmerText 3.2s linear infinite, floatTitle 2.8s ease-in-out infinite;
-      filter: drop-shadow(0 2px 10px rgba(56, 189, 248, 0.25));
+      filter: drop-shadow(0 2px 8px rgba(56, 189, 248, 0.2));
     }
 
-    @keyframes shimmerText {
-      0% { background-position: 0% center; }
-      100% { background-position: 200% center; }
-    }
-
-    @keyframes floatTitle {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-2px); }
-    }
-
+    /* Equalizer Bars Only (No background pill or border) */
     .sound-wave {
       display: flex;
       align-items: center;
       gap: 3.5px;
       height: 28px;
-      padding: 4px 10px;
-      background: rgba(56, 189, 248, 0.12);
-      border: 1px solid rgba(34, 197, 94, 0.4);
-      border-radius: 999px;
-      box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+      padding: 0 4px;
+      background: transparent;
+      border: none;
+      box-shadow: none;
     }
 
     .wave-bar {
       width: 3.5px;
-      background: linear-gradient(to top, #2563eb, #38bdf8, #22c55e);
+      background: linear-gradient(to top, #2563eb, #38bdf8, #7dd3fc);
       border-radius: 999px;
       animation: bounceWave 0.85s ease-in-out infinite;
     }
@@ -731,15 +720,15 @@
 
     <!-- 3 Navigation Tabs -->
     <div class="nav-tabs">
-      <button class="tab-btn active" onclick="switchTab('shield', this)" data-i18n="tab_shield">Shield</button>
-      <button class="tab-btn" onclick="switchTab('translate', this)" data-i18n="tab_translate">Translate</button>
-      <button class="tab-btn" onclick="switchTab('guardian', this)" data-i18n="tab_guardian">Guardian</button>
+      <button type="button" class="tab-btn active" onclick="switchTab('shield', this)" data-i18n="tab_shield">Shield</button>
+      <button type="button" class="tab-btn" onclick="switchTab('translate', this)" data-i18n="tab_translate">Translate</button>
+      <button type="button" class="tab-btn" onclick="switchTab('guardian', this)" data-i18n="tab_guardian">Guardian</button>
     </div>
 
     <!-- ==================== TAB 1: SHIELD ==================== -->
     <div id="tab-shield" class="tab-content active">
       <div class="card shield-center-box">
-        <button id="sosBtn" class="sos-big-btn" onclick="toggleSOSAlarm()">
+        <button type="button" id="sosBtn" class="sos-big-btn" onclick="toggleSOSAlarm()">
           <div>🚨 <span data-i18n="sos_btn">SOS</span></div>
           <span id="sosBtnSub" data-i18n="sos_sub">TAP FOR SIREN & LIVE GPS</span>
         </button>
@@ -761,7 +750,7 @@
 
         <!-- Microphone Trigger with Outer Ring Aura -->
         <div class="mic-glow-aura">
-          <button id="micBtn" class="mic-circle-btn" onclick="toggleVoiceRecognition()" title="Tap to Speak">
+          <button type="button" id="micBtn" class="mic-circle-btn" onclick="toggleVoiceRecognition()" title="Tap to Speak">
             <svg viewBox="0 0 24 24">
               <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.49 6-3.31 6-6.72h-1.7z"/>
             </svg>
@@ -882,14 +871,14 @@
               <strong data-i18n="contact_default">Emergency Contact 1</strong><br />
               <span style="color: var(--text-muted); font-size: 0.85rem;">+919876543210</span>
             </div>
-            <button class="remove-btn" onclick="this.parentElement.remove()" data-i18n="btn_remove">Remove</button>
+            <button type="button" class="remove-btn" onclick="this.parentElement.remove()" data-i18n="btn_remove">Remove</button>
           </div>
         </div>
 
         <div class="add-contact-row">
           <input type="text" id="gName" placeholder="Name (e.g., Amma)" data-i18n-placeholder="name_placeholder" />
           <input type="tel" id="gPhone" placeholder="+91 Phone" data-i18n-placeholder="phone_placeholder" />
-          <button class="add-btn" onclick="addGuardian()" data-i18n="btn_add">Add</button>
+          <button type="button" class="add-btn" onclick="addGuardian()" data-i18n="btn_add">Add</button>
         </div>
       </div>
 
@@ -906,16 +895,14 @@
   </div>
 
   <script>
-    /* Null-safe DOM updater to prevent TypeError crashes */
     function safeSetText(id, text) {
-      const el = document.getElementById(id);
-      if (el) el.textContent = text;
+      var el = document.getElementById(id);
+      if (el) {
+        el.textContent = text;
+      }
     }
 
-    /* =========================================================================
-       1. PREFERRED LANGUAGE UI SWITCHER (100% DECOUPLED FROM VOICE AUTO-DETECT)
-       ========================================================================= */
-    const UI_TRANSLATIONS = {
+    var UI_TRANSLATIONS = {
       en: {
         app_title: "SaHaya",
         app_sub: "TALK • TRANSLATE • STAY SAFE!",
@@ -1288,51 +1275,61 @@
       }
     };
 
-    function changePreferredUiLanguage(uiLangCode) {
-      const pack = UI_TRANSLATIONS[uiLangCode] || UI_TRANSLATIONS['en'];
+    window.changePreferredUiLanguage = function(uiLangCode) {
+      var pack = UI_TRANSLATIONS[uiLangCode] || UI_TRANSLATIONS['en'];
 
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
+      var i18nNodes = document.querySelectorAll('[data-i18n]');
+      for (var i = 0; i < i18nNodes.length; i++) {
+        var el = i18nNodes[i];
+        var key = el.getAttribute('data-i18n');
         if (pack[key]) {
           el.textContent = pack[key];
         }
-      });
+      }
 
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        const key = el.getAttribute('data-i18n-placeholder');
-        if (pack[key]) {
-          el.placeholder = pack[key];
+      var placeholderNodes = document.querySelectorAll('[data-i18n-placeholder]');
+      for (var j = 0; j < placeholderNodes.length; j++) {
+        var pEl = placeholderNodes[j];
+        var pKey = pEl.getAttribute('data-i18n-placeholder');
+        if (pack[pKey]) {
+          pEl.placeholder = pack[pKey];
         }
-      });
-    }
+      }
+    };
 
-    /* ================= TAB SWITCHING ================= */
-    function switchTab(tabId, btnEl) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-      const targetTab = document.getElementById('tab-' + tabId);
-      if (targetTab) targetTab.classList.add('active');
-      if (btnEl) btnEl.classList.add('active');
-    }
+    window.switchTab = function(tabId, btnEl) {
+      var contents = document.querySelectorAll('.tab-content');
+      for (var i = 0; i < contents.length; i++) {
+        contents[i].classList.remove('active');
+      }
+      var btns = document.querySelectorAll('.tab-btn');
+      for (var j = 0; j < btns.length; j++) {
+        btns[j].classList.remove('active');
+      }
+      var targetTab = document.getElementById('tab-' + tabId);
+      if (targetTab) {
+        targetTab.classList.add('active');
+      }
+      if (btnEl) {
+        btnEl.classList.add('active');
+      }
+    };
 
-    /* =========================================================================
-       2. SWEEPING EMERGENCY WAIL SIREN + LIVE GPS
-       ========================================================================= */
-    let sirenAudioCtx = null;
-    let sirenOsc1 = null;
-    let sirenOsc2 = null;
-    let sirenGain = null;
-    let sirenSweepInterval = null;
-    let isSirenPlaying = false;
+    var sirenAudioCtx = null;
+    var sirenOsc1 = null;
+    var sirenOsc2 = null;
+    var sirenGain = null;
+    var sirenSweepInterval = null;
+    var isSirenPlaying = false;
 
-    function toggleSOSAlarm() {
-      const sosBtn = document.getElementById('sosBtn');
-      const sosSub = document.getElementById('sosBtnSub');
-      const sosStatus = document.getElementById('sosStatus');
-      const gpsDisplay = document.getElementById('gpsDisplay');
-      const langSelect = document.getElementById('globalUiLang');
-      const currentUiLang = langSelect ? langSelect.value : 'en';
-      const t = UI_TRANSLATIONS[currentUiLang] || UI_TRANSLATIONS['en'];
+    window.toggleSOSAlarm = function() {
+      var sosBtn = document.getElementById('sosBtn');
+      var sosSub = document.getElementById('sosBtnSub');
+      var sosStatus = document.getElementById('sosStatus');
+      var gpsDisplay = document.getElementById('gpsDisplay');
+      var langSelect = document.getElementById('globalUiLang');
+      var currentUiLang = langSelect ? langSelect.value : 'en';
+      var t = UI_TRANSLATIONS[currentUiLang] || UI_TRANSLATIONS['en'];
 
       if (isSirenPlaying) {
         stopEmergencySiren();
@@ -1345,7 +1342,9 @@
       startEmergencySiren();
       if (sosBtn) sosBtn.classList.add('alarm-active');
       if (sosSub) sosSub.textContent = "TAP TO STOP SIREN";
-      if (sosStatus) sosStatus.innerHTML = "<strong style='color:#ef4444;'>🚨 EMERGENCY WAIL SIREN ACTIVE!</strong> Broadcasting live GPS coordinates to Guardians...";
+      if (sosStatus) {
+        sosStatus.innerHTML = "<strong style='color:#ef4444;'>🚨 EMERGENCY WAIL SIREN ACTIVE!</strong> Broadcasting live GPS coordinates to Guardians...";
+      }
 
       if (navigator.vibrate) {
         navigator.vibrate([600, 150, 600, 150, 1200]);
@@ -1354,25 +1353,28 @@
       if (navigator.geolocation && gpsDisplay) {
         gpsDisplay.textContent = "📍 Acquiring high-accuracy GPS coordinates...";
         navigator.geolocation.getCurrentPosition(
-          (pos) => {
-            const lat = pos.coords.latitude.toFixed(5);
-            const lon = pos.coords.longitude.toFixed(5);
-            const mapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
-            gpsDisplay.innerHTML = `📍 Live GPS Sent: <strong>${lat}, ${lon}</strong> <br/><a href="${mapsUrl}" target="_blank" style="color:#38bdf8;">View Live Map Link</a>`;
-            safeSetText('guardianGpsText', `Current Coords: ${lat}, ${lon}`;
+          function(pos) {
+            var lat = pos.coords.latitude.toFixed(5);
+            var lon = pos.coords.longitude.toFixed(5);
+            var mapsUrl = "https://www.google.com/maps?q=" + lat + "," + lon;
+            gpsDisplay.innerHTML = "📍 Live GPS Sent: <strong>" + lat + ", " + lon + "</strong> <br/><a href='" + mapsUrl + "' target='_blank' style='color:#38bdf8;'>View Live Map Link</a>";
+            safeSetText('guardianGpsText', "Current Coords: " + lat + ", " + lon);
           },
-          () => {
+          function() {
             gpsDisplay.textContent = "📍 GPS Alert: Location permission needed, broadcasting cell tower fallback.";
           },
           { enableHighAccuracy: true }
         );
       }
-    }
+    };
 
     function startEmergencySiren() {
-      if (!sirenAudioCtx) {
-        sirenAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      var AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!sirenAudioCtx && AudioContextClass) {
+        sirenAudioCtx = new AudioContextClass();
       }
+      if (!sirenAudioCtx) return;
+
       if (sirenAudioCtx.state === 'suspended') {
         sirenAudioCtx.resume();
       }
@@ -1390,16 +1392,16 @@
       sirenOsc2.connect(sirenGain);
       sirenGain.connect(sirenAudioCtx.destination);
 
-      const now = sirenAudioCtx.currentTime;
+      var now = sirenAudioCtx.currentTime;
       sirenOsc1.frequency.setValueAtTime(620, now);
       sirenOsc2.frequency.setValueAtTime(632, now);
 
       sirenOsc1.start(now);
       sirenOsc2.start(now);
 
-      const sweepCycle = () => {
+      var sweepCycle = function() {
         if (!isSirenPlaying || !sirenAudioCtx) return;
-        const t0 = sirenAudioCtx.currentTime;
+        var t0 = sirenAudioCtx.currentTime;
         sirenOsc1.frequency.linearRampToValueAtTime(1420, t0 + 0.65);
         sirenOsc2.frequency.linearRampToValueAtTime(1435, t0 + 0.65);
 
@@ -1424,18 +1426,15 @@
       } catch (e) {}
     }
 
-    /* =========================================================================
-       3. CLEAR BUTTON FUNCTION (RESETS INPUT & STOPS AUDIO)
-       ========================================================================= */
-    let lastSpokenGuidance = "";
-    let lastSpokenLang = "en-IN";
-    let currentTimbreAudio = null;
+    var lastSpokenGuidance = "";
+    var lastSpokenLang = "en-IN";
+    var currentTimbreAudio = null;
 
-    function clearEmergencyQuery() {
-      const inputEl = document.getElementById('emergencyInput');
-      const langSelect = document.getElementById('globalUiLang');
-      const currentUiLang = langSelect ? langSelect.value : 'en';
-      const t = UI_TRANSLATIONS[currentUiLang] || UI_TRANSLATIONS['en'];
+    window.clearEmergencyQuery = function() {
+      var inputEl = document.getElementById('emergencyInput');
+      var langSelect = document.getElementById('globalUiLang');
+      var currentUiLang = langSelect ? langSelect.value : 'en';
+      var t = UI_TRANSLATIONS[currentUiLang] || UI_TRANSLATIONS['en'];
 
       if (inputEl) {
         inputEl.value = "";
@@ -1454,27 +1453,24 @@
       safeSetText('detectedLangBadge', t.waiting_input);
       safeSetText('spokenTextDisplay', t.transcript_prompt);
       safeSetText('firstAidOutput', t.output_prompt);
-    }
+    };
 
-    /* =========================================================================
-       4. VOICE CAPTURE + SPEECH RECOGNITION + MULTILINGUAL PIPELINE
-       ========================================================================= */
-    let isListening = false;
-    let noiseFilterCtx = null;
-    let activeMicStream = null;
-    let scriptProcessorNode = null;
-    let recordedPcmChunks = [];
-    let recordingSampleRate = 16000;
-    let browserRecognition = null;
-    let browserTranscriptBackup = "";
-    let autoStopTimer = null;
+    var isListening = false;
+    var noiseFilterCtx = null;
+    var activeMicStream = null;
+    var scriptProcessorNode = null;
+    var recordedPcmChunks = [];
+    var recordingSampleRate = 16000;
+    var browserRecognition = null;
+    var browserTranscriptBackup = "";
+    var autoStopTimer = null;
 
     function encodeWavFromFloat32(samples, sampleRate) {
-      const buffer = new ArrayBuffer(44 + samples.length * 2);
-      const view = new DataView(buffer);
+      var buffer = new ArrayBuffer(44 + samples.length * 2);
+      var view = new DataView(buffer);
 
-      const writeString = (offset, str) => {
-        for (let i = 0; i < str.length; i++) {
+      var writeString = function(offset, str) {
+        for (var i = 0; i < str.length; i++) {
           view.setUint8(offset + i, str.charCodeAt(i));
         }
       };
@@ -1493,17 +1489,17 @@
       writeString(36, 'data');
       view.setUint32(40, samples.length * 2, true);
 
-      let offset = 44;
-      for (let i = 0; i < samples.length; i++, offset += 2) {
-        const s = Math.max(-1, Math.min(1, samples[i]));
+      var offset = 44;
+      for (var i = 0; i < samples.length; i++, offset += 2) {
+        var s = Math.max(-1, Math.min(1, samples[i]));
         view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
       }
 
       return new Blob([buffer], { type: 'audio/wav' });
     }
 
-    async function toggleVoiceRecognition() {
-      const micBtn = document.getElementById('micBtn');
+    window.toggleVoiceRecognition = async function() {
+      var micBtn = document.getElementById('micBtn');
 
       if (isListening) {
         await stopAndSendToGnaniPrisma();
@@ -1520,25 +1516,26 @@
           }
         });
 
-        noiseFilterCtx = new (window.AudioContext || window.webkitAudioContext)();
+        var AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        noiseFilterCtx = new AudioContextClass();
         recordingSampleRate = noiseFilterCtx.sampleRate || 16000;
-        const source = noiseFilterCtx.createMediaStreamSource(activeMicStream);
+        var source = noiseFilterCtx.createMediaStreamSource(activeMicStream);
 
-        const highpass = noiseFilterCtx.createBiquadFilter();
+        var highpass = noiseFilterCtx.createBiquadFilter();
         highpass.type = 'highpass';
         highpass.frequency.value = 300;
 
-        const lowpass = noiseFilterCtx.createBiquadFilter();
+        var lowpass = noiseFilterCtx.createBiquadFilter();
         lowpass.type = 'lowpass';
         lowpass.frequency.value = 3400;
 
-        const presencePeak = noiseFilterCtx.createBiquadFilter();
+        var presencePeak = noiseFilterCtx.createBiquadFilter();
         presencePeak.type = 'peaking';
         presencePeak.frequency.value = 1800;
         presencePeak.Q.value = 1.2;
         presencePeak.gain.value = 4.5;
 
-        const compressor = noiseFilterCtx.createDynamicsCompressor();
+        var compressor = noiseFilterCtx.createDynamicsCompressor();
         compressor.threshold.setValueAtTime(-28, noiseFilterCtx.currentTime);
         compressor.knee.setValueAtTime(20, noiseFilterCtx.currentTime);
         compressor.ratio.setValueAtTime(8, noiseFilterCtx.currentTime);
@@ -1547,13 +1544,13 @@
 
         scriptProcessorNode = noiseFilterCtx.createScriptProcessor(4096, 1, 1);
         recordedPcmChunks = [];
-        scriptProcessorNode.onaudioprocess = (e) => {
+        scriptProcessorNode.onaudioprocess = function(e) {
           if (!isListening) return;
-          const inputData = e.inputBuffer.getChannelData(0);
+          var inputData = e.inputBuffer.getChannelData(0);
           recordedPcmChunks.push(new Float32Array(inputData));
         };
 
-        const zeroGain = noiseFilterCtx.createGain();
+        var zeroGain = noiseFilterCtx.createGain();
         zeroGain.gain.value = 0;
 
         source.connect(highpass);
@@ -1565,12 +1562,13 @@
         zeroGain.connect(noiseFilterCtx.destination);
 
         browserTranscriptBackup = "";
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRecognition) {
           try {
             browserRecognition = new SpeechRecognition();
-            const uiLang = document.getElementById('globalUiLang')?.value || 'en';
-            const recLangMap = {
+            var langEl = document.getElementById('globalUiLang');
+            var uiLang = langEl ? langEl.value : 'en';
+            var recLangMap = {
               en: 'en-IN', hi: 'hi-IN', bn: 'bn-IN', gu: 'gu-IN', kn: 'kn-IN',
               ml: 'ml-IN', mr: 'mr-IN', pa: 'pa-IN', ta: 'ta-IN', te: 'te-IN'
             };
@@ -1578,21 +1576,21 @@
             browserRecognition.continuous = true;
             browserRecognition.interimResults = true;
             browserRecognition.maxAlternatives = 3;
-            browserRecognition.onresult = (ev) => {
-              const alts = [];
-              let latestTranscript = "";
-              for (let r = 0; r < ev.results.length; r++) {
+            browserRecognition.onresult = function(ev) {
+              var alts = [];
+              var latestTranscript = "";
+              for (var r = 0; r < ev.results.length; r++) {
                 latestTranscript += ev.results[r][0].transcript + " ";
-                for (let i = 0; i < ev.results[r].length; i++) {
+                for (var i = 0; i < ev.results[r].length; i++) {
                   alts.push(ev.results[r][i].transcript);
                 }
               }
               browserTranscriptBackup = alts.join(" | ");
-              const cleanLive = latestTranscript.trim();
+              var cleanLive = latestTranscript.trim();
               if (cleanLive) {
-                const inputEl = document.getElementById('emergencyInput');
+                var inputEl = document.getElementById('emergencyInput');
                 if (inputEl) inputEl.value = cleanLive;
-                safeSetText('spokenTextDisplay', `🎙️ Hearing: "${cleanLive}"`);
+                safeSetText('spokenTextDisplay', '🎙️ Hearing: "' + cleanLive + '"');
               }
             };
             browserRecognition.start();
@@ -1603,7 +1601,7 @@
         if (micBtn) micBtn.classList.add('listening');
         safeSetText('spokenTextDisplay', "🎙️ Listening... Speak your emergency now, then tap the mic again (or wait 4.5s).");
 
-        autoStopTimer = setTimeout(() => {
+        autoStopTimer = setTimeout(function() {
           if (isListening) {
             stopAndSendToGnaniPrisma();
           }
@@ -1612,7 +1610,7 @@
       } catch (err) {
         safeSetText('spokenTextDisplay', "Microphone access is required for voice capture. You can also type below.");
       }
-    }
+    };
 
     async function stopAndSendToGnaniPrisma() {
       if (!isListening) return;
@@ -1623,7 +1621,7 @@
         autoStopTimer = null;
       }
 
-      const micBtn = document.getElementById('micBtn');
+      var micBtn = document.getElementById('micBtn');
       if (micBtn) micBtn.classList.remove('listening');
 
       if (browserRecognition) {
@@ -1636,34 +1634,37 @@
         scriptProcessorNode = null;
       }
       if (activeMicStream) {
-        activeMicStream.getTracks().forEach(track => track.stop());
+        activeMicStream.getTracks().forEach(function(track) { track.stop(); });
         activeMicStream = null;
       }
       if (noiseFilterCtx) {
-        noiseFilterCtx.close().catch(() => {});
+        noiseFilterCtx.close().catch(function() {});
         noiseFilterCtx = null;
       }
 
-      const totalLen = recordedPcmChunks.reduce((acc, c) => acc + c.length, 0);
-      const mergedSamples = new Float32Array(totalLen);
-      let offset = 0;
-      for (const chunk of recordedPcmChunks) {
-        mergedSamples.set(chunk, offset);
-        offset += chunk.length;
+      var totalLen = 0;
+      for (var i = 0; i < recordedPcmChunks.length; i++) {
+        totalLen += recordedPcmChunks[i].length;
+      }
+      var mergedSamples = new Float32Array(totalLen);
+      var offset = 0;
+      for (var j = 0; j < recordedPcmChunks.length; j++) {
+        mergedSamples.set(recordedPcmChunks[j], offset);
+        offset += recordedPcmChunks[j].length;
       }
 
-      const wavBlob = encodeWavFromFloat32(mergedSamples, recordingSampleRate);
+      var wavBlob = encodeWavFromFloat32(mergedSamples, recordingSampleRate);
       safeSetText('spokenTextDisplay', "⏳ Analyzing voice audio...");
 
       try {
-        const formData = new FormData();
+        var formData = new FormData();
         formData.append('audio_file', wavBlob, 'emergency_query.wav');
         formData.append('backup_transcript', browserTranscriptBackup || '');
 
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 4500);
+        var controller = new AbortController();
+        var timeoutId = setTimeout(function() { controller.abort(); }, 4500);
 
-        const res = await fetch('/api/stt-prisma', {
+        var res = await fetch('/api/stt-prisma', {
           method: 'POST',
           body: formData,
           signal: controller.signal
@@ -1671,13 +1672,13 @@
         clearTimeout(timeoutId);
 
         if (res.ok) {
-          const data = await res.json();
-          const finalTranscript = (data.transcript || browserTranscriptBackup.split(" | ")[0] || "").trim();
+          var data = await res.json();
+          var finalTranscript = (data.transcript || browserTranscriptBackup.split(" | ")[0] || "").trim();
           if (finalTranscript && data.first_aid) {
-            const inputEl = document.getElementById('emergencyInput');
+            var inputEl = document.getElementById('emergencyInput');
             if (inputEl) inputEl.value = finalTranscript;
-            safeSetText('spokenTextDisplay', `You said: "${finalTranscript}"`);
-            safeSetText('detectedLangBadge', `Detected: ${data.language_name} • ${data.scenario}`);
+            safeSetText('spokenTextDisplay', 'You said: "' + finalTranscript + '"');
+            safeSetText('detectedLangBadge', "Detected: " + data.language_name + " • " + data.scenario);
             safeSetText('firstAidOutput', data.first_aid);
             lastSpokenGuidance = data.first_aid;
             lastSpokenLang = data.lang_code || 'en-IN';
@@ -1685,48 +1686,48 @@
             return;
           }
         }
-      } catch (e) {
-        // Fallback to local/text pipeline below
-      }
+      } catch (e) {}
 
-      const typedOrHeard = (browserTranscriptBackup.split(" | ")[0] || document.getElementById('emergencyInput')?.value || "").trim();
+      var inputField = document.getElementById('emergencyInput');
+      var fallbackInputVal = inputField ? inputField.value : "";
+      var typedOrHeard = (browserTranscriptBackup.split(" | ")[0] || fallbackInputVal || "").trim();
+
       if (typedOrHeard) {
-        const inputEl = document.getElementById('emergencyInput');
-        if (inputEl) inputEl.value = typedOrHeard;
+        if (inputField) inputField.value = typedOrHeard;
         await processEmergencyVoiceText(typedOrHeard, browserTranscriptBackup || typedOrHeard);
       } else {
         safeSetText('spokenTextDisplay', "Could not catch speech clearly. Please tap the mic again or type your emergency below.");
       }
     }
 
-    function handleManualInput() {
-      const inputEl = document.getElementById('emergencyInput');
+    window.handleManualInput = function() {
+      var inputEl = document.getElementById('emergencyInput');
       if (!inputEl) return;
-      const text = inputEl.value.trim();
+      var text = inputEl.value.trim();
       if (!text) {
         safeSetText('spokenTextDisplay', "Please type or speak an emergency phrase first.");
         return;
       }
       processEmergencyVoiceText(text, text);
-    }
+    };
 
-    function quickEmergency(phrase) {
-      const inputEl = document.getElementById('emergencyInput');
+    window.quickEmergency = function(phrase) {
+      var inputEl = document.getElementById('emergencyInput');
       if (inputEl) inputEl.value = phrase;
       processEmergencyVoiceText(phrase, phrase);
-    }
+    };
 
-    async function processEmergencyVoiceText(displayUserText, noisyCandidatesText = "") {
-      const queryPayload = noisyCandidatesText || displayUserText;
+    async function processEmergencyVoiceText(displayUserText, noisyCandidatesText) {
+      var queryPayload = noisyCandidatesText || displayUserText;
 
-      safeSetText('spokenTextDisplay', `You said: "${displayUserText}"`);
+      safeSetText('spokenTextDisplay', 'You said: "' + displayUserText + '"');
       safeSetText('firstAidOutput', "⏳ Analyzing emergency & preparing first-aid steps...");
 
       try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 3500);
+        var controller = new AbortController();
+        var timeoutId = setTimeout(function() { controller.abort(); }, 3500);
 
-        const res = await fetch('/api/first-aid', {
+        var res = await fetch('/api/first-aid', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ text: queryPayload, lang_override: "auto" }),
@@ -1735,9 +1736,9 @@
         clearTimeout(timeoutId);
 
         if (res.ok) {
-          const data = await res.json();
+          var data = await res.json();
           if (data && data.first_aid) {
-            safeSetText('detectedLangBadge', `Detected: ${data.language_name} • ${data.scenario}`);
+            safeSetText('detectedLangBadge', "Detected: " + data.language_name + " • " + data.scenario);
             safeSetText('firstAidOutput', data.first_aid);
             lastSpokenGuidance = data.first_aid;
             lastSpokenLang = data.lang_code || 'en-IN';
@@ -1745,24 +1746,19 @@
             return;
           }
         }
-      } catch (e) {
-        // Proceed immediately to built-in multilingual engine
-      }
+      } catch (e) {}
 
-      const result = offlineEmergencyEngine(queryPayload);
-      safeSetText('detectedLangBadge', `Detected: ${result.language_name} • ${result.scenario}`);
+      var result = offlineEmergencyEngine(queryPayload);
+      safeSetText('detectedLangBadge', "Detected: " + result.language_name + " • " + result.scenario);
       safeSetText('firstAidOutput', result.first_aid);
       lastSpokenGuidance = result.first_aid;
       lastSpokenLang = result.lang_code;
       speakWithGnaniTimbre(result.first_aid, result.lang_code);
     }
 
-    /* =========================================================================
-       5. TEXT-TO-SPEECH (TTS) AUTOMATIC READ-ALOUD + FALLBACK
-       ========================================================================= */
-    let availableVoices = [];
+    var availableVoices = [];
     if ('speechSynthesis' in window) {
-      const loadVoices = () => { availableVoices = window.speechSynthesis.getVoices(); };
+      var loadVoices = function() { availableVoices = window.speechSynthesis.getVoices(); };
       loadVoices();
       window.speechSynthesis.onvoiceschanged = loadVoices;
     }
@@ -1778,15 +1774,15 @@
         window.speechSynthesis.cancel();
       }
 
-      const cleanText = text
+      var cleanText = text
         .replace(/[🐍❤️🚗🔥🏢🚨⚡📍🎙️✨🛡️⏳🔊]/g, '')
         .replace(/\n+/g, '. ');
 
       try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 3000);
+        var controller = new AbortController();
+        var timeoutId = setTimeout(function() { controller.abort(); }, 3000);
 
-        const res = await fetch('/api/tts-timbre', {
+        var res = await fetch('/api/tts-timbre', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ text: cleanText, lang_code: langCode || 'en-IN' }),
@@ -1795,17 +1791,15 @@
         clearTimeout(timeoutId);
 
         if (res.ok) {
-          const data = await res.json();
+          var data = await res.json();
           if (data.audio_base64) {
-            const audioSrc = `data:audio/wav;base64,${data.audio_base64}`;
+            var audioSrc = "data:audio/wav;base64," + data.audio_base64;
             currentTimbreAudio = new Audio(audioSrc);
             await currentTimbreAudio.play();
             return;
           }
         }
-      } catch (e) {
-        // Fallback to browser speech synthesis below
-      }
+      } catch (e) {}
 
       fallbackBrowserSpeak(cleanText, langCode);
     }
@@ -1816,7 +1810,7 @@
         window.speechSynthesis.resume();
       }
 
-      const utterance = new SpeechSynthesisUtterance(cleanText);
+      var utterance = new SpeechSynthesisUtterance(cleanText);
       utterance.lang = langCode || 'en-IN';
       utterance.rate = 0.94;
       utterance.pitch = 1.0;
@@ -1826,32 +1820,29 @@
         availableVoices = window.speechSynthesis.getVoices();
       }
 
-      const langPrefix = (langCode || 'en-IN').split('-')[0].toLowerCase();
-      const matchedVoice =
-        availableVoices.find(v => v.lang.toLowerCase() === (langCode || '').toLowerCase()) ||
-        availableVoices.find(v => v.lang.toLowerCase().startsWith(langPrefix)) ||
-        availableVoices.find(v => v.lang.toLowerCase().includes('in')) ||
+      var langPrefix = (langCode || 'en-IN').split('-')[0].toLowerCase();
+      var matchedVoice =
+        availableVoices.find(function(v) { return v.lang.toLowerCase() === (langCode || '').toLowerCase(); }) ||
+        availableVoices.find(function(v) { return v.lang.toLowerCase().indexOf(langPrefix) === 0; }) ||
+        availableVoices.find(function(v) { return v.lang.toLowerCase().indexOf('in') !== -1; }) ||
         availableVoices[0];
 
       if (matchedVoice) {
         utterance.voice = matchedVoice;
       }
 
-      setTimeout(() => {
+      setTimeout(function() {
         window.speechSynthesis.speak(utterance);
       }, 60);
     }
 
-    function replayLastGuidance() {
-      const outputEl = document.getElementById('firstAidOutput');
-      const outputText = lastSpokenGuidance || (outputEl ? outputEl.textContent : "");
+    window.replayLastGuidance = function() {
+      var outputEl = document.getElementById('firstAidOutput');
+      var outputText = lastSpokenGuidance || (outputEl ? outputEl.textContent : "");
       speakWithGnaniTimbre(outputText, lastSpokenLang);
-    }
+    };
 
-    /* =========================================================================
-       6. OFFLINE MULTILINGUAL & CODE-MIXED EMERGENCY ENGINE
-       ========================================================================= */
-    const OFFLINE_MARKERS = {
+    var OFFLINE_MARKERS = {
       'kn-IN': ['haavu', 'havu', 'kachide', 'kacchide', 'sahaya', 'maadi', 'madi', 'agide', 'benki', 'apaghata', 'ede', 'novu', 'rakta', 'kattada', 'kusita', 'kusidide', 'beku', 'bega', 'nanage', 'hattide', 'gaya'],
       'mr-IN': ['madat', 'kara', 'vachva', 'saap', 'chavla', 'dukhtay', 'apghat', 'zhala', 'mala', 'bhajle', 'aag', 'imarat', 'kosalli', 'lavkar', 'chatit', 'aahe'],
       'hi-IN': ['bachao', 'madad', 'karo', 'saanp', 'kata', 'dard', 'raha', 'hai', 'mujhe', 'seene', 'chhati', 'mein', 'jal', 'durghatna', 'khoon', 'bhukamp', 'jaldi', 'bulao', 'gira'],
@@ -1863,7 +1854,7 @@
       'te-IN': ['sahayam', 'cheyandi', 'kapadandi', 'paamu', 'karichindi', 'gunde', 'noppi', 'vastundi', 'manta', 'kalindi', 'pramadam', 'raktam', 'bhavanam', 'kulipoyindi', 'naaku']
     };
 
-    const MULTILINGUAL_FIRST_AID = {
+    var MULTILINGUAL_FIRST_AID = {
       'kn-IN': {
         snake: "🐍 ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ (ಹಾವು ಕಚ್ಚುವಿಕೆ):\n1. ಗಾಬರಿಯಾಗಬೇಡಿ, ಕಚ್ಚಿದ ಭಾಗವನ್ನು ಅಲುಗಾಡಿಸಬೇಡಿ.\n2. ಕಚ್ಚಿದ ಜಾಗವನ್ನು ಹೃದಯದ ಮಟ್ಟಕ್ಕಿಂತ ಕೆಳಗೆ ಇರಿಸಿ.\n3. ಬಿಗಿಯಾದ ಬಟ್ಟೆ ಅಥವಾ ಹಗ್ಗವನ್ನು ಕಟ್ಟಬೇಡಿ.\n4. ತಕ್ಷಣ 108 ಆಂಬ್ಯುಲೆನ್ಸ್‌ಗೆ ಕರೆ ಮಾಡಿ.",
         chest: "❤️ ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ (ಎದೆ ನೋವು):\n1. ತಕ್ಷಣ ಕುಳಿತುಕೊಳ್ಳಿ ಮತ್ತು ವಿಶ್ರಾಂತಿ ಪಡೆಯಿರಿ.\n2. ಬಿಗಿಯಾದ ಬಟ್ಟೆಗಳನ್ನು ಸಡಿಲಗೊಳಿಸಿ.\n3. ತಕ್ಷಣ 108 ಆಂಬ್ಯುಲೆನ್ಸ್‌ಗೆ ಕರೆ ಮಾಡಿ.",
@@ -1891,8 +1882,8 @@
     };
 
     function offlineEmergencyEngine(text) {
-      const lower = (text || "").toLowerCase();
-      let langCode = 'en-IN';
+      var lower = (text || "").toLowerCase();
+      var langCode = 'en-IN';
 
       if (/[\u0980-\u09FF]/.test(text)) langCode = 'bn-IN';
       else if (/[\u0A80-\u0AFF]/.test(text)) langCode = 'gu-IN';
@@ -1904,36 +1895,44 @@
       else if (/[\u0900-\u097F]/.test(text)) {
         langCode = /(मदत|वाचवा|साप|चावला|दुखत|अपघात|मला|भाजले|इमारत|कोसळली|आहे|झाला|\u0933)/.test(text) ? 'mr-IN' : 'hi-IN';
       } else {
-        const tokens = lower.match(/[a-z]+/g) || [];
-        let maxScore = 0;
-        for (const [code, words] of Object.entries(OFFLINE_MARKERS)) {
-          let score = 0;
-          tokens.forEach(t => { if (words.includes(t)) score += 2; });
-          if (score > maxScore) { maxScore = score; langCode = code; }
+        var tokens = lower.match(/[a-z]+/g) || [];
+        var maxScore = 0;
+        var codes = Object.keys(OFFLINE_MARKERS);
+        for (var i = 0; i < codes.length; i++) {
+          var code = codes[i];
+          var words = OFFLINE_MARKERS[code];
+          var score = 0;
+          for (var j = 0; j < tokens.length; j++) {
+            if (words.indexOf(tokens[j]) !== -1) score += 2;
+          }
+          if (score > maxScore) {
+            maxScore = score;
+            langCode = code;
+          }
         }
       }
 
-      const names = {
+      var names = {
         'en-IN': 'English', 'hi-IN': 'Hindi (हिन्दी)', 'bn-IN': 'Bengali (বাংলা)',
         'gu-IN': 'Gujarati (ગુજરાતી)', 'kn-IN': 'Kannada (ಕನ್ನಡ)', 'ml-IN': 'Malayalam (മലയാളം)',
         'mr-IN': 'Marathi (मराठी)', 'pa-IN': 'Punjabi (ਪੰਜਾਬੀ)', 'ta-IN': 'Tamil (தமிழ்)', 'te-IN': 'Telugu (తెలుగు)'
       };
 
-      const isSnake = /(ಹಾವು|ಕಚ್ಚಿದೆ|haavu|havu|kachide|kacchide|snake|snek|snak|venom|cobra|साप|सांप|चावला|काटा|সাপ|কামড়|સાપ|પાമ്പ്|ਸੱਪ|பாம்பு|పాము|pambu|paamu|shaap|sapp)/.test(lower);
-      const isChest = /(सीने|दर्द|chest|heart|hart|attack|breath|हृदय|छाती|ಎದೆ|ನೋವು|ಬುಕ|ব্যথা|છાતી|નેંજ|ਛਾਤੀ|நெஞ்சு|గుండె|నొప్పి|seene|chatit|buke|nenju|gunde|ede|novu)/.test(lower);
-      const isAccident = /(accident|axident|crash|collision|bleeding|blood|fracture|ಅಪಘಾತ|ರಕ್ತ|अपघात|धडक|दुर्घटना|खून|দুর্ঘটনা|রক্ত|અકસ્માત|અપગડમ|ਐਕਸੀਡੈਂਟ|விபத்து|ప్రమాదం|apaghata|apghat|durghatna|rakta)/.test(lower);
-      const isFire = /(fire|burn|burning|smoke|flame|ಬೆಂಕಿ|ಸುಟ್ಟ|benki|आग|भाजले|जलना|আগুন|পুড়ে|આગ|દાઝી|തീ|പൊള്ളി|ਅੱਗ|தீ|மண்டா|aag|agun|bhajle|manta|thee)/.test(lower);
-      const isDisaster = /(disaster|collapse|building|earthquake|flood|trapped|ಕಟ್ಟಡ|ಕುಸಿತ|ಭೂಕಂಪ|इमारत|कोसळली|भूकंप|बाढ़|ভবন|ভূমিকম্প|મકાન|കെട്ടിടം|ਇਮਾਰਤ|கட்டிடம்|భవనం|imarat|kattada|kusita|kusidide|kosalli|bhukamp|kettidam|kattidam|kulipoyindi)/.test(lower);
+      var isSnake = /(ಹಾವು|ಕಚ್ಚಿದೆ|haavu|havu|kachide|kacchide|snake|snek|snak|venom|cobra|साप|सांप|चावला|काटा|সাপ|কামড়|સાપ|પાമ്പ്|ਸੱਪ|பாம்பு|పాము|pambu|paamu|shaap|sapp)/.test(lower);
+      var isChest = /(सीने|दर्द|chest|heart|hart|attack|breath|हृदय|छाती|ಎದೆ|ನೋವು|ಬುಕ|ব্যথা|છાતી|નેંજ|ਛਾਤੀ|நெஞ்சு|గుండె|నొప్పి|seene|chatit|buke|nenju|gunde|ede|novu)/.test(lower);
+      var isAccident = /(accident|axident|crash|collision|bleeding|blood|fracture|ಅಪಘಾತ|ರಕ್ತ|अपघात|धडक|दुर्घटना|खून|দুর্ঘটনা|রক্ত|અકસ્માત|અપગડમ|ਐਕਸੀਡੈਂਟ|விபத்து|ప్రమాదం|apaghata|apghat|durghatna|rakta)/.test(lower);
+      var isFire = /(fire|burn|burning|smoke|flame|ಬೆಂಕಿ|ಸುಟ್ಟ|benki|आग|भाजले|जलना|আগুন|পুড়ে|આગ|દાઝી|തീ|പൊള്ളി|ਅੱਗ|தீ|மண்டா|aag|agun|bhajle|manta|thee)/.test(lower);
+      var isDisaster = /(disaster|collapse|building|earthquake|flood|trapped|ಕಟ್ಟಡ|ಕುಸಿತ|ಭೂಕಂಪ|इमारत|कोसळली|भूकंप|बाढ़|ভবন|ভূমিকম্প|મકાન|കെട്ടിടം|ਇਮਾਰਤ|கட்டிடம்|భవనం|imarat|kattada|kusita|kusidide|kosalli|bhukamp|kettidam|kattidam|kulipoyindi)/.test(lower);
 
-      let scenario = 'General Emergency';
-      let key = 'general';
+      var scenario = 'General Emergency';
+      var key = 'general';
       if (isSnake) { key = 'snake'; scenario = 'Snakebite'; }
       else if (isChest) { key = 'chest'; scenario = 'Chest Pain'; }
       else if (isAccident) { key = 'accident'; scenario = 'Road Accident'; }
       else if (isFire) { key = 'fire'; scenario = 'Fire & Burns'; }
       else if (isDisaster) { key = 'disaster'; scenario = 'Building Collapse / Disaster'; }
 
-      const langPack = MULTILINGUAL_FIRST_AID[langCode] || MULTILINGUAL_FIRST_AID['en-IN'];
+      var langPack = MULTILINGUAL_FIRST_AID[langCode] || MULTILINGUAL_FIRST_AID['en-IN'];
 
       return {
         lang_code: langCode,
@@ -1943,14 +1942,13 @@
       };
     }
 
-    /* ================= GUARDIAN: ADD CONTACT ================= */
-    function addGuardian() {
-      const nameInput = document.getElementById('gName');
-      const phoneInput = document.getElementById('gPhone');
-      const list = document.getElementById('guardianList');
-      const langSelect = document.getElementById('globalUiLang');
-      const currentUiLang = langSelect ? langSelect.value : 'en';
-      const t = UI_TRANSLATIONS[currentUiLang] || UI_TRANSLATIONS['en'];
+    window.addGuardian = function() {
+      var nameInput = document.getElementById('gName');
+      var phoneInput = document.getElementById('gPhone');
+      var list = document.getElementById('guardianList');
+      var langSelect = document.getElementById('globalUiLang');
+      var currentUiLang = langSelect ? langSelect.value : 'en';
+      var t = UI_TRANSLATIONS[currentUiLang] || UI_TRANSLATIONS['en'];
 
       if (!nameInput || !phoneInput || !list) return;
       if (!nameInput.value.trim() || !phoneInput.value.trim()) return;
@@ -1959,19 +1957,20 @@
         return;
       }
 
-      const item = document.createElement('div');
+      var item = document.createElement('div');
       item.className = 'contact-item';
-      item.innerHTML = `
-        <div>
-          <strong>${nameInput.value.trim()}</strong><br/>
-          <span style="color: var(--text-muted); font-size: 0.85rem;">${phoneInput.value.trim()}</span>
-        </div>
-        <button class="remove-btn" onclick="this.parentElement.remove()" data-i18n="btn_remove">${t.btn_remove}</button>
-      `;
+      item.innerHTML =
+        '<div>' +
+          '<strong>' + nameInput.value.trim() + '</strong><br/>' +
+          '<span style="color: var(--text-muted); font-size: 0.85rem;">' + phoneInput.value.trim() + '</span>' +
+        '</div>' +
+        '<button type="button" class="remove-btn" onclick="this.parentElement.remove()" data-i18n="btn_remove">' + t.btn_remove + '</button>';
+
       list.appendChild(item);
       nameInput.value = '';
       phoneInput.value = '';
-    }
+    };
   </script>
 </body>
 </html>
+
