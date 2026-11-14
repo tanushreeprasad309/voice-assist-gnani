@@ -89,7 +89,6 @@
       gap: 10px;
     }
 
-    /* Static Logo (No bouncing/floating) */
     .brand-logo-img {
       width: 36px;
       height: 36px;
@@ -98,7 +97,6 @@
       filter: drop-shadow(0 2px 8px rgba(56, 189, 248, 0.4));
     }
 
-    /* Static Title matched to Logo Color (Crisp White to Ice/Cyan Blue) */
     .animated-title {
       font-family: 'Poppins', 'Plus Jakarta Sans', sans-serif;
       font-size: 2rem;
@@ -111,7 +109,6 @@
       filter: drop-shadow(0 2px 8px rgba(56, 189, 248, 0.28));
     }
 
-    /* Equalizer Bars Only (No background pill or border, logo-matched blue) */
     .sound-wave {
       display: flex;
       align-items: center;
@@ -1669,7 +1666,7 @@
         formData.append('backup_transcript', browserTranscriptBackup || '');
 
         var controller = new AbortController();
-        var timeoutId = setTimeout(function() { controller.abort(); }, 4500);
+        var timeoutId = setTimeout(function() { controller.abort(); }, 6500);
 
         var res = await fetch('/api/stt-prisma', {
           method: 'POST',
@@ -1732,7 +1729,7 @@
 
       try {
         var controller = new AbortController();
-        var timeoutId = setTimeout(function() { controller.abort(); }, 3500);
+        var timeoutId = setTimeout(function() { controller.abort(); }, 6000);
 
         var res = await fetch('/api/first-aid', {
           method: 'POST',
@@ -1770,11 +1767,6 @@
       window.speechSynthesis.onvoiceschanged = loadVoices;
     }
 
-    /**
-     * Converts step numbers and emergency helpline digits into native regional words
-     * across ALL 10 languages so TTS engines never pronounce numbers in Hindi or English
-     * when speaking Kannada, Tamil, Telugu, Malayalam, Marathi, Bengali, Gujarati, or Punjabi.
-     */
     var REGIONAL_NUMBER_WORDS = {
       kn: {
         s1: 'ಒಂದು, ', s2: 'ಎರಡು, ', s3: 'ಮೂರು, ', s4: 'ನಾಲ್ಕು, ',
@@ -1860,10 +1852,10 @@
 
       var cleanText = normalizeTextForRegionalSpeech(text, langCode);
 
-      // 1. Primary: Backend TTS (/api/tts-timbre)
+      // 1. Primary: Backend TTS (/api/tts-timbre -> Gnani Timbre + SaHaya Indic Voice Fallback)
       try {
         var controller = new AbortController();
-        var timeoutId = setTimeout(function() { controller.abort(); }, 3500);
+        var timeoutId = setTimeout(function() { controller.abort(); }, 8000);
 
         var res = await fetch('/api/tts-timbre', {
           method: 'POST',
@@ -1885,7 +1877,7 @@
         }
       } catch (e) {}
 
-      // 2. Secondary: Check for genuine native browser voice matching target language
+      // 2. Offline / Browser Fallback
       var langPrefix = (langCode || 'en-IN').split('-')[0].toLowerCase();
       if (availableVoices.length === 0 && 'speechSynthesis' in window) {
         availableVoices = window.speechSynthesis.getVoices();
@@ -1894,17 +1886,6 @@
       var exactRegionalVoice =
         availableVoices.find(function(v) { return v.lang.toLowerCase().replace('_', '-') === (langCode || '').toLowerCase(); }) ||
         availableVoices.find(function(v) { return v.lang.toLowerCase().indexOf(langPrefix) === 0; });
-
-      // 3. Neural Regional TTS Stream when OS lacks native regional voice (prevents Hindi accent fallback)
-      if (!exactRegionalVoice && langPrefix !== 'en') {
-        try {
-          var ttsUrl = "https://translate.googleapis.com/translate_tts?ie=UTF-8&client=tw-ob&tl=" +
-                       encodeURIComponent(langPrefix) + "&q=" + encodeURIComponent(cleanText.slice(0, 200));
-          currentTimbreAudio = new Audio(ttsUrl);
-          await currentTimbreAudio.play();
-          return;
-        } catch (cloudErr) {}
-      }
 
       fallbackBrowserSpeak(cleanText, langCode, exactRegionalVoice);
     }
@@ -1948,7 +1929,6 @@
       'te-IN': ['sahayam', 'cheyandi', 'kapadandi', 'paamu', 'karichindi', 'gunde', 'noppi', 'vastundi', 'manta', 'kalindi', 'pramadam', 'raktam', 'bhavanam', 'kulipoyindi', 'naaku']
     };
 
-    /* Complete Native First-Aid Guidance Across All 10 Languages */
     var MULTILINGUAL_FIRST_AID = {
       'kn-IN': {
         snake: "🐍 ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ (ಹಾವು ಕಚ್ಚುವಿಕೆ):\n1. ಗಾಬರಿಯಾಗಬೇಡಿ, ಕಚ್ಚಿದ ಭಾಗವನ್ನು ಅಲುಗಾಡಿಸಬೇಡಿ.\n2. ಕಚ್ಚಿದ ಜಾಗವನ್ನು ಹೃದಯದ ಮಟ್ಟಕ್ಕಿಂತ ಕೆಳಗೆ ಇರಿಸಿ.\n3. ಬಿಗಿಯಾದ ಬಟ್ಟೆ ಅಥವಾ ಹಗ್ಗವನ್ನು ಕಟ್ಟಬೇಡಿ.\n4. ತಕ್ಷಣ 108 ಆಂಬ್ಯುಲೆನ್ಸ್‌ಗೆ ಕರೆ ಮಾಡಿ.",
