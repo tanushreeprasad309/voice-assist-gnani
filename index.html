@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SaHaya • Talk • Translate • Stay Safe</title>
 
-  <!-- Google Fonts: Clean Geometric Sans-Serif (Poppins & Inter) -->
+  <!-- Google Fonts: Clean Geometric Sans-Serif (Poppins & Plus Jakarta Sans) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet" />
 
   <!-- Custom SEO Metadata & Branding Assets Integration (Open Graph Specs) -->
   <meta name="description" content="SaHaya: Talk • Translate • Stay Safe. AI-powered multilingual voice and text first-aid responder with 10-language code-mix auto-detection, DSP noise cancellation, SOS alarm, and geofencing safeguards." />
@@ -33,13 +33,16 @@
 
   <style>
     :root {
+      /* Deep Navy & Cool Logo-Matched Blue Palette */
       --bg-dark: #0b1325;
       --bg-gradient: radial-gradient(circle at top left, #1b2e4b 0%, #0b1325 100%);
       --card-bg: #162238;
       --card-border: #2c3e5d;
       --blue-main: #2563eb;
+      --blue-bright: #3b82f6;
       --blue-light: #38bdf8;
-      --blue-glow: rgba(59, 130, 246, 0.22);
+      --blue-cyan: #7dd3fc;
+      --blue-glow: rgba(59, 130, 246, 0.25);
       --green-main: #22c55e;
       --green-bright: #4ade80;
       --red: #ef4444;
@@ -52,7 +55,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
     }
 
     body {
@@ -86,28 +89,29 @@
       gap: 10px;
     }
 
-    /* Static Logo (No bouncing) */
+    /* Static Logo (No bouncing/floating) */
     .brand-logo-img {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       object-fit: contain;
-      filter: drop-shadow(0 2px 6px rgba(250, 204, 21, 0.35));
+      border-radius: 8px;
+      filter: drop-shadow(0 2px 8px rgba(56, 189, 248, 0.4));
     }
 
-    /* Static Title matched to Logo Color & Clean Geometric Font (No movement) */
+    /* Static Title matched to Logo Color (Crisp White to Ice/Cyan Blue) */
     .animated-title {
-      font-family: 'Poppins', 'Inter', sans-serif;
+      font-family: 'Poppins', 'Plus Jakarta Sans', sans-serif;
       font-size: 2rem;
       font-weight: 800;
-      letter-spacing: 0.5px;
-      background: linear-gradient(90deg, #fde047 0%, #a3e635 55%, #4ade80 100%);
+      letter-spacing: 0.4px;
+      background: linear-gradient(135deg, #ffffff 15%, #bae6fd 50%, #38bdf8 100%);
       color: transparent;
       -webkit-background-clip: text;
       background-clip: text;
-      filter: drop-shadow(0 2px 8px rgba(250, 204, 21, 0.18));
+      filter: drop-shadow(0 2px 8px rgba(56, 189, 248, 0.28));
     }
 
-    /* Equalizer Bars Only (No background pill or border) */
+    /* Equalizer Bars Only (No background pill or border, logo-matched blue) */
     .sound-wave {
       display: flex;
       align-items: center;
@@ -121,7 +125,7 @@
 
     .wave-bar {
       width: 3.5px;
-      background: linear-gradient(to top, #eab308, #a3e635, #4ade80);
+      background: linear-gradient(to top, #2563eb, #38bdf8, #bae6fd);
       border-radius: 999px;
       animation: bounceWave 0.85s ease-in-out infinite;
     }
@@ -186,7 +190,7 @@
 
     .global-ui-select {
       background: #1e293b;
-      color: #fde047;
+      color: var(--blue-light);
       border: 1px solid var(--card-border);
       padding: 5px 10px;
       border-radius: 8px;
@@ -196,7 +200,7 @@
       outline: none;
     }
 
-    /* ================= 3 NAVIGATION TABS ================= */
+    /* ================= 3 NAVIGATION TABS (BLUE THEME) ================= */
     .nav-tabs {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -219,9 +223,9 @@
     }
 
     .tab-btn.active {
-      background: #ea580c;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
       color: #ffffff;
-      box-shadow: 0 2px 10px rgba(234, 88, 12, 0.45);
+      box-shadow: 0 2px 12px rgba(37, 99, 235, 0.5);
     }
 
     .tab-content {
@@ -242,7 +246,7 @@
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
     }
 
-    /* ================= 1. SHIELD TAB ================= */
+    /* ================= 1. SHIELD TAB (RED GRADIENT SOS BUTTON) ================= */
     .shield-center-box {
       display: flex;
       flex-direction: column;
@@ -257,14 +261,14 @@
       width: 175px;
       height: 175px;
       border-radius: 50%;
-      background: radial-gradient(circle, #38bdf8 0%, #2563eb 100%);
-      border: 6px solid rgba(56, 189, 248, 0.35);
+      background: radial-gradient(circle, #ff5252 0%, #dc2626 55%, var(--red-dark) 100%);
+      border: 6px solid rgba(239, 68, 68, 0.38);
       color: white;
       font-size: 1.45rem;
       font-weight: 900;
       letter-spacing: 1px;
       cursor: pointer;
-      box-shadow: 0 0 40px rgba(37, 99, 235, 0.6);
+      box-shadow: 0 0 42px rgba(239, 68, 68, 0.65);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -276,7 +280,7 @@
     .sos-big-btn span {
       font-size: 0.78rem;
       font-weight: 700;
-      opacity: 0.92;
+      opacity: 0.95;
       line-height: 1.25;
       padding: 0 10px;
     }
@@ -288,13 +292,12 @@
     .sos-big-btn.alarm-active {
       animation: pulseRed 0.6s infinite alternate;
       background: radial-gradient(circle, #ef4444 0%, #7f1d1d 100%);
-      border-color: rgba(239, 68, 68, 0.5);
     }
 
     @keyframes pulseRed {
       from {
         transform: scale(1);
-        box-shadow: 0 0 25px rgba(239, 68, 68, 0.6);
+        box-shadow: 0 0 25px rgba(239, 68, 68, 0.65);
       }
       to {
         transform: scale(1.07);
@@ -309,17 +312,17 @@
     }
 
     .gps-live-pill {
-      background: rgba(11, 19, 37, 0.7);
+      background: rgba(11, 19, 37, 0.75);
       border: 1px solid var(--card-border);
       padding: 10px 16px;
       border-radius: 10px;
       font-size: 0.85rem;
-      color: #fde047;
+      color: var(--blue-light);
       width: 100%;
       font-weight: 600;
     }
 
-    /* ================= 2. TRANSLATE TAB ================= */
+    /* ================= 2. TRANSLATE TAB (BLUE MIC & BUTTONS) ================= */
     .mic-center-card {
       display: flex;
       flex-direction: column;
@@ -332,12 +335,12 @@
       width: 114px;
       height: 114px;
       border-radius: 50%;
-      background: rgba(234, 88, 12, 0.2);
+      background: var(--blue-glow);
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 4px 0;
-      box-shadow: 0 0 25px rgba(234, 88, 12, 0.25);
+      box-shadow: 0 0 28px rgba(37, 99, 235, 0.35);
       transition: all 0.25s ease;
     }
 
@@ -345,14 +348,14 @@
       width: 84px;
       height: 84px;
       border-radius: 50%;
-      background: linear-gradient(145deg, #f59e0b, #ea580c);
+      background: linear-gradient(145deg, #38bdf8, #2563eb);
       border: none;
       color: #ffffff;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 6px 20px rgba(234, 88, 12, 0.55);
+      box-shadow: 0 6px 22px rgba(37, 99, 235, 0.6);
       transition: all 0.2s ease;
     }
 
@@ -374,12 +377,12 @@
 
     .mic-tagline {
       font-size: 0.78rem;
-      color: #fde047;
+      color: var(--blue-light);
       font-weight: 800;
       letter-spacing: 1.4px;
       text-transform: uppercase;
-      background: rgba(250, 204, 21, 0.12);
-      border: 1px solid rgba(250, 204, 21, 0.35);
+      background: rgba(56, 189, 248, 0.14);
+      border: 1px solid rgba(56, 189, 248, 0.38);
       padding: 6px 16px;
       border-radius: 999px;
       margin-top: 2px;
@@ -405,16 +408,17 @@
       width: 100%;
       background: #0f172a;
       border: 1px solid var(--card-border);
-      color: white;
+      color: #ffffff;
       padding: 10px 36px 10px 12px;
       border-radius: 10px;
       font-size: 0.9rem;
+      font-weight: 500;
       outline: none;
       transition: border-color 0.2s ease;
     }
 
     .input-clear-wrapper input:focus {
-      border-color: #fde047;
+      border-color: var(--blue-light);
     }
 
     .clear-input-btn {
@@ -444,7 +448,7 @@
     }
 
     .translate-help-btn {
-      background: #ea580c;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
       color: white;
       border: none;
       padding: 10px 14px;
@@ -453,11 +457,12 @@
       font-size: 0.85rem;
       cursor: pointer;
       white-space: nowrap;
-      transition: background 0.15s ease;
+      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.35);
+      transition: opacity 0.15s ease;
     }
 
     .translate-help-btn:hover {
-      background: #c2410c;
+      opacity: 0.92;
     }
 
     /* Output Box */
@@ -483,8 +488,9 @@
 
     .detected-badge {
       display: inline-block;
-      background: rgba(250, 204, 21, 0.15);
-      color: #fde047;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--blue-light);
       padding: 4px 10px;
       border-radius: 6px;
       font-size: 0.76rem;
@@ -492,8 +498,8 @@
     }
 
     .speak-aloud-btn {
-      background: rgba(34, 197, 94, 0.2);
-      border: 1px solid rgba(34, 197, 94, 0.5);
+      background: rgba(34, 197, 94, 0.16);
+      border: 1px solid rgba(34, 197, 94, 0.45);
       color: #86efac;
       padding: 5px 12px;
       border-radius: 6px;
@@ -502,12 +508,12 @@
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       transition: all 0.15s ease;
     }
 
     .speak-aloud-btn:hover {
-      background: rgba(34, 197, 94, 0.35);
+      background: rgba(34, 197, 94, 0.3);
     }
 
     .spoken-transcript {
@@ -554,8 +560,8 @@
     }
 
     .phrase-pill:hover {
-      background: #ea580c;
-      border-color: #fb923c;
+      background: var(--blue-main);
+      border-color: var(--blue-light);
     }
 
     .directory-grid {
@@ -578,7 +584,7 @@
     }
 
     .dir-card:hover {
-      border-color: #fde047;
+      border-color: var(--blue-light);
       transform: translateY(-2px);
     }
 
@@ -605,9 +611,9 @@
     }
 
     .dir-call-btn {
-      background: rgba(234, 88, 12, 0.2);
-      color: #fb923c;
-      border: 1px solid rgba(234, 88, 12, 0.45);
+      background: rgba(37, 99, 235, 0.2);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.4);
       padding: 6px 12px;
       border-radius: 8px;
       font-size: 0.8rem;
@@ -648,7 +654,7 @@
     .remove-btn {
       background: none;
       border: none;
-      color: #fb923c;
+      color: #60a5fa;
       font-weight: 600;
       cursor: pointer;
     }
@@ -686,7 +692,7 @@
     <!-- Top Header Branding -->
     <div class="header">
       <div class="brand-row">
-        <img class="brand-logo-img" src="/static/logo.png" alt="SaHaya Brand Logo" onerror="this.style.display='none';" />
+        <img class="brand-logo-img" src="/static/logo.png" alt="SaHaya Brand Logo Pattern" onerror="this.style.display='none';" />
         <h1 class="animated-title" data-i18n="app_title">SaHaya</h1>
         <div class="sound-wave">
           <span class="wave-bar"></span>
@@ -810,7 +816,7 @@
           <button type="button" class="phrase-pill" onclick="quickEmergency('सीने में तेज दर्द हो रहा है')">❤️ Chest Pain (सीने में दर्द)</button>
           <button type="button" class="phrase-pill" onclick="quickEmergency('मला मदत करा रोड अपघात झाला आहे')">🚗 Road Accident (अपघात)</button>
           <button type="button" class="phrase-pill" onclick="quickEmergency('ಬೆಂಕಿ ಹತ್ತಿದೆ ಸುಟ್ಟ ಗಾಯವಾಗಿದೆ')">🔥 Fire & Burns (ಬೆಂಕಿ / आग)</button>
-          <button type="button" class="phrase-pill" onclick="quickEmergency('ಕಟ್ಟಡ ಕುಸಿತ ಸಹಾಯ ಮಾಡಿ')">🏢 Building Collapse (ಕಟ್ಟಡ ಕುಸಿತ)</button>
+          <button type="button" class="phrase-pill" onclick="quickEmergency('kattada kusita')">🏢 Building Collapse / Disaster</button>
           <button type="button" class="phrase-pill" onclick="quickEmergency('Need urgent police and ambulance help')">🚨 General Emergency</button>
         </div>
       </div>
@@ -888,7 +894,7 @@
         <div class="guardian-sub" data-i18n="geofence_sub">
           Monitors GPS every 3s. Alerts guardians if you deviate &gt;500m or stall &gt;10 mins.
         </div>
-        <div id="guardianGpsText" style="font-size: 0.85rem; color: #fde047;" data-i18n="geofence_status">
+        <div id="guardianGpsText" style="font-size: 0.85rem; color: var(--blue-light);" data-i18n="geofence_status">
           Current Coords: Acquiring GPS lock...
         </div>
       </div>
@@ -1253,7 +1259,7 @@
         input_placeholder: "ఏ భాషలోనైనా మాట్లాడండి లేదా టైప్ చేయండి",
         btn_translate: "అనువాదం & సహాయం",
         btn_read_aloud: "బిగ్గరగా చదవండి",
-        waiting_input: "மொழி: ఇన్‌పుట్ కోసం వేచి ఉంది...",
+        waiting_input: "భాష: ఇన్‌పుట్ కోసం వేచి ఉంది...",
         transcript_prompt: "తెలుగు, హిందీ లేదా ఇంగ్లీషులో సహజంగా మాట్లాడండి.",
         output_prompt: "ప్రథమ చికిత్స దశలు ఇక్కడ కనిపిస్తాయి.",
         quick_tap_label: "⚡ అత్యవసర పరిస్థితులు",
@@ -1358,7 +1364,7 @@
             var lat = pos.coords.latitude.toFixed(5);
             var lon = pos.coords.longitude.toFixed(5);
             var mapsUrl = "https://www.google.com/maps?q=" + lat + "," + lon;
-            gpsDisplay.innerHTML = "📍 Live GPS Sent: <strong>" + lat + ", " + lon + "</strong> <br/><a href='" + mapsUrl + "' target='_blank' style='color:#fde047;'>View Live Map Link</a>";
+            gpsDisplay.innerHTML = "📍 Live GPS Sent: <strong>" + lat + ", " + lon + "</strong> <br/><a href='" + mapsUrl + "' target='_blank' style='color:#38bdf8;'>View Live Map Link</a>";
             safeSetText('guardianGpsText', "Current Coords: " + lat + ", " + lon);
           },
           function() {
@@ -1757,75 +1763,88 @@
       speakWithGnaniTimbre(result.first_aid, result.lang_code);
     }
 
-    /* ================= PRONUNCIATION & NATIVE NUMBER NORMALIZER ================= */
-    function prepareSpeechTextForLanguage(rawText, langCode) {
-      if (!rawText) return "";
-
-      var text = rawText
-        .replace(/[🐍❤️🚗🔥🏢🚨⚡📍🎙️✨🛡️⏳🔊]/g, '')
-        .replace(/\//g, ' ಅಥವಾ ');
-
-      var langPrefix = (langCode || 'en-IN').split('-')[0].toLowerCase();
-
-      if (langPrefix === 'kn') {
-        text = text
-          .replace(/15\s*[-–]\s*20/g, 'ಹದಿನೈದರಿಂದ ಇಪ್ಪತ್ತು')
-          .replace(/\b108\b/g, 'ಒಂದು ನೂರ ಎಂಟು')
-          .replace(/\b112\b/g, 'ಒಂದು ನೂರ ಹನ್ನೆರಡು')
-          .replace(/\b101\b/g, 'ಒಂದು ನೂರ ಒಂದು')
-          .replace(/\b1091\b/g, 'ಒಂದು ಸಾವಿರದ ತೊಂಬತ್ತೊಂದು')
-          .replace(/(^|\n)\s*1\./g, '$1 ಮೊದಲನೆಯದಾಗಿ, ')
-          .replace(/(^|\n)\s*2\./g, '$1 ಎರಡನೆಯದಾಗಿ, ')
-          .replace(/(^|\n)\s*3\./g, '$1 ಮೂರನೆಯದಾಗಿ, ')
-          .replace(/(^|\n)\s*4\./g, '$1 ನಾಲ್ಕನೆಯದಾಗಿ, ')
-          .replace(/\b1\b/g, 'ಒಂದು')
-          .replace(/\b2\b/g, 'ಎರಡು')
-          .replace(/\b3\b/g, 'ಮೂರು')
-          .replace(/\b4\b/g, 'ನಾಲ್ಕು');
-      } else if (langPrefix === 'hi') {
-        text = text
-          .replace(/15\s*[-–]\s*20/g, 'पंद्रह से बीस')
-          .replace(/\b108\b/g, 'एक सौ आठ')
-          .replace(/\b112\b/g, 'एक सौ बारह')
-          .replace(/\b101\b/g, 'एक सौ एक')
-          .replace(/(^|\n)\s*1\./g, '$1 पहला कदम, ')
-          .replace(/(^|\n)\s*2\./g, '$1 दूसरा कदम, ')
-          .replace(/(^|\n)\s*3\./g, '$1 तीसरा कदम, ')
-          .replace(/(^|\n)\s*4\./g, '$1 चौथा कदम, ');
-      } else if (langPrefix === 'mr') {
-        text = text
-          .replace(/\b108\b/g, 'एकशे आठ')
-          .replace(/\b112\b/g, 'एकशे बारा')
-          .replace(/\b101\b/g, 'एकशे एक')
-          .replace(/(^|\n)\s*1\./g, '$1 पहिली पायरी, ')
-          .replace(/(^|\n)\s*2\./g, '$1 दुसरी पायरी, ')
-          .replace(/(^|\n)\s*3\./g, '$1 तिसरी पायरी, ');
-      } else if (langPrefix === 'ta') {
-        text = text
-          .replace(/\b108\b/g, 'நூற்று எட்டு')
-          .replace(/\b112\b/g, 'நூற்று பன்னிரண்டு')
-          .replace(/\b101\b/g, 'நூற்று ஒன்று')
-          .replace(/(^|\n)\s*1\./g, '$1 ஒன்று, ')
-          .replace(/(^|\n)\s*2\./g, '$1 இரண்டு, ')
-          .replace(/(^|\n)\s*3\./g, '$1 மூன்று, ');
-      } else if (langPrefix === 'te') {
-        text = text
-          .replace(/\b108\b/g, 'నూట ఎనిమిది')
-          .replace(/\b112\b/g, 'నూట పన్నెండు')
-          .replace(/\b101\b/g, 'నూట ఒకటి')
-          .replace(/(^|\n)\s*1\./g, '$1 ఒకటి, ')
-          .replace(/(^|\n)\s*2\./g, '$1 రెండు, ')
-          .replace(/(^|\n)\s*3\./g, '$1 మూడు, ');
-      }
-
-      return text.replace(/\n+/g, '. ');
-    }
-
     var availableVoices = [];
     if ('speechSynthesis' in window) {
       var loadVoices = function() { availableVoices = window.speechSynthesis.getVoices(); };
       loadVoices();
       window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    /**
+     * Converts step numbers and emergency helpline digits into native regional words
+     * across ALL 10 languages so TTS engines never pronounce numbers in Hindi or English
+     * when speaking Kannada, Tamil, Telugu, Malayalam, Marathi, Bengali, Gujarati, or Punjabi.
+     */
+    var REGIONAL_NUMBER_WORDS = {
+      kn: {
+        s1: 'ಒಂದು, ', s2: 'ಎರಡು, ', s3: 'ಮೂರು, ', s4: 'ನಾಲ್ಕು, ',
+        n108: 'ನೂರಾ ಎಂಟು', n112: 'ನೂರಾ ಹನ್ನೆರಡು', n101: 'ನೂರಾ ಒಂದು',
+        n1091: 'ಒಂದು ಸಾವಿರದ ತೊಂಬತ್ತೊಂದು', n1520: 'ಹದಿನೈದರಿಂದ ಇಪ್ಪತ್ತು'
+      },
+      hi: {
+        s1: 'एक, ', s2: 'दो, ', s3: 'तीन, ', s4: 'चार, ',
+        n108: 'एक सौ आठ', n112: 'एक सौ बारह', n101: 'एक सौ एक',
+        n1091: 'एक शून्य नौ एक', n1520: 'पंद्रह से बीस'
+      },
+      mr: {
+        s1: 'एक, ', s2: 'दोन, ', s3: 'तीन, ', s4: 'चार, ',
+        n108: 'एकशे आठ', n112: 'एकशे बारा', n101: 'एकशे एक',
+        n1091: 'एक शून्य नऊ एक', n1520: 'पंधरा ते वीस'
+      },
+      bn: {
+        s1: 'এক, ', s2: 'দুই, ', s3: 'তিন, ', s4: 'চার, ',
+        n108: 'একশো আট', n112: 'একশো বারো', n101: 'একশো এক',
+        n1091: 'এক শূন্য নয় এক', n1520: 'পনেরো থেকে বিশ'
+      },
+      gu: {
+        s1: 'એક, ', s2: 'બે, ', s3: 'ત્રણ, ', s4: 'ચાર, ',
+        n108: 'એકસો આઠ', n112: 'એકસો બાર', n101: 'એકસો એક',
+        n1091: 'એક શૂન્ય નવ એક', n1520: 'પંદર થી વીસ'
+      },
+      ml: {
+        s1: 'ഒന്ന്, ', s2: 'രണ്ട്, ', s3: 'മൂന്ന്, ', s4: 'നാല്, ',
+        n108: 'നൂറ്റി എട്ട്', n112: 'നൂറ്റി പന്ത്രണ്ട്', n101: 'നൂറ്റി ഒന്ന്',
+        n1091: 'ഒന്ന് പൂജ്യം ഒൻപത് ഒന്ന്', n1520: 'പതിനഞ്ച് മുതൽ ഇരുപത് വരെ'
+      },
+      pa: {
+        s1: 'ਇੱਕ, ', s2: 'ਦੋ, ', s3: 'ਤਿੰਨ, ', s4: 'ਚਾਰ, ',
+        n108: 'ਇੱਕ ਸੌ ਅੱਠ', n112: 'ਇੱਕ ਸੌ ਬਾਰਾਂ', n101: 'ਇੱਕ ਸੌ ਇੱਕ',
+        n1091: 'ਇੱਕ ਸਿਫ਼ਰ ਨੌਂ ਇੱਕ', n1520: 'ਪੰਦਰਾਂ ਤੋਂ ਵੀਹ'
+      },
+      ta: {
+        s1: 'ஒன்று, ', s2: 'இரண்டு, ', s3: 'மூன்று, ', s4: 'நான்கு, ',
+        n108: 'நூற்று எட்டு', n112: 'நூற்று பன்னிரண்டு', n101: 'நூற்று ஒன்று',
+        n1091: 'ஒன்று பூஜ்ஜியம் ஒன்பது ஒன்று', n1520: 'பதினைந்து முதல் இருபது'
+      },
+      te: {
+        s1: 'ఒకటి, ', s2: 'రెండు, ', s3: 'మూడు, ', s4: 'నాలుగు, ',
+        n108: 'నూట ఎనిమిది', n112: 'నూట పన్నెండు', n101: 'నూట ఒకటి',
+        n1091: 'ఒకటి సున్నా తొమ్మిది ఒకటి', n1520: 'పదిహేను నుండి ఇరవై'
+      }
+    };
+
+    function normalizeTextForRegionalSpeech(text, langCode) {
+      var cleaned = (text || '')
+        .replace(/[🐍❤️🚗🔥🏢🚨⚡📍🎙️✨🛡️⏳🔊]/g, '')
+        .replace(/\n+/g, '. ');
+
+      var langPrefix = (langCode || 'en-IN').split('-')[0].toLowerCase();
+      var numPack = REGIONAL_NUMBER_WORDS[langPrefix];
+
+      if (numPack) {
+        cleaned = cleaned
+          .replace(/15\s*[-–]\s*20/g, numPack.n1520)
+          .replace(/\b108\b/g, numPack.n108)
+          .replace(/\b112\b/g, numPack.n112)
+          .replace(/\b101\b/g, numPack.n101)
+          .replace(/\b1091\b/g, numPack.n1091)
+          .replace(/(^|\.\s*)1\./g, '$1' + numPack.s1)
+          .replace(/(^|\.\s*)2\./g, '$1' + numPack.s2)
+          .replace(/(^|\.\s*)3\./g, '$1' + numPack.s3)
+          .replace(/(^|\.\s*)4\./g, '$1' + numPack.s4)
+          .replace(/[()\/]/g, ', ');
+      }
+      return cleaned;
     }
 
     async function speakWithGnaniTimbre(text, langCode) {
@@ -1839,8 +1858,9 @@
         window.speechSynthesis.cancel();
       }
 
-      var normalizedSpeechText = prepareSpeechTextForLanguage(text, langCode);
+      var cleanText = normalizeTextForRegionalSpeech(text, langCode);
 
+      // 1. Primary: Backend TTS (/api/tts-timbre)
       try {
         var controller = new AbortController();
         var timeoutId = setTimeout(function() { controller.abort(); }, 3500);
@@ -1848,7 +1868,7 @@
         var res = await fetch('/api/tts-timbre', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: normalizedSpeechText, lang_code: langCode || 'en-IN' }),
+          body: JSON.stringify({ text: cleanText, lang_code: langCode || 'en-IN' }),
           signal: controller.signal
         });
         clearTimeout(timeoutId);
@@ -1856,7 +1876,8 @@
         if (res.ok) {
           var data = await res.json();
           if (data.audio_base64) {
-            var audioSrc = "data:audio/wav;base64," + data.audio_base64;
+            var mime = data.mime_type || 'audio/wav';
+            var audioSrc = "data:" + mime + ";base64," + data.audio_base64;
             currentTimbreAudio = new Audio(audioSrc);
             await currentTimbreAudio.play();
             return;
@@ -1864,87 +1885,49 @@
         }
       } catch (e) {}
 
-      fallbackBrowserSpeak(normalizedSpeechText, langCode);
-    }
-
-    function fallbackBrowserSpeak(cleanText, langCode) {
-      var targetCode = (langCode || 'en-IN').toLowerCase();
-      var langPrefix = targetCode.split('-')[0];
-
-      if ('speechSynthesis' in window) {
-        if (availableVoices.length === 0) {
-          availableVoices = window.speechSynthesis.getVoices();
-        }
-
-        // Strict native language match ONLY (Never fall back to Hindi 'hi-IN' for Kannada 'kn-IN')
-        var exactNativeVoice =
-          availableVoices.find(function(v) {
-            var vLang = v.lang.toLowerCase().replace('_', '-');
-            return vLang === targetCode && v.name.toLowerCase().indexOf('google') !== -1;
-          }) ||
-          availableVoices.find(function(v) {
-            var vLang = v.lang.toLowerCase().replace('_', '-');
-            return vLang === targetCode;
-          }) ||
-          availableVoices.find(function(v) {
-            var vLang = v.lang.toLowerCase().replace('_', '-');
-            return vLang.indexOf(langPrefix + '-') === 0 || vLang === langPrefix;
-          });
-
-        if (exactNativeVoice) {
-          if (window.speechSynthesis.paused) {
-            window.speechSynthesis.resume();
-          }
-          var utterance = new SpeechSynthesisUtterance(cleanText);
-          utterance.voice = exactNativeVoice;
-          utterance.lang = exactNativeVoice.lang;
-          utterance.rate = 0.90;
-          utterance.pitch = 1.0;
-          utterance.volume = 1.0;
-
-          setTimeout(function() {
-            window.speechSynthesis.speak(utterance);
-          }, 50);
-          return;
-        }
+      // 2. Secondary: Check for genuine native browser voice matching target language
+      var langPrefix = (langCode || 'en-IN').split('-')[0].toLowerCase();
+      if (availableVoices.length === 0 && 'speechSynthesis' in window) {
+        availableVoices = window.speechSynthesis.getVoices();
       }
 
-      // If Windows/Browser has no native Kannada voice installed, stream cloud neural TTS in native language
-      playCloudRegionalTTS(cleanText, langPrefix, langCode);
+      var exactRegionalVoice =
+        availableVoices.find(function(v) { return v.lang.toLowerCase().replace('_', '-') === (langCode || '').toLowerCase(); }) ||
+        availableVoices.find(function(v) { return v.lang.toLowerCase().indexOf(langPrefix) === 0; });
+
+      // 3. Neural Regional TTS Stream when OS lacks native regional voice (prevents Hindi accent fallback)
+      if (!exactRegionalVoice && langPrefix !== 'en') {
+        try {
+          var ttsUrl = "https://translate.googleapis.com/translate_tts?ie=UTF-8&client=tw-ob&tl=" +
+                       encodeURIComponent(langPrefix) + "&q=" + encodeURIComponent(cleanText.slice(0, 200));
+          currentTimbreAudio = new Audio(ttsUrl);
+          await currentTimbreAudio.play();
+          return;
+        } catch (cloudErr) {}
+      }
+
+      fallbackBrowserSpeak(cleanText, langCode, exactRegionalVoice);
     }
 
-    function playCloudRegionalTTS(cleanText, langPrefix, fullLangCode) {
-      var sentences = cleanText.split(/(?:[.।!?\n])+/g).map(function(s) { return s.trim(); }).filter(Boolean);
-      if (sentences.length === 0) return;
+    function fallbackBrowserSpeak(cleanText, langCode, exactRegionalVoice) {
+      if (!('speechSynthesis' in window)) return;
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+      }
 
-      var idx = 0;
-      var playNextChunk = function() {
-        if (idx >= sentences.length) return;
-        var chunk = sentences[idx++];
-        var ttsUrl = "https://translate.googleapis.com/translate_tts?ie=UTF-8&client=tw-ob&tl=" + encodeURIComponent(langPrefix) + "&q=" + encodeURIComponent(chunk);
-        currentTimbreAudio = new Audio(ttsUrl);
-        currentTimbreAudio.playbackRate = 0.95;
-        currentTimbreAudio.onended = playNextChunk;
-        currentTimbreAudio.onerror = function() {
-          // Last-resort browser utterance with explicit lang tag (no voice override to Hindi)
-          if ('speechSynthesis' in window) {
-            var u = new SpeechSynthesisUtterance(cleanText);
-            u.lang = fullLangCode || 'kn-IN';
-            u.rate = 0.88;
-            window.speechSynthesis.speak(u);
-          }
-        };
-        currentTimbreAudio.play().catch(function() {
-          if ('speechSynthesis' in window) {
-            var u = new SpeechSynthesisUtterance(cleanText);
-            u.lang = fullLangCode || 'kn-IN';
-            u.rate = 0.88;
-            window.speechSynthesis.speak(u);
-          }
-        });
-      };
+      var utterance = new SpeechSynthesisUtterance(cleanText);
+      utterance.lang = langCode || 'en-IN';
+      utterance.rate = 0.92;
+      utterance.pitch = 1.0;
+      utterance.volume = 1.0;
 
-      playNextChunk();
+      if (exactRegionalVoice) {
+        utterance.voice = exactRegionalVoice;
+      }
+
+      setTimeout(function() {
+        window.speechSynthesis.speak(utterance);
+      }, 60);
     }
 
     window.replayLastGuidance = function() {
@@ -1965,14 +1948,15 @@
       'te-IN': ['sahayam', 'cheyandi', 'kapadandi', 'paamu', 'karichindi', 'gunde', 'noppi', 'vastundi', 'manta', 'kalindi', 'pramadam', 'raktam', 'bhavanam', 'kulipoyindi', 'naaku']
     };
 
+    /* Complete Native First-Aid Guidance Across All 10 Languages */
     var MULTILINGUAL_FIRST_AID = {
       'kn-IN': {
         snake: "🐍 ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ (ಹಾವು ಕಚ್ಚುವಿಕೆ):\n1. ಗಾಬರಿಯಾಗಬೇಡಿ, ಕಚ್ಚಿದ ಭಾಗವನ್ನು ಅಲುಗಾಡಿಸಬೇಡಿ.\n2. ಕಚ್ಚಿದ ಜಾಗವನ್ನು ಹೃದಯದ ಮಟ್ಟಕ್ಕಿಂತ ಕೆಳಗೆ ಇರಿಸಿ.\n3. ಬಿಗಿಯಾದ ಬಟ್ಟೆ ಅಥವಾ ಹಗ್ಗವನ್ನು ಕಟ್ಟಬೇಡಿ.\n4. ತಕ್ಷಣ 108 ಆಂಬ್ಯುಲೆನ್ಸ್‌ಗೆ ಕರೆ ಮಾಡಿ.",
         chest: "❤️ ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ (ಎದೆ ನೋವು):\n1. ತಕ್ಷಣ ಕುಳಿತುಕೊಳ್ಳಿ ಮತ್ತು ವಿಶ್ರಾಂತಿ ಪಡೆಯಿರಿ.\n2. ಬಿಗಿಯಾದ ಬಟ್ಟೆಗಳನ್ನು ಸಡಿಲಗೊಳಿಸಿ.\n3. ತಕ್ಷಣ 108 ಆಂಬ್ಯುಲೆನ್ಸ್‌ಗೆ ಕರೆ ಮಾಡಿ.",
         accident: "🚗 ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ (ರಸ್ತೆ ಅಪಘಾತ):\n1. ಗಾಯಗೊಂಡವರನ್ನು ಅನಗತ್ಯವಾಗಿ ಅಲುಗಾಡಿಸಬೇಡಿ.\n2. ರಕ್ತಸ್ರಾವ ನಿಲ್ಲಿಸಲು ಸ್ವಚ್ಛವಾದ ಬಟ್ಟೆಯಿಂದ ಒತ್ತಿ ಹಿಡಿಯಿರಿ.\n3. ತಕ್ಷಣ 108 ಮತ್ತು 112 ಕ್ಕೆ ಕರೆ ಮಾಡಿ.",
         fire: "🔥 ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ (ಬೆಂಕಿ ಮತ್ತು ಸುಟ್ಟ ಗಾಯ):\n1. ಬೆಂಕಿಯಿಂದ ದೂರ ಸರಿಯಿರಿ. ಸುಟ್ಟ ಜಾಗಕ್ಕೆ 15-20 ನಿಮಿಷ ತಣ್ಣೀರು ಹಾಕಿ.\n2. ಚರ್ಮಕ್ಕೆ ಅಂಟಿಕೊಂಡ ಬಟ್ಟೆಯನ್ನು ಎಳೆಯಬೇಡಿ.\n3. ತಕ್ಷಣ 101 ಮತ್ತು 108 ಕ್ಕೆ ಕರೆ ಮಾಡಿ.",
-        disaster: "🏢 ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ (ಕಟ್ಟಡ ಕುಸಿತ ಮತ್ತು ಪ್ರಕೃತಿ ವಿಕೋಪ):\n1. ಗಟ್ಟಿಮುಟ್ಟಾದ ಮೇಜು ಅಥವಾ ಪಿಲ್ಲರ್ ಕೆಳಗೆ ಆಶ್ರಯ ಪಡೆಯಿರಿ, ತಲೆಯನ್ನು ರಕ್ಷಿಸಿಕೊಳ್ಳಿ.\n2. ಧೂಳಿನಿಂದ ರಕ್ಷಿಸಲು ಬಟ್ಟೆಯಿಂದ ಮೂಗು ಮತ್ತು ಬಾಯಿಯನ್ನು ಮುಚ್ಚಿಕೊಳ್ಳಿ.\n3. ಅವಶೇಷಗಳಡಿ ಸಿಲುಕಿದ್ದರೆ ಪೈಪ್ ಅಥವಾ ಗೋಡೆ ತಟ್ಟಿ ಶಬ್ದ ಮಾಡಿ. ತಕ್ಷಣ 112 ಗೆ ಕರೆ ಮಾಡಿ.",
-        general: "🚨 ತುರ್ತು ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ:\n1. ಶಾಂತವಾಗಿರಿ ಮತ್ತು ಸುರಕ್ಷಿತ ಸ್ಥಳಕ್ಕೆ ತೆರಳಿ.\n2. ರಕ್ತಸ್ರಾವವಾಗುತ್ತಿದ್ದರೆ ಸ್ವಚ್ಛ ಬಟ್ಟೆಯಿಂದ ಒತ್ತಿ ಹಿಡಿಯಿರಿ.\n3. ತಕ್ಷಣ 108 ಆಂಬ್ಯುಲೆನ್ಸ್ ಅಥವಾ 112 ಕ್ಕೆ ಕರೆ ಮಾಡಿ."
+        disaster: "🏢 ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ (ಕಟ್ಟಡ ಕುಸಿತ / ಪ್ರಕೃತಿ ವಿಕೋಪ):\n1. ಗಟ್ಟಿಮುಟ್ಟಾದ ಮೇಜು ಅಥವಾ ಪಿಲ್ಲರ್ ಕೆಳಗೆ ಆಶ್ರಯ ಪಡೆಯಿರಿ; ತಲೆಯನ್ನು ರಕ್ಷಿಸಿಕೊಳ್ಳಿ.\n2. ಧೂಳಿನಿಂದ ರಕ್ಷಿಸಲು ಬಟ್ಟೆಯಿಂದ ಮೂಗು ಮತ್ತು ಬಾಯಿಯನ್ನು ಮುಚ್ಚಿಕೊಳ್ಳಿ.\n3. ಅವಶೇಷಗಳಡಿ ಸಿಲುಕಿದ್ದರೆ ಪೈಪ್ ಅಥವಾ ಗೋಡೆ ತಟ್ಟಿ ಶಬ್ದ ಮಾಡಿ. ತಕ್ಷಣ 112 ಗೆ ಕರೆ ಮಾಡಿ.",
+        general: "🚨 ತುರ್ತು ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ:\n1. ಶಾಂತವಾಗಿರಿ ಮತ್ತು ಸುರಕ್ಷಿತ ಸ್ಥಳಕ್ಕೆ ತೆರಳಿ.\n2. ರಕ್ತಸ್ರಾವವಾಗುತ್ತಿದ್ದರೆ ಸ್ವಚ್ಛ ಬಟ್ಟೆಯಿಂದ ಒತ್ತಿ ಹಿಡಿಯಿರಿ.\n3. ತಕ್ಷಣ 108 (ಆಂಬ್ಯುಲೆನ್ಸ್) ಅಥವಾ 112 ಕ್ಕೆ ಕರೆ ಮಾಡಿ."
       },
       'hi-IN': {
         snake: "🐍 प्राथमिक उपचार (सांप का काटना):\n1. शांत रहें और काटे गए अंग को बिल्कुल न हिलाएं।\n2. काटे गए हिस्से को हृदय के स्तर से नीचे रखें।\n3. कसकर पट्टी या रस्सी न बांधें।\n4. तुरंत 108 एम्बुलेंस को कॉल करें।",
@@ -1981,6 +1965,62 @@
         fire: "🔥 प्राथमिक उपचार (आग और जलना):\n1. आग से दूर हटें। जले हुए हिस्से पर 15-20 मिनट तक ठंडा पानी डालें।\n2. चिपके हुए कपड़े न हटाएं।\n3. तुरंत 101 और 108 पर कॉल करें।",
         disaster: "🏢 प्राथमिक उपचार (इमारत गिरना / आपदा):\n1. किसी मजबूत आश्रय के नीचे झुकें और सिर बचाएं।\n2. धूल से बचने के लिए नाक और मुंह को कपड़े से ढकें।\n3. फंसे होने पर पाइप या दीवार थपथपाएं। तुरंत 112 पर कॉल करें।",
         general: "🚨 आपातकालीन प्राथमिक उपचार:\n1. शांत रहें और सुरक्षित स्थान पर जाएं।\n2. रक्तस्राव होने पर साफ कपड़े से दबाएं।\n3. तुरंत 108 या 112 पर कॉल करें।"
+      },
+      'mr-IN': {
+        snake: "🐍 प्रथमोपचार (सर्पदंश):\n1. शांत राहा आणि चावलेला अवयव अजिबात हलवू नका.\n2. चावलेला भाग हृदयाच्या पातळीपेक्षा खाली ठेवा.\n3. घट्ट पट्टी किंवा दोरी बांधू नका.\n4. तात्काळ 108 रुग्णवाहिकेला कॉल करा.",
+        chest: "❤️ प्रथमोपचार (छातीत दुखणे):\n1. तात्काळ खाली बसा आणि शांतपणे विश्रांती घ्या.\n2. घट्ट कपडे सैल करा.\n3. तात्काळ 108 रुग्णवाहिकेला कॉल करा.",
+        accident: "🚗 प्रथमोपचार (रस्ता अपघात):\n1. जखमी व्यक्तीला विनाकारण हलवू नका.\n2. रक्तस्त्राव थांबवण्यासाठी स्वच्छ कापडाने दाब द्या.\n3. तात्काळ 108 आणि 112 वर कॉल करा.",
+        fire: "🔥 प्रथमोपचार (आग आणि भाजणे):\n1. आगीपासून दूर जा. भाजलेल्या भागावर 15-20 मिनिटे थंड पाणी टाका.\n2. चिकटलेले कपडे ओढून काढू नका.\n3. तात्काळ 101 आणि 108 वर कॉल करा.",
+        disaster: "🏢 प्रथमोपचार (इमारत कोसळणे / आपत्ती):\n1. मजबूत टेबल किंवा आधाराखाली आश्रय घ्या आणि डोके वाचवा.\n2. धुळीपासून वाचण्यासाठी नाक आणि तोंड कापडाने झाका.\n3. अडकल्यास पाईप किंवा भिंतीवर थाप मारा. तात्काळ 112 वर कॉल करा.",
+        general: "🚨 आपत्कालीन प्रथमोपचार:\n1. शांत राहा आणि सुरक्षित ठिकाणी जा.\n2. रक्तस्त्राव होत असल्यास स्वच्छ कापडाने दाबा.\n3. तात्काळ 108 किंवा 112 वर कॉल करा."
+      },
+      'bn-IN': {
+        snake: "🐍 প্রাথমিক চিকিৎসা (সাপের কামড়):\n1. শান্ত থাকুন এবং কামড়ানো অঙ্গ নড়াচড়া করবেন না।\n2. কামড়ানো স্থানটি হৃদপিণ্ডের স্তরের নিচে রাখুন।\n3. শক্ত করে কোনো বাঁধন দেবেন না।\n4. অবিলম্বে 108 অ্যাম্বুলেন্সে কল করুন।",
+        chest: "❤️ প্রাথমিক চিকিৎসা (বুকে ব্যথা):\n1. অবিলম্বে বসে পড়ুন এবং শান্ত হয়ে বিশ্রাম নিন।\n2. আঁটসাঁট পোশাক ঢিলে করে দিন।\n3. অবিলম্বে 108 অ্যাম্বুলেন্সে কল করুন।",
+        accident: "🚗 প্রাথমিক চিকিৎসা (সড়ক দুর্ঘটনা):\n1. আহত ব্যক্তিকে অযথা নড়াচড়া করবেন না।\n2. রক্তপাত বন্ধ করতে পরিষ্কার কাপড় দিয়ে চেপে ধরুন।\n3. অবিলম্বে 108 এবং 112 নম্বরে কল করুন।",
+        fire: "🔥 প্রাথমিক চিকিৎসা (আগুন ও পুড়ে যাওয়া):\n1. আগুন থেকে দূরে সরে যান। পোড়া স্থানে 15-20 মিনিট ঠান্ডা জল ঢালুন।\n2. আটকে থাকা কাপড় টেনে খুলবেন না।\n3. অবিলম্বে 101 এবং 108 নম্বরে কল করুন।",
+        disaster: "🏢 প্রাথমিক চিকিৎসা (ভবন ধস / দুর্যোগ):\n1. শক্ত কোনো টেবিল বা আশ্রয়ের নিচে মাথা ঢেকে বসুন।\n2. ধুলো থেকে বাঁচতে কাপড় দিয়ে নাক ও মুখ ঢেকে রাখুন।\n3. আটকে পড়লে পাইপ বা দেওয়ালে আঘাত করে শব্দ করুন। অবিলম্বে 112 নম্বরে কল করুন।",
+        general: "🚨 জরুরী প্রাথমিক চিকিৎসা:\n1. শান্ত থাকুন এবং নিরাপদ স্থানে যান।\n2. রক্তপাত হলে পরিষ্কার কাপড় দিয়ে চেপে ধরুন।\n3. অবিলম্বে 108 বা 112 নম্বরে কল করুন।"
+      },
+      'gu-IN': {
+        snake: "🐍 પ્રાથમિક સારવાર (સાપ કરડવો):\n1. શાંત રહો અને કરડેલા ભાગને હલાવશો નહીં.\n2. કરડેલા ભાગને હૃદયના સ્તરથી નીચે રાખો.\n3. કડક પાટો કે દોરી બાંધશો નહીં.\n4. તરત જ 108 એમ્બ્યુલન્સને કોલ કરો.",
+        chest: "❤️ પ્રાથમિક સારવાર (છાતીમાં દુખાવો):\n1. તરત જ બેસી જાઓ અને શાંતિથી આરામ કરો.\n2. ચુસ્ત કપડાં ઢીલા કરો.\n3. તરત જ 108 એમ્બ્યુલન્સને કોલ કરો.",
+        accident: "🚗 પ્રાથમિક સારવાર (માર્ગ અકસ્માત):\n1. ઘાયલ વ્યક્તિને બિનજરૂરી રીતે હલાવશો નહીં.\n2. લોહી વહેતું અટકાવવા સ્વચ્છ કપડાથી દબાવો.\n3. તરત જ 108 અને 112 પર કોલ કરો.",
+        fire: "🔥 પ્રાથમિક સારવાર (આગ અને દાઝવું):\n1. આગથી દૂર જાઓ. દાઝેલા ભાગ પર 15-20 મિનિટ ઠંડું પાણી રેડો.\n2. ચોંટેલા કપડાં ખેંચશો નહીં.\n3. તરત જ 101 અને 108 પર કોલ કરો.",
+        disaster: "🏢 પ્રાથમિક સારવાર (મકાન ધરાશાયી / આપત્તિ):\n1. મજબૂત ટેબલ કે આશ્રય નીચે માથું ઢાંકીને બેસો.\n2. ધૂળથી બચવા નાક અને મોં કપડાથી ઢાંકો.\n3. ફસાયા હોવ તો પાઈપ કે દીવાલ ખખડાવો. તરત જ 112 પર કોલ કરો.",
+        general: "🚨 કટોકટી પ્રાથમિક સારવાર:\n1. શાંત રહો અને સુરક્ષિત સ્થળે જાઓ.\n2. લોહી વહેતું હોય તો સ્વચ્છ કપડાથી દબાવો.\n3. તરત જ 108 અથવા 112 પર કોલ કરો."
+      },
+      'ml-IN': {
+        snake: "🐍 പ്രഥമശുശ്രൂഷ (പാമ്പുകടി):\n1. പരിഭ്രാന്തരാകാതെ കടിയേറ്റ ഭാഗം അനക്കാതെ വയ്ക്കുക.\n2. കടിയേറ്റ ഭാഗം ഹൃദയത്തിന്റെ നിരപ്പിന് താഴെയായി വയ്ക്കുക.\n3. മുറുക്കി കെട്ടുകയോ ചരട് കെട്ടുകയോ ചെയ്യരുത്.\n4. ഉടൻ 108 ആംബുലൻസിലേക്ക് വിളിക്കുക.",
+        chest: "❤️ പ്രഥമശുശ്രൂഷ (നെഞ്ചുവേദന):\n1. ഉടൻ ഇരിക്കുകയും ശാന്തമായി വിശ്രമിക്കുകയും ചെയ്യുക.\n2. ഇറുകിയ വസ്ത്രങ്ങൾ അയച്ചിടുക.\n3. ഉടൻ 108 ആംബുലൻസിലേക്ക് വിളിക്കുക.",
+        accident: "🚗 പ്രഥമശുശ്രൂഷ (റോഡപകടം):\n1. പരിക്കേറ്റയാളെ അനാവശ്യമായി അനക്കരുത്.\n2. രക്തസ്രാവം തടയാൻ വൃത്തിയുള്ള തുണി ഉപയോഗിച്ച് അമർത്തിപ്പിടിക്കുക.\n3. ഉടൻ 108, 112 എന്നിവയിലേക്ക് വിളിക്കുക.",
+        fire: "🔥 പ്രഥമശുശ്രൂഷ (തീപിടുത്തവും പൊള്ളലും):\n1. തീയിൽ നിന്ന് മാറിനിൽക്കുക. പൊള്ളലേറ്റ ഭാഗത്ത് 15-20 മിനിറ്റ് തണുത്ത വെള്ളം ഒഴിക്കുക.\n2. ഒട്ടിപ്പിടിച്ച വസ്ത്രങ്ങൾ വലിച്ചെടുക്കരുത്.\n3. ഉടൻ 101, 108 എന്നിവയിലേക്ക് വിളിക്കുക.",
+        disaster: "🏢 പ്രഥമശുശ്രൂഷ (കെട്ടിടം തകരൽ / ദുരന്തം):\n1. ഉറപ്പുള്ള മേശയുടെയോ തൂണിന്റെയോ കീഴിൽ തല സംരക്ഷിച്ച് ഇരിക്കുക.\n2. പൊടിയിൽ നിന്ന് രക്ഷപ്പെടാൻ മൂക്കും വായും തുണി കൊണ്ട് മൂടുക.\n3. കുടുങ്ങിക്കിടക്കുകയാണെങ്കിൽ പൈപ്പിലോ ഭിത്തിയിലോ തട്ടി ശബ്ദമുണ്ടാക്കുക. ഉടൻ 112 വിളിക്കുക.",
+        general: "🚨 അടിയന്തര പ്രഥമശുശ്രൂഷ:\n1. ശാന്തരായി സുരക്ഷിത സ്ഥാനത്തേക്ക് മാറുക.\n2. രക്തസ്രാവമുണ്ടെങ്കിൽ വൃത്തിയുള്ള തുണി കൊണ്ട് അമർത്തിപ്പിടിക്കുക.\n3. ഉടൻ 108 അല്ലെങ്കിൽ 112 വിളിക്കുക."
+      },
+      'pa-IN': {
+        snake: "🐍 ਮੁੱਢਲੀ ਸਹਾਇਤਾ (ਸੱਪ ਦਾ ਡੰਗ):\n1. ਘਬਰਾਓ ਨਾ ਅਤੇ ਡੰਗ ਵਾਲੇ ਹਿੱਸੇ ਨੂੰ ਬਿਲਕੁਲ ਨਾ ਹਿਲਾਓ।\n2. ਡੰਗ ਵਾਲੇ ਹਿੱਸੇ ਨੂੰ ਦਿਲ ਦੇ ਪੱਧਰ ਤੋਂ ਹੇਠਾਂ ਰੱਖੋ।\n3. ਕੱਸ ਕੇ ਪੱਟੀ ਜਾਂ ਰੱਸੀ ਨਾ ਬੰਨ੍ਹੋ।\n4. ਤੁਰੰਤ 108 ਐਂਬੂਲੈਂਸ ਨੂੰ ਕਾਲ ਕਰੋ।",
+        chest: "❤️ ਮੁੱਢਲੀ ਸਹਾਇਤਾ (ਛਾਤੀ ਵਿੱਚ ਦਰਦ):\n1. ਤੁਰੰਤ ਬੈਠ ਜਾਓ ਅਤੇ ਸ਼ਾਂਤ ਹੋ ਕੇ ਆਰਾਮ ਕਰੋ।\n2. ਤੰਗ ਕੱਪੜੇ ਢਿੱਲੇ ਕਰੋ।\n3. ਤੁਰੰਤ 108 ਐਂਬੂਲੈਂਸ ਨੂੰ ਕਾਲ ਕਰੋ।",
+        accident: "🚗 ਮੁੱਢਲੀ ਸਹਾਇਤਾ (ਸੜਕ ਹਾਦਸਾ):\n1. ਜ਼ਖਮੀ ਵਿਅਕਤੀ ਨੂੰ ਬਿਨਾਂ ਵਜ੍ਹਾ ਨਾ ਹਿਲਾਓ।\n2. ਖੂਨ ਰੋਕਣ ਲਈ ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਦਬਾਅ ਪਾਓ।\n3. ਤੁਰੰਤ 108 ਅਤੇ 112 'ਤੇ ਕਾਲ ਕਰੋ।",
+        fire: "🔥 ਮੁੱਢਲੀ ਸਹਾਇਤਾ (ਅੱਗ ਅਤੇ ਸੜਨਾ):\n1. ਅੱਗ ਤੋਂ ਦੂਰ ਹਟੋ। ਸੜੇ ਹੋਏ ਹਿੱਸੇ 'ਤੇ 15-20 ਮਿੰਟ ਠੰਡਾ ਪਾਣੀ ਪਾਓ।\n2. ਚਿਪਕੇ ਹੋਏ ਕੱਪੜੇ ਨਾ ਖਿੱਚੋ।\n3. ਤੁਰੰਤ 101 ਅਤੇ 108 'ਤੇ ਕਾਲ ਕਰੋ।",
+        disaster: "🏢 ਮੁੱਢਲੀ ਸਹਾਇਤਾ (ਇਮਾਰਤ ਡਿੱਗਣਾ / ਆਫ਼ਤ):\n1. ਕਿਸੇ ਮਜ਼ਬੂਤ ਮੇਜ਼ ਜਾਂ ਆਸਰੇ ਹੇਠ ਸਿਰ ਬਚਾ ਕੇ ਬੈਠੋ।\n2. ਧੂੜ ਤੋਂ ਬਚਣ ਲਈ ਨੱਕ ਅਤੇ ਮੂੰਹ ਕੱਪੜੇ ਨਾਲ ਢੱਕੋ।\n3. ਫਸੇ ਹੋਣ 'ਤੇ ਪਾਈਪ ਜਾਂ ਕੰਧ ਖੜਕਾਓ। ਤੁਰੰਤ 112 'ਤੇ ਕਾਲ ਕਰੋ।",
+        general: "🚨 ਐਮਰਜੈਂਸੀ ਮੁੱਢਲੀ ਸਹਾਇਤਾ:\n1. ਸ਼ਾਂਤ ਰਹੋ ਅਤੇ ਸੁਰੱਖਿਅਤ ਥਾਂ 'ਤੇ ਜਾਓ।\n2. ਖੂਨ ਵਹਿਣ 'ਤੇ ਸਾਫ਼ ਕੱਪੜੇ ਨਾਲ ਦਬਾਓ।\n3. ਤੁਰੰਤ 108 ਜਾਂ 112 'ਤੇ ਕਾਲ ਕਰੋ।"
+      },
+      'ta-IN': {
+        snake: "🐍 முதலுதவி (பாம்பு கடி):\n1. பதறாமல் கடிபட்ட பகுதியை அசைக்காமல் வைக்கவும்.\n2. கடிபட்ட இடத்தை இதய மட்டத்திற்கு கீழே வைக்கவும்.\n3. இறுக்கமாக கயிறு அல்லது துணி கட்ட வேண்டாம்.\n4. உடனடியாக 108 ஆம்புலன்ஸை அழைக்கவும்.",
+        chest: "❤️ முதலுதவி (நெஞ்சு வலி):\n1. உடனடியாக அமர்ந்து அமைதியாக ஓய்வெடுக்கவும்.\n2. இறுக்கமான ஆடைகளை தளர்த்தவும்.\n3. உடனடியாக 108 ஆம்புலன்ஸை அழைக்கவும்.",
+        accident: "🚗 முதலுதவி (சாலை விபத்து):\n1. காயமடைந்தவரை தேவையில்லாமல் அசைக்க வேண்டாம்.\n2. இரத்தப்போக்கை நிறுத்த சுத்தமான துணியால் அழுத்திப் பிடிக்கவும்.\n3. உடனடியாக 108 மற்றும் 112 எண்களை அழைக்கவும்.",
+        fire: "🔥 முதலுதவி (தீ மற்றும் தீக்காயம்):\n1. தீயிலிருந்து விலகிச் செல்லவும். தீக்காயத்தின் மீது 15-20 நிமிடம் குளிர்ந்த நீர் ஊற்றவும்.\n2. ஒட்டியிருக்கும் ஆடைகளை இழுக்க வேண்டாம்.\n3. உடனடியாக 101 மற்றும் 108 எண்களை அழைக்கவும்.",
+        disaster: "🏢 முதலுதவி (கட்டிட இடிபாடு / பேரிடர்):\n1. உறுதியான மேசை அல்லது தூணின் கீழ் தலையைப் பாதுகாத்து அமரவும்.\n2. தூசியிலிருந்து பாதுகாக்க மூக்கு மற்றும் வாயை துணியால் மூடவும்.\n3. இடிபாடுகளில் சிக்கியிருந்தால் குழாய் அல்லது சுவரைத் தட்டி ஒலி எழுப்பவும். உடனடியாக 112 அழைக்கவும்.",
+        general: "🚨 அவசர முதலுதவி:\n1. அமைதியாக இருந்து பாதுகாப்பான இடத்திற்குச் செல்லவும்.\n2. இரத்தப்போக்கு இருந்தால் சுத்தமான துணியால் அழுத்தவும்.\n3. உடனடியாக 108 அல்லது 112 அழைக்கவும்."
+      },
+      'te-IN': {
+        snake: "🐍 ప్రథమ చికిత్స (పాము కాటు):\n1. కంగారు పడకండి, కాటు వేసిన భాగాన్ని కదపకండి.\n2. కాటు వేసిన భాగాన్ని గుండె స్థాయి కంటే కింద ఉంచండి.\n3. గట్టిగా తాడు లేదా గుడ్డ కట్టకండి.\n4. వెంటనే 108 అంబులెన్స్‌కు కాల్ చేయండి.",
+        chest: "❤️ ప్రథమ చికిత్స (గుండె నొప్పి):\n1. వెంటనే కూర్చుని ప్రశాంతంగా విశ్రాంతి తీసుకోండి.\n2. బిగుతుగా ఉన్న బట్టలను వదులు చేయండి.\n3. వెంటనే 108 అంబులెన్స్‌కు కాల్ చేయండి.",
+        accident: "🚗 ప్రథమ చికిత్స (రోడ్డు ప్రమాదం):\n1. గాయపడిన వారిని అనవసరంగా కదపకండి.\n2. రక్తస్రావం ఆపడానికి శుభ్రమైన గుడ్డతో గట్టిగా నొక్కి పట్టండి.\n3. వెంటనే 108 మరియు 112 కు కాల్ చేయండి.",
+        fire: "🔥 ప్రథమ చికిత్స (అగ్ని ప్రమాదం & కాలిన గాయాలు):\n1. మంటల నుండి దూరంగా వెళ్ళండి. కాలిన చోట 15-20 నిమిషాలు చల్లని నీరు పోయండి.\n2. అతుక్కుపోయిన బట్టలను లాగకండి.\n3. వెంటనే 101 మరియు 108 కు కాల్ చేయండి.",
+        disaster: "🏢 ప్రథమ చికిత్స (భవనం కూలడం / విపత్తు):\n1. గట్టి బల్ల లేదా ఆసరా కింద తలను రక్షించుకుంటూ కూర్చోండి.\n2. దుమ్ము నుండి రక్షించుకోవడానికి ముక్కు, నోటిని గుడ్డతో కప్పుకోండి.\n3. చిక్కుకుపోతే పైపు లేదా గోడను తట్టి శబ్దం చేయండి. వెంటనే 112 కు కాల్ చేయండి.",
+        general: "🚨 అత్యవసర ప్రథమ చికిత్స:\n1. ప్రశాంతంగా ఉండి సురక్షిత ప్రాంతానికి వెళ్ళండి.\n2. రక్తస్రావం అవుతుంటే శుభ్రమైన గుడ్డతో నొక్కి పట్టండి.\n3. వెంటనే 108 లేదా 112 కు కాల్ చేయండి."
       },
       'en-IN': {
         snake: "🐍 First Aid (Snakebite):\n1. Stay calm and immobilize the bitten limb.\n2. Keep the bitten area below heart level.\n3. Do NOT tie a tight tourniquet.\n4. Call 108 Ambulance immediately.",
