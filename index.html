@@ -5,35 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SaHaya • Talk • Translate • Stay Safe</title>
 
-  <!-- Google Fonts: Clean Geometric Sans-Serif (Poppins & Plus Jakarta Sans) -->
+  <!-- PWA / Home Screen Shortcut Meta -->
+  <meta name="theme-color" content="#0b1325" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="SaHaya" />
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet" />
 
-  <!-- Custom SEO Metadata & Branding Assets Integration (Open Graph Specs) -->
-  <meta name="description" content="SaHaya: Talk • Translate • Stay Safe. AI-powered multilingual voice and text first-aid responder with 10-language code-mix auto-detection, DSP noise cancellation, SOS alarm, and geofencing safeguards." />
-  
-  <!-- Open Graph / WhatsApp Preview Meta -->
+  <!-- SEO & Open Graph -->
+  <meta name="description" content="SaHaya: Talk • Translate • Stay Safe. Instant AI-powered multilingual voice first-aid responder with 10-language auto-detection, SOS alarm, and geofencing." />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="SaHaya • Multilingual Emergency Assistant" />
-  <meta property="og:description" content="Immediate multi-language first-aid guidance. Powered by Gnani and Groq AI." />
+  <meta property="og:description" content="Immediate multi-language voice first-aid guidance. Powered by Gnani and Groq AI." />
   <meta property="og:image" content="/static/cover.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="1200" />
-  <meta property="og:site_name" content="SaHaya Application" />
-
-  <!-- Twitter Preview Meta -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="SaHaya Emergency Voice Assistant" />
-  <meta name="twitter:description" content="Voice-first offline and online crisis aid." />
-  <meta name="twitter:image" content="/static/cover.png" />
-
-  <!-- Application Brand Icon -->
   <link rel="icon" type="image/png" href="/static/logo.png" />
+  <link rel="apple-touch-icon" href="/static/logo.png" />
 
   <style>
     :root {
-      /* Deep Navy & Cool Logo-Matched Blue Palette */
       --bg-dark: #0b1325;
       --bg-gradient: radial-gradient(circle at top left, #1b2e4b 0%, #0b1325 100%);
       --card-bg: #162238;
@@ -64,7 +58,7 @@
       min-height: 100vh;
       display: flex;
       justify-content: center;
-      padding: 20px 16px;
+      padding: 18px 14px;
     }
 
     .app-container {
@@ -72,26 +66,26 @@
       max-width: 500px;
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 16px;
     }
 
-    /* ================= HEADER & BRANDING LOGO ================= */
+    /* ================= HEADER & BRANDING ================= */
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .brand-row {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .brand-logo-img {
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       object-fit: contain;
       border-radius: 8px;
       filter: drop-shadow(0 2px 8px rgba(56, 189, 248, 0.4));
@@ -99,49 +93,38 @@
 
     .animated-title {
       font-family: 'Poppins', 'Plus Jakarta Sans', sans-serif;
-      font-size: 2rem;
+      font-size: 1.85rem;
       font-weight: 800;
       letter-spacing: 0.4px;
       background: linear-gradient(135deg, #ffffff 15%, #bae6fd 50%, #38bdf8 100%);
       color: transparent;
       -webkit-background-clip: text;
       background-clip: text;
-      filter: drop-shadow(0 2px 8px rgba(56, 189, 248, 0.28));
     }
 
     .sound-wave {
       display: flex;
       align-items: center;
-      gap: 3.5px;
-      height: 28px;
-      padding: 0 4px;
-      background: transparent;
-      border: none;
-      box-shadow: none;
+      gap: 3px;
+      height: 24px;
     }
 
     .wave-bar {
-      width: 3.5px;
+      width: 3px;
       background: linear-gradient(to top, #2563eb, #38bdf8, #bae6fd);
       border-radius: 999px;
       animation: bounceWave 0.85s ease-in-out infinite;
     }
 
     .wave-bar:nth-child(1) { height: 8px; animation-delay: 0.0s; }
-    .wave-bar:nth-child(2) { height: 18px; animation-delay: 0.15s; }
-    .wave-bar:nth-child(3) { height: 12px; animation-delay: 0.3s; }
-    .wave-bar:nth-child(4) { height: 20px; animation-delay: 0.45s; }
-    .wave-bar:nth-child(5) { height: 10px; animation-delay: 0.6s; }
+    .wave-bar:nth-child(2) { height: 16px; animation-delay: 0.15s; }
+    .wave-bar:nth-child(3) { height: 11px; animation-delay: 0.3s; }
+    .wave-bar:nth-child(4) { height: 18px; animation-delay: 0.45s; }
+    .wave-bar:nth-child(5) { height: 9px; animation-delay: 0.6s; }
 
     @keyframes bounceWave {
-      0%, 100% {
-        transform: scaleY(0.45);
-        opacity: 0.75;
-      }
-      50% {
-        transform: scaleY(1.25);
-        opacity: 1;
-      }
+      0%, 100% { transform: scaleY(0.45); opacity: 0.75; }
+      50% { transform: scaleY(1.25); opacity: 1; }
     }
 
     .settings-wrapper {
@@ -151,36 +134,61 @@
       gap: 6px;
     }
 
-    .badge-active {
-      background: rgba(34, 197, 94, 0.15);
-      border: 1px solid var(--green-main);
-      color: #86efac;
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-size: 0.76rem;
-      font-weight: 700;
+    .header-top-pills {
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
+    .shortcut-btn {
+      background: rgba(56, 189, 248, 0.16);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      color: #bae6fd;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .shortcut-btn:hover {
+      background: var(--blue-main);
+      color: #ffffff;
+    }
+
+    .badge-active {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid var(--green-main);
+      color: #86efac;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
     .dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       background: var(--green-bright);
       border-radius: 50%;
-      display: inline-block;
       box-shadow: 0 0 8px var(--green-bright);
     }
 
     .pref-lang-row {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .pref-lang-label {
-      font-size: 0.74rem;
+      font-size: 0.7rem;
       color: #e2e8f0;
       font-weight: 600;
     }
@@ -189,15 +197,42 @@
       background: #1e293b;
       color: var(--blue-light);
       border: 1px solid var(--card-border);
-      padding: 5px 10px;
+      padding: 4px 8px;
       border-radius: 8px;
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       font-weight: 700;
       cursor: pointer;
       outline: none;
     }
 
-    /* ================= 3 NAVIGATION TABS (BLUE THEME) ================= */
+    /* Shortcut Banner */
+    .shortcut-banner {
+      display: none;
+      background: rgba(37, 99, 235, 0.22);
+      border: 1px solid var(--blue-light);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: #e0f2fe;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .shortcut-banner.visible {
+      display: flex;
+    }
+
+    .shortcut-close {
+      background: none;
+      border: none;
+      color: #93c5fd;
+      font-weight: 800;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    /* ================= 3 NAVIGATION TABS ================= */
     .nav-tabs {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -212,7 +247,7 @@
       border: none;
       color: var(--text-muted);
       padding: 10px;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 700;
       border-radius: 8px;
       cursor: pointer;
@@ -228,7 +263,7 @@
     .tab-content {
       display: none;
       flex-direction: column;
-      gap: 16px;
+      gap: 15px;
     }
 
     .tab-content.active {
@@ -239,24 +274,24 @@
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 18px;
-      padding: 20px;
+      padding: 18px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
     }
 
-    /* ================= 1. SHIELD TAB (RED GRADIENT SOS BUTTON) ================= */
+    /* ================= 1. SHIELD TAB ================= */
     .shield-center-box {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 38px 20px;
-      gap: 20px;
+      padding: 34px 18px;
+      gap: 18px;
     }
 
     .sos-big-btn {
-      width: 175px;
-      height: 175px;
+      width: 170px;
+      height: 170px;
       border-radius: 50%;
       background: radial-gradient(circle, #ff5252 0%, #dc2626 55%, var(--red-dark) 100%);
       border: 6px solid rgba(239, 68, 68, 0.38);
@@ -271,11 +306,11 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: transform 0.15s ease, box-shadow 0.2s ease;
+      transition: transform 0.15s ease;
     }
 
     .sos-big-btn span {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
       opacity: 0.95;
       line-height: 1.25;
@@ -292,18 +327,12 @@
     }
 
     @keyframes pulseRed {
-      from {
-        transform: scale(1);
-        box-shadow: 0 0 25px rgba(239, 68, 68, 0.65);
-      }
-      to {
-        transform: scale(1.07);
-        box-shadow: 0 0 65px rgba(239, 68, 68, 1);
-      }
+      from { transform: scale(1); box-shadow: 0 0 25px rgba(239, 68, 68, 0.65); }
+      to { transform: scale(1.07); box-shadow: 0 0 65px rgba(239, 68, 68, 1); }
     }
 
     .sos-status-text {
-      font-size: 0.94rem;
+      font-size: 0.92rem;
       color: var(--text-muted);
       line-height: 1.45;
     }
@@ -311,39 +340,38 @@
     .gps-live-pill {
       background: rgba(11, 19, 37, 0.75);
       border: 1px solid var(--card-border);
-      padding: 10px 16px;
+      padding: 10px 14px;
       border-radius: 10px;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       color: var(--blue-light);
       width: 100%;
       font-weight: 600;
     }
 
-    /* ================= 2. TRANSLATE TAB (BLUE MIC & BUTTONS) ================= */
+    /* ================= 2. TRANSLATE TAB ================= */
     .mic-center-card {
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 12px;
+      gap: 11px;
     }
 
     .mic-glow-aura {
-      width: 114px;
-      height: 114px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
       background: var(--blue-glow);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 4px 0;
+      margin: 2px 0;
       box-shadow: 0 0 28px rgba(37, 99, 235, 0.35);
-      transition: all 0.25s ease;
     }
 
     .mic-circle-btn {
-      width: 84px;
-      height: 84px;
+      width: 82px;
+      height: 82px;
       border-radius: 50%;
       background: linear-gradient(145deg, #38bdf8, #2563eb);
       border: none;
@@ -372,25 +400,52 @@
       animation: pulseRed 0.8s infinite alternate;
     }
 
+    .voice-controls-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
     .mic-tagline {
-      font-size: 0.78rem;
+      font-size: 0.74rem;
       color: var(--blue-light);
       font-weight: 800;
-      letter-spacing: 1.4px;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
       background: rgba(56, 189, 248, 0.14);
       border: 1px solid rgba(56, 189, 248, 0.38);
-      padding: 6px 16px;
+      padding: 5px 14px;
       border-radius: 999px;
-      margin-top: 2px;
     }
 
-    /* Input Row with Inline Circular Clear Button (✕) */
+    .wake-word-toggle {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--card-border);
+      color: #cbd5e1;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+
+    .wake-word-toggle.active {
+      background: rgba(34, 197, 94, 0.2);
+      border-color: var(--green-main);
+      color: #86efac;
+    }
+
     .manual-input-row {
       display: flex;
       width: 100%;
       gap: 8px;
-      margin-top: 4px;
+      margin-top: 2px;
       align-items: center;
     }
 
@@ -406,12 +461,11 @@
       background: #0f172a;
       border: 1px solid var(--card-border);
       color: #ffffff;
-      padding: 10px 36px 10px 12px;
+      padding: 10px 34px 10px 12px;
       border-radius: 10px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 500;
       outline: none;
-      transition: border-color 0.2s ease;
     }
 
     .input-clear-wrapper input:focus {
@@ -427,21 +481,17 @@
       background: rgba(148, 163, 184, 0.22);
       border: 1px solid rgba(148, 163, 184, 0.35);
       color: #f8fafc;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      line-height: 1;
-      transition: all 0.15s ease;
     }
 
     .clear-input-btn:hover {
       background: var(--red);
       border-color: var(--red);
-      color: #ffffff;
-      transform: scale(1.08);
     }
 
     .translate-help-btn {
@@ -451,18 +501,12 @@
       padding: 10px 14px;
       border-radius: 10px;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       cursor: pointer;
       white-space: nowrap;
       box-shadow: 0 2px 10px rgba(37, 99, 235, 0.35);
-      transition: opacity 0.15s ease;
     }
 
-    .translate-help-btn:hover {
-      opacity: 0.92;
-    }
-
-    /* Output Box */
     .first-aid-box {
       width: 100%;
       background: #0f172a;
@@ -490,51 +534,62 @@
       color: var(--blue-light);
       padding: 4px 10px;
       border-radius: 6px;
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       font-weight: 700;
+    }
+
+    .audio-action-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .speak-aloud-btn {
       background: rgba(34, 197, 94, 0.16);
       border: 1px solid rgba(34, 197, 94, 0.45);
       color: #86efac;
-      padding: 5px 12px;
+      padding: 5px 10px;
       border-radius: 6px;
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 4px;
-      transition: all 0.15s ease;
     }
 
-    .speak-aloud-btn:hover {
-      background: rgba(34, 197, 94, 0.3);
+    .stop-audio-btn {
+      background: rgba(239, 68, 68, 0.16);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      color: #fca5a5;
+      padding: 5px 9px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
     }
 
     .spoken-transcript {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: #cbd5e1;
       font-style: italic;
     }
 
     .guidance-steps {
-      font-size: 0.95rem;
+      font-size: 0.94rem;
       color: #ffffff;
       line-height: 1.55;
       font-weight: 500;
       white-space: pre-line;
     }
 
-    /* Section Headings */
     .section-label {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 800;
       color: #ffffff;
       letter-spacing: 0.7px;
       text-transform: uppercase;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       display: block;
     }
 
@@ -550,7 +605,7 @@
       color: #f8fafc;
       padding: 8px 12px;
       border-radius: 999px;
-      font-size: 0.8rem;
+      font-size: 0.79rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.15s ease;
@@ -564,78 +619,60 @@
     .directory-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      gap: 10px;
     }
 
     .dir-card {
       background: #0f172a;
       border: 1px solid var(--card-border);
       border-radius: 14px;
-      padding: 14px;
+      padding: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       text-decoration: none;
       color: var(--text-white);
-      transition: transform 0.12s ease, border-color 0.2s ease;
-    }
-
-    .dir-card:hover {
-      border-color: var(--blue-light);
-      transform: translateY(-2px);
     }
 
     .dir-info {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
     }
 
-    .dir-icon {
-      font-size: 1.35rem;
-    }
-
-    .dir-label {
-      font-size: 0.78rem;
-      color: #e2e8f0;
-      font-weight: 600;
-    }
-
-    .dir-number {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: #ffffff;
-    }
+    .dir-icon { font-size: 1.3rem; }
+    .dir-label { font-size: 0.76rem; color: #e2e8f0; font-weight: 600; }
+    .dir-number { font-size: 1.02rem; font-weight: 800; color: #ffffff; }
 
     .dir-call-btn {
       background: rgba(37, 99, 235, 0.2);
       color: #60a5fa;
       border: 1px solid rgba(59, 130, 246, 0.4);
-      padding: 6px 12px;
+      padding: 6px 10px;
       border-radius: 8px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
     }
 
     /* ================= 3. GUARDIAN TAB ================= */
     .guardian-title {
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       font-weight: 700;
       color: #ffffff;
       margin-bottom: 4px;
     }
 
     .guardian-sub {
-      font-size: 0.8rem;
+      font-size: 0.79rem;
       color: var(--text-muted);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .contact-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin-bottom: 14px;
+      gap: 8px;
+      margin-bottom: 12px;
     }
 
     .contact-item {
@@ -668,7 +705,7 @@
       color: white;
       padding: 10px;
       border-radius: 8px;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       width: 100%;
     }
 
@@ -676,7 +713,7 @@
       background: var(--green-main);
       color: #052e16;
       border: none;
-      padding: 0 16px;
+      padding: 0 14px;
       border-radius: 8px;
       font-weight: 800;
       cursor: pointer;
@@ -689,7 +726,7 @@
     <!-- Top Header Branding -->
     <div class="header">
       <div class="brand-row">
-        <img class="brand-logo-img" src="/static/logo.png" alt="SaHaya Brand Logo Pattern" onerror="this.style.display='none';" />
+        <img class="brand-logo-img" src="/static/logo.png" alt="SaHaya Logo" onerror="this.style.display='none';" />
         <h1 class="animated-title" data-i18n="app_title">SaHaya</h1>
         <div class="sound-wave">
           <span class="wave-bar"></span>
@@ -701,12 +738,18 @@
       </div>
 
       <div class="settings-wrapper">
-        <div class="badge-active">
-          <span class="dot"></span> <span data-i18n="status_ready">Ready</span>
+        <div class="header-top-pills">
+          <button type="button" id="installShortcutBtn" class="shortcut-btn" onclick="triggerAppShortcutInstall()" title="Add 1-tap shortcut to Home Screen">
+            📲 <span data-i18n="btn_shortcut">Add Shortcut</span>
+          </button>
+          <div class="badge-active">
+            <span class="dot"></span> <span data-i18n="status_ready">Ready</span>
+          </div>
         </div>
         <div class="pref-lang-row">
-          <span class="pref-lang-label" data-i18n="ui_label">Preferred Language:</span>
+          <span class="pref-lang-label" data-i18n="ui_label">Language:</span>
           <select id="globalUiLang" class="global-ui-select" onchange="changePreferredUiLanguage(this.value)">
+            <option value="auto">Auto-Detect (All 10)</option>
             <option value="en">English</option>
             <option value="hi">Hindi (हिन्दी)</option>
             <option value="bn">Bengali (বাংলা)</option>
@@ -720,6 +763,14 @@
           </select>
         </div>
       </div>
+    </div>
+
+    <!-- Shortcut Instructions Banner -->
+    <div id="shortcutBanner" class="shortcut-banner">
+      <span id="shortcutBannerText">
+        📲 <strong>1-Tap Emergency Shortcut:</strong> Tap your browser menu (<strong>⋮</strong> or <strong>Share</strong>) → <strong>"Add to Home Screen"</strong> for instant offline & voice access!
+      </span>
+      <button type="button" class="shortcut-close" onclick="document.getElementById('shortcutBanner').classList.remove('visible')">✕</button>
     </div>
 
     <!-- 3 Navigation Tabs -->
@@ -750,9 +801,8 @@
     <!-- ==================== TAB 2: TRANSLATE ==================== -->
     <div id="tab-translate" class="tab-content">
       <div class="card mic-center-card">
-        <span class="section-label" data-i18n="mic_label">🎙️ AUTO-DETECT CODE-MIXED & MULTILINGUAL ASSISTANT</span>
+        <span class="section-label" data-i18n="mic_label">🎙️ INSTANT VOICE & AUTO-READ EMERGENCY ASSISTANT</span>
 
-        <!-- Microphone Trigger with Outer Ring Aura -->
         <div class="mic-glow-aura">
           <button type="button" id="micBtn" class="mic-circle-btn" onclick="toggleVoiceRecognition()" title="Tap to Speak">
             <svg viewBox="0 0 24 24">
@@ -761,16 +811,19 @@
           </button>
         </div>
 
-        <!-- Pill Tagline -->
-        <p class="mic-tagline" data-i18n="app_sub">TALK • TRANSLATE • STAY SAFE!</p>
+        <div class="voice-controls-bar">
+          <p class="mic-tagline" data-i18n="app_sub">TALK • TRANSLATE • STAY SAFE!</p>
+          <button type="button" id="wakeWordBtn" class="wake-word-toggle" onclick="toggleWakeWordListener()" title="Say 'SaHaya' or 'Help' hands-free">
+            🗣️ <span id="wakeWordStatusText">Voice Wake: OFF</span>
+          </button>
+        </div>
 
-        <!-- Input Box with Inline Clear circular trigger (✕) -->
         <div class="manual-input-row">
           <div class="input-clear-wrapper">
             <input
               type="text"
               id="emergencyInput"
-              placeholder="Speak or type in any language or code-mix (e.g. haavu kachide help)"
+              placeholder="Speak or type in any language (e.g. haavu kachide help)"
               data-i18n-placeholder="input_placeholder"
               onkeydown="if(event.key === 'Enter'){ event.preventDefault(); handleManualInput(); }"
             />
@@ -779,7 +832,7 @@
               id="clearEmergencyBtn"
               class="clear-input-btn"
               onclick="clearEmergencyQuery()"
-              title="Clear & ask a fresh emergency"
+              title="Clear"
               aria-label="Clear input"
             >
               ✕
@@ -788,26 +841,30 @@
           <button type="button" class="translate-help-btn" onclick="handleManualInput()" data-i18n="btn_translate">Translate & Help</button>
         </div>
 
-        <!-- First Aid Output Display -->
         <div class="first-aid-box">
           <div class="first-aid-header-row">
-            <span id="detectedLangBadge" class="detected-badge" data-i18n="waiting_input">Language: Waiting for input...</span>
-            <button type="button" class="speak-aloud-btn" onclick="replayLastGuidance()">
-              🔊 <span data-i18n="btn_read_aloud">Read Aloud</span>
-            </button>
+            <span id="detectedLangBadge" class="detected-badge" data-i18n="waiting_input">Language: Auto-Detect Ready</span>
+            <div class="audio-action-group">
+              <button type="button" class="speak-aloud-btn" onclick="replayLastGuidance()">
+                🔊 <span data-i18n="btn_read_aloud">Replay Voice</span>
+              </button>
+              <button type="button" class="stop-audio-btn" onclick="stopAllVoiceOutput()" title="Stop Voice">
+                ⏹️
+              </button>
+            </div>
           </div>
           <div id="spokenTextDisplay" class="spoken-transcript" data-i18n="transcript_prompt">
-            Speak naturally in English, Hindi, Bengali, Gujarati, Kannada, Malayalam, Marathi, Punjabi, Tamil, Telugu, or code-mixed speech.
+            Tap the mic or type in English, Hindi, Kannada, Tamil, Telugu, Malayalam, Marathi, Bengali, Gujarati, or Punjabi — guidance speaks automatically!
           </div>
           <div id="firstAidOutput" class="guidance-steps" data-i18n="output_prompt">
-            First-aid steps will appear here.
+            Instant first-aid steps will appear and speak aloud automatically here.
           </div>
         </div>
       </div>
 
       <!-- Quick Touch Cases Card -->
       <div class="card">
-        <span class="section-label" data-i18n="quick_tap_label">⚡ QUICK-TAP EMERGENCY SCENARIOS</span>
+        <span class="section-label" data-i18n="quick_tap_label">⚡ 1-TAP INSTANT VOICE EMERGENCY SCENARIOS</span>
         <div class="phrase-pills">
           <button type="button" class="phrase-pill" onclick="quickEmergency('ಹಾವು ಕಚ್ಚಿದೆ ಸಹಾಯ ಮಾಡಿ')">🐍 Snakebite (ಹಾವು ಕಚ್ಚಿದೆ)</button>
           <button type="button" class="phrase-pill" onclick="quickEmergency('सीने में तेज दर्द हो रहा है')">❤️ Chest Pain (सीने में दर्द)</button>
@@ -818,7 +875,7 @@
         </div>
       </div>
 
-      <!-- Directives Quick Connect -->
+      <!-- Directories -->
       <div class="card">
         <span class="section-label" data-i18n="directories_label">🚨 EMERGENCY DIRECTORIES</span>
         <div class="directory-grid">
@@ -901,17 +958,99 @@
   <script>
     function safeSetText(id, text) {
       var el = document.getElementById(id);
-      if (el) {
-        el.textContent = text;
-      }
+      if (el) el.textContent = text;
     }
 
+    /* ================= 1. PWA / HOME SCREEN SHORTCUT INSTALLER ================= */
+    var deferredInstallPrompt = null;
+
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+    });
+
+    (function registerDynamicManifest() {
+      try {
+        var manifestObj = {
+          name: "SaHaya Emergency Assistant",
+          short_name: "SaHaya",
+          start_url: window.location.origin + "/?tab=translate",
+          display: "standalone",
+          background_color: "#0b1325",
+          theme_color: "#2563eb",
+          description: "Instant multilingual voice first-aid and SOS assistant",
+          icons: [
+            { src: window.location.origin + "/static/logo.png", sizes: "192x192", type: "image/png" },
+            { src: window.location.origin + "/static/logo.png", sizes: "512x512", type: "image/png" }
+          ],
+          shortcuts: [
+            {
+              name: "Voice First-Aid",
+              short_name: "Voice Aid",
+              url: window.location.origin + "/?tab=translate"
+            },
+            {
+              name: "Trigger SOS Siren",
+              short_name: "SOS",
+              url: window.location.origin + "/?tab=shield"
+            }
+          ]
+        };
+        var blob = new Blob([JSON.stringify(manifestObj)], { type: 'application/json' });
+        var manifestUrl = URL.createObjectURL(blob);
+        var link = document.createElement('link');
+        link.rel = 'manifest';
+        link.href = manifestUrl;
+        document.head.appendChild(link);
+      } catch (e) {}
+    })();
+
+    window.triggerAppShortcutInstall = async function() {
+      unlockBrowserAudio();
+      if (deferredInstallPrompt) {
+        try {
+          deferredInstallPrompt.prompt();
+          await deferredInstallPrompt.userChoice;
+          deferredInstallPrompt = null;
+          return;
+        } catch (err) {}
+      }
+      var banner = document.getElementById('shortcutBanner');
+      if (banner) banner.classList.add('visible');
+    };
+
+    /* ================= 2. AUDIO UNLOCKER FOR INSTANT AUTOPLAY ================= */
+    var sharedAudioPlayer = new Audio();
+    var audioUnlocked = false;
+
+    function unlockBrowserAudio() {
+      if (audioUnlocked) return;
+      try {
+        // Silent WAV unlock on user gesture so async fetch responses can play immediately
+        sharedAudioPlayer.src = "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA";
+        sharedAudioPlayer.play().then(function() {
+          sharedAudioPlayer.pause();
+          audioUnlocked = true;
+        }).catch(function() {});
+
+        if ('speechSynthesis' in window) {
+          var dummy = new SpeechSynthesisUtterance("");
+          dummy.volume = 0;
+          window.speechSynthesis.speak(dummy);
+        }
+      } catch (e) {}
+    }
+
+    document.addEventListener('pointerdown', unlockBrowserAudio, { once: true });
+
+    /* ================= 3. UI TRANSLATIONS ================= */
     var UI_TRANSLATIONS = {
       en: {
         app_title: "SaHaya",
         app_sub: "TALK • TRANSLATE • STAY SAFE!",
         status_ready: "Ready",
-        ui_label: "Preferred Language:",
+        btn_shortcut: "Add Shortcut",
+        ui_label: "Language:",
         tab_shield: "Shield",
         tab_translate: "Translate",
         tab_guardian: "Guardian",
@@ -919,14 +1058,14 @@
         sos_sub: "TAP FOR SIREN & LIVE GPS",
         sos_status: "Press the SOS button in an emergency to trigger a high-decibel emergency wail siren and broadcast your live GPS location to your Guardians.",
         gps_ready: "📍 Live Location: Ready to lock GPS coordinates",
-        mic_label: "🎙️ AUTO-DETECT CODE-MIXED & MULTILINGUAL ASSISTANT",
-        input_placeholder: "Speak or type in any language or code-mix (e.g. haavu kachide help)",
+        mic_label: "🎙️ INSTANT VOICE & AUTO-READ EMERGENCY ASSISTANT",
+        input_placeholder: "Speak or type in any language (e.g. haavu kachide help)",
         btn_translate: "Translate & Help",
-        btn_read_aloud: "Read Aloud",
-        waiting_input: "Language: Waiting for input...",
-        transcript_prompt: "Speak naturally in English, Hindi, Bengali, Gujarati, Kannada, Malayalam, Marathi, Punjabi, Tamil, Telugu, or code-mixed speech.",
-        output_prompt: "First-aid steps will appear here.",
-        quick_tap_label: "⚡ QUICK-TAP EMERGENCY SCENARIOS",
+        btn_read_aloud: "Replay Voice",
+        waiting_input: "Language: Auto-Detect Ready",
+        transcript_prompt: "Tap the mic or type in English, Hindi, Kannada, Tamil, Telugu, Malayalam, Marathi, Bengali, Gujarati, or Punjabi — guidance speaks automatically!",
+        output_prompt: "Instant first-aid steps will appear and speak aloud automatically here.",
+        quick_tap_label: "⚡ 1-TAP INSTANT VOICE EMERGENCY SCENARIOS",
         directories_label: "🚨 EMERGENCY DIRECTORIES",
         dir_ambulance: "Ambulance",
         dir_sos: "National SOS",
@@ -948,7 +1087,8 @@
         app_title: "ಸಹಾಯ",
         app_sub: "ಮಾತನಾಡಿ • ಅನುವಾದಿಸಿ • ಸುರಕ್ಷಿತವಾಗಿರಿ!",
         status_ready: "ಸಜ್ಜಾಗಿದೆ",
-        ui_label: "ಆದ್ಯತೆಯ ಭಾಷೆ:",
+        btn_shortcut: "ಶಾರ್ಟ್‌ಕಟ್",
+        ui_label: "ಭಾಷೆ:",
         tab_shield: "ರಕ್ಷಣೆ",
         tab_translate: "ಅನುವಾದ",
         tab_guardian: "ಪಾಲಕರು",
@@ -956,14 +1096,14 @@
         sos_sub: "ಸೈರನ್ ಮತ್ತು ಲೈವ್ ಜಿಪಿಎಸ್‌ಗಾಗಿ ಒತ್ತಿರಿ",
         sos_status: "ತುರ್ತು ಪರಿಸ್ಥಿತಿಯಲ್ಲಿ ದೊಡ್ಡ ಸೈರನ್ ಮೊಳಗಿಸಲು ಮತ್ತು ನಿಮ್ಮ ಲೈವ್ ಜಿಪಿಎಸ್ ಸ್ಥಳವನ್ನು ಪಾಲಕರಿಗೆ ಕಳುಹಿಸಲು SOS ಬಟನ್ ಒತ್ತಿರಿ.",
         gps_ready: "📍 ಲೈವ್ ಸ್ಥಳ: ಜಿಪಿಎಸ್ ನಿರ್ದೇಶಾಂಕಗಳನ್ನು ಲಾಕ್ ಮಾಡಲು ಸಿದ್ಧವಾಗಿದೆ",
-        mic_label: "🎙️ ಆಟೋ-ಡಿಟೆಕ್ಟ್ ಬಹುಭಾಷಾ ಧ್ವನಿ ಸಹಾಯಕ",
-        input_placeholder: "ಯಾವುದೇ ಭಾಷೆಯಲ್ಲಿ ಮಾತನಾಡಿ ಅಥವಾ ಟೈಪ್ ಮಾಡಿ (ಉದಾ. ಹಾವು ಕಚ್ಚಿದೆ ಸಹಾಯ ಮಾಡಿ)",
+        mic_label: "🎙️ ತಕ್ಷಣದ ಧ್ವನಿ ತುರ್ತು ಸಹಾಯಕ",
+        input_placeholder: "ಯಾವುದೇ ಭಾಷೆಯಲ್ಲಿ ಮಾತನಾಡಿ ಅಥವಾ ಟೈಪ್ ಮಾಡಿ",
         btn_translate: "ಅನುವಾದಿಸಿ & ಸಹಾಯ",
-        btn_read_aloud: "ಜೋರಾಗಿ ಓದಿ",
-        waiting_input: "ಭಾಷೆ: ಇನ್‌ಪುಟ್‌ಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ...",
-        transcript_prompt: "ಕನ್ನಡ, ಹಿಂದಿ, ಇಂಗ್ಲಿಷ್ ಅಥವಾ ಇತರ ಭಾರತೀಯ ಭಾಷೆಗಳಲ್ಲಿ ಸ್ವಾಭಾವಿಕವಾಗಿ ಮಾತನಾಡಿ.",
-        output_prompt: "ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ ಹಂತಗಳು ಇಲ್ಲಿ ಕಾಣಿಸಿಕೊಳ್ಳುತ್ತವೆ.",
-        quick_tap_label: "⚡ ತುರ್ತು ಸನ್ನಿವೇಶಗಳು",
+        btn_read_aloud: "ಮತ್ತೆ ಕೇಳಿ",
+        waiting_input: "ಭಾಷೆ: ಆಟೋ-ಡಿಟೆಕ್ಟ್ ಸಿದ್ಧ",
+        transcript_prompt: "ಮೈಕ್ ಒತ್ತಿ ಮಾತನಾಡಿ ಅಥವಾ ಟೈಪ್ ಮಾಡಿ — ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ ತಕ್ಷಣ ಧ್ವನಿಯಲ್ಲಿ ಕೇಳಿಸುತ್ತದೆ!",
+        output_prompt: "ಪ್ರಥಮ ಚಿಕಿತ್ಸೆ ಹಂತಗಳು ಇಲ್ಲಿ ಕಾಣಿಸಿಕೊಳ್ಳುತ್ತವೆ ಮತ್ತು ತಕ್ಷಣ ಓದಲಾಗುತ್ತದೆ.",
+        quick_tap_label: "⚡ 1-ಟ್ಯಾಪ್ ತುರ್ತು ಸನ್ನಿವೇಶಗಳು",
         directories_label: "🚨 ತುರ್ತು ಸಹಾಯವಾಣಿಗಳು",
         dir_ambulance: "ಆಂಬ್ಯುಲೆನ್ಸ್",
         dir_sos: "ರಾಷ್ಟ್ರೀಯ ತುರ್ತು",
@@ -985,7 +1125,8 @@
         app_title: "सहाय",
         app_sub: "बोलें • अनुवाद करें • सुरक्षित रहें!",
         status_ready: "तैयार",
-        ui_label: "पसंदीदा भाषा:",
+        btn_shortcut: "शॉर्टकट",
+        ui_label: "भाषा:",
         tab_shield: "सुरक्षा",
         tab_translate: "अनुवाद",
         tab_guardian: "संरक्षक",
@@ -993,13 +1134,13 @@
         sos_sub: "सायरन और लाइव जीपीएस के लिए दबाएं",
         sos_status: "आपात स्थिति में तेज सायरन बजाने और अपनी लाइव जीपीएस लोकेशन भेजने के लिए SOS बटन दबाएं।",
         gps_ready: "📍 लाइव लोकेशन: जीपीएस कोऑर्डिनेट्स लॉक करने के लिए तैयार",
-        mic_label: "🎙️ ऑटो-डिटेक्ट बहुभाषी सहायक",
+        mic_label: "🎙️ त्वरित आवाज़ आपातकालीन सहायक",
         input_placeholder: "किसी भी भाषा या कोड-मिक्स में बोलें या टाइप करें",
         btn_translate: "अनुवाद और मदद",
-        btn_read_aloud: "सुनें",
-        waiting_input: "भाषा: इनपुट की प्रतीक्षा...",
-        transcript_prompt: "हिंदी, अंग्रेजी या किसी भी भारतीय भाषा में स्वाभाविक रूप से बोलें।",
-        output_prompt: "प्राथमिक उपचार के चरण यहां दिखाई देंगे।",
+        btn_read_aloud: "फिर सुनें",
+        waiting_input: "भाषा: ऑटो-डिटेक्ट तैयार",
+        transcript_prompt: "माइक दबाकर बोलें या टाइप करें — प्राथमिक उपचार तुरंत अपने आप सुनाया जाएगा!",
+        output_prompt: "प्राथमिक उपचार के चरण यहां दिखाई देंगे और तुरंत पढ़े जाएंगे।",
         quick_tap_label: "⚡ त्वरित आपातकालीन परिदृश्य",
         directories_label: "🚨 आपातकालीन हेल्पलाइन",
         dir_ambulance: "एम्बुलेंस",
@@ -1017,265 +1158,6 @@
         geofence_title: "सुरक्षित नेविगेशन जियोफेंस (SAHAYA-S02)",
         geofence_sub: "हर 3 सेकंड में जीपीएस मॉनिटर करता है।",
         geofence_status: "वर्तमान कोऑर्डिनेट्स: जीपीएस लॉक प्राप्त हो रहा है..."
-      },
-      mr: {
-        app_title: "सहाय",
-        app_sub: "बोला • भाषांतर करा • सुरक्षित राहा!",
-        status_ready: "तयार",
-        ui_label: "पसंतीची भाषा:",
-        tab_shield: "सुरक्षा",
-        tab_translate: "भाषांतर",
-        tab_guardian: "पालक",
-        sos_btn: "SOS",
-        sos_sub: "सायरन आणि लाइव्ह जीपीएससाठी दाबा",
-        sos_status: "आणीबाणीच्या वेळी सायरन वाजवण्यासाठी आणि तुमचे लाइव्ह जीपीएस लोकेशन पाठवण्यासाठी SOS बटण दाबा.",
-        gps_ready: "📍 लाइव्ह लोकेशन: जीपीएस लॉक करण्यास तयार",
-        mic_label: "🎙️ ऑटो-डिटेक्ट बहुभाषिक सहाय्यक",
-        input_placeholder: "कोणत्याही भाषेत बोला किंवा टाईप करा",
-        btn_translate: "भाषांतर आणि मदत",
-        btn_read_aloud: "मोठ्याने वाचा",
-        waiting_input: "भाषा: इनपुटची प्रतीक्षा...",
-        transcript_prompt: "मराठी, हिंदी, इंग्रजी किंवा इतर भाषांमध्ये नैसर्गिकरित्या बोला.",
-        output_prompt: "प्रथमोपचाराच्या पायऱ्या येथे दिसतील.",
-        quick_tap_label: "⚡ त्वरित आपत्कालीन परिस्थिती",
-        directories_label: "🚨 आपत्कालीन हेल्पलाइन",
-        dir_ambulance: "रुग्णवाहिका",
-        dir_sos: "राष्ट्रीय एसओएस",
-        dir_women: "महिला हेल्पलाइन",
-        dir_fire: "अग्निशमन दल",
-        dir_call: "कॉल",
-        guardians_title: "आपत्कालीन पालक (कमाल ५)",
-        guardians_sub: "एकाच वेळी SMS, WhatsApp आणि लाइव्ह जीपीएस लिंक प्रसारण.",
-        contact_default: "आपत्कालीन संपर्क १",
-        btn_remove: "काढा",
-        name_placeholder: "नाव (उदा. आई)",
-        phone_placeholder: "+९१ फोन",
-        btn_add: "जोडा",
-        geofence_title: "सुरक्षित नेव्हिगेशन जिओफेन्स (SAHAYA-S02)",
-        geofence_sub: "दर ३ सेकंदांनी जीपीएस मॉनिटर करते.",
-        geofence_status: "सध्याचे कोऑर्डिनेट्स: जीपीएस लॉक मिळवत आहे..."
-      },
-      bn: {
-        app_title: "সহায়",
-        app_sub: "কথা বলুন • অনুবাদ করুন • সুরক্ষিত থাকুন!",
-        status_ready: "প্রস্তুত",
-        ui_label: "পছন্দের ভাষা:",
-        tab_shield: "সুরক্ষা",
-        tab_translate: "অনুবাদ",
-        tab_guardian: "অভিভাবক",
-        sos_btn: "SOS",
-        sos_sub: "সাইরেন এবং লাইভ জিপিএস-এর জন্য চাপুন",
-        sos_status: "জরুরী পরিস্থিতিতে সাইরেন বাজাতে এবং আপনার লাইভ জিপিএস লোকেশন পাঠাতে SOS বোতাম টিপুন।",
-        gps_ready: "📍 লাইভ লোকেশন: জিপিএস লক করার জন্য প্রস্তুত",
-        mic_label: "🎙️ স্বয়ংক্রিয় বহুভাষিক সহকারী",
-        input_placeholder: "যেকোনো ভাষায় কথা বলুন বা টাইপ করুন",
-        btn_translate: "অনুবাদ ও সাহায্য",
-        btn_read_aloud: "শুনুন",
-        waiting_input: "ভাষা: ইনপুটের জন্য অপেক্ষা করা হচ্ছে...",
-        transcript_prompt: "বাংলা, হিন্দি বা ইংরেজিতে স্বাভাবিকভাবে কথা বলুন।",
-        output_prompt: "প্রাথমিক চিকিৎসার পদক্ষেপগুলি এখানে দেখা যাবে।",
-        quick_tap_label: "⚡ জরুরী পরিস্থিতি",
-        directories_label: "🚨 জরুরী হেল্পলাইন",
-        dir_ambulance: "অ্যাম্বুলেন্স",
-        dir_sos: "জাতীয় জরুরী",
-        dir_women: "মহিলা হেল্পলাইন",
-        dir_fire: "ফায়ার সার্ভিস",
-        dir_call: "কল",
-        guardians_title: "জরুরী অভিভাবক (সর্বোচ্চ ৫)",
-        guardians_sub: "একযোগে SMS, WhatsApp এবং লাইভ জিপিএস লিঙ্ক।",
-        contact_default: "জরুরী যোগাযোগ ১",
-        btn_remove: "সরান",
-        name_placeholder: "নাম",
-        phone_placeholder: "+৯১ ফোন",
-        btn_add: "যোগ করুন",
-        geofence_title: "সুরক্ষিত নেভিগেশন জিওফেন্স (SAHAYA-S02)",
-        geofence_sub: "প্রতি ৩ সেকেন্ডে জিপিএস মনিটর করে।",
-        geofence_status: "বর্তমান কোঅর্ডিনেট: জিপিএস লক পাওয়া যাচ্ছে..."
-      },
-      gu: {
-        app_title: "સહાય",
-        app_sub: "વાત કરો • અનુવાદ કરો • સુરક્ષિત રહો!",
-        status_ready: "તૈયાર",
-        ui_label: "પસંદગીની ભાષા:",
-        tab_shield: "સુરક્ષા",
-        tab_translate: "અનુવાદ",
-        tab_guardian: "વાલી",
-        sos_btn: "SOS",
-        sos_sub: "સાઇરન અને લાઇવ જીપીએસ માટે દબાવો",
-        sos_status: "કટોકટીમાં સાઇરન વગાડવા અને લાઇવ જીપીએસ લોકેશન મોકલવા SOS બટન દબાવો.",
-        gps_ready: "📍 લાઇવ લોકેશન: જીપીએસ લોક કરવા માટે તૈયાર",
-        mic_label: "🎙️ ઓટો-ડિટેક્ટ બહુભાષી સહાયક",
-        input_placeholder: "કોઈપણ ભાષામાં બોલો અથવા ટાઈપ કરો",
-        btn_translate: "અનુવાદ અને મદદ",
-        btn_read_aloud: "સાંભળો",
-        waiting_input: "ભાષા: ઇનપુટની રાહ જોવાય છે...",
-        transcript_prompt: "ગુજરાતી, હિન્દી અથવા અંગ્રેજીમાં સ્વાભાવિક રીતે બોલો.",
-        output_prompt: "પ્રાથમિક સારવારના પગલાં અહીં દેખાશે.",
-        quick_tap_label: "⚡ કટોકટીની પરિસ્થિતિઓ",
-        directories_label: "🚨 કટોકટી હેલ્પલાઇન",
-        dir_ambulance: "એમ્બ્યુલન્સ",
-        dir_sos: "રાષ્ટ્રીય SOS",
-        dir_women: "મહિલા હેલ્પલાઇન",
-        dir_fire: "ફાયર વિભાગ",
-        dir_call: "કોલ",
-        guardians_title: "ઇમરજન્સી વાલીઓ (મહત્તમ 5)",
-        guardians_sub: "એક સાથે SMS, WhatsApp અને લાઇવ જીપીએસ લિંક.",
-        contact_default: "ઇમરજન્સી સંપર્ક 1",
-        btn_remove: "દૂર કરો",
-        name_placeholder: "નામ",
-        phone_placeholder: "+91 ફોન",
-        btn_add: "ઉમેરો",
-        geofence_title: "સુરક્ષિત નેવિગેશન જિયોફેન્સ (SAHAYA-S02)",
-        geofence_sub: "દર 3 સેકન્ડે જીપીએસ મોનિટર કરે છે.",
-        geofence_status: "હાલના કોઓર્ડિનેટ્સ: જીપીએસ લોક મેળવી રહ્યા છીએ..."
-      },
-      ml: {
-        app_title: "സഹായ",
-        app_sub: "സംസാരിക്കുക • വിവർത്തനം ചെയ്യുക • സുരക്ഷിതരായിരിക്കുക!",
-        status_ready: "തയ്യാറാണ്",
-        ui_label: "തിരഞ്ഞെടുത്ത ഭാഷ:",
-        tab_shield: "സുരക്ഷ",
-        tab_translate: "വിവർത്തനം",
-        tab_guardian: "സംരക്ഷകർ",
-        sos_btn: "SOS",
-        sos_sub: "സൈറണിനും ലൈവ് ജിപിഎസിനുമായി അമർത്തുക",
-        sos_status: "അടിയന്തിര സാഹചര്യത്തിൽ സൈറൺ മുഴക്കാനും ലൈവ് ജിപിഎസ് അയക്കാനും SOS അമർത്തുക.",
-        gps_ready: "📍 ലൈവ് ലൊക്കേഷൻ: ജിപിഎസ് ലോക്ക് ചെയ്യാൻ തയ്യാറാണ്",
-        mic_label: "🎙️ ഓട്ടോ-ഡിറ്റക്ട് ബഹുഭാഷാ സഹായി",
-        input_placeholder: "ഏത് ഭാഷയിലും സംസാരിക്കുകയോ ടൈപ്പ് ചെയ്യുകയോ ചെയ്യുക",
-        btn_translate: "വിവർത്തനവും സഹായവും",
-        btn_read_aloud: "ഉറക്കെ വായിക്കുക",
-        waiting_input: "ഭാഷ: ഇൻപുട്ടിനായി കാത്തിരിക്കുന്നു...",
-        transcript_prompt: "മലയാളം, ഹിന്ദി അല്ലെങ്കിൽ ഇംഗ്ലീഷിൽ സംസാരിക്കുക.",
-        output_prompt: "പ്രഥമശുശ്രൂഷാ ഘട്ടങ്ങൾ ഇവിടെ ദൃശ്യമാകും.",
-        quick_tap_label: "⚡ അടിയന്തിര സാഹചര്യങ്ങൾ",
-        directories_label: "🚨 അടിയന്തിര ഹെൽപ്പ് ലൈൻ",
-        dir_ambulance: "ആംബുലൻസ്",
-        dir_sos: "ദേശീയ SOS",
-        dir_women: "വനിതാ ഹെൽപ്പ് ലൈൻ",
-        dir_fire: "ഫയർ ഫോഴ്സ്",
-        dir_call: "വിളിക്കുക",
-        guardians_title: "അടിയന്തര സംരക്ഷകർ (പരമാവധി 5)",
-        guardians_sub: "ഒരേസമയം SMS, WhatsApp, ലൈവ് ജിപിഎസ് ലിങ്ക്.",
-        contact_default: "അടിയന്തിര കോൺടാക്റ്റ് 1",
-        btn_remove: "നീക്കം ചെയ്യുക",
-        name_placeholder: "പേര്",
-        phone_placeholder: "+91 ഫോൺ",
-        btn_add: "ചേർക്കുക",
-        geofence_title: "സുരക്ഷിത നാവിഗേഷൻ ജിയോഫെൻസ് (SAHAYA-S02)",
-        geofence_sub: "ഓരോ 3 സെക്കൻഡിലും ജിപിഎസ് നിരീക്ഷിക്കുന്നു.",
-        geofence_status: "നിലവിലെ കോർഡിനേറ്റുകൾ: ജിപിഎസ് ലോക്ക് ലഭിക്കുന്നു..."
-      },
-      pa: {
-        app_title: "ਸਹਾਇ",
-        app_sub: "ਬੋਲੋ • ਅਨੁਵਾਦ ਕਰੋ • ਸੁਰੱਖਿਅਤ ਰਹੋ!",
-        status_ready: "ਤਿਆਰ",
-        ui_label: "ਪਸੰਦੀਦਾ ਭਾਸ਼ਾ:",
-        tab_shield: "ਸੁਰੱਖਿਆ",
-        tab_translate: "ਅਨੁਵਾਦ",
-        tab_guardian: "ਰੱਖਿਅਕ",
-        sos_btn: "SOS",
-        sos_sub: "ਸਾਇਰਨ ਅਤੇ ਲਾਈਵ ਜੀਪੀਐਸ ਲਈ ਦਬਾਓ",
-        sos_status: "ਐਮਰਜੈਂਸੀ ਵਿੱਚ ਸਾਇਰਨ ਵਜਾਉਣ ਅਤੇ ਲਾਈਵ ਜੀਪੀਐਸ ਭੇਜਣ ਲਈ SOS ਬਟਨ ਦਬਾਓ।",
-        gps_ready: "📍 ਲਾਈਵ ਲੋਕੇਸ਼ਨ: ਜੀਪੀਐਸ ਲਾਕ ਕਰਨ ਲਈ ਤਿਆਰ",
-        mic_label: "🎙️ ਆਟੋ-ਡਿਟੈਕਟ ਬਹੁ-ਭਾਸ਼ਾਈ ਸਹਾਇਕ",
-        input_placeholder: "ਕਿਸੇ ਵੀ ਭਾਸ਼ਾ ਵਿੱਚ ਬੋਲੋ ਜਾਂ ਟਾਈਪ ਕਰੋ",
-        btn_translate: "ਅਨੁਵਾਦ ਅਤੇ ਮਦਦ",
-        btn_read_aloud: "ਸੁਣੋ",
-        waiting_input: "ਭਾਸ਼ਾ: ਇਨਪੁਟ ਦੀ ਉਡੀਕ...",
-        transcript_prompt: "ਪੰਜਾਬੀ, ਹਿੰਦੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੁਭਾਵਿਕ ਤੌਰ 'ਤੇ ਬੋਲੋ।",
-        output_prompt: "ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦੇ ਕਦਮ ਇੱਥੇ ਦਿਖਾਈ ਦੇਣਗੇ।",
-        quick_tap_label: "⚡ ਐਮਰਜੈਂਸੀ ਸਥਿਤੀਆਂ",
-        directories_label: "🚨 ਐਮਰਜੈਂਸੀ ਹੈਲਪਲਾਈਨ",
-        dir_ambulance: "ਐਂਬੂਲੈਂਸ",
-        dir_sos: "ਰਾਸ਼ਟਰੀ SOS",
-        dir_women: "ਮਹਿਲਾ ਹੈਲਪਲਾਈਨ",
-        dir_fire: "ਫਾਇਰ ਬ੍ਰਿਗੇਡ",
-        dir_call: "ਕਾਲ",
-        guardians_title: "ਐਮਰਜੈਂਸੀ ਰੱਖਿਅਕ (ਵੱਧ ਤੋਂ ਵੱਧ 5)",
-        guardians_sub: "ਇੱਕੋ ਸਮੇਂ SMS, WhatsApp ਅਤੇ ਲਾਈਵ ਜੀਪੀਐਸ ਲਿੰਕ।",
-        contact_default: "ਐਮਰਜੈਂਸੀ ਸੰਪਰਕ 1",
-        btn_remove: "ਹਟਾਓ",
-        name_placeholder: "ਨਾਮ",
-        phone_placeholder: "+91 ਫੋਨ",
-        btn_add: "ਜੋੜੋ",
-        geofence_title: "ਸੁਰੱਖਿਅਤ ਨੇਵੀਗੇਸ਼ਨ ਜੀਓਫੈਂਸ (SAHAYA-S02)",
-        geofence_sub: "ਹਰ 3 ਸਕਿੰਟ ਵਿੱਚ ਜੀਪੀਐਸ ਮਾਨੀਟਰ ਕਰਦਾ ਹੈ।",
-        geofence_status: "ਮੌਜੂਦਾ ਕੋਆਰਡੀਨੇਟਸ: ਜੀਪੀਐਸ ਲਾਕ ਪ੍ਰਾਪਤ ਹੋ ਰਿਹਾ ਹੈ..."
-      },
-      ta: {
-        app_title: "சஹாயா",
-        app_sub: "பேசுங்கள் • மொழிபெயருங்கள் • பாதுகாப்பாக இருங்கள்!",
-        status_ready: "தயார்",
-        ui_label: "விருப்பமான மொழி:",
-        tab_shield: "பாதுகாப்பு",
-        tab_translate: "மொழிபெயர்ப்பு",
-        tab_guardian: "பாதுகாவலர்",
-        sos_btn: "SOS",
-        sos_sub: "சைரன் மற்றும் நேரலை ஜிபிஎஸிற்கு அழுத்தவும்",
-        sos_status: "அவசர காலத்தில் சைரனை ஒலிக்கச் செய்து நேரலை ஜிபிஎஸ் அனுப்ப SOS பொத்தானை அழுத்தவும்.",
-        gps_ready: "📍 நேரலை இருப்பிடம்: ஜிபிஎஸ் பெறத் தயார்",
-        mic_label: "🎙️ தானியங்கி பன்மொழி உதவியாளர்",
-        input_placeholder: "எந்த மொழியிலும் பேசுங்கள் அல்லது தட்டச்சு செய்யுங்கள்",
-        btn_translate: "மொழிபெயர்ப்பு & உதவி",
-        btn_read_aloud: "சத்தமாக வாசி",
-        waiting_input: "மொழி: உள்ளீட்டிற்காக காத்திருக்கிறது...",
-        transcript_prompt: "தமிழ், இந்தி அல்லது ஆங்கிலத்தில் இயல்பாகப் பேசுங்கள்.",
-        output_prompt: "முதலுதவி படிகள் இங்கே தோன்றும்.",
-        quick_tap_label: "⚡ அவசர சூழ்நிலைகள்",
-        directories_label: "🚨 அவசர சேவை எண்கள்",
-        dir_ambulance: "ஆம்புலன்ஸ்",
-        dir_sos: "தேசிய SOS",
-        dir_women: "பெண்கள் உதவி",
-        dir_fire: "தீயணைப்பு",
-        dir_call: "அழை",
-        guardians_title: "பாதுகாவலர்கள் (அதிகபட்சம் 5)",
-        guardians_sub: "ஒரே நேரத்தில் SMS, WhatsApp மற்றும் நேரலை ஜிபிஎஸ் இணைப்பு.",
-        contact_default: "அவசர தொடர்பு 1",
-        btn_remove: "நீக்கு",
-        name_placeholder: "பெயர்",
-        phone_placeholder: "+91 தொலைபேசி",
-        btn_add: "சேர்",
-        geofence_title: "பாதுகாப்பான புவிவேலி (SAHAYA-S02)",
-        geofence_sub: "ஒவ்வொரு 3 வினாடிகளிலும் ஜிபிஎஸ்ஸை கண்காணிக்கும்.",
-        geofence_status: "தற்போதைய ஆயத்தொலைவுகள்: ஜிபிஎஸ் பெறப்படுகிறது..."
-      },
-      te: {
-        app_title: "సహాయ",
-        app_sub: "మాట్లాడండి • అనువదించండి • సురక్షితంగా ఉండండి!",
-        status_ready: "సిద్ధం",
-        ui_label: "ప్రాధాన్య భాష:",
-        tab_shield: "రక్షణ",
-        tab_translate: "అనువాదం",
-        tab_guardian: "సంరక్షకులు",
-        sos_btn: "SOS",
-        sos_sub: "సైరన్ మరియు లైవ్ జిపిఎస్ కోసం నొక్కండి",
-        sos_status: "అత్యవసర సమయంలో సైరన్ మోగించడానికి మరియు లైవ్ జిపిఎస్ పంపడానికి SOS బటన్ నొక్కండి.",
-        gps_ready: "📍 లైవ్ లొకేషన్: జిపిఎస్ లాక్ చేయడానికి సిద్ధంగా ఉంది",
-        mic_label: "🎙️ ఆటో-డిటెక్ట్ బహుభాషా సహాయకుడు",
-        input_placeholder: "ఏ భాషలోనైనా మాట్లాడండి లేదా టైప్ చేయండి",
-        btn_translate: "అనువాదం & సహాయం",
-        btn_read_aloud: "బిగ్గరగా చదవండి",
-        waiting_input: "భాష: ఇన్‌పుట్ కోసం వేచి ఉంది...",
-        transcript_prompt: "తెలుగు, హిందీ లేదా ఇంగ్లీషులో సహజంగా మాట్లాడండి.",
-        output_prompt: "ప్రథమ చికిత్స దశలు ఇక్కడ కనిపిస్తాయి.",
-        quick_tap_label: "⚡ అత్యవసర పరిస్థితులు",
-        directories_label: "🚨 అత్యవసర హెల్ప్‌లైన్",
-        dir_ambulance: "అంబులెన్స్",
-        dir_sos: "జాతీయ SOS",
-        dir_women: "మహిళా హెల్ప్‌లైన్",
-        dir_fire: "అగ్నిమాపక దళం",
-        dir_call: "కాల్",
-        guardians_title: "అత్యవసర సంరక్షకులు (గరిష్టంగా 5)",
-        guardians_sub: "ఒకేసారి SMS, WhatsApp మరియు లైవ్ జిపిఎస్ లింక్.",
-        contact_default: "అత్యవసర పరిచయం 1",
-        btn_remove: "తొలగించు",
-        name_placeholder: "పేరు",
-        phone_placeholder: "+91 ఫోన్",
-        btn_add: "చేర్చు",
-        geofence_title: "సురక్షిత నావిగేషన్ జియోఫెన్స్ (SAHAYA-S02)",
-        geofence_sub: "ప్రతి 3 సెకన్లకు జిపిఎస్ పర్యవేక్షిస్తుంది.",
-        geofence_status: "ప్రస్తుత కోఆర్డినేట్‌లు: జిపిఎస్ లాక్ పొందడం జరుగుతోంది..."
       }
     };
 
@@ -1286,39 +1168,30 @@
       for (var i = 0; i < i18nNodes.length; i++) {
         var el = i18nNodes[i];
         var key = el.getAttribute('data-i18n');
-        if (pack[key]) {
-          el.textContent = pack[key];
-        }
+        if (pack[key]) el.textContent = pack[key];
       }
 
       var placeholderNodes = document.querySelectorAll('[data-i18n-placeholder]');
       for (var j = 0; j < placeholderNodes.length; j++) {
         var pEl = placeholderNodes[j];
         var pKey = pEl.getAttribute('data-i18n-placeholder');
-        if (pack[pKey]) {
-          pEl.placeholder = pack[pKey];
-        }
+        if (pack[pKey]) pEl.placeholder = pack[pKey];
       }
     };
 
     window.switchTab = function(tabId, btnEl) {
       var contents = document.querySelectorAll('.tab-content');
-      for (var i = 0; i < contents.length; i++) {
-        contents[i].classList.remove('active');
-      }
+      for (var i = 0; i < contents.length; i++) contents[i].classList.remove('active');
+
       var btns = document.querySelectorAll('.tab-btn');
-      for (var j = 0; j < btns.length; j++) {
-        btns[j].classList.remove('active');
-      }
+      for (var j = 0; j < btns.length; j++) btns[j].classList.remove('active');
+
       var targetTab = document.getElementById('tab-' + tabId);
-      if (targetTab) {
-        targetTab.classList.add('active');
-      }
-      if (btnEl) {
-        btnEl.classList.add('active');
-      }
+      if (targetTab) targetTab.classList.add('active');
+      if (btnEl) btnEl.classList.add('active');
     };
 
+    /* ================= 4. SOS ALARM & GPS ================= */
     var sirenAudioCtx = null;
     var sirenOsc1 = null;
     var sirenOsc2 = null;
@@ -1327,12 +1200,13 @@
     var isSirenPlaying = false;
 
     window.toggleSOSAlarm = function() {
+      unlockBrowserAudio();
       var sosBtn = document.getElementById('sosBtn');
       var sosSub = document.getElementById('sosBtnSub');
       var sosStatus = document.getElementById('sosStatus');
       var gpsDisplay = document.getElementById('gpsDisplay');
       var langSelect = document.getElementById('globalUiLang');
-      var currentUiLang = langSelect ? langSelect.value : 'en';
+      var currentUiLang = (langSelect && langSelect.value !== 'auto') ? langSelect.value : 'en';
       var t = UI_TRANSLATIONS[currentUiLang] || UI_TRANSLATIONS['en'];
 
       if (isSirenPlaying) {
@@ -1374,14 +1248,9 @@
 
     function startEmergencySiren() {
       var AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (!sirenAudioCtx && AudioContextClass) {
-        sirenAudioCtx = new AudioContextClass();
-      }
+      if (!sirenAudioCtx && AudioContextClass) sirenAudioCtx = new AudioContextClass();
       if (!sirenAudioCtx) return;
-
-      if (sirenAudioCtx.state === 'suspended') {
-        sirenAudioCtx.resume();
-      }
+      if (sirenAudioCtx.state === 'suspended') sirenAudioCtx.resume();
 
       isSirenPlaying = true;
       sirenOsc1 = sirenAudioCtx.createOscillator();
@@ -1408,7 +1277,6 @@
         var t0 = sirenAudioCtx.currentTime;
         sirenOsc1.frequency.linearRampToValueAtTime(1420, t0 + 0.65);
         sirenOsc2.frequency.linearRampToValueAtTime(1435, t0 + 0.65);
-
         sirenOsc1.frequency.linearRampToValueAtTime(620, t0 + 1.3);
         sirenOsc2.frequency.linearRampToValueAtTime(632, t0 + 1.3);
       };
@@ -1430,35 +1298,9 @@
       } catch (e) {}
     }
 
+    /* ================= 5. VOICE CAPTURE, WAKE WORD & INSTANT TTS ================= */
     var lastSpokenGuidance = "";
     var lastSpokenLang = "en-IN";
-    var currentTimbreAudio = null;
-
-    window.clearEmergencyQuery = function() {
-      var inputEl = document.getElementById('emergencyInput');
-      var langSelect = document.getElementById('globalUiLang');
-      var currentUiLang = langSelect ? langSelect.value : 'en';
-      var t = UI_TRANSLATIONS[currentUiLang] || UI_TRANSLATIONS['en'];
-
-      if (inputEl) {
-        inputEl.value = "";
-        inputEl.focus();
-      }
-
-      if (currentTimbreAudio) {
-        currentTimbreAudio.pause();
-        currentTimbreAudio = null;
-      }
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
-
-      lastSpokenGuidance = "";
-      safeSetText('detectedLangBadge', t.waiting_input);
-      safeSetText('spokenTextDisplay', t.transcript_prompt);
-      safeSetText('firstAidOutput', t.output_prompt);
-    };
-
     var isListening = false;
     var noiseFilterCtx = null;
     var activeMicStream = null;
@@ -1468,6 +1310,99 @@
     var browserRecognition = null;
     var browserTranscriptBackup = "";
     var autoStopTimer = null;
+
+    var wakeWordEnabled = false;
+    var wakeWordRecognition = null;
+
+    window.stopAllVoiceOutput = function() {
+      try {
+        sharedAudioPlayer.pause();
+        sharedAudioPlayer.currentTime = 0;
+      } catch (e) {}
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    };
+
+    window.clearEmergencyQuery = function() {
+      var inputEl = document.getElementById('emergencyInput');
+      var langSelect = document.getElementById('globalUiLang');
+      var currentUiLang = (langSelect && langSelect.value !== 'auto') ? langSelect.value : 'en';
+      var t = UI_TRANSLATIONS[currentUiLang] || UI_TRANSLATIONS['en'];
+
+      if (inputEl) {
+        inputEl.value = "";
+        inputEl.focus();
+      }
+      stopAllVoiceOutput();
+      lastSpokenGuidance = "";
+      safeSetText('detectedLangBadge', t.waiting_input);
+      safeSetText('spokenTextDisplay', t.transcript_prompt);
+      safeSetText('firstAidOutput', t.output_prompt);
+    };
+
+    window.toggleWakeWordListener = function() {
+      unlockBrowserAudio();
+      var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      var btn = document.getElementById('wakeWordBtn');
+      var statusTxt = document.getElementById('wakeWordStatusText');
+
+      if (!SpeechRecognition) {
+        safeSetText('spokenTextDisplay', "Hands-free wake word is not supported on this browser. Tap the blue mic button to speak.");
+        return;
+      }
+
+      wakeWordEnabled = !wakeWordEnabled;
+      if (wakeWordEnabled) {
+        if (btn) btn.classList.add('active');
+        if (statusTxt) statusTxt.textContent = "Voice Wake: ON ('SaHaya')";
+        startWakeWordEngine();
+      } else {
+        if (btn) btn.classList.remove('active');
+        if (statusTxt) statusTxt.textContent = "Voice Wake: OFF";
+        stopWakeWordEngine();
+      }
+    };
+
+    function startWakeWordEngine() {
+      if (!wakeWordEnabled || isListening) return;
+      var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) return;
+
+      try {
+        wakeWordRecognition = new SpeechRecognition();
+        wakeWordRecognition.lang = 'en-IN';
+        wakeWordRecognition.continuous = true;
+        wakeWordRecognition.interimResults = true;
+
+        wakeWordRecognition.onresult = function(ev) {
+          if (isListening) return;
+          for (var i = ev.resultIndex; i < ev.results.length; i++) {
+            var phrase = (ev.results[i][0].transcript || "").toLowerCase();
+            if (/(sahaya|sahay|help me|emergency|bachao|sahaya madi|madat)/.test(phrase)) {
+              stopWakeWordEngine();
+              toggleVoiceRecognition();
+              break;
+            }
+          }
+        };
+
+        wakeWordRecognition.onend = function() {
+          if (wakeWordEnabled && !isListening) {
+            setTimeout(startWakeWordEngine, 400);
+          }
+        };
+
+        wakeWordRecognition.start();
+      } catch (e) {}
+    }
+
+    function stopWakeWordEngine() {
+      if (wakeWordRecognition) {
+        try { wakeWordRecognition.stop(); } catch (e) {}
+        wakeWordRecognition = null;
+      }
+    }
 
     function encodeWavFromFloat32(samples, sampleRate) {
       var buffer = new ArrayBuffer(44 + samples.length * 2);
@@ -1503,8 +1438,11 @@
     }
 
     window.toggleVoiceRecognition = async function() {
-      var micBtn = document.getElementById('micBtn');
+      unlockBrowserAudio();
+      stopAllVoiceOutput();
+      stopWakeWordEngine();
 
+      var micBtn = document.getElementById('micBtn');
       if (isListening) {
         await stopAndSendToGnaniPrisma();
         return;
@@ -1527,31 +1465,17 @@
 
         var highpass = noiseFilterCtx.createBiquadFilter();
         highpass.type = 'highpass';
-        highpass.frequency.value = 300;
+        highpass.frequency.value = 280;
 
         var lowpass = noiseFilterCtx.createBiquadFilter();
         lowpass.type = 'lowpass';
-        lowpass.frequency.value = 3400;
-
-        var presencePeak = noiseFilterCtx.createBiquadFilter();
-        presencePeak.type = 'peaking';
-        presencePeak.frequency.value = 1800;
-        presencePeak.Q.value = 1.2;
-        presencePeak.gain.value = 4.5;
-
-        var compressor = noiseFilterCtx.createDynamicsCompressor();
-        compressor.threshold.setValueAtTime(-28, noiseFilterCtx.currentTime);
-        compressor.knee.setValueAtTime(20, noiseFilterCtx.currentTime);
-        compressor.ratio.setValueAtTime(8, noiseFilterCtx.currentTime);
-        compressor.attack.setValueAtTime(0.003, noiseFilterCtx.currentTime);
-        compressor.release.setValueAtTime(0.2, noiseFilterCtx.currentTime);
+        lowpass.frequency.value = 3500;
 
         scriptProcessorNode = noiseFilterCtx.createScriptProcessor(4096, 1, 1);
         recordedPcmChunks = [];
         scriptProcessorNode.onaudioprocess = function(e) {
           if (!isListening) return;
-          var inputData = e.inputBuffer.getChannelData(0);
-          recordedPcmChunks.push(new Float32Array(inputData));
+          recordedPcmChunks.push(new Float32Array(e.inputBuffer.getChannelData(0)));
         };
 
         var zeroGain = noiseFilterCtx.createGain();
@@ -1559,9 +1483,7 @@
 
         source.connect(highpass);
         highpass.connect(lowpass);
-        lowpass.connect(presencePeak);
-        presencePeak.connect(compressor);
-        compressor.connect(scriptProcessorNode);
+        lowpass.connect(scriptProcessorNode);
         scriptProcessorNode.connect(zeroGain);
         zeroGain.connect(noiseFilterCtx.destination);
 
@@ -1571,9 +1493,9 @@
           try {
             browserRecognition = new SpeechRecognition();
             var langEl = document.getElementById('globalUiLang');
-            var uiLang = langEl ? langEl.value : 'en';
+            var uiLang = langEl ? langEl.value : 'auto';
             var recLangMap = {
-              en: 'en-IN', hi: 'hi-IN', bn: 'bn-IN', gu: 'gu-IN', kn: 'kn-IN',
+              auto: 'en-IN', en: 'en-IN', hi: 'hi-IN', bn: 'bn-IN', gu: 'gu-IN', kn: 'kn-IN',
               ml: 'ml-IN', mr: 'mr-IN', pa: 'pa-IN', ta: 'ta-IN', te: 'te-IN'
             };
             browserRecognition.lang = recLangMap[uiLang] || 'en-IN';
@@ -1603,16 +1525,14 @@
 
         isListening = true;
         if (micBtn) micBtn.classList.add('listening');
-        safeSetText('spokenTextDisplay', "🎙️ Listening... Speak your emergency now, then tap the mic again (or wait 4.5s).");
+        safeSetText('spokenTextDisplay', "🎙️ Listening... Speak now (auto-sends in 3.5s or tap mic to finish immediately).");
 
         autoStopTimer = setTimeout(function() {
-          if (isListening) {
-            stopAndSendToGnaniPrisma();
-          }
-        }, 4500);
+          if (isListening) stopAndSendToGnaniPrisma();
+        }, 3500);
 
       } catch (err) {
-        safeSetText('spokenTextDisplay', "Microphone access is required for voice capture. You can also type below.");
+        safeSetText('spokenTextDisplay', "Microphone access needed. You can also type or tap a scenario below.");
       }
     };
 
@@ -1632,7 +1552,6 @@
         try { browserRecognition.stop(); } catch (e) {}
         browserRecognition = null;
       }
-
       if (scriptProcessorNode) {
         try { scriptProcessorNode.disconnect(); } catch (e) {}
         scriptProcessorNode = null;
@@ -1647,9 +1566,7 @@
       }
 
       var totalLen = 0;
-      for (var i = 0; i < recordedPcmChunks.length; i++) {
-        totalLen += recordedPcmChunks[i].length;
-      }
+      for (var i = 0; i < recordedPcmChunks.length; i++) totalLen += recordedPcmChunks[i].length;
       var mergedSamples = new Float32Array(totalLen);
       var offset = 0;
       for (var j = 0; j < recordedPcmChunks.length; j++) {
@@ -1658,7 +1575,15 @@
       }
 
       var wavBlob = encodeWavFromFloat32(mergedSamples, recordingSampleRate);
-      safeSetText('spokenTextDisplay', "⏳ Analyzing voice audio...");
+      safeSetText('spokenTextDisplay', "⚡ Recognizing & preparing instant guidance...");
+
+      // Instant local preview while backend confirms in parallel
+      var quickPreviewText = browserTranscriptBackup.split(" | ")[0] || "";
+      if (quickPreviewText.trim()) {
+        var instantResult = offlineEmergencyEngine(browserTranscriptBackup);
+        safeSetText('detectedLangBadge', "Detected: " + instantResult.language_name + " • " + instantResult.scenario);
+        safeSetText('firstAidOutput', instantResult.first_aid);
+      }
 
       try {
         var formData = new FormData();
@@ -1666,7 +1591,7 @@
         formData.append('backup_transcript', browserTranscriptBackup || '');
 
         var controller = new AbortController();
-        var timeoutId = setTimeout(function() { controller.abort(); }, 6500);
+        var timeoutId = setTimeout(function() { controller.abort(); }, 4500);
 
         var res = await fetch('/api/stt-prisma', {
           method: 'POST',
@@ -1677,7 +1602,7 @@
 
         if (res.ok) {
           var data = await res.json();
-          var finalTranscript = (data.transcript || browserTranscriptBackup.split(" | ")[0] || "").trim();
+          var finalTranscript = (data.transcript || quickPreviewText || "").trim();
           if (finalTranscript && data.first_aid) {
             var inputEl = document.getElementById('emergencyInput');
             if (inputEl) inputEl.value = finalTranscript;
@@ -1686,7 +1611,9 @@
             safeSetText('firstAidOutput', data.first_aid);
             lastSpokenGuidance = data.first_aid;
             lastSpokenLang = data.lang_code || 'en-IN';
-            speakWithGnaniTimbre(data.first_aid, lastSpokenLang);
+            // IMMEDIATELY speak aloud in detected language
+            await speakWithGnaniTimbre(data.first_aid, lastSpokenLang);
+            if (wakeWordEnabled) startWakeWordEngine();
             return;
           }
         }
@@ -1694,17 +1621,20 @@
 
       var inputField = document.getElementById('emergencyInput');
       var fallbackInputVal = inputField ? inputField.value : "";
-      var typedOrHeard = (browserTranscriptBackup.split(" | ")[0] || fallbackInputVal || "").trim();
+      var typedOrHeard = (quickPreviewText || fallbackInputVal || "").trim();
 
       if (typedOrHeard) {
         if (inputField) inputField.value = typedOrHeard;
         await processEmergencyVoiceText(typedOrHeard, browserTranscriptBackup || typedOrHeard);
       } else {
-        safeSetText('spokenTextDisplay', "Could not catch speech clearly. Please tap the mic again or type your emergency below.");
+        safeSetText('spokenTextDisplay', "Could not catch speech clearly. Please tap the mic again or type below.");
       }
+
+      if (wakeWordEnabled) startWakeWordEngine();
     }
 
     window.handleManualInput = function() {
+      unlockBrowserAudio();
       var inputEl = document.getElementById('emergencyInput');
       if (!inputEl) return;
       var text = inputEl.value.trim();
@@ -1716,6 +1646,7 @@
     };
 
     window.quickEmergency = function(phrase) {
+      unlockBrowserAudio();
       var inputEl = document.getElementById('emergencyInput');
       if (inputEl) inputEl.value = phrase;
       processEmergencyVoiceText(phrase, phrase);
@@ -1723,18 +1654,26 @@
 
     async function processEmergencyVoiceText(displayUserText, noisyCandidatesText) {
       var queryPayload = noisyCandidatesText || displayUserText;
+      var langSelect = document.getElementById('globalUiLang');
+      var selectedOverride = langSelect ? langSelect.value : 'auto';
 
       safeSetText('spokenTextDisplay', 'You said: "' + displayUserText + '"');
-      safeSetText('firstAidOutput', "⏳ Analyzing emergency & preparing first-aid steps...");
+
+      // Show instant local response immediately (0ms latency) while querying backend
+      var localInstant = offlineEmergencyEngine(queryPayload, selectedOverride);
+      safeSetText('detectedLangBadge', "Detected: " + localInstant.language_name + " • " + localInstant.scenario);
+      safeSetText('firstAidOutput', localInstant.first_aid);
+      lastSpokenGuidance = localInstant.first_aid;
+      lastSpokenLang = localInstant.lang_code;
 
       try {
         var controller = new AbortController();
-        var timeoutId = setTimeout(function() { controller.abort(); }, 6000);
+        var timeoutId = setTimeout(function() { controller.abort(); }, 3500);
 
         var res = await fetch('/api/first-aid', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: queryPayload, lang_override: "auto" }),
+          body: JSON.stringify({ text: queryPayload, lang_override: selectedOverride }),
           signal: controller.signal
         });
         clearTimeout(timeoutId);
@@ -1746,18 +1685,14 @@
             safeSetText('firstAidOutput', data.first_aid);
             lastSpokenGuidance = data.first_aid;
             lastSpokenLang = data.lang_code || 'en-IN';
-            speakWithGnaniTimbre(data.first_aid, lastSpokenLang);
+            await speakWithGnaniTimbre(data.first_aid, lastSpokenLang);
             return;
           }
         }
       } catch (e) {}
 
-      var result = offlineEmergencyEngine(queryPayload);
-      safeSetText('detectedLangBadge', "Detected: " + result.language_name + " • " + result.scenario);
-      safeSetText('firstAidOutput', result.first_aid);
-      lastSpokenGuidance = result.first_aid;
-      lastSpokenLang = result.lang_code;
-      speakWithGnaniTimbre(result.first_aid, result.lang_code);
+      // Speak the instant local response if backend timed out or offline
+      await speakWithGnaniTimbre(localInstant.first_aid, localInstant.lang_code);
     }
 
     var availableVoices = [];
@@ -1768,51 +1703,15 @@
     }
 
     var REGIONAL_NUMBER_WORDS = {
-      kn: {
-        s1: 'ಒಂದು, ', s2: 'ಎರಡು, ', s3: 'ಮೂರು, ', s4: 'ನಾಲ್ಕು, ',
-        n108: 'ನೂರಾ ಎಂಟು', n112: 'ನೂರಾ ಹನ್ನೆರಡು', n101: 'ನೂರಾ ಒಂದು',
-        n1091: 'ಒಂದು ಸಾವಿರದ ತೊಂಬತ್ತೊಂದು', n1520: 'ಹದಿನೈದರಿಂದ ಇಪ್ಪತ್ತು'
-      },
-      hi: {
-        s1: 'एक, ', s2: 'दो, ', s3: 'तीन, ', s4: 'चार, ',
-        n108: 'एक सौ आठ', n112: 'एक सौ बारह', n101: 'एक सौ एक',
-        n1091: 'एक शून्य नौ एक', n1520: 'पंद्रह से बीस'
-      },
-      mr: {
-        s1: 'एक, ', s2: 'दोन, ', s3: 'तीन, ', s4: 'चार, ',
-        n108: 'एकशे आठ', n112: 'एकशे बारा', n101: 'एकशे एक',
-        n1091: 'एक शून्य नऊ एक', n1520: 'पंधरा ते वीस'
-      },
-      bn: {
-        s1: 'এক, ', s2: 'দুই, ', s3: 'তিন, ', s4: 'চার, ',
-        n108: 'একশো আট', n112: 'একশো বারো', n101: 'একশো এক',
-        n1091: 'এক শূন্য নয় এক', n1520: 'পনেরো থেকে বিশ'
-      },
-      gu: {
-        s1: 'એક, ', s2: 'બે, ', s3: 'ત્રણ, ', s4: 'ચાર, ',
-        n108: 'એકસો આઠ', n112: 'એકસો બાર', n101: 'એકસો એક',
-        n1091: 'એક શૂન્ય નવ એક', n1520: 'પંદર થી વીસ'
-      },
-      ml: {
-        s1: 'ഒന്ന്, ', s2: 'രണ്ട്, ', s3: 'മൂന്ന്, ', s4: 'നാല്, ',
-        n108: 'നൂറ്റി എട്ട്', n112: 'നൂറ്റി പന്ത്രണ്ട്', n101: 'നൂറ്റി ഒന്ന്',
-        n1091: 'ഒന്ന് പൂജ്യം ഒൻപത് ഒന്ന്', n1520: 'പതിനഞ്ച് മുതൽ ഇരുപത് വരെ'
-      },
-      pa: {
-        s1: 'ਇੱਕ, ', s2: 'ਦੋ, ', s3: 'ਤਿੰਨ, ', s4: 'ਚਾਰ, ',
-        n108: 'ਇੱਕ ਸੌ ਅੱਠ', n112: 'ਇੱਕ ਸੌ ਬਾਰਾਂ', n101: 'ਇੱਕ ਸੌ ਇੱਕ',
-        n1091: 'ਇੱਕ ਸਿਫ਼ਰ ਨੌਂ ਇੱਕ', n1520: 'ਪੰਦਰਾਂ ਤੋਂ ਵੀਹ'
-      },
-      ta: {
-        s1: 'ஒன்று, ', s2: 'இரண்டு, ', s3: 'மூன்று, ', s4: 'நான்கு, ',
-        n108: 'நூற்று எட்டு', n112: 'நூற்று பன்னிரண்டு', n101: 'நூற்று ஒன்று',
-        n1091: 'ஒன்று பூஜ்ஜியம் ஒன்பது ஒன்று', n1520: 'பதினைந்து முதல் இருபது'
-      },
-      te: {
-        s1: 'ఒకటి, ', s2: 'రెండు, ', s3: 'మూడు, ', s4: 'నాలుగు, ',
-        n108: 'నూట ఎనిమిది', n112: 'నూట పన్నెండు', n101: 'నూట ఒకటి',
-        n1091: 'ఒకటి సున్నా తొమ్మిది ఒకటి', n1520: 'పదిహేను నుండి ఇరవై'
-      }
+      kn: { s1: 'ಒಂದು, ', s2: 'ಎರಡು, ', s3: 'ಮೂರು, ', s4: 'ನಾಲ್ಕು, ', n108: 'ನೂರಾ ಎಂಟು', n112: 'ನೂರಾ ಹನ್ನೆರಡು', n101: 'ನೂರಾ ಒಂದು', n1091: 'ಒಂದು ಸಾವಿರದ ತೊಂಬತ್ತೊಂದು', n1520: 'ಹದಿನೈದರಿಂದ ಇಪ್ಪತ್ತು' },
+      hi: { s1: 'एक, ', s2: 'दो, ', s3: 'तीन, ', s4: 'चार, ', n108: 'एक सौ आठ', n112: 'एक सौ बारह', n101: 'एक सौ एक', n1091: 'एक शून्य नौ एक', n1520: 'पंद्रह से बीस' },
+      mr: { s1: 'एक, ', s2: 'दोन, ', s3: 'तीन, ', s4: 'चार, ', n108: 'एकशे आठ', n112: 'एकशे बारा', n101: 'एकशे एक', n1091: 'एक शून्य नऊ एक', n1520: 'पंधरा ते वीस' },
+      bn: { s1: 'এক, ', s2: 'দুই, ', s3: 'তিন, ', s4: 'চার, ', n108: 'একশো আট', n112: 'একশো বারো', n101: 'একশো এক', n1091: 'এক শূন্য নয় এক', n1520: 'পনেরো থেকে বিশ' },
+      gu: { s1: 'એક, ', s2: 'બે, ', s3: 'ત્રણ, ', s4: 'ચાર, ', n108: 'એકસો આઠ', n112: 'એકસો બાર', n101: 'એકસો એક', n1091: 'એક શૂન્ય નવ એક', n1520: 'પંદર થી વીસ' },
+      ml: { s1: 'ഒന്ന്, ', s2: 'രണ്ട്, ', s3: 'മൂന്ന്, ', s4: 'നാല്, ', n108: 'നൂറ്റി എട്ട്', n112: 'നൂറ്റി പന്ത്രണ്ട്', n101: 'നൂറ്റി ഒന്ന്', n1091: 'ഒന്ന് പൂജ്യം ഒൻപത് ഒന്ന്', n1520: 'പതിനഞ്ച് മുതൽ ഇരുപത് വരെ' },
+      pa: { s1: 'ਇੱਕ, ', s2: 'ਦੋ, ', s3: 'ਤਿੰਨ, ', s4: 'ਚਾਰ, ', n108: 'ਇੱਕ ਸੌ ਅੱਠ', n112: 'ਇੱਕ ਸੌ ਬਾਰਾਂ', n101: 'ਇੱਕ ਸੌ ਇੱਕ', n1091: 'ਇੱਕ ਸਿਫ਼ਰ ਨੌਂ ਇੱਕ', n1520: 'ਪੰਦਰਾਂ ਤੋਂ ਵੀਹ' },
+      ta: { s1: 'ஒன்று, ', s2: 'இரண்டு, ', s3: 'மூன்று, ', s4: 'நான்கு, ', n108: 'நூற்று எட்டு', n112: 'நூற்று பன்னிரண்டு', n101: 'நூற்று ஒன்று', n1091: 'ஒன்று பூஜ்ஜியம் ஒன்பது ஒன்று', n1520: 'பதினைந்து முதல் இருபது' },
+      te: { s1: 'ఒకటి, ', s2: 'రెండు, ', s3: 'మూడు, ', s4: 'నాలుగు, ', n108: 'నూట ఎనిమిది', n112: 'నూట పన్నెండు', n101: 'నూట ఒకటి', n1091: 'ఒకటి సున్నా తొమ్మిది ఒకటి', n1520: 'పదిహేను నుండి ఇరవై' }
     };
 
     function normalizeTextForRegionalSpeech(text, langCode) {
@@ -1841,21 +1740,13 @@
 
     async function speakWithGnaniTimbre(text, langCode) {
       if (!text) return;
-
-      if (currentTimbreAudio) {
-        currentTimbreAudio.pause();
-        currentTimbreAudio = null;
-      }
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
+      stopAllVoiceOutput();
 
       var cleanText = normalizeTextForRegionalSpeech(text, langCode);
 
-      // 1. Primary: Backend TTS (/api/tts-timbre -> Gnani Timbre + SaHaya Indic Voice Fallback)
       try {
         var controller = new AbortController();
-        var timeoutId = setTimeout(function() { controller.abort(); }, 8000);
+        var timeoutId = setTimeout(function() { controller.abort(); }, 6500);
 
         var res = await fetch('/api/tts-timbre', {
           method: 'POST',
@@ -1869,15 +1760,15 @@
           var data = await res.json();
           if (data.audio_base64) {
             var mime = data.mime_type || 'audio/wav';
-            var audioSrc = "data:" + mime + ";base64," + data.audio_base64;
-            currentTimbreAudio = new Audio(audioSrc);
-            await currentTimbreAudio.play();
+            sharedAudioPlayer.src = "data:" + mime + ";base64," + data.audio_base64;
+            sharedAudioPlayer.volume = 1.0;
+            await sharedAudioPlayer.play();
             return;
           }
         }
       } catch (e) {}
 
-      // 2. Offline / Browser Fallback
+      // Offline / Browser Fallback
       var langPrefix = (langCode || 'en-IN').split('-')[0].toLowerCase();
       if (availableVoices.length === 0 && 'speechSynthesis' in window) {
         availableVoices = window.speechSynthesis.getVoices();
@@ -1892,31 +1783,26 @@
 
     function fallbackBrowserSpeak(cleanText, langCode, exactRegionalVoice) {
       if (!('speechSynthesis' in window)) return;
-      if (window.speechSynthesis.paused) {
-        window.speechSynthesis.resume();
-      }
+      if (window.speechSynthesis.paused) window.speechSynthesis.resume();
 
       var utterance = new SpeechSynthesisUtterance(cleanText);
       utterance.lang = langCode || 'en-IN';
-      utterance.rate = 0.92;
+      utterance.rate = 0.96;
       utterance.pitch = 1.0;
       utterance.volume = 1.0;
 
-      if (exactRegionalVoice) {
-        utterance.voice = exactRegionalVoice;
-      }
-
-      setTimeout(function() {
-        window.speechSynthesis.speak(utterance);
-      }, 60);
+      if (exactRegionalVoice) utterance.voice = exactRegionalVoice;
+      window.speechSynthesis.speak(utterance);
     }
 
     window.replayLastGuidance = function() {
+      unlockBrowserAudio();
       var outputEl = document.getElementById('firstAidOutput');
       var outputText = lastSpokenGuidance || (outputEl ? outputEl.textContent : "");
       speakWithGnaniTimbre(outputText, lastSpokenLang);
     };
 
+    /* ================= 6. OFFLINE MULTILINGUAL ENGINE ================= */
     var OFFLINE_MARKERS = {
       'kn-IN': ['haavu', 'havu', 'kachide', 'kacchide', 'sahaya', 'maadi', 'madi', 'agide', 'benki', 'apaghata', 'ede', 'novu', 'rakta', 'kattada', 'kusita', 'kusidide', 'beku', 'bega', 'nanage', 'hattide', 'gaya'],
       'mr-IN': ['madat', 'kara', 'vachva', 'saap', 'chavla', 'dukhtay', 'apghat', 'zhala', 'mala', 'bhajle', 'aag', 'imarat', 'kosalli', 'lavkar', 'chatit', 'aahe'],
@@ -2012,11 +1898,13 @@
       }
     };
 
-    function offlineEmergencyEngine(text) {
+    function offlineEmergencyEngine(text, overrideLang) {
       var lower = (text || "").toLowerCase();
       var langCode = 'en-IN';
 
-      if (/[\u0980-\u09FF]/.test(text)) langCode = 'bn-IN';
+      if (overrideLang && overrideLang !== 'auto') {
+        langCode = overrideLang.indexOf('-') === -1 ? overrideLang + '-IN' : overrideLang;
+      } else if (/[\u0980-\u09FF]/.test(text)) langCode = 'bn-IN';
       else if (/[\u0A80-\u0AFF]/.test(text)) langCode = 'gu-IN';
       else if (/[\u0C80-\u0CFF]/.test(text)) langCode = 'kn-IN';
       else if (/[\u0D00-\u0D7F]/.test(text)) langCode = 'ml-IN';
@@ -2078,7 +1966,7 @@
       var phoneInput = document.getElementById('gPhone');
       var list = document.getElementById('guardianList');
       var langSelect = document.getElementById('globalUiLang');
-      var currentUiLang = langSelect ? langSelect.value : 'en';
+      var currentUiLang = (langSelect && langSelect.value !== 'auto') ? langSelect.value : 'en';
       var t = UI_TRANSLATIONS[currentUiLang] || UI_TRANSLATIONS['en'];
 
       if (!nameInput || !phoneInput || !list) return;
@@ -2101,6 +1989,19 @@
       nameInput.value = '';
       phoneInput.value = '';
     };
+
+    // Handle deep-link shortcut parameter (?tab=translate or ?tab=shield)
+    (function checkUrlShortcutTab() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var tab = params.get('tab');
+        if (tab === 'translate' || tab === 'guardian' || tab === 'shield') {
+          var btns = document.querySelectorAll('.tab-btn');
+          var idx = tab === 'shield' ? 0 : (tab === 'translate' ? 1 : 2);
+          switchTab(tab, btns[idx]);
+        }
+      } catch (e) {}
+    })();
   </script>
 </body>
 </html>
