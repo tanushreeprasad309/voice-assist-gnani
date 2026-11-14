@@ -1,14 +1,31 @@
 from fastapi import FastAPI, UploadFile, File, Form
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, FileResponse, Response
 from pydantic import BaseModel
 from difflib import SequenceMatcher
 import base64
 import httpx
+import io
 import json
 import os
 import re
 
+# Optional reliable server-side TTS fallback if Gnani Timbre endpoint/key is unreachable
+try:
+    from gtts import gTTS
+    HAS_GTTS = True
+except ImportError:
+    HAS_GTTS = False
+
 app = FastAPI(title="SaHaya Multilingual Emergency Assistant • Powered by Gnani Prisma, Timbre & Groq")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Retrieve API keys from environment variables
 def get_gnani_api_key() -> str:
@@ -44,32 +61,26 @@ class TimbreTTSRequest(BaseModel):
     lang_code: str = "en-IN"
 
 
-# ================= SERVE STATIC branding PHOTOS (WITH BASE64 fallbacks) =================
+# ================= SERVE STATIC BRANDING PHOTOS (WITH BASE64 FALLBACKS) =================
 
-# Cover Page Photo (image_0.png)
 @app.get("/static/cover.png")
 async def get_cover_image():
     if os.path.exists("cover.png"):
         return FileResponse("cover.png", media_type="image/png")
     elif os.path.exists("static/cover.png"):
         return FileResponse("static/cover.png", media_type="image/png")
-    # Base64 fallback (transparent 1x1 placeholder, recommended to place image_0.png in root/static as 'cover.png')
     fallback_b64 = b"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
     return Response(content=base64.b64decode(fallback_b64), media_type="image/png")
 
-# Logo Icon Photo (image_1.png)
 @app.get("/static/logo.png")
 async def get_logo_image():
     if os.path.exists("logo.png"):
         return FileResponse("logo.png", media_type="image/png")
     elif os.path.exists("static/logo.png"):
         return FileResponse("static/logo.png", media_type="image/png")
-    # Base64 fallback (transparent 1x1 placeholder, recommended to place image_1.png in root/static as 'logo.png')
     fallback_b64 = b"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
     return Response(content=base64.b64decode(fallback_b64), media_type="image/png")
 
-
-# Serve the main index.html file
 @app.get("/", response_class=HTMLResponse)
 async def serve_home():
     if os.path.exists("index.html"):
@@ -93,22 +104,49 @@ LANG_NAMES = {
     "te-IN": "Telugu (తెలుగు)"
 }
 
+# Language-specific voice mapping for Gnani Timbre
+TIMBRE_VOICE_MAP = {
+    "kn-IN": "Shivani",
+    "hi-IN": "Shivani",
+    "mr-IN": "Shivani",
+    "gu-IN": "Shivani",
+    "pa-IN": "Shivani",
+    "bn-IN": "Nalini",
+    "ta-IN": "Nalini",
+    "te-IN": "Nalini",
+    "ml-IN": "Nalini",
+    "en-IN": "Shivani"
+}
+
+GTTS_LANG_MAP = {
+    "en-IN": "en",
+    "hi-IN": "hi",
+    "bn-IN": "bn",
+    "gu-IN": "gu",
+    "kn-IN": "kn",
+    "ml-IN": "ml",
+    "mr-IN": "mr",
+    "pa-IN": "pa",
+    "ta-IN": "ta",
+    "te-IN": "te"
+}
+
 LANGUAGE_MARKERS = {
     "kn-IN": [
-        "haavu", "havu", "kachide", "kacchide", "sahaya", "maadi", "madi", "nodi", "agide", "aagide",
+        "haavu", "havu", "kachide", "kacchide", "kacchitu", "sahaya", "maadi", "madi", "nodi", "agide", "aagide",
         "benki", "hattide", "apaghata", "ede", "novu", "noovu", "rakta", "barthide", "kattada",
-        "kusidide", "beku", "bega", "banni", "kapadi", "ambulance", "alli", "illi", "nanage", "avarige"
+        "kusidide", "beku", "bega", "banni", "kapadi", "alli", "illi", "nanage", "avarige", "illi"
     ],
     "mr-IN": [
         "madat", "kara", "vachva", "saap", "chavla", "dukhata", "dukhtay", "apghat", "zhala", "zala",
         "mala", "tyala", "bhajle", "aag", "lagli", "imarat", "kosalli", "rakta", "yetay", "lavkar",
-        "ya", "bolva", "chati", "chatit", "aahe", "ahe", "nahi", "krupa"
+        "bolva", "chati", "chatit", "aahe", "ahe", "nahi", "krupa"
     ],
     "hi-IN": [
         "bachao", "madad", "karo", "saanp", "saap", "kaat", "kata", "liya", "dard", "ho", "raha",
         "rahi", "hai", "hain", "mujhe", "meri", "mere", "seene", "chhati", "mein", "aag", "lag", "gayi",
-        "jal", "gaya", "durghatna", "accident", "hua", "khoon", "bah", "nikal", "imarat", "gir", "bhukamp",
-        "jaldi", "bulao", "bhai", "please"
+        "jal", "gaya", "durghatna", "hua", "khoon", "bah", "nikal", "imarat", "gir", "bhukamp",
+        "jaldi", "bulao", "bhai"
     ],
     "bn-IN": [
         "bachao", "sahajyo", "korun", "koro", "shaap", "sap", "kamreche", "kamdache", "buk", "buke",
@@ -118,7 +156,7 @@ LANGUAGE_MARKERS = {
     "gu-IN": [
         "bachavo", "madad", "karo", "saap", "kardyo", "kerdiyo", "chhati", "ma", "dukhavo", "thay",
         "chhe", "aag", "lagi", "dazhi", "gaya", "akasmaat", "thayo", "lohi", "nikle", "makan", "padi",
-        "gayu", "mane", "jali", "lavkar", "aavo"
+        "gayu", "mane", "jali", "aavo"
     ],
     "ml-IN": [
         "rakshikku", "sahayikku", "sahayam", "venam", "paambu", "pambu", "kadichu", "nenju", "nenjil",
@@ -127,7 +165,7 @@ LANGUAGE_MARKERS = {
     ],
     "pa-IN": [
         "bachao", "madad", "karo", "sapp", "sap", "ladeya", "katteya", "chhati", "vich", "dard", "ho",
-        "riha", "hai", "agg", "lag", "gayi", "sadh", "gaya", "accident", "hoya", "khoon", "nikal",
+        "riha", "hai", "agg", "lag", "gayi", "sadh", "gaya", "hoya", "khoon", "nikal",
         "imarat", "digg", "menu", "sadi", "cheti", "bulao"
     ],
     "ta-IN": [
@@ -145,7 +183,16 @@ LANGUAGE_MARKERS = {
 def clean_noisy_text(text: str) -> str:
     cleaned = re.sub(r"\b(uh+|um+|ah+|er+|hmm+)\b", " ", text, flags=re.IGNORECASE)
     cleaned = re.sub(r"(.)\1{2,}", r"\1\1", cleaned)
-    return cleaned.strip()
+    return re.sub(r"\s+", " ", cleaned).strip()
+
+def clean_text_for_tts(text: str) -> str:
+    """Removes emojis and markdown symbols so TTS engines read smoothly without crashing."""
+    # Remove emojis and pictographs
+    no_emoji = re.sub(r"[\U00010000-\U0010ffff\u2600-\u27bf]", " ", text)
+    # Replace newlines and bullet symbols with pauses
+    no_emoji = no_emoji.replace("\n", ". ").replace("•", " ")
+    no_emoji = re.sub(r"\s+", " ", no_emoji).strip()
+    return no_emoji
 
 def detect_language(text: str, lang_override: str = "auto") -> str:
     if lang_override and lang_override not in ("auto", "indic-auto"):
@@ -154,6 +201,7 @@ def detect_language(text: str, lang_override: str = "auto") -> str:
         if lang_override in LANG_NAMES:
             return lang_override
 
+    # 1. Native Unicode script detection (highest priority)
     if re.search(r"[\u0980-\u09FF]", text): return "bn-IN"
     if re.search(r"[\u0A80-\u0AFF]", text): return "gu-IN"
     if re.search(r"[\u0C80-\u0CFF]", text): return "kn-IN"
@@ -166,6 +214,7 @@ def detect_language(text: str, lang_override: str = "auto") -> str:
             return "mr-IN"
         return "hi-IN"
 
+    # 2. Romanized / Code-mixed detection
     tokens = re.findall(r"[a-zA-Z]+", text.lower())
     scores = {lang: 0.0 for lang in LANGUAGE_MARKERS}
     for token in tokens:
@@ -173,14 +222,14 @@ def detect_language(text: str, lang_override: str = "auto") -> str:
             continue
         for lang, markers in LANGUAGE_MARKERS.items():
             if token in markers:
-                scores[lang] += 2.5
+                scores[lang] += 3.0
             else:
                 for m in markers:
                     if len(m) >= 4:
                         if token.startswith(m) or m in token:
-                            scores[lang] += 1.2
+                            scores[lang] += 1.5
                         elif SequenceMatcher(None, token, m).ratio() >= 0.80:
-                            scores[lang] += 1.0
+                            scores[lang] += 1.2
 
     best_lang = max(scores, key=scores.get)
     if scores[best_lang] > 0:
@@ -386,6 +435,7 @@ async def analyze_emergency_with_groq(cleaned_text: str, fallback_lang: str, fal
         "You are SaHaya, an emergency medical first-aid assistant in India. "
         "The user may speak in noisy, messy, telephonic, or code-mixed Indian languages "
         "(English, Hindi, Bengali, Gujarati, Kannada, Malayalam, Marathi, Punjabi, Tamil, Telugu). "
+        "Ignore accidental English filler words picked up by speech recognition (like 'show you') when Indian words (like 'haavu kachide') are present. "
         f"Rule-based detected language hint: '{fallback_lang}' ({LANG_NAMES.get(fallback_lang, 'English')}). "
         f"Rule-based scenario hint: '{SCENARIO_LABELS.get(fallback_scenario, 'General Emergency')}'. "
         "Respond strictly in valid JSON with three keys:\n"
@@ -484,7 +534,8 @@ async def transcribe_with_gnani_prisma(
         transcript = backup_transcript.split(" | ")[0].strip()
         stt_engine_used = "Gnani Prisma Hybrid"
 
-    cleaned_text = clean_noisy_text(f"{transcript} {backup_transcript}".strip())
+    combined_raw = f"{transcript} {backup_transcript}".strip()
+    cleaned_text = clean_noisy_text(combined_raw)
     fallback_lang = detect_language(cleaned_text, detected_lang_from_prisma)
     fallback_scenario = detect_scenario(cleaned_text)
 
@@ -492,7 +543,7 @@ async def transcribe_with_gnani_prisma(
     final_lang = groq_result["lang_code"]
 
     return {
-        "transcript": transcript,
+        "transcript": transcript or cleaned_text,
         "stt_engine": stt_engine_used,
         "lang_code": final_lang,
         "language_name": LANG_NAMES.get(final_lang, "English"),
@@ -504,54 +555,74 @@ async def transcribe_with_gnani_prisma(
 # ================= 2. GNANI TIMBRE TEXT-TO-SPEECH ENDPOINT =================
 @app.post("/api/tts-timbre")
 async def synthesize_with_gnani_timbre(req: TimbreTTSRequest):
-    api_key = get_gnani_api_key()
-    if not api_key or not req.text.strip():
+    clean_speech_text = clean_text_for_tts(req.text)
+    if not clean_speech_text:
         return {"audio_base64": None, "tts_engine": "browser_fallback"}
 
-    headers = {
-        "Content-Type": "application/json",
-        "X-API-Key-ID": api_key
-    }
+    lang_code = req.lang_code if req.lang_code in LANG_NAMES else detect_language(clean_speech_text)
+    api_key = get_gnani_api_key()
 
-    tts_attempts = [
-        {"model": "timbre-v3.0", "voice": "Shivani"},
-        {"model": "timbre-v2.5", "voice": "Nalini"}
-    ]
+    # 1. Try Gnani Timbre TTS first
+    if api_key:
+        headers = {
+            "Content-Type": "application/json",
+            "X-API-Key-ID": api_key
+        }
+        preferred_voice = TIMBRE_VOICE_MAP.get(lang_code, "Shivani")
+        tts_attempts = [
+            {"model": "timbre-v3.0", "voice": preferred_voice},
+            {"model": "timbre-v2.5", "voice": "Nalini"}
+        ]
 
-    async with httpx.AsyncClient(timeout=15.0) as client:
-        for attempt in tts_attempts:
-            payload = {
-                "text": req.text.strip(),
-                "voice": attempt["voice"],
-                "model": attempt["model"],
-                "language": req.lang_code if req.lang_code in LANG_NAMES else "en-IN",
-                "speed": 1.0,
-                "audio_config": {
-                    "sample_rate": 24000,
-                    "num_channels": 1,
-                    "sample_width": 2,
-                    "encoding": "linear_pcm",
-                    "container": "wav"
+        async with httpx.AsyncClient(timeout=12.0) as client:
+            for attempt in tts_attempts:
+                payload = {
+                    "text": clean_speech_text,
+                    "voice": attempt["voice"],
+                    "model": attempt["model"],
+                    "language": lang_code,
+                    "speed": 1.0,
+                    "audio_config": {
+                        "sample_rate": 24000,
+                        "num_channels": 1,
+                        "sample_width": 2,
+                        "encoding": "linear_pcm",
+                        "container": "wav"
+                    }
                 }
-            }
-            try:
-                resp = await client.post(
-                    f"{GNANI_BASE_URL}/api/v1/tts/inference",
-                    headers=headers,
-                    json=payload
-                )
-                if resp.status_code == 200 and resp.content:
-                    content_type = resp.headers.get("content-type", "")
-                    if "application/json" in content_type:
-                        data = resp.json()
-                        b64_str = data.get("audio") or (data.get("data") or {}).get("audio")
-                        if b64_str:
-                            return {"audio_base64": b64_str, "tts_engine": attempt["model"]}
-                    else:
-                        b64_str = base64.b64encode(resp.content).decode("utf-8")
-                        return {"audio_base64": b64_str, "tts_engine": attempt["model"]}
-            except Exception:
-                continue
+                for endpoint in (f"{GNANI_BASE_URL}/api/v1/tts/inference", f"{GNANI_BASE_URL}/tts/v3"):
+                    try:
+                        resp = await client.post(endpoint, headers=headers, json=payload)
+                        if resp.status_code == 200 and resp.content:
+                            content_type = resp.headers.get("content-type", "")
+                            if "application/json" in content_type:
+                                data = resp.json()
+                                b64_str = (
+                                    data.get("audio")
+                                    or data.get("audio_base64")
+                                    or data.get("audio_content")
+                                    or (data.get("data") or {}).get("audio")
+                                )
+                                if b64_str:
+                                    return {"audio_base64": b64_str, "mime_type": "audio/wav", "tts_engine": attempt["model"]}
+                            else:
+                                b64_str = base64.b64encode(resp.content).decode("utf-8")
+                                return {"audio_base64": b64_str, "mime_type": "audio/wav", "tts_engine": attempt["model"]}
+                    except Exception:
+                        continue
+
+    # 2. Reliable Server-Side Multilingual Fallback (Guarantees Kannada/Indian voices work even without Windows voice packs)
+    if HAS_GTTS:
+        try:
+            gtts_lang = GTTS_LANG_MAP.get(lang_code, "en")
+            tts = gTTS(text=clean_speech_text, lang=gtts_lang, slow=False)
+            mp3_fp = io.BytesIO()
+            tts.write_to_fp(mp3_fp)
+            mp3_fp.seek(0)
+            b64_mp3 = base64.b64encode(mp3_fp.read()).decode("utf-8")
+            return {"audio_base64": b64_mp3, "mime_type": "audio/mp3", "tts_engine": "SaHaya Indic Voice Fallback"}
+        except Exception:
+            pass
 
     return {"audio_base64": None, "tts_engine": "browser_fallback"}
 
@@ -560,7 +631,7 @@ async def synthesize_with_gnani_timbre(req: TimbreTTSRequest):
 @app.post("/api/first-aid")
 async def get_first_aid(req: EmergencyRequest):
     cleaned_text = clean_noisy_text(req.text)
-    fallback_lang = detect_language(cleaned_text, "auto")
+    fallback_lang = detect_language(cleaned_text, req.lang_override)
     fallback_scenario = detect_scenario(cleaned_text)
 
     groq_result = await analyze_emergency_with_groq(cleaned_text, fallback_lang, fallback_scenario)
@@ -572,3 +643,9 @@ async def get_first_aid(req: EmergencyRequest):
         "scenario": groq_result["scenario_label"],
         "first_aid": groq_result["first_aid"]
     }
+
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("app:app", host="0.0.0.0", port=port, reload=False)
